@@ -1,0 +1,26 @@
+1. On login into omnichannel, the call not comes in - again the issue we face today, this need to fix
+------------- COMPLETED -------------------------
+2. Facebook date-time along with Agent name with avatar
+------------- COMPLETED -------------------------
+3. Auto reply template font should be in Verdana
+------------- COMPLETED -------------------------
+4. Need Signature edit
+------------- PROGRESS -------------------------
+5. Recording On/Off button in the dialer
+------------- COMPLETED -------------------------
+6. Need to select multiple dept. in wrap up code category
+------------- PROGRESS -------------------------
+7. Add dept name wrapup code category list
+------------- PROGRESS -------------------------
+8. On chat just this the text to "Sorry, I didn't understand your question. If you wish to chat with our agent please respond "Yes""
+------------- COMPLETED-------------------------
+9. UI - Floating/Movable/Minimize dialer
+------------- COMPLETED -------------------------
+10. UI - Reduce logo size on minimizing the menu
+------------- COMPLETED -------------------------
+11. UI - Wrapup code entry slide width should reduce
+------------- COMPLETED -------------------------
+12. On call comes in Wrapup code entry slide should popup from left automatically
+------------- COMPLETED -------------------------
+13. Webchat offline not works, if in offline status just get the form data and send to NZ email queue
+------------- PROGRESS EMAIL SHOULD CHECK BY MR -------------------------

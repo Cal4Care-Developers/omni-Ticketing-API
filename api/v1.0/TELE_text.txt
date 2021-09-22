@@ -1,0 +1,2 @@
+{"update_id":521159706,
+"message":{"message_id":455,"from":{"id":1040833104,"is_bot":false,"first_name":"Johnson","last_name":"Johnson","language_code":"en"},"chat":{"id":1040833104,"first_name":"Johnson","last_name":"Johnson","type":"private"},"date":1631241399,"text":"Hi , iam keen on product A"}}

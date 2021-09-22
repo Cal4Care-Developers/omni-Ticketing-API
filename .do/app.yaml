@@ -1,0 +1,8 @@
+name: omni-Ticketing-API
+services:
+- environment_slug: php
+  github:
+    branch: master
+    deploy_on_push: true
+    repo: Cal4Care-Developers/omni-Ticketing-API
+  name: omni-Ticketing-API

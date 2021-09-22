@@ -1,0 +1,241 @@
+<html>
+<head>
+	<style>
+	body{width:600px;font-family:calibri;}
+	.error {color:#FF0000;}
+	.chat-connection-ack{color: #26af26;}
+	.chat-message {border-bottom-left-radius: 4px;border-bottom-right-radius: 4px;
+	}
+	#btnSend {background: #26af26;border: #26af26 1px solid;	border-radius: 4px;color: #FFF;display: block;margin: 15px 0px;padding: 10px 50px;cursor: pointer;
+	}
+	#chat-box {background: #fff8f8;border: 1px solid #ffdddd;border-radius: 4px;border-bottom-left-radius:0px;border-bottom-right-radius: 0px;min-height: 300px;padding: 10px;overflow: auto;
+	}
+	.chat-box-html{color: #09F;margin: 10px 0px;font-size:0.8em;}
+	.chat-box-message{color: #09F;padding: 5px 10px; background-color: #fff;border: 1px solid #ffdddd;border-radius:4px;display:inline-block;}
+	.chat-input{border: 1px solid #ffdddd;border-top: 0px;width: 100%;box-sizing: border-box;padding: 10px 8px;color: #191919;
+	}
+	</style>	
+	<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+	<script type="module" src="https://unpkg.com/x-frame-bypass"></script>
+	<script>  
+
+	//var websocket = new WebSocket("wss://socket.mconnectapps.com:5012/"); 
+	//var websocket = new WebSocket("wss://18.140.188.228:4010/developer"); 
+	 var websocket = new WebSocket("wss://myscoket.mconnectapps.com:4003"); 
+		websocket.onopen = function(event) { 
+
+			console.log('open');
+		}
+		websocket.onmessage = function(event) {
+
+			console.log(event.data);
+
+		};
+		
+		websocket.onerror = function(event){
+			console.log('error');
+		};
+		websocket.onclose = function(event){
+			console.log('close');
+		}; 
+
+
+
+
+		function Type(){
+		//var data = '[{ "select":"1","queue_name":"CRC Work","queue_number":"802" },{ "select":"1","queue_name":"Queue2","queue_number":"803" },{ "select":"1","queue_name":"Queue3","queue_number":"804" },{ "select":"1","queue_name":"Queue4","queue_number":"805" },{ "select":"1","queue_name":"queue5","queue_number":"806" },{ "select":"1","queue_name":"queue7","queue_number":"807" }]';
+		// var data = '[{ "select":"","agent_name":"Test_1 test","agent_number":"001" },{ "select":"1","agent_name":"SJ","agent_number":"002" },{ "select":"1","agent_name":"Test4 T","agent_number":"004" },{ "select":"1","agent_name":"Suresh","agent_number":"005" }]'
+		var data = '[{"cust_id":"8E8B-6203-F34A-2330-E6B2-7064-9F6D-C050","data":[{"Name":"UpdateQueueData","inUser":"494,383","notInuser":"222,223"}]}]';	
+		
+		websocket.send("message="+data);
+		}
+		function Queues(){
+		var data = '[{"cust_id":"9C37-A17B-1251-245A-BD0E-8CBE-05A5-4435","data":[{"select":"1","queue_name":"CRC Work","queue_number":"802" },{ "select":"1","queue_name":"Queue2","queue_number":"803","select":"1" },{ "select":"1","queue_name":"Queue3","queue_number":"804","select":"1" },{ "select":"1","queue_name":"Queue4","queue_number":"805","select":"0" },{ "select":"1","queue_name":"queue5","queue_number":"806","select":"0" },{ "select":"1","queue_name":"queue7","queue_number":"807","select":"1"}]}]';
+	
+		websocket.send("message="+data);
+		}
+		function Agents(){
+		var data = '[{"cust_id":"9C37-A17B-1251-245A-BD0E-8CBE-05A5-4435","data":[{ "select":"1","agent_name":"Test_1 test","agent_no":"001" },{ "select":"1","agent_name":"SJ","agent_no":"002" },{ "select":"1","agent_name":"Test4 T","agent_no":"004" },{ "select":"1","agent_name":"Suresh","agent_number":"005" }]}]';
+		
+		websocket.send("message="+data);
+		}
+
+		function QueueTable(){
+		//var data = '[{"cust_id":"2AB8-76A1-6E31-4F79-E167-25B3-D7CF-F3B5","data":[{ "qno":"1","queue_name":"dfsdsddd","queue_no":"802","callwaiting":"0","avgwaiting":"00:00:00","answerd":"0","p_anscall":"0","missed":"0","avg_talking":"00:00:00"},{ "qno":"2","queue_name":"dfsddfsdfsdfsdsddfsdfsd","queue_no":"804","callwaiting":"0","avgwaiting":"10:00:00","answerd":"0","p_anscall":"0","missed":"0","avg_talking":"00:00:00"},{ "qno":"3","queue_name":"df","queue_no":"802","callwaiting":"0","avgwaiting":"01:00:00","answerd":"0","p_anscall":"10","missed":"0","avg_talking":"100:00:00"}]}]';
+			var data = '[{"cust_id":"2AB8-76A1-6E31-4F79-E167-25B3-D7CF-F3B5","data":[{ "qno":"1","queue_name":"CRC Work 123","queue_no":"802","callwaiting":"0","avgwaiting":"00:00:00","answerd":"0","p_anscall":"0","missed":"0","avg_talking":"00:00:00" },{ "qno":"2","queue_name":"Queue2","queue_no":"803","callwaiting":"0","avgwaiting":"00:00:00","answerd":"0","p_anscall":"0","missed":"0","avg_talking":"00:00:00" },{ "qno":"3","queue_name":"Queue3 a","queue_no":"804","callwaiting":"0","avgwaiting":"00:00:00","answerd":"0","p_anscall":"0","missed":"0","avg_talking":"00:00:00" },{ "qno":"4","queue_name":"Queue4","queue_no":"805","callwaiting":"0","avgwaiting":"00:00:00","answerd":"0","p_anscall":"0","missed":"0","avg_talking":"00:00:00" },{ "qno":"5","queue_name":"test10 2","queue_no":"810","callwaiting":"0","avgwaiting":"00:00:00","answerd":"0","p_anscall":"0","missed":"0","avg_talking":"00:00:00" },{ "qno":"6","queue_name":"","queue_no":"806","callwaiting":"0","avgwaiting":"00:00:00","answerd":"0","p_anscall":"0","missed":"0","avg_talking":"00:00:00" },{ "qno":"7","queue_name":"","queue_no":"807","callwaiting":"0","avgwaiting":"00:00:00","answerd":"0","p_anscall":"0","missed":"0","avg_talking":"00:00:00" }]}]';
+		
+		websocket.send("message="+data);
+		}
+
+
+		function agentTable(){
+		//var data = '[{"cust_id":"2AB8-76A1-6E31-4F79-E167-25B3-D7CF-F3B5","data":[{ "ano":"1","agent":"Test_1 test","agent_no":"802","state":"Available","incall":"0","answerd":"0","missed":"0","avg_talking":"00:00:00" },{ "ano":"2","agent":"SJ","agent_no":"605","state":"Available","incall":"0","answerd":"0","missed":"0","avg talking":"00:00:00" },{ "ano":"3","agent":"Test4 T","state":"Available","incall":"0","answerd":"0","missed":"0","avg talking":"00:00:00" },{ "ano":"4","agent":"Suresh","state":"Available","incall":"0","answerd":"0","missed":"0","avg talking":"00:00:00" }]}]';
+			var data= '[{"cust_id":"2AB8-76A1-6E31-4F79-E167-25B3-D7CF-F3B5","data":[{"ano":"1","agent":"SJ Bitrix Physical Phone","agent_no":"111","state":"Available","reason":"","incall":"0","answerd":"0","missed":"0","avg_talking":"00:00:00"},{"ano":"2","agent":"SJ Bitrix","agent_no":"110","state":"Available","reason":"","incall":"0","answerd":"0","missed":"0","avg_talking":"00:00:00"},{"ano":"3","agent":"SJ","agent_no":"002","state":"Available","reason":"","incall":"0","answerd":"0","missed":"0","avg_talking":"00:00:00"},{"ano":"4","agent":"Gopi","agent_no":"003","state":"Available","reason":"","incall":"0","answerd":"0","missed":"0","avg_talking":"00:00:00"},{"ano":"5","agent":"Suresh","agent_no":"005","state":"Available","reason":"","incall":"0","answerd":"0","missed":"0","avg_talking":"00:00:00"},{"ano":"6","agent":"Test_1 test","agent_no":"001","state":"Available","reason":"","incall":"0","answerd":"0","missed":"0","avg_talking":"00:00:00"},{"ano":"7","agent":"Test4 T","agent_no":"004","state":"Available","reason":"","incall":"0","answerd":"0","missed":"0","avg_talking":"00:00:00"}]}]';
+		
+		websocket.send("message="+data);
+		}
+
+
+
+		function logout(){
+		var data = '[{"cust_id":"258F-F441-A194-8CF0-5541-B349-056C-0851","data":[{"Name":"queuestatus","extension":"605","status":"0","reason":"Esclation"}]}]';
+		
+		websocket.send("message="+data);
+		}
+
+
+
+		function login(){
+		var data = '[{"cust_id":"258F-F441-A194-8CF0-5541-B349-056C-0851","data":[{"Name":"queuestatus","extension":"605","status":"1","reason":"f"}]}]';
+		
+		websocket.send("message="+data);
+		}
+
+		function lsingleuser(){
+		var data = '[{"cust_id":"258F-F441-A194-8CF0-5541-B349-056C-0851","data":[{ "single_agent":"mined","agent_no":"605","state":"AUX","reason":"Meeting","incall":"20","answerd":"10","missed":"30","avg_talking":"10:00:00"}]}]';
+		
+		websocket.send("message="+data);
+		}
+
+		function lsingleq(){
+			var data = '[{"cust_id":"9C37-A17B-1251-245A-BD0E-8CBE-05A5-4435","data":[{"single_queue":"1","single_queue_name":"fff","queue_no":"802","callwaiting":"10","avgwaiting":"05:00:00","answerd":"50","p_anscall":"60","missed":"04","avg_talking":"00:10:00"}]}]';
+		
+		websocket.send("message="+data);
+		}
+		function gauge(){
+		var data = '[{"cust_id":"9C37-A17B-1251-245A-BD0E-8CBE-05A5-4435","data":[{}],"gtype":"801_gauge","value":[["queu1", 10],["queu2", 40], ["queu3", 50]]}]';
+		
+		websocket.send("message="+data);
+		}
+
+		function splineChart(){
+		var data = '[{ "cust_id":"9C37-A17B-1251-245A-BD0E-8CBE-05A5-4435","data":[{}],"stype": "spline", "value": {"blg_preview_action": [{"data":6, "date":1590364800000},{"data":9, "date":1590364800000},{"data":2, "date":1590364800000}],"heartbeat": [{"data":8, "date":1590278400000},{"data":9, "date":1590364800000},{"data":15, "date":1590364800000}] }}]';
+		var data = '[{ "cust_id":"9C37-A17B-1251-245A-BD0E-8CBE-05A5-4435","data":[{}],"stype": "spline", "value": {"CRC Work 123": [{"data":6, "date":"17-09-2013 09:20"},{"data":9, "date":"17-09-2013 09:10"}],"Queue2": [{"data":8, "date":"17-09-2013 09:30"},{"data":10, "date":"17-09-2013 09:40"}] }}]';
+		websocket.send("message="+data);
+		}
+
+
+		function queueUsers(){
+		var data = '[{"cust_id":"9C37-A17B-1251-245A-BD0E-8CBE-05A5-4435","data":[{"Name":"addQueueDate","inUser":"494,383","notInuser":"222,223"}]}]';
+		
+		websocket.send("message="+data);
+		}
+		function queueUsersupdate(){
+		var data = '[{"cust_id":"9C37-A17B-1251-245A-BD0E-8CBE-05A5-4435","data":[{"Name":"UpdateQueueDate","inUser":"494,383","notInuser":"222,223"}]}]';
+		websocket.send("message="+data);
+		}
+
+		function showAllAgents(){
+		var data = '[{"cust_id":"9C37-A17B-1251-245A-BD0E-8CBE-05A5-4435","user_list":"user_listFrom3cx","data":[{"user_name": "Test_1 test ","agent_name":"Test_1 test ","phone_number":"","sip_username":"L84n7bPy3s","sip_login":"001","sip_password":"fP4KUcOk11"},{"user_name": "SJ S","agent_name":"SJ S","phone_number":"","sip_username":"cqA07sj3wA","sip_login":"002","sip_password":"QYLXHGX9t3"},{"user_name": "Gopi","agent_name":"Gopi","phone_number":"","sip_username":"euHfHnDvV5","sip_login":"003","sip_password":"840eDbgkUq"}]}]';
+		websocket.send("message="+data);
+		}
+
+		function spequeu(){
+		var data = '[{"cust_id":"9C37-A17B-1251-245A-BD0E-8CBE-05A5-4435","data":[{"gqueue_name":"CRC Work","gqueue_number":"802" ,"select":"1" },{ "gqueue_name":"Queue2","gqueue_number":"803" ,"select":"1"},{ "gqueue_name":"Queue3","gqueue_number":"804","select":"1" },{"gqueue_name":"Queue4","gqueue_number":"805","select":"1" },{ "gqueue_name":"queue5","gqueue_number":"806","select":"1" }]}]';
+		
+		websocket.send("message="+data);
+		}
+
+		function gaugequeu(){
+		var data = '[{"cust_id":"9C37-A17B-1251-245A-BD0E-8CBE-05A5-4435","data":[{"gugqueue_name":"CRC Work","gugqueue_number":"802" ,"select":"1" },{ "gugqueue_name":"Queue2","gugqueue_number":"803" ,"select":"1"}]}]';
+		
+		websocket.send("message="+data);
+		}
+		
+		function srtinabgd(){
+			var dateString = '17-09-2013 10:08',
+			dateTimeParts = dateString.split(' '),
+			timeParts = dateTimeParts[1].split(':'),
+			dateParts = dateTimeParts[0].split('-'),
+			date;
+
+			date = new Date(dateParts[2], parseInt(dateParts[1], 10) - 1, dateParts[0], timeParts[0], timeParts[1]);
+
+			console.log(date.getTime()); 
+		}
+		
+
+function AgentsLoggs(){
+		var data = '[{"cust_id":"2AB8-76A1-6E31-4F79-E167-25B3-D7CF-F3B5","data":[{"agent_no":"111","agent_name":"SJ Bitrix Physical Phone","logged_queues":"Queue2,CRC Work 123"}]}]';
+		
+		websocket.send(data);
+		}
+
+
+		function editAgentData(){
+ 
+
+
+   var formData = new FormData();
+
+
+   formData.append('operation', 'create_leave_request');
+   formData.append('moduleType', 'leave_request');
+   formData.append('api_type', 'web');
+   formData.append('action', 'create_leave_request');
+   formData.append('access_token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJkZXYuY2FsNGNhcmUuY29tIiwiYXVkIjoiZGV2LmNhbDRjYXJlLmNvbSIsImlhdCI6MTU5NjQyNDEwMywibmJmIjoxNTk2NDI0MTAzLCJleHAiOjE1OTY0NDIxMDMsImFjY2Vzc19kYXRhIjp7InRva2VuX2FjY2Vzc0lkIjpudWxsLCJ0b2tlbl9hY2Nlc3NOYW1lIjpudWxsLCJ0b2tlbl9hY2Nlc3NUeXBlIjpudWxsfX0.Gz9uV88UZl9sMRPXScXn4LS_UwixL7gFvcRbJWonKJQ');
+   formData.append('file', $('#profile_image')[0].files[0]);
+   formData.append('EndTime', '12-08-2020');
+   formData.append('userId', '81');
+   formData.append('StartTime_value', '12-08-2020');
+   formData.append('LeaveDesc', 'test');
+   formData.append('LeaveCat', '2');
+   formData.append('LeaveType', '1');
+
+
+   console.log(formData);
+ 
+ $.ajax({  
+   url:"https://erp.cal4care.com/cms/apps/ind.php",  
+   type : 'POST',
+   data : formData,
+   processData: false,  // tell jQuery not to process the data
+   contentType: false, 
+   success:function(data){ 
+	 this.parsed_data = JSON.parse(data);
+	 console.log(this.parsed_data );
+	 if(this.parsed_data.status == 'true'){    
+	   
+	 $("#refresh_page").click();
+
+	 } else {
+
+	 }
+   }  
+});  
+
+ }
+
+
+
+
+
+	</script>
+	</head>
+	<body>
+		<p onclick="Type()">Type</p>
+		<p onclick="Queues()">Queues</p>
+		<p onclick="Agents()">Agents</p>
+		<p onclick="QueueTable()">QueueTable</p>
+		<p onclick="agentTable()">agentTable</p>
+		<p onclick="login()">login</p>
+		<p onclick="logout()">logout</p>
+		<p onclick="lsingleuser()">lsingleuser</p>
+		<p onclick="lsingleq()">lsingleq</p>
+		<p onclick="gauge()">gauge</p>
+		<p onclick="splineChart()">splineChart</p>
+		<p onclick="queueUsers()">queueUsers</p>
+		<p onclick="queueUsersupdate()">queueUsers</p>
+		<p onclick="showAllAgents()">queueUsers</p>
+		<p onclick="spequeu()">spequeu</p>
+		<p onclick="AgentsLoggs()">AgentsLoggs</p>
+ <iframe is="x-frame-bypass"  src="https://helpdesk.guru/tickets_new.php?id=25323"></iframe>
+
+		<form>
+<input type="file" name="profile_image" id="profile_image">
+
+<button type="button" onclick="editAgentData()">sdfaaas</button>
+
+		</form>
+</body>
+</html>

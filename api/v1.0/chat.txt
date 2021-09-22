@@ -1,0 +1,7 @@
+
+&#128075; Hi I am a Bot. Let me know if you have any questions regarding our tool!
+&#128075; Hi I am a Bot. Let me know if you have any questions regarding our tool!
+&#128075; Hi I am a Bot. Let me know if you have any questions regarding our tool!
+&#128075; Hi I am a Bot. Let me know if you have any questions regarding our tool!
+INSERT INTO chat_msg(chat_id, msg_user_id, msg_user_type, msg_type, chat_msg) VALUES ('427', '460', '4', 'bot', '&#128075; Hi I am a Bot. Let me know if you have any questions regarding our tool!')
+INSERT INTO chat_msg(chat_id, msg_user_id, msg_user_type, msg_type, chat_msg) VALUES ('427', '460', '4', 'bot', '&#128075; Hi I am a Bot. Let me know if you have any questions regarding our tool!')

@@ -1,0 +1,18 @@
+Array
+(
+    [from] => Idream_vaithees < vaithees20@gmail.com >
+    [to] => ["kk@cal4care.com","jn@cal4care.com"]
+    [subject] => test
+    [message] => <div dir="ltr">test</div>
+
+
+    [attachments] => null
+    [ticket_reply_id] => CAGrYub-7jU=cYgcxMo+pq2XCHC=sNHo-7ossf6hQHnnOdFrwQw@mail.gmail.com
+    [to_mail] => [" < kk@cal4care.com >","kk@cal4care.com"]
+    [cc_mail] => ["jn@cal4care.com"]
+    [agent_short_code] => 
+    [forward_from] => 
+    [forward_to] => 
+    [forward_cc] => 
+)
+

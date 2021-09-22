@@ -1,0 +1,73 @@
+
+Array
+(
+    [from] => Idream_vaithees < vaithees20@gmail.com >
+    [to] => ["mm@cal4care.com","jn@cal4care.com","kk@cal4care.com"]
+    [subject] => Test Ticket
+    [message] => <div dir="ltr">test</div>
+
+
+    [attachments] => ["https:\/\/pipe.mconnectapps.com\/api\/omniChannel\/36a4291e03ebf546124fa0e7b5a296ba.jpg121363741631083498.jpg"]
+    [ticket_reply_id] => CAGrYub99C2OiYs5qfChMk2t-uEz99DJYWqjgHhptjdHKjn8Z=A@mail.gmail.com
+    [to_mail] => [" < mm@cal4care.com >","mm@cal4care.com"," < jn@cal4care.com >","jn@cal4care.com"]
+    [cc_mail] => ["kk@cal4care.com"]
+    [forward_from] => 
+    [forward_to] => 
+    [forward_cc] => 
+)
+
+Array
+(
+    [from] => MrVoip | Selva < sk@mrvoip.com >
+    [to] => ["mm@cal4care.com"]
+    [subject] => HI
+    [message] => <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css" style="display:none;"> P {margin-top:0;margin-bottom:0;} </style>
+</head>
+<body dir="ltr">
+<div style="font-family: Calibri, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">
+sfwfw</div>
+<table bgcolor="#0597d4" class="app-link" border="0" cellpadding="5" cellspacing="0" width="100%" style="table-layout: fixed; background-color: #0597d4;">
+<tbody>
+<tr bgcolor="#0597d4">
+<td height="5" colspan="2"></td>
+</tr>
+<tr bgcolor="#0597d4">
+<td colspan="2" style="text-align: center;font-size: 20px;margin-bottom: 0;font-weight: bold; color:#fff; font-style:italic;">
+Go mobile ! Download Cal4care Customer/Reseller CMS Mobile Apps. </td>
+</tr>
+<tr bgcolor="#0597d4">
+<td height="1" colspan="2"></td>
+</tr>
+<tr bgcolor="#0597d4">
+<td align="right"><a target="_blank" href="https://apps.apple.com/us/app/cal4care-cms-customer/id1521608417"><img width="120" height="35" src="https://erp.cal4care.com/img/email-template/email-signature/app-store.png">
+</a></td>
+<td align="left"><a target="_blank" href="https://play.google.com/store/apps/details?id=com.erpcustomer"><img width="120" height="35" src="https://erp.cal4care.com/img/email-template/email-signature/play-store.png">
+</a></td>
+</tr>
+<tr bgcolor="#0597d4">
+<td height="5" colspan="2"></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
+
+
+    [attachments] => null
+    [ticket_reply_id] => PSBPR04MB39916ED41B7AE989283D1610B2D49@PSBPR04MB3991.apcprd04.prod.outlook.com
+    [to_mail] => ["Cal4Care | MM < mm@cal4care.com >","mm@cal4care.com"]
+    [cc_mail] => null
+    [forward_from] => 
+    [forward_to] => 
+    [forward_cc] => 
+)
+
+Array
+(
+    [0] => 
+)
+
+3

@@ -1,0 +1,8 @@
+spec:
+  name: omni-Ticketing-API
+  services:
+  - environment_slug: php
+    git:
+      branch: master
+      repo_clone_url: https://github.com/Cal4Care-Developers/omni-Ticketing-API.git
+    name: omni-Ticketing-API

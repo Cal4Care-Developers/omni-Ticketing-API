@@ -1,0 +1,26 @@
+1) close chat =============== COMPLETED ================
+2) tabs =================== COMPLETED ====================
+4) add department name ?  ============ COMPLETED =============x==
+8) show agent name in the list ================ COMPLETED ========================
+16) auto refresh missing =============== COMPLETED ===================
+
+5) smiley do not work  ==================== COMPLETED =====================
+1) closed the chat  ================== COMPLETED =====================
+
+
+1) notification for app each messages.
+2) can change chat sound ?
+3) close ticket in app not moving to closed 
+4) transfer to agents in department 
+5) smiley do not work  
+6) show only last 10 chats and have accreditation .
+7) photos upload / picture / document 
+6) show rating
+9)time stamp missing 
+10 ) bot to Have bot symbol 
+11) agent picture inside the  chat ? 
+12)notification landing do direct chat window ?
+13) notification ‘ chat”
+14) mail to agent 
+15) mail to admin
+16) online and offline status on chat.

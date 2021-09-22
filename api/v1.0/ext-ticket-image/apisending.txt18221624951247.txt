@@ -1,0 +1,21 @@
+=============== CREATE DEPARTMENT ==============================
+{"operation":"ticket", "moduleType": "ticket", "api_type": "web", "access_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1YXRhc3NhYWJsb3ljY2FwaS5tY29ubmVjdGFwcHMuY29tIiwiYXVkIjoidWF0YXNzYWFibG95Y2NhcGkubWNvbm5lY3RhcHBzLmNvbSIsImlhdCI6MTYyNDM1ODkzNCwibmJmIjoxNjI0MzU4OTM0LCJleHAiOjE2MjQzNzY5MzQsImFjY2Vzc19kYXRhIjp7InRva2VuX2FjY2Vzc0lkIjoiMTIwMyIsInRva2VuX2FjY2Vzc05hbWUiOiJhc3NhYWJsb3ljYyIsInRva2VuX2FjY2Vzc1R5cGUiOiIyIn19.6l1_8PSnFhxHpFSgKJatvpZAk1cBeAEMe3r1kuOhlc0", "element_data":{"action":"add_department","department_name":"TESTING","department_users":"1273","status":"1","admin_id":"1203","department_wrapups":"6"}}
+
+===================== EDIT button department list =============================
+{"operation":"ticket", "moduleType": "ticket", "api_type": "web", "access_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1YXRhc3NhYWJsb3ljY2FwaS5tY29ubmVjdGFwcHMuY29tIiwiYXVkIjoidWF0YXNzYWFibG95Y2NhcGkubWNvbm5lY3RhcHBzLmNvbSIsImlhdCI6MTYyNDM1ODkzNCwibmJmIjoxNjI0MzU4OTM0LCJleHAiOjE2MjQzNzY5MzQsImFjY2Vzc19kYXRhIjp7InRva2VuX2FjY2Vzc0lkIjoiMTIwMyIsInRva2VuX2FjY2Vzc05hbWUiOiJhc3NhYWJsb3ljYyIsInRva2VuX2FjY2Vzc1R5cGUiOiIyIn19.6l1_8PSnFhxHpFSgKJatvpZAk1cBeAEMe3r1kuOhlc0", "element_data":{"action":"get_department","dept_id":"3","admin_id":"1203"}}
+
+
+================= UPDATE DEPARTMENT ================================
+{"operation":"ticket", "moduleType": "ticket", "api_type": "web", "access_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1YXRhc3NhYWJsb3ljY2FwaS5tY29ubmVjdGFwcHMuY29tIiwiYXVkIjoidWF0YXNzYWFibG95Y2NhcGkubWNvbm5lY3RhcHBzLmNvbSIsImlhdCI6MTYyNDM1ODkzNCwibmJmIjoxNjI0MzU4OTM0LCJleHAiOjE2MjQzNzY5MzQsImFjY2Vzc19kYXRhIjp7InRva2VuX2FjY2Vzc0lkIjoiMTIwMyIsInRva2VuX2FjY2Vzc05hbWUiOiJhc3NhYWJsb3ljYyIsInRva2VuX2FjY2Vzc1R5cGUiOiIyIn19.6l1_8PSnFhxHpFSgKJatvpZAk1cBeAEMe3r1kuOhlc0", "element_data":{"action":"update_department","department_name":"tesing1234","department_users":"1273","status":"1","dept_id":"35","admin_id":"1203","department_wrapups":"5"}}
+
+
+==========Edit WRAP CODE========================
+{"operation":"getAuxcode_data", "moduleType": "contact", "api_type": "web", "access_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1YXRhc3NhYWJsb3ljY2FwaS5tY29ubmVjdGFwcHMuY29tIiwiYXVkIjoidWF0YXNzYWFibG95Y2NhcGkubWNvbm5lY3RhcHBzLmNvbSIsImlhdCI6MTYyNDM1ODkzNCwibmJmIjoxNjI0MzU4OTM0LCJleHAiOjE2MjQzNzY5MzQsImFjY2Vzc19kYXRhIjp7InRva2VuX2FjY2Vzc0lkIjoiMTIwMyIsInRva2VuX2FjY2Vzc05hbWUiOiJhc3NhYWJsb3ljYyIsInRva2VuX2FjY2Vzc1R5cGUiOiIyIn19.6l1_8PSnFhxHpFSgKJatvpZAk1cBeAEMe3r1kuOhlc0", "element_data":{"action":"edit_aux_code","auxcode_id":"1","admin_id":"1203"}}
+
+============ ADD WRAP CODE ===============================
+{"operation":"addAuxcode", "moduleType": "contact", "api_type": "web", "access_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1YXRhc3NhYWJsb3ljY2FwaS5tY29ubmVjdGFwcHMuY29tIiwiYXVkIjoidWF0YXNzYWFibG95Y2NhcGkubWNvbm5lY3RhcHBzLmNvbSIsImlhdCI6MTYyNDM1ODkzNCwibmJmIjoxNjI0MzU4OTM0LCJleHAiOjE2MjQzNzY5MzQsImFjY2Vzc19kYXRhIjp7InRva2VuX2FjY2Vzc0lkIjoiMTIwMyIsInRva2VuX2FjY2Vzc05hbWUiOiJhc3NhYWJsb3ljYyIsInRva2VuX2FjY2Vzc1R5cGUiOiIyIn19.6l1_8PSnFhxHpFSgKJatvpZAk1cBeAEMe3r1kuOhlc0", "element_data":{"action":"add_aux_code","auxcode_name":"testing","status":"0","cat_id":"5","admin_id":"1203"}}
+
+=============== UDPATE WRAP CODE ===============================
+
+{"operation":"updateAuxcode", "moduleType": "contact", "api_type": "web", "access_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1YXRhc3NhYWJsb3ljY2FwaS5tY29ubmVjdGFwcHMuY29tIiwiYXVkIjoidWF0YXNzYWFibG95Y2NhcGkubWNvbm5lY3RhcHBzLmNvbSIsImlhdCI6MTYyNDM1ODkzNCwibmJmIjoxNjI0MzU4OTM0LCJleHAiOjE2MjQzNzY5MzQsImFjY2Vzc19kYXRhIjp7InRva2VuX2FjY2Vzc0lkIjoiMTIwMyIsInRva2VuX2FjY2Vzc05hbWUiOiJhc3NhYWJsb3ljYyIsInRva2VuX2FjY2Vzc1R5cGUiOiIyIn19.6l1_8PSnFhxHpFSgKJatvpZAk1cBeAEMe3r1kuOhlc0", "element_data":{"action":"update_aux_code","auxcode_name":"testing2","auxcode_id":"26","cat_id":"5","admin_id":"1203"}}
+

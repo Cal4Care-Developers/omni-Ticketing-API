@@ -1,0 +1,6 @@
+{
+    "require": {
+        "firebase/php-jwt": "^5.0",
+        "middlewares/cors": "^1.1"
+    }
+}

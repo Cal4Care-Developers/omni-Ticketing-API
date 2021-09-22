@@ -1,0 +1,16 @@
+TO Initiate Transaction 
+ {
+    "status" : true,
+    "result": {
+        "status": true,
+        "data": "1";
+	}
+}
+TO Initiate Transaction 
+ {
+    "status" : true,
+    "result": {
+        "status": true,
+        "data": "2";
+	}
+}

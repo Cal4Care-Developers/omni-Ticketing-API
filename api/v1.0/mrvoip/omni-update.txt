@@ -1,0 +1,75 @@
+mask as fault is for internal
+
+mr voip document uplod
+agent rating version
+mr void download
+
+
+mc
+wallborad 3,4
+dialer
+agent permission
+fax
+agent rating
+
+
+mc dasboard
+line telegram qq
+company name and domanie name
+automatic 
+
+
+
+
+chat rating d
+chat plac d
+aviator d
+out of offive d
+alert d
+country code d
+ofline msg to email d
+settngs -> for chat all to email d
+historyy for widget
+
+
+
+contact if not in db add contact option
+add contact in whatsapp and fb id
+
+
+
+agent should have particular pbx
+
+
+
+
+
+whatsapp chat
+
+aux, advance repot, 
+platforms
+
+
+
+mc dashbord has chat
+
+frm, to, agents multi selct, caller id multi
+
+search
+
+export
+
+
+
+
+
+
+
+
+
+chat widget position
+chat aviator in
+
+
+
+

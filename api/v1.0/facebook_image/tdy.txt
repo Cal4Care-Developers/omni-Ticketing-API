@@ -1,0 +1,150 @@
+JT call,
+RT call about baobab
+Softsol email checking.
+baobab meeting
+     they asked for ownership of the code.
+     
+Make it vry clr did you used Twilio account (we can buy it for you) or you need your own number?.(if you need to your number we will provide QR code to scan and scanned mobile number to be always ON with internet).
+Debian 10,16GB Ram, 8 Core processor.
+Did you have API's for transaction,callcenter and validation.
+
+Agent theme not work.
+Webrtc issue.
+Wrappup code general will post notes-sub catogary,
+From to not in in MD.
+
+Signature Spelling mistake - separate for agents.
+Email Profile picture should first letter.
+Ingocnito not send mail.
+Need to show popup for singature.
+Assigned to user.
+when ticket closed it popup says deleted.
+Filter not work for agent.
+Color theme for filter and select view.
+Filter based on department.
+Assign to agent not working - As of now i chaged the department it was working.
+Screenpop to show timeline details.
+Need to show the new email/transfer notification.
+
+
+Banlist in email,
+Automessage in email,
+New ticket alert,and templates.
+
+Agent theme not work- Fixed
+
+Webrtc error -  Fixed
+
+Wrapup code general will post notes - Done- Subcatogary not yet completed.
+
+From/to not show in Microsoft Dynamics.  Fixed
+
+Signature Spelling mistake & separate sign for agents - Done
+
+The email Profile picture should first letter.  - Done
+
+Need to show the popup for signature - not yet completed
+
+Assigned to user not working - Fixed
+
+when the ticket closed it popup says deleted- Updated
+
+Filter not work for the agent.- Fixed
+
+The color theme for filter and select view editor-style changes- JN will provide design tmrw,As of now changed the color.
+
+Filter based on department. - Not yet done
+
+Assign to the agent not working - Fixed
+
+Need to show the new email/transfer notification.- Not yet MR will update
+
+Wrapupcode report,3CX call report -updated
+
+MC dashboard for calls - updated
+
+Dialer  recent call history issue - updated.
+
+
+
+
+JUNE 5 
+mC DASHBORD CALL SHOULD SHOW ADMIN TO WHICH AGENT ATTEND THE CALLS FROM WHICH NUMBER
+Email should show to assigned to where
+Email id should be choosen for which queue by customer.
+Image missing issue in email
+Editor should be maximized.
+Remove intial content in editor
+Email ticket notification can open the thread
+email ticket template should be correct.
+Email should have admin permission for agents
+Reply email not auto reloaded
+Attachement not working
+Need to have collabrator
+Default select all in Aux code report,report not work PS check,
+Reply email show agent_name.
+3CX call reports should show the notes
+
+
+JUNE 11
+Note should be new note.
+Notification for new created ticket.
+
+
+
+JUNE 16
+Demo with simply smart Com
+Wallboard and WhatsApp ok
+ But their asking whatsApp call in based in Queue
+
+
+
+Change name as Agent
+Clean the Round Robin issue
+table allignment
+email note 
+Select option in Ticket View.
+
+Templete Off but auto response goes
+
+
+Call with NB and MR.
+Explain with PS about chat
+Chekec in Noti
+Worked in Department Orders issue for rounf robin
+
+remove S.No from all modules - Replaces as #
+Removed dept ID and Aux ID, Wrapup Code ID  -Done
+Fixed the Ticket Queue list Design issues
+Removed User ID in Department Queue page.
+Webchat Message can't received to All agents,Only department agents should see -Done
+Ticket status count in Email tickets done.
+Ticket AutoResponse Received two time - Fixed
+Can able to turn of the Auto Resposne via Email Template Page.
+Updated All changes in UAT server 
+
+
+26-06-21
+
+Search Contact to be name instead of search user calls
+
+Retrieve agents should be in order ASC 
+
+Ticket status and filter not correct and Count was not correct,
+If you change the status at bottom..that is collapsed the filter.
+Avatar need to be removed in email reply. Name only show black and backround will Grey.
+When create /reply please remove the FirstLetter in template.
+need to claim the ticket.
+
+Web Chat need to shows the Website name.
+need to show only first name in Agent.Omni and Website too
+
+
+
+
+
+
+
+
+
+

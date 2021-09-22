@@ -1,0 +1,107 @@
+Array
+(
+    [operation] => ticket
+    [moduleType] => ticket
+    [api_type] => web
+    [element_data] => Array
+        (
+            [action] => add_notAssigned_tickets
+            [from] => Idream_vaithees < vaithees20@gmail.com >
+            [message] => <div dir="ltr">test</div>
+
+
+            [to] => ["isales@cal4care.com"]
+            [to_mail] => null
+            [cc_mail] => null
+            [subject] => test1
+            [attachments] => null
+            [ticket_reply_id] => CAGrYub_4c-Y9AhEqQASWZ85cxVU5a2OSX6As3LCeXHNdehNe+Q@mail.gmail.com
+            [agent_short_code] => 
+            [forward_from] => 
+            [forward_to] => 
+            [forward_cc] => 
+        )
+
+)
+
+Array
+(
+    [operation] => ticket
+    [moduleType] => ticket
+    [api_type] => web
+    [element_data] => Array
+        (
+            [action] => add_notAssigned_tickets
+            [from] => Cal4Care | VE < ve@cal4care.com >
+            [message] => <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css" style="display:none;"> P {margin-top:0;margin-bottom:0;} </style>
+</head>
+<body dir="ltr">
+<div style="font-family: Calibri, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div>
+<div id="appendonsend"></div>
+<hr tabindex="-1" style="display:inline-block; width:98%">
+<div id="divRplyFwdMsg" dir="ltr"><font face="Calibri, sans-serif" color="#000000" style="font-size:11pt"><b>From:</b> Idream_vaithees &lt;vaithees20@gmail.com&gt;<br>
+<b>Sent:</b> Monday, August 23, 2021 3:16 PM<br>
+<b>To:</b> Cal4Care | VE &lt;ve@cal4care.com&gt;<br>
+<b>Subject:</b> Testing</font>
+<div>&nbsp;</div>
+</div>
+<div>
+<div dir="ltr"><span style="color:rgb(0,0,0); font-size:15px">Hi,</span>
+<div style="margin:0px; padding:0px; border:0px; font-variant-numeric:inherit; font-variant-east-asian:inherit; font-stretch:inherit; font-size:15px; line-height:inherit; vertical-align:baseline; color:rgb(0,0,0)">
+<br>
+</div>
+<div style="margin:0px; padding:0px; border:0px; font-variant-numeric:inherit; font-variant-east-asian:inherit; font-stretch:inherit; font-size:15px; line-height:inherit; vertical-align:baseline; color:rgb(0,0,0)">
+<span style="margin:0px; padding:0px; border:0px; font-style:inherit; font-variant:inherit; font-weight:inherit; font-stretch:inherit; font-size:14px; line-height:inherit; font-family:&quot;Open Sans&quot;,Arial,sans-serif; vertical-align:baseline; text-align:justify">simply
+ dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
+ but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including
+ versions of Lorem Ipsum.</span></div>
+</div>
+</div>
+</div>
+<table bgcolor="#0597d4" class="app-link" border="0" cellpadding="5" cellspacing="0" width="100%" style="table-layout: fixed; background-color: #0597d4;">
+<tbody>
+<tr bgcolor="#0597d4">
+<td height="5" colspan="2"></td>
+</tr>
+<tr bgcolor="#0597d4">
+<td colspan="2" style="text-align: center;font-size: 20px;margin-bottom: 0;font-weight: bold; color:#fff; font-style:italic;">
+Go mobile ! Download Cal4care Customer/Reseller CMS Mobile Apps. </td>
+</tr>
+<tr bgcolor="#0597d4">
+<td height="1" colspan="2"></td>
+</tr>
+<tr bgcolor="#0597d4">
+<td align="right"><a target="_blank" href="https://apps.apple.com/us/app/cal4care-cms-customer/id1521608417"><img width="120" height="35" src="https://erp.cal4care.com/img/email-template/email-signature/app-store.png">
+</a></td>
+<td align="left"><a target="_blank" href="https://play.google.com/store/apps/details?id=com.erpcustomer"><img width="120" height="35" src="https://erp.cal4care.com/img/email-template/email-signature/play-store.png">
+</a></td>
+</tr>
+<tr bgcolor="#0597d4">
+<td height="5" colspan="2"></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
+
+
+            [to] => ["isales@cal4care.com"]
+            [to_mail] => null
+            [cc_mail] => null
+            [subject] => Fw: Testing
+            [attachments] => null
+            [ticket_reply_id] => SG2PR04MB2859C19CC9275B84BA7FF2C2E9DE9@SG2PR04MB2859.apcprd04.prod.outlook.com
+            [agent_short_code] => 
+            [forward_from] =>  Idream_vaithees &lt;vaithees20@gmail.com&gt;
+            [forward_to] =>  Cal4Care | VE &lt;ve@cal4care.com&gt;
+            [forward_cc] =>  Idream_vaithees &lt;vaithees20@gmail.com&gt;
+        )
+
+)
+

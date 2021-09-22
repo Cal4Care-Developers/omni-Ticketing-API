@@ -1,0 +1,33 @@
+Agent theme not work- Fixed
+
+Webrtc error -  Fixed
+
+Wrapup code general will post notes - Done- Subcatogary not yet completed.
+
+From/to not show in Microsoft Dynamics.  Fixed
+
+Signature Spelling mistake & separate sign for agents - Done
+
+The email Profile picture should first letter.  - Done
+
+Need to show the popup for signature - not yet completed
+
+Assigned to user not working - Fixed
+
+when the ticket closed it popup says deleted- Updated
+
+Filter not work for the agent.- Fixed
+
+The color theme for filter and select view editor-style changes- JN will provide design tmrw,As of now changed the color.
+
+Filter based on department. - Not yet done
+
+Assign to the agent not working - Fixed
+
+Need to show the new email/transfer notification.- Not yet MR will update
+
+Wrapupcode report,3CX call report -updated
+
+MC dashboard for calls - updated
+
+Dialer  recent call history issue - updated.

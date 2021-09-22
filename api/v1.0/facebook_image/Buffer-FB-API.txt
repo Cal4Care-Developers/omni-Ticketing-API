@@ -1,0 +1,46 @@
+Login url
+{"operation":"social_media", "moduleType":"social_media", "api_type": "web", "access_token":"'+access_token+'", "element_data":{"action":"fb_login_url"}}
+
+
+fb_store_profile API.
+{
+    "operation": "social_media",
+    "moduleType": "social_media",
+    "api_type": "web",
+    "element_data": 
+	{
+        "action": "store_fb_profile",
+        "name":"test",
+        "first_name":"f_name",
+        "last_name":"l_name",
+		"picture":"test.jpg";
+		"id": "1234567890";
+		"posts": "";
+		"user_id": "64";
+		"fb_pages": "test,test 2"
+    }
+}
+
+
+user_profile and pages
+
+{"operation":"social_media", "moduleType":"social_media", "api_type": "web", "element_data":{"action":"getUserFbDetails","user_id":"64"}}
+
+fb post api
+
+{
+    "operation": "social_media",
+    "moduleType": "social_media",
+    "api_type": "web",
+    "element_data": 
+	{
+        "action": "postSocialMediaContents",
+        "page_id":"12345678765",
+        "post_content":"post_contentsasdsa",
+        "post_for":"fb",
+		"user_id": "64";
+    }
+}
+
+posts for single page
+{"operation":"social_media", "moduleType":"social_media", "api_type": "web", "element_data":{"action":"userPostsOnPage","user_id":"64","page_id":"765432345"}}

@@ -1,0 +1,32 @@
+{"from":"Idream_vaithees < vaithees20@gmail.com >","subject":"Re: Test compose","message":"<div dir=\"ltr\">reply by mm<\/div><br><div class=\"gmail_quote\"><div dir=\"ltr\" class=\"gmail_attr\">On Fri, Sep 10, 2021 at 10:16 AM &lt;<a href=\"mailto:mm@cal4care.com\">mm@cal4care.com<\/a>&gt; wrote:<br><\/div><blockquote class=\"gmail_quote\" style=\"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex\"><u><\/u>\n<div><p>M-uZ<\/p><\/div>\n\n\n<\/blockquote><\/div>\n\n","to":"[\"mm@cal4care.com\",\"jn@cal4care.com\"]","attachments":"null","message_id":"<CAGrYub-yqG29Pg=yD+snpkpiuRyymYscK_7XF-0Tcnhk9Qm_WQ@mail.gmail.com>","recipients":[{"source":"Email (to)","name":"","email":"mm@cal4care.com"},{"source":"Email (cc)","name":"","email":"jn@cal4care.com"}]}
+Array
+(
+    [operation] => ticket
+    [moduleType] => ticket
+    [api_type] => web
+    [element_data] => Array
+        (
+            [action] => add_InternalMail
+            [from] => Idream_vaithees < vaithees20@gmail.com >
+            [message] => <div dir="ltr">reply by customer</div><br><div class="gmail_quote"><div dir="ltr" class="gmail_attr">On Fri, Sep 10, 2021 at 10:16 AM &lt;<a href="mailto:mm@cal4care.com">mm@cal4care.com</a>&gt; wrote:<br></div><blockquote class="gmail_quote" style="margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><u></u>
+<div><p>M-uZ</p></div>
+
+
+</blockquote></div>
+
+
+            [to] => ["mm@cal4care.com","jn@cal4care.com"]
+            [to_mail] => [" < mm@cal4care.com >","mm@cal4care.com"]
+            [cc_mail] => ["jn@cal4care.com"]
+            [subject] => Re: Test compose
+            [attachments] => null
+            [ticket_reply_id] => CAGrYub_QW7NuNzoZCGu5v9ggdYH4=Mhis6f3=Bt8jVo5o7AGUw@mail.gmail.com
+            [forward_from] => 
+            [forward_to] => 
+            [forward_cc] => 
+        )
+
+)
+
+Fw: Testing
+Hello
