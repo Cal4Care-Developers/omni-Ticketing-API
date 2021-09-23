@@ -495,6 +495,7 @@ public function addZohoUsers($data){
 		return true;
 	}
 	public function ssoUsers($data){ 
+    echo 'has cross orign error';exit;
 		extract($data);	 
 		$omni_users = "SELECT * FROM ms_sso_authentication where admin_id='$data'";
 		$result = $this->fetchData($omni_users,array());
@@ -509,8 +510,7 @@ public function addZohoUsers($data){
 		$datas['omni_users'] = $omni_users;
 		$datas['omni_main_users'] = $omni_mainusers;
 		$datas['teams_main_users'] = $teams_main_users;
-		$datas['teams_users'] = $teams_users;
-	
+		$datas['teams_users'] = $teams_users;	
 		return $datas;
 	}
 }

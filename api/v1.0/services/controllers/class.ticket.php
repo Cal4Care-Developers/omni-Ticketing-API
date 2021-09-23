@@ -2457,6 +2457,7 @@ if($next_assign!=''){
 	
 	public function viewExternalTicket($data){
 		extract($data); 
+		print_r($data);exit;
 		$ticket_id = base64_decode($ticket_id);
 			
 		 $qry = "SELECT * FROM external_tickets WHERE ticket_no = '$ticket_id'";
