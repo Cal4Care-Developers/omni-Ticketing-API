@@ -1819,39 +1819,46 @@ if($get_ticketcustomer_details > 0){
 	$ticket_customer_id = $get_ticketcustomer_details['customer_id'];
 	$ticket_customer_name = $get_ticketcustomer_details['customer_name'];
 }else{
-	$curl = curl_init();
-	curl_setopt_array($curl, array(
-	  CURLOPT_URL => 'https://erp.cal4care.com/erp/apps/index.php',
-	  CURLOPT_RETURNTRANSFER => true,
-	  CURLOPT_ENCODING => '',
-	  CURLOPT_MAXREDIRS => 10,
-	  CURLOPT_TIMEOUT => 0,
-	  CURLOPT_FOLLOWLOCATION => true,
-	  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-	  CURLOPT_CUSTOMREQUEST => 'POST',
-	  CURLOPT_POSTFIELDS =>'{
-	    "operation": "agents",
-	    "moduleType": "agents",
-	    "api_type": "web",
-	    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0aWNrZXRpbmcubWNvbm5lY3RhcHBzLmNvbSIsImF1ZCI6InRpY2tldGluZy5tY29ubmVjdGFwcHMuY29tIiwiaWF0IjoxNjMwOTMyMTE5LCJuYmYiOjE2MzA5MzIxMTksImV4cCI6MTYzMDk1MDExOSwiYWNjZXNzX2RhdGEiOnsidG9rZW5fYWNjZXNzSWQiOiI2NCIsInRva2VuX2FjY2Vzc05hbWUiOiJTYWxlc0FkbWluIiwidG9rZW5fYWNjZXNzVHlwZSI6IjIifX0.YzdTs9NxXf-KVffqXCNz8cyff-vMwcH8YI9eC8Ji8Fc",
-	    "element_data": {
-	        "action": "get_customerdetails",
-	        "customer_domain":"'.$customer_domain.'"
-	    }
-	  }',
-	  CURLOPT_HTTPHEADER => array(
-	    'Content-Type: application/json'
-	  ),
-	));
-	$response = curl_exec($curl);
-	curl_close($curl);
-	$explode_customer_details = explode('||',$response);
-	$ticket_customer_id = $explode_customer_details[0];
-	$ticket_customer_name = $explode_customer_details[1];
-	$ticket_customer_code = $explode_customer_details[2];
-	$ticket_customer_email = $explode_customer_details[3];
-	$ticket_customer_country = $explode_customer_details[4];
-	$ticket_customer_phone = $explode_customer_details[5];
+	// $curl = curl_init();
+	// curl_setopt_array($curl, array(
+	//   CURLOPT_URL => 'https://erp.cal4care.com/erp/apps/index.php',
+	//   CURLOPT_RETURNTRANSFER => true,
+	//   CURLOPT_ENCODING => '',
+	//   CURLOPT_MAXREDIRS => 10,
+	//   CURLOPT_TIMEOUT => 0,
+	//   CURLOPT_FOLLOWLOCATION => true,
+	//   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+	//   CURLOPT_CUSTOMREQUEST => 'POST',
+	//   CURLOPT_POSTFIELDS =>'{
+	//     "operation": "agents",
+	//     "moduleType": "agents",
+	//     "api_type": "web",
+	//     "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0aWNrZXRpbmcubWNvbm5lY3RhcHBzLmNvbSIsImF1ZCI6InRpY2tldGluZy5tY29ubmVjdGFwcHMuY29tIiwiaWF0IjoxNjMwOTMyMTE5LCJuYmYiOjE2MzA5MzIxMTksImV4cCI6MTYzMDk1MDExOSwiYWNjZXNzX2RhdGEiOnsidG9rZW5fYWNjZXNzSWQiOiI2NCIsInRva2VuX2FjY2Vzc05hbWUiOiJTYWxlc0FkbWluIiwidG9rZW5fYWNjZXNzVHlwZSI6IjIifX0.YzdTs9NxXf-KVffqXCNz8cyff-vMwcH8YI9eC8Ji8Fc",
+	//     "element_data": {
+	//         "action": "get_customerdetails",
+	//         "customer_domain":"'.$customer_domain.'"
+	//     }
+	//   }',
+	//   CURLOPT_HTTPHEADER => array(
+	//     'Content-Type: application/json'
+	//   ),
+	// ));
+	// $response = curl_exec($curl);
+	// curl_close($curl);
+	// $explode_customer_details = explode('||',$response);
+	// $ticket_customer_id = $explode_customer_details[0];
+	// $ticket_customer_name = $explode_customer_details[1];
+	// $ticket_customer_code = $explode_customer_details[2];
+	// $ticket_customer_email = $explode_customer_details[3];
+	// $ticket_customer_country = $explode_customer_details[4];
+	// $ticket_customer_phone = $explode_customer_details[5];
+	// $explode_customer_details = explode('||',$response);
+	$ticket_customer_id = '';
+	$ticket_customer_name = '';
+	$ticket_customer_code = '';
+	$ticket_customer_email = '';
+	$ticket_customer_country = '';
+	$ticket_customer_phone = '';
 	if($ticket_customer_id != ''){
 	 $insertQry = $this->db_insert("INSERT INTO ticket_customer(admin_id,customer_id,customer_code,customer_name,customer_email,phone_number,country) VALUES ('$admin_id','$ticket_customer_id','$ticket_customer_code','$ticket_customer_name','$ticket_customer_email','$ticket_customer_phone','$ticket_customer_country')", array());
 	}

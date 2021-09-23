@@ -581,9 +581,23 @@ if($admin_id == '1'){
 			 $allowed_agents= $this->fetchOne("SELECT agent_counts FROM `admin_details` where admin_id='$admin_id'", array());
 			$can_add=$allowed_agents-$agent_count;
 			//echo $user_permission_qry; exit;	
+      $users = $this->dataFetchAll($detail_qry,array());
+			$omni_users = "SELECT * FROM ms_sso_authentication where admin_id='$admin_id'";
+			$resultsso = $this->fetchData($omni_users,array());
+			$omni_users = $resultsso['omni_users'];
+			$teams_users = $resultsso['teams_users'];
+			$omni_users = explode(',',$omni_users);
+			$teams_users = explode(',',$teams_users);
+			
+			foreach($users as $user){
+				$u_id = $user['user_id'];
+				if (in_array($u_id, $omni_users)){ $user['omnisso'] = '1';}else{$user['omnisso'] = '0'; }
+				if (in_array($u_id, $teams_users)){ $user['teamssso'] = '1';}else{$user['teamssso'] = '0'; }
+				$user2[] = $user;
+			}
             $parms = array();			
             $result["user_permission"] = $this->fetchData($user_permission_qry, array());
-            $result["list_data"] = $this->dataFetchAll($detail_qry,array());
+            $result["list_data"] = $user2;
             $result["list_info"]["total"] = $this->dataRowCount($qry,$parms);
             $result["list_info"]["available_users"]=$agent_count;
             $result["list_info"]["can_add"]=$can_add;
