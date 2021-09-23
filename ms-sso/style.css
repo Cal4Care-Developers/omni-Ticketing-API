@@ -1,0 +1,1799 @@
+/*body { font-family: sans-serif, Verdana; }*/
+.modal {z-index:9999}
+.dialpad-container .row {
+  margin: 0 auto;
+  width: 340px;
+  clear: both;
+  text-align: center;
+  max-width:100%;
+}
+body {
+  background: #f1f7ff;
+}
+.padding-0 {
+  padding: 0;
+}
+.dig.oncall.oncall-btn{width: 100%;}
+.digit,
+.dig {
+  float: left;
+  padding: 10px 22px;
+  width: 33.3%;
+  font-size: 22px;
+  cursor: pointer;
+  color: #fff;
+}
+.botrow .dig { padding: 3px 0 0px 0; height: 46px; }
+.botrow { display: none; }
+
+.dialpad-container.login-dialer .digit, .dialpad-container.login-dialer .dig { color: #000; }
+.dialpad-container.login-dialer .digit, .dialpad-container.login-dialer .dig {
+    color: #eef1f5;
+}
+.sub { font-size: 0.6rem; color: #000; font-family: 'Open Sans', sans-serif; }
+.sub {
+    font-size: 0.6rem;
+    color: #eef1f5;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.dialpad-container {
+  background-color: #ffffff !important;
+    transition: all 0s;
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 30px;
+    width: 320px;
+    height: auto;
+    min-height: 520px;
+    margin: 0 auto;
+    border-radius: 15px;
+    text-align: center;
+    z-index: 9999 !important;
+    border: 1px solid #dfdfdf;
+}
+.dialpad-container.login-dialer {
+  background-color: #eef1f5 !important;
+   left: 0;
+    height: 450px;
+     right: auto;
+     padding: 0;
+     top: auto;
+     bottom: 0;
+     border-radius: 00;
+     min-height: auto;
+}
+.dialpad-container.login-dialer {
+  background-color: #000 !important;
+}
+#output {
+/*  font-size: 28px;
+  height: 60px;
+  line-height: 65px;
+  font-weight: bold;
+  color: #414141;
+  float: left; width: 100%;*/
+}
+
+
+#call.oncall i, div#call.dig.oncall { color: #fff  !important; background-color: #dc3545 !important}
+#call.oncall i:hover, div#call.dig.oncall:hover { color: #333;  }
+
+.botrow {
+  margin: 0 auto;
+  width: 100%;
+  clear: both;
+  text-align: center;
+}
+
+.digit:active,
+.dig:active {
+  background-color: #ffffff;
+  color: #000;
+}
+
+.digit:active i, .dig:active i { color: #000; }
+
+ #call:hover span.call-btn-icon { background-color: #3c8d40; }
+#call.oncall:hover i, #call.oncall:hover { background-color: #d10a0a; border-radius: 4px; }
+
+.dig {
+  float: left;
+  cursor: pointer;
+  width: 33.3%;
+}
+/**  background-color: #22b7bb; **/
+div#call.dig { padding: 5px;  }
+.dialpad-close-icon { z-index: 9999; box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); cursor: pointer; border-radius: 15px 15px 0 0; padding: 0; text-align: center; position: absolute; right: -13px; top: -15px; line-height: 35px; float: left; width: 30px; height: 30px; border-radius: 50%; background-color: #fff; }
+.dialpad-close-icon i { padding: 8px; font-size: 18px; color: #000; transform: rotate(0deg); transition: all 0.7s; }
+.dialpad-close-icon:hover i { transform: rotate(180deg); transition: all 0.7s; }
+.dialpad-body { background-color:#fff; border-radius: 15px; float: left; width: 100%; padding: 0; }
+.dialpad-container.login-dialer .dialpad-body { background-color: #eef1f5; padding: 0; }
+.dialpad-container.login-dialer .dialpad-body {
+    background-color: #000000;
+    padding: 0;
+}
+.dialpad-container.acoordionClass { width: 320px; transition: all 0.3s; height: 25px; }
+.dialpad-container.acoordionClass .dialpad-body { display: none; }
+.dialpad-container .dialpad-body { 
+  z-index: 999999;
+   display: block;
+   float: left;
+   width: 100%;
+   position: relative;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+   height: calc(100% - 40px);
+   margin: 10px 0 0 0;
+  }
+.dial-panel { padding: 0; float: left; width: 100%; background-color: #fff; }
+.contact-panel { float: left; width: 100%; }
+.contact-panel ul li { width: 50%; float: left; }
+.contact-panel .tab-content { background-color: #000; text-align: left; float: left; width: 100%;height: 366px;overflow-y:scroll }
+.contact-panel .tab-content h5 { color: #000; line-height: 20px; font-size: 14px; float: left; margin: 0; }
+.contact-panel .tab-content .call-time  { padding: 5px 0 0 0px; font-size: 9px; color: #d8d8d8; float: left; width: 100%; }
+.contact-panel .tab-content .contact-number-details  h5 { line-height: 35px; }
+
+.contact-panel .search-field .form-contol { background-color: #353c48; }
+
+.contact-panel .tab-content h5 .callee { color: #fff; font-size: 12px; }
+.search-field .form-control { text-align: center !important; font-weight: 400; color: #000; border-radius: 0; text-align: left; border: 0; border-bottom: 1px solid rgba(227, 227, 227, 0.26); font-size: 20px !important; letter-spacing: 0.7px !important; height: 50px !important; line-height: 50px !important; background-color: #dadada; width: 290px; margin: 15px auto; }
+
+.search-field .form-control {
+    text-align: center !important;
+    font-weight: 400;
+    color: #eef1f5;
+    border-radius: 0;
+    text-align: left;
+    border: 0;
+    border-bottom: 1px solid rgba(227, 227, 227, 0.26);
+    font-size: 20px !important;
+    letter-spacing: 0.7px !important;
+    height: 50px !important;
+    line-height: 50px !important;
+    background-color: #000000;
+    width: 290px;
+    margin: 15px auto;
+}
+
+
+.search-field .form-control .nav-tabs > li > a { color: #fff; }
+.search-field .nav-tabs > li.active > a, .search-field .nav-tabs > li.active > a:hover, .search-field .nav-tabs > li.active > a:focus { background-color: transparent; }
+.login-dialer .search-field .form-control { padding: 0; margin: auto; }
+.dial-panel { background-color: transparent; }
+
+
+.contact-panel .nav-tabs > li > a { background-color: transparent; border-bottom: 1px solid #e9e9e9 }
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus { background-color: transparent; color: #22b7bb; border-bottom: 1px solid transparent; border-top: 0.11rem solid #22b7bb; background-color: transparent; }
+.nav-tabs { border-bottom: 0;   -moz-box-shadow: 0 1px 4px rgba(215, 215, 215, 0.23);  -webkit-box-shadow: 0 1px 4px rgba(215, 215, 215, 0.23); box-shadow: 0 1px 4px rgba(215, 215, 215, 0.23); }
+
+.contact-panel  .nav-tabs > li > a { color: #fff; margin: 0; border-radius: 0; }
+.contact-list-item { padding: 6px 20px; float: left; width: 100%; border-bottom: 1px solid rgba(233, 233, 233, 0.41);cursor: pointer }
+..contact-list-item:nth-of-type(odd) { background-color: #f2f2f2 }
+.contact-list-item:last-child { border-bottom: 0; }
+/*.dial-panel  .botrow { padding: 35px 0 0 0; }
+.botrow,  .botrow  { padding: 3px 0; height: 65px; background-color: #242426; float: left; right: 25px; width: 320px; position: fixed; bottom: 0; display: block;} */
+.botrow,  .botrow  {
+padding: 0;
+    background-color: transparent;
+    float: left;
+}
+.dig { width: 50%; }
+.dig.list_details{
+  width: 33.3%;
+}
+.dial-panel .dig { width: 25%; }
+.dial-panel .dig.list_details{
+  width: 33.3%;
+}
+.botrow .dig { position: relative; }
+.dial-panel .dig.list_details.call_tranfer_btn_hold
+{
+  width: 100%;
+}
+.dialpad-wrapper { float: left; width: 100%; position: relative; }
+.user-img  { float: left; }
+.user-img img { margin-right: 25px; float: left; width: 35px; height: 35px; border-radius: 50%; }
+.contact-number-details { float: left; width: 100%; }
+.call-screen-panel { float: left; width: 100%; position: relative; height: auto; }
+
+.active-call { border-radius: 15px 15px 0 0; background-color: #eef1f5; float: left; width: 100%; padding: 0;  }
+.active-call {
+    border-radius: 15px 15px 0 0;
+    background-color: #000000;
+    float: left;
+    width: 100%;
+    padding: 0;
+}
+.active-call img { width: 50px; height: 50px; border-radius: 50%; }
+.call-options, .call-options ul { float: left; width: 100%; }
+.call-options ul { margin: 0; padding: 0; }
+.call-options { margin: 35px 0 0 0; }
+.call-options ul li { width: 50%; float: left; text-align: center; list-style-type: none; }
+.call-options ul li i { font-size: 40px; }
+.call-options ul li a:hover, .call-options ul li a:focus { color: #0884a3; }
+.call-duration { color: #200e0e; float: left; width: 100%; font-size: 12px; }
+button.fl { float: left; }
+.callType img { width: 15px; height: 15px;  }
+.callType { margin-right: 8px; }
+.dialpad-body h4, .dialpad-body h3, .dialpad-body h5, .dialpad-body h6 { color: #353c48; font-weight: 500; }
+.dialpad-body h4, .dialpad-body h3, .dialpad-body h5, .dialpad-body h6 {
+    color: #f1f7ff;
+    font-weight: 500;
+}
+.dialpad-body h4 b { font-size: 16px; font-weight: 600; }
+
+.call-action-label { padding: 0 0 12px 0; float: left; width: 100%; color: #f1f7ff; font-size: 12px; }
+.digit:active .call-action-label, .dig:active .call-action-label { color: #333; }
+#call_duration { color: #353c48; font-weight: 600; padding: 3px 0 5px 0; }
+
+.search-field ::-webkit-input-placeholder {
+  color: #000;
+  font-size: 18px;
+  font-weight: 300;
+}
+.search-field ::-moz-placeholder {
+  color: #000;
+  font-size: 18px;
+  font-weight: 300;
+}
+.search-field :-ms-input-placeholder {
+  color: #000;
+  font-size: 18px;
+  font-weight: 300;
+}
+.search-field ::placeholder {
+  color: #000;
+  font-size: 18px;
+  font-weight: 300;
+}
+
+
+/** Scroll Bar **/
+::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 6px #e3e3e3;
+  border-radius: 10px;
+  background-color: #e3e3e3;
+}
+
+::-webkit-scrollbar
+{
+  width: 3px;
+  background-color: #d9d9d9;
+}
+
+::-webkit-scrollbar-thumb
+{
+  border-radius: px;
+  -webkit-box-shadow: inset 0 0 6px #d9d9d9; 
+  background-color: #e3e3e3;
+}
+/** Scroll Bar End **/
+
+/** **/
+
+/** **/
+
+/** Plus icon **/
+.closed .vertical {
+ transition: all 0.5s ease-in-out;
+ transform: rotate(-90deg);
+}
+.closed .horizontal {
+ transition: all 0.5s ease-in-out;
+ transform: rotate(-90deg);
+ opacity: 1;
+}
+.opened {
+ opacity: 1;
+}
+.opened .vertical {
+ transition: all 0.5s ease-in-out;
+ transform: rotate(90deg);
+}
+.opened .horizontal {
+ transition: all 0.5s ease-in-out;
+ transform: rotate(90deg);
+ opacity: 0;
+}
+.circle-plus .circle { position: relative; width: 33px; height: 33px; border-radius: 100%; float: right; margin-bottom: 15px; background-color: #fff; 
+ -webkit-box-shadow: 0 0 5px 2px #e3e3e3;
+ -moz-box-shadow: 0 0 5px 2px #e3e3e3;
+ box-shadow: 0 0 5px 2px #e3e3e3;
+}
+.circle-plus .circle .horizontal {
+ position: absolute;
+ background-color: #22b7bb;
+ width: 20px;
+ height: 3px;
+ right: 7px;
+ top: 1.17em;
+}
+.circle-plus .circle .vertical {
+ position: absolute;
+ background-color: #22b7bb;
+ width: 3px;
+ height: 20px;
+ right: 15px;
+ top: 7px;
+}
+
+/** Plus icon End **/
+
+.sipModal .form-control { float: none; margin: 0 auto; max-width: 312px; height: 35px; line-height: 35px; }
+.sipModal label { font-size: 14px; font-weight: 500; padding: 0px 0 0 20px; margin-bottom: 0; line-height: 35px; }
+.sipModal .form-control:focus { box-shadow: none; border: 1.2px solid #22b7bb; }
+.form-group:last-child { margin-bottom: 0px; }
+
+.backArrow { position: absolute; cursor: pointer; left: 25px; top: 15px }
+.backArrow i { color: #464eb8; font-size: 24px; }
+
+span.no_record {
+  color: #ccc;
+  line-height: 200px;
+  text-align: center;
+  width: 100%;
+  display: inline-block;
+}
+.btn-view-disable{
+  opacity: 0.5;
+  cursor:not-allowed;
+}
+
+.circle-plus { position : fixed; right: 50px; bottom: 35px; }
+.pulse_bg img { width: 35px; height: 35px;  animation: zoominoutsinglefeatured 2s infinite ;margin:12px }
+.circle-plus:hover .pulse_bg { background-color: #e7e7e7; }
+.call-time { font-size: 9px; color: #fff; float: left; width: 100%; padding: 4px 0 0 23px; position: relative; }
+.call-time:before { left: 0; top: 5px; position: absolute; content: ""; width: 12px; height: 12px; background-size: cover; }
+.call-time.outgoing-call:before { background-image: url(src/assets/images/outgoing-call.svg); }
+.call-time.incoming-call:before { background-image: url(src/assets/images/incoming-call.svg); }
+
+
+@keyframes zoominoutsinglefeatured {
+  0% {
+    transform: scale(1.1,1.1);
+  }
+  50% {
+    transform: scale(1,1);
+  }
+  100% {
+    transform: scale(1.1,1.1);
+  }
+}
+
+/*  Pulse */
+.pulse_bg {
+  position:relative;
+  top: 0; left: 12px; bottom: 0; right: 0;
+  width: 65px;
+  height: 65px;
+  background-color: #fff;
+  margin: auto; 
+  z-index: 1;
+  border-radius:50%;
+  -webkit-box-shadow: 0 0 5px 2px #e2e2e2;
+  -moz-box-shadow: 0 0 5px 2px #e2e2e2;
+  box-shadow: 0 0 5px 2px #e2e2e2;
+  text-align: center;
+  line-height: 65px;
+  transform: rotate(90deg); 
+  transition: all 0.75s;
+}
+.dark .pulse_bg { box-shadow: none; }
+
+.pulse1 {
+  position:absolute;
+  width: 90px;
+  height: 90px;
+  margin: auto; 
+  top: 0; left: 0; bottom: 0; right: 25px;
+  z-index: 1;
+  opacity: 0;
+  border: 3px solid rgba(255,255,255,.1);
+  
+  -webkit-animation: pulsejg1 1.25s linear infinite;
+  -moz-animation: pulsejg1 1.25s linear infinite;
+  animation: pulsejg1 1.25s linear infinite;
+  -webkit-border-radius: 999px;
+  -moz-border-radius: 999px;
+  border-radius: 999px;
+  -webkit-box-shadow: inset 0px 0px 15px 10px rgba(0, 0, 0, .6);
+  -moz-box-shadow: inset 0px 0px 15px 10px rgba(0, 0, 0, .6);
+  box-shadow: inset 0px 0px 15px 10px rgba(0, 0, 0, .6);
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.pulse2 {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  margin: auto; 
+  top: 0; left: 0; bottom: 0; right: 25px;
+  z-index: 2;
+  opacity: 0;
+  border: 1px solid rgba(255,255,255,0);
+  -webkit-animation: pulsejg2 1.25s linear infinite;
+  -moz-animation: pulsejg2 1.25s linear infinite;
+  animation: pulsejg2 1.25s linear infinite;
+  -webkit-border-radius: 999px;
+  -moz-border-radius: 999px;
+  border-radius: 999px;
+  -webkit-box-shadow: inset 0px 0px 12px 5px rgba(255, 255, 255, .8);
+  -moz-box-shadow: inset 0px 0px 12px 5px rgba(255, 255, 255, .8);
+  box-shadow: inset 0px 0px 12px 5px rgba(255, 255, 255, .8);
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@-webkit-keyframes pulsejg1 {
+  0% {
+    -webkit-transform: scale(.6);
+    opacity: 0;
+  }
+
+  50% {
+    -webkit-transform: scale(.6);
+    opacity: 0;
+  }
+
+  60% {
+    -webkit-transform: scale(.9);
+    opacity: .2;
+  }
+
+  70% {
+    -webkit-transform: scale(1.1);
+    opacity: .35;
+  }
+
+  80% {
+    -webkit-transform: scale(1.25);
+    opacity: .2;
+  }
+
+  100% {
+    -webkit-transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes pulsejg1 {
+  0% {
+    -moz-transform: scale(.6);
+    opacity: 0;
+  }
+
+  50% {
+    -moz-transform: scale(.6);
+    opacity: 0;
+  }
+
+  60% {
+    -moz-transform: scale(.9);
+    opacity: .2;
+  }
+
+  70% {
+    -moz-transform: scale(1.1);
+    opacity: .35;
+  }
+
+  80% {
+    -moz-transform: scale(1.25);
+    opacity: .2;
+  }
+
+  100% {
+    -moz-transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+@keyframes pulsejg1 {
+  0% {
+    transform: scale(.6);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(.6);
+    opacity: 0;
+  }
+
+  60% {
+    transform: scale(.9);
+    opacity: .1;
+  }
+
+  70% {
+    transform: scale(1.1);
+    opacity: .25;
+  }
+
+  80% {
+    transform: scale(1.25);
+    opacity: .1;
+  }
+
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes pulsejg2 {
+  0% {
+    -webkit-transform: scale(.6);
+    opacity: 0;
+  }
+
+  40% {
+    -webkit-transform: scale(.8);
+    opacity: .05;
+  }
+
+  50% {
+    -webkit-transform: scale(1);
+    opacity: .1;
+  }
+
+  60% {
+    -webkit-transform: scale(1.1);
+    opacity: .3;
+  }
+
+  80% {
+    -webkit-transform: scale(1.2);
+    opacity: .1;
+  }
+
+  100% {
+    -webkit-transform: scale(1.3);
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes pulsejg2 {
+  0% {
+    -moz-transform: scale(.6);
+    opacity: 0;
+  }
+
+  40% {
+    -moz-transform: scale(.8);
+    opacity: .05;
+  }
+
+  50% {
+    -moz-transform: scale(1);
+    opacity: .1;
+  }
+
+  60% {
+    -moz-transform: scale(1.1);
+    opacity: .3;
+  }
+
+  80% {
+    -moz-transform: scale(1.2);
+    opacity: .1;
+  }
+
+  100% {
+    -moz-transform: scale(1.3);
+    opacity: 0;
+  }
+}
+
+@keyframes pulsejg2 {
+  0% {
+    transform: scale(.6);
+    opacity: 0;
+  }
+
+  40% {
+    transform: scale(.8);
+    opacity: .05;
+  }
+
+  50% {
+    transform: scale(1);
+    opacity: .1;
+  }
+
+  60% {
+    transform: scale(1.1);
+    opacity: .3;
+  }
+
+  80% {
+    transform: scale(1.2);
+    opacity: .1;
+  }
+
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+}
+
+
+/* Ringing Phone */
+.call-icon { padding: 20px 0 115px 0; float: left; width: 100%; }
+.ringing_phone {
+ display: inline-block;
+ color: #fff;
+ border-radius: 50%;
+ background: #4CAF50;
+ padding: 8px 5px 0 0;
+ width: 60px;
+ height: 60px;
+ text-align: center;
+ position: relative;
+ margin: 0 10px; 
+ animation: shake 2s infinite cubic-bezier(.36, .07, .19, .97) both;
+}
+
+.ringing_phone i { transform: rotate(80deg); /*animation: shake 2s infinite cubic-bezier(.36, .07, .19, .97) both;*/ line-height: 55px; font-size: 32px; }
+.ringing_phone:after,
+.ringing_phone:before {
+  position: absolute;
+  content: '';
+  opacity: 0;
+  border-right: 2px solid #ffffff;
+  transform: rotate(-40deg);
+  border-radius: 50%;
+}
+.outgoing-call .ringing_phone:before { width: 25px; height: 25px; left: 40%; top: 20%; animation: fadeInTwo 1.5s infinite both; }
+.outgoing-call .ringing_phone:after {  animation: fadeInTwo 2s infinite both; width: 20px; height: 20px; left: 35%; top: 30%; animation: fadeInTwo 1.5s infinite both; }
+.incoming-call .ringing_phone:after {  animation: fadeInOne 1.5s infinite both; width: 25px; height: 25px; top: 11%; left: 50%; transform: rotate(133deg);  }
+.incoming-call .ringing_phone:before { animation: fadeInOne 1.5s infinite both;  width: 18px; height: 18px;  top: 9%; left: 62%; transform: rotate(130deg);  }
+.contact-number-details h5 { color: #353c48; font-size: 16px; margin: 8px 0; float: left; font-weight: 400; text-align: left; }
+
+@keyframes shake {
+  5%,
+  45% {
+    transform: rotate3d(0, 0, 1, -7deg);
+  }
+  10%,
+  40% {
+    transform: rotate3d(0, 0, 1, 7deg);
+  }
+  15%,
+  25%,
+  35% {
+    transform: rotate3d(0, 0, 1, -7deg);
+  }
+  20%,
+  30% {
+    transform: rotate3d(0, 0, 1, 7deg);
+  }
+  51% {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+  100% {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+}
+
+@keyframes fadeInOne {
+  45% {
+    opacity: 0
+  }
+  100% {
+    opacity: 1
+  }
+}
+
+@keyframes fadeInTwo {
+  55% {
+    opacity: 0
+  }
+  100% {
+    opacity: 1
+  }
+}
+
+#queue_green{
+  color:#4caf50;
+
+  
+}
+#queue_red{
+
+  color:#ea2626;
+}
+.contact-panel ul li{
+  padding:10px 15px 
+}
+
+.contact-panel ul.nav.nav-tabs a{
+  padding:10px 15px 
+  
+}
+.call-extra-featurs { padding: 0; /*padding: 30px 0 0 0;*/ float: left; width: 100%; }
+.call-extra-featurs i { font-size: 22px; color: #353c48; height: 28px; float: left; width: 100%; text-align: center; }
+.call-extra-featur li.active a { background-color: red; }
+.call-extra-featurs a i.muted-btn { color: #ff0000 }
+.call-extra-featurs a.rotate i { -webkit-transform: scaleX(-1); transform: scaleX(-1); }
+.call-extra-featurs a{
+  font-size:22px;
+}
+
+
+
+#mute_btn .unmuted-btn, #muted_btn .muted-btn,#call_tranfer .call_tranfer_btn,#call_tranfer .send_dtmf,#call_tranfer_hold .call_tranfer_btn_hold{
+  display:block;
+}
+#muted_btn .unmuted-btn, #mute_btn .muted-btn,#call_tranfer .call_tranfer_btn_hold, #call_tranfer .send_dtmf, #call_tranfer_hold .call_tranfer_btn, #call_tranfer_hold .send_dtmf, #call_send_dtmf .call_tranfer_btn, #call_send_dtmf .call_tranfer_btn_hold,#call_tranfer_hold .call_backspace, #call_tranfer_hold .call_dialpad_hide{
+  display:none
+}
+.dialpad-container .call-screen-panel h5{
+  font-size: 14px;
+  padding: 0;
+  font-weight: 500;
+}
+/*.botrow .dig{
+padding : 15px;
+}*/
+.queue_login{
+  padding:7px !important; 
+}
+.card { 
+  background-color: #eef1f5;
+}
+
+.webrtc_dailpad { position: fixed; }
+
+.dialpad-header { height: 40px; line-height: 40px; background: #000; border-radius: 15px 15px 0 0; padding: 0 15px 0 0; }
+.dialpad-container.login-dialer .dialpad-header { padding: 0; margin: 5px 0 10px 0; }
+.dialpad-header-left { width: 50%; float: left; }
+.dialpad-header-right { width: 50%; float: right; }
+.dialpad-max-min-icon { width: 50px; float: left; }
+.dialpad-max-min-icon .fas { color: #feebe3; font-size: 16px; }
+.dialpad-header-logo { margin-left: 15px; float: left; }
+.status-indication-bar { margin: 12px 0 12px 15px; float: right; width: 18px; height: 18px; }
+.on-hook-status { background-color: #33f247; }
+.off-hook-status { background-color: #ff0000; }
+.queue-login-status { padding: 12px 3px 0 3px; float: right; line-height: 0; }
+.dialpad-container.login-dialer .queue-login-status { padding: 4px 0 0 0; }
+.queue-login-status .fas { font-size: 18px }
+.QueueLogIn .fas  { color: #059cd4; }
+.pulse_bg i {
+  font-size: 28px;
+  -webkit-animation: phone-ring-animation 2s infinite;
+  -webkit-animation-iteration-count:infinite;
+  padding: 16px;
+}
+.pulse_bg { color: #fff; }
+.theme-white .pulse_bg { color: #fff; }
+.theme-white .on-hook-status { background-color: #44d81b; }
+.call-status-small { z-index: 9999; font-size: 10px; position: absolute; top: 30px; right: 0px; font-weight: 600; text-transform: uppercase; color: #fff; padding: 6px 12px; }
+.call-status-small p { z-index: 999;  margin: 0; color: #727272 }
+.login-dialer .call-status-small { padding: 0; }
+
+.btn-icon-name { display: none; position: absolute; font-size: 10px; left: 0; right: 0; bottom: 15px; margin: 0 auto; }
+
+
+@-webkit-keyframes phone-ring-animation{
+  0% {
+  }
+  10% {
+    -webkit-transform:rotate(5deg);
+    -moz-transform:rotate(5deg);
+    -o-transform:rotate(5deg); 
+  }
+  20% {
+    -webkit-transform:rotate(-5deg);
+    -moz-transform:rotate(-5deg);
+    -o-transform:rotate(-5deg);       
+  }
+  30% {
+    -webkit-transform:rotate(5deg);
+    -moz-transform:rotate(5deg);
+    -o-transform:rotate(5deg);       
+  }
+  40% {
+    -webkit-transform:rotate(-5deg);
+    -moz-transform:rotate(-5deg);
+    -o-transform:rotate(-5deg);       
+  }
+  50% {
+    -webkit-transform:rotate(5deg);
+    -moz-transform:rotate(5deg);
+    -o-transform:rotate(5deg);       
+  }
+  60% {
+    -webkit-transform:rotate(-5deg);
+    -moz-transform:rotate(-5deg);
+    -o-transform:rotate(-5deg);       
+  }
+  70% {
+    -webkit-transform:rotate(5deg);
+    -moz-transform:rotate(5deg);
+    -o-transform:rotate(5deg);       
+  }
+  80% {
+    -webkit-transform:rotate(-5deg);
+    -moz-transform:rotate(-5deg);
+    -o-transform:rotate(-5deg);       
+  }
+  90% {
+    -webkit-transform:rotate(5deg);
+    -moz-transform:rotate(5deg);
+    -o-transform:rotate(5deg);       
+  }
+  100% {
+    -webkit-transform:rotate(-5deg);
+    -moz-transform:rotate(-5deg);
+    -o-transform:rotate(-5deg);       
+  }
+}
+
+/*******************************
+Color Theme
+********************************/
+.circle-plus:hover .pulse_bg { background-color: #333; }
+.dark .circle-plus:hover .pulse_bg { background-color: #fff; color: #333; }
+.theme-white .pulse_bg { background-color: #318CE7; }
+
+.theme-cyan .dial-panel, .theme-cyan .dialpad-container,
+.theme-cyan .pulse_bg { background-color: #a87ebb; }
+.theme-cyan #call-action-btn-group #call i { color: #fff; }
+
+.theme-cyan .botrow, .theme-cyan .dialpad-header { background-color: #8f5fa4; }
+.theme-cyan #call-action-btn-group { background-color: #a87ebb; }
+
+.theme-cyan .QueueLogIn .fas { color: #fff; }
+.theme-cyan .QueueLogOut .fas { color: #555555; }
+.theme-cyan .dialpad-container .dialpad-body, .theme-cyan .search-field .form-control, .theme-cyan .contact-panel .tab-content { background-color: #a87ebb; }
+.theme-cyan .dialpad-max-min-icon .fas { color: #fff; }
+.theme-cyan .search-field ::-webkit-input-placeholder { color: #000; }
+
+.theme-cyan .dial-panel { background-color: #a87ebb;  }
+.theme-cyan #queue_green, .theme-cyan .call-duration { color: #fff; }
+.theme-cyan .callType img { background: #fff; padding: 3px; border-radius: 3px; }
+.theme-cyan .contact-list-item { border-bottom: 1px solid rgb(233, 233, 233); }
+.theme-cyan .tab-pane, .theme-cyan .active-call { background-color: #a87ebb; }
+.theme-cyan .digit:active, .theme-cyan .dig:active { background-color: #fff; }
+.theme-cyan .contact-panel .tab-content .call-time { color: #ffffff; }
+
+/******************************
+Theme Purple
+*******************************/
+.theme-purple .dial-panel, .theme-purple .dialpad-container, .theme-purple .botrow, .theme-purple .search-field .form-control,
+.theme-purple .pulse_bg { background-color: #318CE7; }
+
+.theme-purple .QueueLogIn .fas { color: #fff; }
+.theme-purple .QueueLogOut .fas { color: #555555; }
+.theme-purple .dialpad-header, .theme-purple .botrow { background: #2872bc; }
+.theme-purple .dialpad-max-min-icon .fas { color: #fff; }
+.theme-purple .search-field ::-webkit-input-placeholder { color: #000; }
+
+.theme-purple .dial-panel { background-color: #318CE7;  }
+.theme-purple #queue_green, .theme-purple .call-duration { color: #fff; }
+.theme-purple .dialpad-close-icon i { color: #318CE7;  }
+.theme-purple .contact-panel .tab-content { background-color:  #318CE7; }
+.theme-purple .callType img { background: #fff; padding: 3px; border-radius: 3px; }
+.theme-purple .contact-list-item { border-bottom: 1px solid rgb(233, 233, 233); }
+.theme-purple .tab-pane, .theme-purple .active-call { background-color:  #318CE7; }
+.theme-purple .digit:active, .theme-purple .dig:active { background-color: #fff; }
+.theme-purple .contact-panel .tab-content .call-time { color: #ffffff; }
+
+.theme-purple .selectgroup-input:focus+.selectgroup-button, .theme-purple .selectgroup-input:checked+.selectgroup-button { background-color: #318CE7; }
+
+/******************************
+Theme Red
+*******************************/
+.theme-red .dial-panel, .theme-red .dialpad-container, .theme-red .botrow,  .theme-red .search-field .form-control,
+.theme-red .pulse_bg { background-color: #b69292; }
+
+.theme-red .QueueLogIn .fas { color: #fff; }
+.theme-red .QueueLogOut .fas { color: #555555; }
+.theme-red .dialpad-header, .theme-red .botrow { background: #ac8383; }
+.theme-red .dialpad-max-min-icon .fas { color: #fff; }
+.theme-red .search-field ::-webkit-input-placeholder { color: #000; }
+.theme-red .dial-panel { background-color: #b69292;  }
+.theme-red #queue_green, .theme-red .call-duration { color: #fff; }
+.theme-red .dialpad-close-icon i { color: #b69292; }
+.theme-red .contact-panel .tab-content { background-color: #dfb1b1; }
+.theme-red .callType img { background: #fff; padding: 3px; border-radius: 3px; }
+.theme-red .contact-list-item { border-bottom: 1px solid rgb(233, 233, 233); }
+.theme-red .tab-pane, .theme-red .active-call { background-color:  #b69292; }
+.theme-red .digit:active, .theme-red .dig:active { background-color: #fff; }
+.theme-red .contact-panel .tab-content .call-time { color: #ffffff; }
+/******************************
+Theme Orange
+*******************************/
+.theme-orange .dial-panel, .theme-orange .dialpad-container, .theme-orange .botrow, .theme-orange .search-field .form-control,
+.theme-orange .pulse_bg { background-color: #DE5D83; }
+.theme-orange .QueueLogIn .fas { color: #fff; }
+.theme-orange .QueueLogOut .fas { color: #555555; }
+.theme-orange .dialpad-header, .theme-orange .botrow { background: #ca496f; }
+.theme-orange .dialpad-max-min-icon .fas { color: #fff; }
+.theme-orange .search-field ::-webkit-input-placeholder { color: #fff; }
+.theme-orange .dial-panel { background-color: #DE5D83;  }
+.theme-orange #queue_green, .theme-orange .call-duration { color: #fff; }
+.theme-orange .dialpad-close-icon i { color: #DE5D83;  }
+.theme-orange .contact-panel .tab-content { background-color:  #DE5D83; }
+.theme-orange .callType img { background: #fff; padding: 3px; border-radius: 3px; }
+.theme-orange .contact-list-item { border-bottom: 1px solid rgb(233, 233, 233); }
+.theme-orange .tab-pane, .theme-orange .active-call { background-color:  #DE5D83; }
+.theme-orange .digit:active, .theme-orange .dig:active { background-color: #fff; }
+.theme-orange .contact-panel .tab-content .call-time { color: #ffffff; }
+
+/******************************
+Theme Green
+*******************************/
+.theme-green .dial-panel, .theme-green .dialpad-container, .theme-green .botrow, .theme-green .search-field .form-control,
+.theme-green .pulse_bg { background-color: #BD33A4; }
+
+.theme-green .QueueLogIn .fas { color: #fff; }
+.theme-green .QueueLogOut .fas { color: #555555; }
+.theme-green .dialpad-header, .theme-green .botrow { background: #a72d91; }
+.theme-green .dialpad-max-min-icon .fas { color: #fff; }
+.theme-green .search-field ::-webkit-input-placeholder { color: #000; }
+
+.theme-green .dial-panel { background-color: #BD33A4;  }
+.theme-green #queue_green, .theme-green .call-duration { color: #fff; }
+.theme-green .dialpad-close-icon i { color: #BD33A4;  }
+.theme-green .contact-panel .tab-content { background-color:  #BD33A4; }
+.theme-green .callType img { background: #fff; padding: 3px; border-radius: 3px; }
+.theme-green .contact-list-item { border-bottom: 1px solid rgb(233, 233, 233); }
+.theme-green .tab-pane, .theme-green .active-call { background-color:  #BD33A4; }
+.theme-green .digit:active, .theme-green .dig:active { background-color: #fff; }
+.theme-green .contact-panel .tab-content .call-time { color: #ffffff; }
+/******************************
+Theme Black
+*******************************/
+
+.theme-black .QueueLogIn .fas { color: #fff; }
+.theme-black .QueueLogOut .fas { color: #8e8e8e; }
+.theme-black .dialpad-header { border-bottom: 1px solid #e3e3e3; }
+.theme-black .botrow { background: #4a4d53; }
+.theme-black .dialpad-max-min-icon .fas { color: #333; }
+.theme-black .search-field ::-webkit-input-placeholder { color: #000; }
+
+.theme-black .dial-panel { background-color: #353c48;  }
+.theme-black #queue_green, .theme-black .call-duration { color: #fff; }
+.theme-black .dig:active#queue_green { color: #000; }
+.theme-black .dialpad-close-icon i { color: #353c48;  }
+.theme-black .contact-panel .tab-content { background-color:  #fff; border-radius: 15px; }
+.theme-black .callType img { background: #fff; padding: 3px; border-radius: 3px; }
+.theme-black .contact-list-item { border-bottom: 1px solid rgb(233, 233, 233); }
+.theme-black .tab-pane, .theme-black .active-call { background-color:  #ffffff; }
+/*.theme-black #call:hover i, .theme-black #call:hover { color: #ffffff; background-color: #000000; }*/
+.theme-black .digit:active, .theme-black .dig:active { background-color: #fff; }
+.theme-black .contact-panel .tab-content .call-time { color: #000; }
+
+.digit:active .sub, .dig:active .sub { color: #000000 }
+
+.dialpad-active-state { float: left; width: 100%; position: relative; }
+.hook-header.on {
+  z-index: 9999;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  cursor: pointer;
+  border-radius: 15px 15px 0 0;
+  padding: 0;
+  text-align: center;
+  position: absolute;
+  left: 25px;
+  top: 20px;
+  line-height: 35px;
+  float: left;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #66bb6a;
+}
+.hook-header.off {
+  z-index: 9999;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  cursor: pointer;
+  border-radius: 15px 15px 0 0;
+  padding: 0;
+  text-align: center;
+  position: absolute;
+  left: -10px;
+  top: -15px;
+  line-height: 35px;
+  float: left;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #ff0000;
+}
+div#call.dig.off {
+  pointer-events: none;
+}
+
+
+.dialpad-container.enable-fullscreen-dialpad { bottom: 0; right: 25px; margin: 0 auto; }
+.dialpad-container.enable-fullscreen-dialpad .botrow {  border-radius: 0 ;  right: 25px; bottom: 0; }
+.dialpad-minmize-icon { display: none; }
+.dialpad-container.enable-fullscreen-dialpad .dialpad-minmize-icon { display: block; }
+.dialpad-container.enable-fullscreen-dialpad .dialpad-maximize-icon { display: none; }
+
+.rotate-full { transform: rotate(90deg); }
+.has-img.digit:active { background-color: #252525; outline: 0; }
+#call-action-btn-group { padding: 0;  }
+.add-wrap-icon { position: absolute; font-size: 16px; color: #feebe3; right: 80px; top: 1px; }
+
+
+
+
+.theme-black .QueueLogIn .fas.mainQ {
+  color: #68cc35ed !important;
+}
+
+.theme-black .QueueLogOut .fas.mainQ {
+  color: #ef1a1a;
+}
+
+.theme-cyan .QueueLogIn .fas.mainQ { color: #68cc35ed; }
+.theme-cyan .QueueLogOut .fas.mainQ{ color: #ef1a1a; }
+
+.forwardDialpadPanel  .digit, .forwardDialpadPanel  .dig { text-align: center; }
+.forwardDialpadPanel .modal-dialog { max-width: 320px; }
+.forwardDialpadPanel .modal-body  { border-radius: 15px; background-color: #353c48;  padding: 0; }
+.forwardDialpadPanel .dial-panel { padding-bottom: 25px;  width: 270px; }
+.forwardDialpadPanel .modal-content { background-color: #353c48; border-radius: 15px; }
+.row.noMargin { margin: 0; }
+.forwardDialpadPanel .search-field input { border-radius: 0; }
+.forwardDialpadPanel .dial-panel { border-radius: 0 0 15px 15px; }
+.forwardDialpadPanel .search-field input { padding: 0; }
+.forwardDialpadPanel .dialpad-header { color: #fff; text-align: center; }
+.forwardDialpadPanel { transition: all 1s; bottom: 30px; position: fixed; width: 270px;     z-index: 9999999999999999;}
+.forwardDialpadPanel.active { transition: all 1s; right: 380px; }
+.forwardDialpadPanel.hide-fwd-dialpad { z-index: -999999999; transition: all 1s; right: 70px; }
+.forwordDialPad .dialpad-header label { font-weight: 600; }
+
+
+
+.tab-content-data.queuedetail select.w-full option{background-color: #353c48;}
+.tab-content-data.queuedetail select.w-full{width: 100%;background-color: transparent;color:#fff;border-radius: 5px;}
+.tab-content-data.queuedetail h3.title-section{font-size: 20px;text-align: left;padding: 0px 15px;}
+.tab-content-data.queuedetail .relative.w-full{margin: 0px 15px;}
+.tab-content-data.queuedetail .table tr{color: #fff;}
+.tab-content-data.queuedetail h4{font-size: 16px;text-align: left;padding: 0px 15px;}
+.tab-content-data.queuedetail .table td, .table th{padding: 10px;}
+.tab-content-data.queuedetail .buttons{float: right;margin-top: 30px;}
+
+
+
+form.queuedetail select.w-full option{background-color: #353c48;}
+form.queuedetail select.w-full{width: 100%;background-color: #afafb0;color:#fff;border-radius: 5px;}
+form.queuedetail h3.title-section{font-size: 20px;text-align: left;padding: 0px 15px;}
+form.queuedetail .relative.w-full{margin: 0px 15px;}
+form.queuedetail .table tr{color: #fff;}
+form.queuedetail h4{font-size: 16px;text-align: left;padding: 0px 15px;}
+form.queuedetail .table td, .table th{padding: 10px;}
+form.queuedetail .buttons{display: flex;align-items: center;height: 65px;justify-content: space-between;margin: 0px 15px;}
+form.queuedetail h3.title-section span {padding-right: 70px;}
+form.queuedetail .table-responsive{height:250px;}
+
+
+.loader{
+  color: #ffffff;
+  font-size: 20px;
+  margin: 142px auto;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-animation: load4 1.3s infinite linear;
+  animation: load4 1.3s infinite linear;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+}
+@-webkit-keyframes load4 {
+  0%,
+  100% {
+    box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;
+  }
+  12.5% {
+    box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+  }
+  25% {
+    box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+  }
+  37.5% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
+  }
+  50% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
+  }
+  62.5% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
+  }
+  75% {
+    box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
+  }
+  87.5% {
+    box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
+  }
+}
+@keyframes load4 {
+  0%,
+  100% {
+    box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;
+  }
+  12.5% {
+    box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+  }
+  25% {
+    box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+  }
+  37.5% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
+  }
+  50% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
+  }
+  62.5% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
+  }
+  75% {
+    box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
+  }
+  87.5% {
+    box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
+  }
+}
+.contact-back-arrow a#trans_contact-tab{padding: 0px 20px}
+.contact-back-arrow a#trans_contact-tab .dig.list_details{padding: 0px 20px 8px 0px;}
+.contact-back-arrow{border-bottom: 1px solid #ddd!important;}
+
+/************************
+Teams Integration
+*************************/
+.search-field {
+  position: relative;
+}
+.number-delete { 
+  position: absolute;
+  right: 0;
+  top: 12px;
+  right: 45px;
+  cursor: pointer;
+}
+span.call-btn-icon {
+  display: block;
+    background: #464EB8;
+    width: 48px;
+    height: 48px;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 50%;
+    color: #fff;
+    line-height: 46px;
+}
+.search-field .form-control:focus {
+  box-shadow: none;
+}
+.left-column {
+  background-color: #eef1f5;
+  float: left;
+  width: 320px;
+  position: fixed;
+  left: 0;
+  height: 100%;
+  box-shadow: 2px 3px 4px rgb(209 209 209);
+}
+.right-column {
+  float: right;
+  width: calc(100% - 320px);
+  background-color: #f1f7ff;
+  padding: 30px;
+}
+.list-group-item { 
+  border: none;
+}
+.list-group {
+  border-radius: unset;
+}
+.dialpad-tab {
+  float: left;
+  width: 100%;
+}
+.tab-pane {
+  background-color: transparent;
+}
+.dialpad-list-group {
+  margin: 0;
+  padding: 0;
+}
+.dialpad-list-group li {
+  float: left;
+  width: 100%;
+  list-style-type: none;
+}
+.dialpad-list-group li a.active {
+  /* background-color: #eef1f5; */
+  background-color: #464EB8;
+  color: #ffffff;
+}
+.dialpad-list-group li.active a, .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+  color: #000;
+  border: 0;
+}
+.dialpad-list-group li a {
+  width: 100%;
+  float: left;
+  padding: 6px 0 6px 15px;
+  font-weight: 500;
+  color: #000;
+  font-size: 14px;
+}
+.dialpad-list-group li a:hover {
+  text-decoration: none;
+}
+.app-logo {
+  float: left;
+  width: 100%;
+  text-align: center;
+  padding: 25px 0;
+}
+.app-logo.logo-black{background-color: #000;}
+.app-logo img {
+  max-width: 100%;
+  height: 40px;
+  /*margin: 10px auto 0 auto;*/
+}
+.card {
+  border: 0;
+  -webkit-box-shadow: 0 0 5px 2px #f8f8f8;
+  -moz-box-shadow: 0 0 5px 2px #f8f8f8;
+  box-shadow: 0 0 5px 2px #f8f8f8;
+}
+.contact-round-holder {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    line-height: 38px;
+    text-align: center;
+    background-color: #eaecef;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+.addAgent {
+    display: none;
+}
+.btn-primary, .btn-primary.disabled, .btn-primary:disabled {
+  background-color: #0069d9;
+  border-color: hsl(211, 100%, 43%);
+}
+.btn-primary i {
+  transform: rotate(0deg);
+  transition: all 1s;
+}
+.btn-primary:hover {
+  box-shadow: 0 0 0 0.2rem rgb(38 143 255 / 50%);
+}
+.btn-primary:hover i {
+  transform: rotate(360deg);
+  transition: all 1s;
+}
+.btn-success, .btn-success:disabled, .btn-sucess.disabled {
+  background-color: #3c8d40;
+    border-color: #3c8d40;
+}
+.btn-danger, .btn-danger.disabled, .btn-danger:disabled {
+  background-color: #fc9494;
+  border-color: #fc9494;
+}
+.btn-circle {
+  position: absolute;
+  right: 0;
+  top: 26px;
+  border-radius: 50% 0 0 50%;
+  font-size: 12px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  line-height: 25px;
+}
+ul.contact-details-list {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  float: left;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+.contact-details-list li {
+  list-style-type: none;
+  float: left;
+}
+.card-body {
+  padding: 1.2rem;
+}
+.contact-card-buttons {
+  float: left;
+  width: 100%;
+  text-align: center;
+}
+.contact-card-info p {
+  font-size: 11px;
+}
+.contact-card-info h6 {
+  font-size: 14px;
+}
+.card-call-btn {
+
+}
+.card-call-btn .badge {
+  font-weight: 500;
+}
+.add-wrap-icon.dialer-modal-popup {
+  color: #8f4c9b;
+    right: 68px;
+    font-size: 20px;
+}
+.col-xl-3.col-lg-4.col-md-6.card-holder {
+  padding: 0 8px;
+}
+.common-logout { position: fixed; right: 25px; top: 30px; }
+.common-logout .badge, .call-table .badge { padding: 6px 15px; border-radius: 15px; }
+.btn-success, .btn-success:disabled, .btn-sucess.disabled { background-color: #3cb371; border-color: #3cb371; }
+
+.contact-list .row .card-holder:nth-child(5n+1) .contact-round-holder {
+  background-color: rgb(98 211 122 / 75%)
+}
+.contact-list .row .card-holder:nth-child(5n+2) .contact-round-holder {
+  background-color: hsl(357deg 97% 65% / 50%);
+}
+.contact-list .row .card-holder:nth-child(5n+3)  .contact-round-holder {
+  background-color: rgb(240 205 97 / 84%)
+}
+.contact-list .row .card-holder:nth-child(5n+4) .contact-round-holder {
+  background-color: rgb(33 150 243 / 64%);
+}
+.contact-list .row .card-holder:nth-child(5n+5) .contact-round-holder {
+  background-color: rgb(173 255 47 / 68%);
+}
+.card-holder .card {
+  border: 1px solid #ededed;
+ }
+
+/************************
+Teams Integration End
+*************************/
+
+.flex-align-center {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 100vh;
+  flex-direction: column;
+}
+
+/************************************
+Custom Tabs
+************************************/
+#custom-tabs {
+position: relative;
+float: left;
+width: 100%;
+}
+
+#custom-tabs .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #f3f3f3;
+    background-color: transparent;
+    border-color: transparent transparent #e3e3e3;
+    border-bottom: 2px solid #e3e3e3;
+  
+}
+#custom-tabs .nav-tabs .nav-link {
+    border: 1px solid transparent;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    color: #000;
+    font-size: 14px;
+    background: #ededed;
+    margin: 0 6px 0 0;
+    font-weight: 500;
+}
+#custom-tabs .nav-tabs .nav-link:last-child {
+  margin-right: 0;
+}
+#custom-tabs .nav-tabs {
+  border-bottom: 1px solid #e3e3e3;
+}
+
+#custom-tabs .nav-tabs .nav-item.show .nav-link, #custom-tabs .nav-tabs .nav-link.active {
+  border-bottom: 3px solid #464EB8;
+  background-color: #464EB8;
+  color: #ffffff;
+}
+.call-timespan {
+  float: right;
+  font-size: 11px;
+  color: #565555;
+  font-style: italic;
+}
+
+
+/************************************
+Table CSS
+**************************************/
+.call-table {
+  width: 100%;
+}
+.call-type-icon {
+  height: 20px;
+}
+.call-table td {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 25px;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgb(0 0 0 / 1%);
+}
+
+.call-table tr td:first-child {
+  width: 50px;
+}
+.call-table tr td:nth-of-type(2) {
+  width: 100px;
+}
+
+/************************************
+Table CSS End
+**************************************/
+.dig.call_accept{
+  background-color: #00800087;
+}
+
+.dig.call_accept i{
+    color: #fff;
+}
+
+div#endCall {
+  background-color: #dc3545;
+}
+div#endCall i{
+    color: #fff;
+}
+div#call {
+  background-color: #00800087;
+    color: #fff;
+}
+
+.login-dialer div#call {
+  background-color: transparent;
+    color: #fff;
+}
+
+#custom-tabs .tab-pane {
+  height: 80vh;
+  overflow-y: scroll;
+}
+
+.call-screen-panel div#call.dig {
+  background-color: #464EB8;
+}
+
+#dialpad_layout .call-screen-panel .botrow {
+  padding-top: 155px;
+}
+#dialpad_layout .call-screen-panel.call_id_4 .botrow {
+  padding: 0 !important;
+}
+
+#dialpad_layout .call-screen-panel.call_id_2 .botrow {
+  padding: 185px 0 0 0;
+}
+#dialpad_layout .call-screen-panel.call_id_1 .botrow {
+  padding: 0;
+  margin: 0 !important;
+  width: 300px;
+}
+#dialpad_layout .call-screen-panel.call_id_1 .botrow .dig.call_accept {
+  border-right: 5px solid #eef1f5;
+}
+
+div#endCall {
+  border-left: 5px solid #eef1f5;
+}
+
+i.fa.fa-th {
+  color: #464eb8;
+}
+
+.addAgent table.table.table-bordered.table-striped.table-md {
+    background: #9f9f9fcc;
+}
+.contact-card-info p{
+  width: 105px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.contact-round-holder {
+    text-transform: uppercase;
+}
+input.btn.btn-outline-secondary {
+    margin-right: 10px;
+}
+
+.forwardDialpadPanel.hide-fwd-dialpad{background: #000;border-radius: 15px;}
+.forwardDialpadPanel input#makeCallForwordNumber{width: 100%;}
+.forwardDialpadPanel .digit.has-img{width: auto;padding: 10px 18px;}
+.forwardDialpadPanel.hide-fwd-dialpad{z-index: 2}
+.forwardDialpadPanel.hide-fwd-dialpad {left: 330px;}
+#dialpad_layout .call-screen-panel.call_id_3 .botrow {
+  padding: 15px 0 0 0 !important;
+}
+div#userList{height: 255px;overflow-y: scroll;}
+.contact-number-details{display: flex;align-items: center;}
+.contact-number-details h5{color: #fff;}
+.user-img img{width: 25px;height: 25px;}
+.contact-number-details h5{font-size: 12px;}
+.contact-panel .tab-content{overflow-y: auto;height: auto;}
+div#recentCalls{height: 310px;overflow-y: scroll;}
+.contact-panel .tab-content h5{color: #fff;}
+.call-duration{color: #ddd;}
+
+
+@media screen and (min-width: 1300px) {
+  .contact-round-holder { margin-right: 15px; }
+
+}
+
+
+@media screen and (max-width: 991px) {
+  .right-column, .dialpad-tab { display: none; }
+  .left-column, .login-dialer.dialpad-container .row { width: 100%; }
+  .dialpad-container.login-dialer { /*max-height: 500px;*/ border: 1px solid #e3e3e3; /*max-width: 320px;*/ height: auto; width: 100%; top: 2px; left:0; right: 0; margin: 0 auto; } 
+  .left-column { height: auto; }
+  .app-logo { display: none; }
+  .number-delete { right: 15px; }
+  .login-panel .col-md-6 { flex: none; max-width: 100%; width: 100%; }
+  .flex-align-center { display: block; height: auto; }
+  .login-panel { margin: 60px 0 0 0; }
+
+}
+@media screen and (max-width: 991px) {
+  .common-logout{display: none;}
+  .dialpad-container.login-dialer .dialpad-header{height: 120px;line-height: 110px; margin: 10px 0 10px 0;}
+  .dial-panel .digit{ font-size: 90px;font-weight: 700;}
+  .digit .sub{font-size: 40px;}
+  div#dialpad_layout input#dialpad_number{height: 250px!important;width: 100%;font-size: 90px!important;}
+  div#number_dialer{  max-width: 100%;width: 100%;min-height: 100%;}
+  .container, .container-md, .container-sm{max-width: 100%;}
+  span.call-btn-icon{width: 170px;height: 170px;display: flex;}
+  .digit{padding: 40px 22px;}
+  .dialpad-header-logo img, .number-delete.has-img img{height: 100px;}
+  div#queueStatsu h1{font-size: 70px!important;padding-right: 20px;line-height: 1;}
+  .status-indication-bar{width: 58px;height: 58px;}
+  .call-status-small{top: 55px;font-size: 22px;}
+  .call-status-small p{color: #fff;}
+  .dialpad_layout .number-delete{top: 80px;}
+  .forwardDialpadPanel{width: 100%;}
+  .forwardDialpadPanel.hide-fwd-dialpad{left: 0;}
+  .forwardDialpadPanel .dial-panel{width: 100%;}
+  .forwardDialpadPanel .dial-panel .dig.list_details i{font-size: 90px;}
+  .forwardDialpadPanel span.call-btn-icon{align-items: center;justify-content: center;}
+  .forwardDialpadPanel span.call-btn-icon img, .forwardDialpadPanel .digit.has-img img{height: 90px;}
+  .forwardDialpadPanel ul#myTab{display: flex;align-items: center;}
+  .forwardDialpadPanel li.nav-item{padding: 0px 70px;}
+  .forwordDialPad .dialpad-header label{font-size: 46px;}
+  .forwardDialpadPanel .dialpad-close-icon{width: 65px;height: 65px;right: 10px;}
+  .forwardDialpadPanel .dialpad-close-icon i{font-size: 58px;}
+  .forwardDialpadPanel input#makeCallForwordNumber {height: 140px!important;font-size: 90px!important;}
+  .forwardDialpadPanel .dialpad-header{padding: 15px 15px 15px 0;}
+
+  .call-screen-panel .active-call img{width: 300px;height: 300px;}
+  .dialpad-body .call-screen-panel .active-call h4 b{font-size: 54px;margin-top: 25px;margin-bottom: 20px;display: block;}
+  .dialpad-container .call-screen-panel h5{font-size: 52px;margin-bottom: 20px;}
+  .call-screen-panel .ringing_phone{width: 170px; height: 170px;margin:0 auto;display: flex;align-items: center;justify-content: center;}
+  .call-screen-panel .ringing_phone i{font-size: 90px;}
+  .call-screen-panel  .call-icon{padding: 115px 0 115px 0;}
+  .call-screen-panel .backArrow i{font-size: 90px;line-height: normal;}
+  .call-screen-panel .botrow .dig{height: 140px;}
+  .active-call{height: 1200px;}
+  .call-screen-panel div#call i.fa.fa-phone, .call-screen-panel .botrow .dig i.fa.fa-th{font-size: 80px;line-height: unset;}
+  #dialpad_layout .call-screen-panel.call_id_2 .botrow{padding: 960px 0 0 0;}
+  .call-screen-panel .call-action-label{font-size: 40px;padding: 0 0 70px 0;}
+  .call-extra-featurs i{height: 160px;font-size: 110px;}
+  #dialpad_layout .call-screen-panel.call_id_3 .botrow, #dialpad_layout .call-screen-panel.call_id_4 .botrow{padding: 230px 0 0 0!important;}
+  .call-screen-panel div#call_duration{font-size: 52px;}
+  .call-screen-panel div#call.dig{font-size: 90px;line-height: normal;}
+  .dial-panel div#call-action-btn-group{display: flex;align-items: center;}
+  .dial-panel .digit.has-img img{height: 90px;}
+  .dial-panel i.fa.rotate-full.fa-phone{font-size: 90px;}
+  .contact-number-details .user-img img{width: 80px;height: 80px;}
+  .contact-number-details h5{font-size: 42px;}
+  .contact-list-item{padding: 20px 20px;}
+  /*.left-column{position: relative;}*/
+  div#userList{height: 1268px;overflow-y: scroll;}
+  .search-field .form-control{height: 120px!important;width: 100%;}
+  .contact-panel i{font-size: 90px!important;}
+  .contact-panel .botrow{display: flex;align-items: center;padding: 50px 0;}
+  .contact-panel .dig.list_details{height: 100px;}
+  input#dialpad_number_contscts{font-size: 70px!important;}
+  #dialpad_layout .call-screen-panel.call_id_1 .botrow{width: 100%;}
+  .call-screen-panel.call_id_1 div#endCall{display: flex;align-items: center;justify-content: center;}
+  .call-screen-panel.call_id_1 div#endCall i.fas.fa-phone-slash{font-size: 80px;}
+  .call-screen-panel.call_id_1 .botrow{padding-top: 230px!important;}
+  form.queuedetail h3.title-section{font-size: 60px;margin-bottom: 30px;}
+  form.queuedetail h4{font-size: 50px;}
+  input.btn.btn-outline-secondary,input.btn.btn-primary.update_agent{font-size: 44px;}
+  form.queuedetail select.w-full{font-size: 32px;margin: 30px 0;width: 50%;display: block;}
+  form.queuedetail select.w-full option{font-size: 10px;}
+  form.queuedetail .buttons{justify-content: flex-end;}
+  .contact-panel .tab-content{height: auto;overflow-y: auto;}
+  div#recentCalls{height: 1380px;overflow-y: scroll;}
+  .contact-panel .tab-content .call-time{font-size: 26px;}
+  .callType img{width: 70px;height: 45px;}
+
+}
+@media screen and (max-width: 970px) {
+  .dialpad-header-logo img, .number-delete.has-img img{height: 35px;}
+  div#queueStatsu h1{ font-size: 25px!important;padding-right: 0;line-height: 1.2;}
+  .status-indication-bar{width: 20px;height: 20px;}
+  .dialpad-container.login-dialer .dialpad-header{line-height: 40px;height: 60px;}
+  .call-status-small {top: 38px;font-size: 10px;}
+  div#dialpad_layout input#dialpad_number {height: 70px!important;width: 100%;font-size: 60px!important;}
+  .dialpad_layout .number-delete {top: 16px;}
+  .dial-panel .digit{font-size: 30px;}
+  .digit .sub{font-size: 14px;}
+  .digit {padding: 10px 22px;}
+  .dial-panel i.fa.rotate-full.fa-phone{font-size: 30px;}
+  span.call-btn-icon{width: 80px;height: 80px;}
+  .contact-number-details .user-img img {width: 30px;height: 30px;}
+  .contact-number-details h5 {font-size: 18px;}
+  .search-field .form-control{height: 60px!important}
+  input#dialpad_number_contscts {font-size: 26px!important;}
+  .contact-list-item {padding: 8px 20px;}
+  .contact-panel i {font-size: 30px!important;}
+  div#userList{height: 400px;overflow-y: scroll;}
+  .contact-panel .botrow{padding: 10px 0px;}
+  .contact-panel .dig.list_details{height: 40px;}
+  .call-screen-panel .active-call img{width: 80px;height: 80px;}
+  .dialpad-body .call-screen-panel .active-call h4 b{font-size: 20px;margin-top: 15px;margin-bottom: 10px;}
+  .dialpad-container .call-screen-panel h5 {font-size: 18px;margin-bottom: 10px;}
+  #dialpad_layout .call-screen-panel.call_id_2 .botrow{padding: 120px 0 0 0;}
+  .call-screen-panel .botrow .dig{height: 70px;}
+  .call-screen-panel div#call.dig {font-size: 34px;}
+  .call-screen-panel div#call i.fa.fa-phone, .call-screen-panel .botrow .dig i.fa.fa-th{line-height: 2;}
+  .active-call {height: 360px;}
+  .contact-panel .tab-content .call-time{font-size: 14px;}
+  .callType img {width: 40px;height: 20px;}
+  div#recentCalls {height: 480px;overflow-y: scroll;}
+  .call-screen-panel div#call_duration {font-size: 18px;}
+  .call-extra-featurs i {height: 40px;font-size: 36px;}
+  .call-screen-panel .call-action-label {font-size: 14px;padding: 0 0 20px 0;}
+  .call-screen-panel div#call i.fa.fa-phone, .call-screen-panel .botrow .dig i.fa.fa-th{font-size: 30px;}
+  #dialpad_layout .call-screen-panel.call_id_3 .botrow, #dialpad_layout .call-screen-panel.call_id_4 .botrow {padding: 120px 0 0 0!important;}
+  form.queuedetail h3.title-section{font-size: 30px;margin-bottom: 10px;}
+  form.queuedetail h4 {font-size: 22px;}
+  form.queuedetail select.w-full{font-size: 16px;width: 60%;}
+  input.btn.btn-outline-secondary, input.btn.btn-primary.update_agent{font-size: 18px;}
+  form.queuedetail select.w-full option{font-size: 14px;}
+  .forwardDialpadPanel .dial-panel .dig.list_details i{font-size: 30px;}
+  .forwardDialpadPanel span.call-btn-icon img, .forwardDialpadPanel .digit.has-img img{height: 30px;}
+  .dial-panel .digit.has-img img{height: 30px;}
+  div#transfer span.call-btn-icon{width: 60px;height: 60px;}
+  .forwardDialpadPanel li.nav-item{padding: 0px 24px;}
+  .forwardDialpadPanel input#makeCallForwordNumber {height: 80px!important;font-size: 30px!important;}
+  .forwordDialPad .dialpad-header label{font-size: 20px;}
+  .forwardDialpadPanel .dialpad-close-icon i{font-size: 20px;padding: auto;}
+  .forwardDialpadPanel .dialpad-close-icon{width: 30px;height: 30px;}
+  .dial-panel .digit.has-img img{height: 30px;}
+  div#call span.call-btn-icon {width: 60px;height: 60px;}
+  .call-screen-panel .ringing_phone i{font-size: 30px;}
+  .call-screen-panel .call-icon {padding: 50px 0 50px 0;}
+  .call-screen-panel .ringing_phone{width: 60px;height: 60px;}
+  .call-screen-panel.call_id_1 div#endCall i.fas.fa-phone-slash{font-size: 30px;line-height: unset;}
+  .call-screen-panel.call_id_1 .botrow {padding-top: 130px!important;}
+  .call-screen-panel.call_id_1 .botrow .dig{height: 60px;}
+  .call-screen-panel.call_id_1 i.fa.fa-phone{line-height: unset;}
+
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation : portrait){
+  .call-screen-panel .active-call img{width: 200px;height: 200px;}
+  .dialpad-body .call-screen-panel .active-call h4 b{font-size: 36px;margin-top: 10px;margin-bottom: 10px;}
+  .dialpad-container .call-screen-panel h5{font-size: 34px;margin-bottom: 10px;}
+  .call-screen-panel div#call_duration{font-size: 32px;}
+  .call-extra-featurs i{height: 100px;font-size: 80px;}
+  .call-screen-panel .call-action-label{font-size: 30px;padding: 0 0 45px 0;}
+  .active-call{height: 765px;}
+  .dialpad-header-logo img, .number-delete.has-img img{height: 70px;}
+  div#queueStatsu h1{font-size: 52px!important;}
+  .status-indication-bar{width: 45px; height: 45px;}
+  .call-status-small{font-size: 18px;top: 36px;}
+  div#dialpad_layout input#dialpad_number{height: 150px!important;font-size: 60px!important;}
+  .dialpad_layout .number-delete{top: 40px;}
+  .dial-panel .digit{font-size: 60px;}
+  .digit .sub{font-size: 30px;}
+  .digit{padding: 32px 22px;}
+  span.call-btn-icon{width: 140px;height: 140px;}
+  .dial-panel i.fa.rotate-full.fa-phone{font-size: 60px;}
+  .contact-panel i{font-size: 60px!important;}
+  .call-screen-panel.call_id_2 .botrow .dig{display: flex;align-items: center;justify-content: center;}
+  .call-screen-panel.call_id_2 div#call.dig{display: flex;align-items: center;justify-content: center;}
+  .contact-panel .dig.list_details{height: 70px;}
+  .contact-panel .botrow{padding: 40px 0;}
+  div#userList{height: 880px;}
+  .contact-number-details .user-img img{width: 60px;height: 60px;}
+  .contact-number-details h5{color: #fff;}
+  .call-screen-panel .ringing_phone{width: 140px;height: 140px;}
+  .call-screen-panel .ringing_phone i{font-size: 70px;}
+  #dialpad_layout .call-screen-panel.call_id_1 .botrow{width: 100%;}
+  .call-screen-panel.call_id_1 div#endCall{display: flex;align-items: center;justify-content: center;}
+  .call-screen-panel.call_id_1 div#endCall i.fas.fa-phone-slash{font-size: 80px;}
+  .call-screen-panel.call_id_1 .botrow{padding-top: 230px!important;}
+  .dial-panel .digit.has-img img{height: 60px;}
+  form.queuedetail h3.title-section{font-size: 50px;}
+  form.queuedetail select.w-full{width: 45%}
+  div#recentCalls{height: 998px;overflow-y: scroll;}
+}
+@media screen and (max-width: 970px) {
+  table.call-table {
+    border: 0;
+  }
+
+  table.call-table caption {
+    font-size: 1.3em;
+  }
+  
+  table.call-table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  
+  table.call-table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  
+  table.call-table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  
+  table.call-table td::before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  table.call-table td:last-child {
+    border-bottom: 0;
+  }
+}
+
+
+@media screen and (min-width: 992px) and (max-width: 1299px) {
+  .app-logo img { margin: 0 auto; height: 30px; }
+  .login-dialer .digit, .login-dialer .dig { padding: 10px 22px; }
+}
+

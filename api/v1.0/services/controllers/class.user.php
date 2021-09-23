@@ -4345,4 +4345,92 @@ public function update_agent_group($data){
 	}  
   }
 // login from erp code ends here	
+
+//SSO Codes
+	
+public function ms_sso($email){
+	$get_agent_qry = "select * from user where company_name='cal4care' and email_id='$email'";
+	$user_details = $this->fetchData($get_agent_qry,array());
+	$user_id = $user_details['user_id'];
+	$admin_id = $user_details['user_type'] == '2' ? $user_details['user_id'] : $user_details['admin_id'];
+	$admin_id = $admin_id == '1' ? $admin_id = $user_id : $admin_id = $admin_id;
+
+	if($email =='mr@cal4care.com'){
+	}elseif($user_details['user_type'] != '2'){
+		$omni_users = "SELECT omni_users FROM ms_sso_authentication where admin_id='$admin_id'";
+		$omni_users =$this->fetchOne($omni_users,array());	
+		$omni_users = explode(',',$omni_users);
+		if (in_array($user_id, $omni_users)){
+			$valid_user = $user_id;
+		}else{
+			$valid_user = "";
+			echo "Not an Valid User"; exit;
+		}
+	} 
+
+
+	$qry = "select * from user where user_id='$user_id'";
+	$result = $this->fetchData($qry, array());
+	$company = $result['company_name'];
+	$uname = $result['user_name'];
+	$password = $result['password'];
+	$simple_string = '{"company":"'.$company.'","username":"'.$uname.'","password":"'.$password.'"}'; 
+	$ciphering = "AES-128-CTR"; 
+	$iv_length = openssl_cipher_iv_length($ciphering); 
+	$options = 0; 
+	$encryption_iv = '1234567891011121'; 
+	$encryption_key = "GeeksforGeeks"; 
+	$encryption = openssl_encrypt($simple_string, $ciphering, $encryption_key, $options, $encryption_iv); 
+	echo $encryption; exit;
+	
+}
+
+public function mss_sso_teams($email){
+	$get_agent_qry = "select * from user where company_name='cal4care' and email_id='$email'";
+	$user_details = $this->fetchData($get_agent_qry,array());
+	$user_id = $user_details['user_id'];
+	$admin_id = $user_details['user_type'] == '2' ? $user_details['user_id'] : $user_details['admin_id'];
+	$admin_id = $admin_id == '1' ? $admin_id = $user_id : $admin_id = $admin_id;
+	if($user_details['user_type'] != '2'){
+		$omni_users = "SELECT teams_users FROM ms_sso_authentication where admin_id='$admin_id'";
+		$omni_users =$this->fetchOne($omni_users,array());	
+		$omni_users = explode(',',$omni_users);
+		if (in_array($user_id, $omni_users)){
+			$valid_user = $user_id;
+		}else{
+			$valid_user = "";
+			echo "Not an Valid User"; exit;
+		}
+	} 
+
+
+	$qry = "select * from user where user_id='$user_id'";
+	$result = $this->fetchData($qry, array());
+	$company = $result['company_name'];
+	$uname = $result['user_name'];
+	$password = $result['password'];
+	$simple_string = '{"company":"'.$company.'","username":"'.$uname.'","password":"'.$password.'"}'; 
+	$ciphering = "AES-128-CTR"; 
+	$iv_length = openssl_cipher_iv_length($ciphering); 
+	$options = 0; 
+	$encryption_iv = '1234567891011121'; 
+	$encryption_key = "GeeksforGeeks"; 
+	$encryption = openssl_encrypt($simple_string, $ciphering, $encryption_key, $options, $encryption_iv); 
+	echo $encryption; exit;
+	
+}	
+public function ms_sso_omni($login){
+	$login = base64_decode($login);
+	$encryption = $login;
+	$ciphering = "AES-128-CTR"; 
+	$iv_length = openssl_cipher_iv_length($ciphering); 
+	$options = 0; 
+	$decryption_iv = '1234567891011121'; 
+	$decryption_key = "GeeksforGeeks"; 
+	$decryption=openssl_decrypt ($encryption, $ciphering, $decryption_key, $options, $decryption_iv); 
+	$decryption =  $array = json_decode($decryption, true);
+	$tarray = json_encode($decryption);           
+	print_r($tarray);exit;
+}	
+//Ms-SSO Codes End
 }

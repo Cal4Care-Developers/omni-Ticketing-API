@@ -494,5 +494,19 @@ if($action == "erp_mobile_user"){
 		$data = array("extension"=>$ext_no);
     $result_data["result"]["data"] = $user->erp_mobile_user($data);
 }
-
+if($action == "mss_sso"){    
+    //$data = array("license_key"=>$license_key,"company_name"=>$company_name,"password"=>$password,"user_name"=>$user_name);
+//echo $email; exit;
+$result_data["result"]["data"] = $user->ms_sso($email);
+}
+if($action == "mss_sso_teams"){    
+    //$data = array("license_key"=>$license_key,"company_name"=>$company_name,"password"=>$password,"user_name"=>$user_name);
+//echo $email; exit;
+$result_data["result"]["data"] = $user->mss_sso_teams($email);
+}
+if($action == "ms_sso_omni"){    
+    //$data = array("license_key"=>$license_key,"company_name"=>$company_name,"password"=>$password,"user_name"=>$user_name);
+//echo $login; exit;
+$result_data["result"]["data"] = $user->ms_sso_omni($login);
+}
 ?>

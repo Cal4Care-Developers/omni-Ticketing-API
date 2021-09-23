@@ -35,7 +35,12 @@ if($api_type == "web"){
             $access_page = APPLICATION_PATH."contact.php";
              
 		break;
-			 
+		case 'zohocrm':
+
+			include_once CONTROLLER_PATH.'class.zohocrm.php';
+			$access_page = APPLICATION_PATH."zohocrm.php"; 
+			
+	   break;
 		case 'agents':  
 			
 			 
@@ -478,7 +483,10 @@ elseif($_REQUEST['element_data']['rootfrom'] == 'mobile_apps') {
         $access_page = APPLICATION_PATH."mobile_app.php";
 }
 
-
+elseif($_REQUEST['operation'] == 'zohocrm') {			 
+	include_once CONTROLLER_PATH.'class.zohocrm.php';
+	$access_page = APPLICATION_PATH."zohocrm.php"; 
+}
 
 require_once($access_page);	
 
