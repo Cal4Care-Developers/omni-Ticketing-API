@@ -1,6 +1,6 @@
 {
-    "name": "digitalocean-apps/Omni-API",
-    "description": "Omni Ticketing API",
+    "name": "digitalocean-apps/sample-php",
+    "description": "Sample PHP application for App Platform",
     "type": "project",
     "require": {
         "alrik11es/cowsayphp": "^1.2"
