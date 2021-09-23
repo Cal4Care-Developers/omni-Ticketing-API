@@ -2007,6 +2007,8 @@ public  function whatsapp_account_settings($data){
 	
 function welcome_email($chat_data){        
       extract($chat_data);    
+		$host_name='https://'.$_SERVER['HTTP_HOST'];
+
       $chat_details_qry = "select * from user where user_id='$user_id' AND email_id='$email'";
       $chat_details = $this->fetchData($chat_details_qry, array());
 	  $count = $this->dataRowCount($chat_details_qry, array());	
@@ -2034,7 +2036,7 @@ if($count > 0){
     }
     else {
 		
-      $email_url='https://omni-ticketing-xcupb.ondigitalocean.app/#/';
+      $email_url='https://'.$host_name.'/#';
     }
    // echo $email_url;exit;
 	  $admin_qry = "select name from admin_details where admin_id='$aid'";

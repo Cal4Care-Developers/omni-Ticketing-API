@@ -1355,7 +1355,7 @@ function pd_zipfile_archive_update2($pd_zipfile_path,$user_id,$cmp_id,$cmp_pre,$
 	}
 	
 	function fb_notification_curl($token,$chat_id,$chat_msg){
-		//$host_name='https://'.$_SERVER['HTTP_HOST'];
+		$host_name='https://'.$_SERVER['HTTP_HOST'];
 		     /*$url = "https://fcm.googleapis.com/fcm/send";    
    $serverKey = 'AAAAlrml_wQ:APA91bEMvlOCRrVf66vl3JT9yegGdm1nu3Zx_xcoa58ZAMdP9xn0yHRNiYeVHiRTmzXGGC5oedHZY6kUpZ8WEXdZzcYGO_NFBGK0DRljHLyUY0hBSLqq-kDzRQ00oa7a4863bztXSRva';
     $title = "New Facebook message";
@@ -1380,7 +1380,7 @@ function pd_zipfile_archive_update2($pd_zipfile_path,$user_id,$cmp_id,$cmp_pre,$
     }
     curl_close($ch);*/
 		
-$host_name='https://omni-ticketing-xcupb.ondigitalocean.app';
+//$host_name='https://omni-ticketing-xcupb.ondigitalocean.app';
 $click_url = $host_name.'/#/fb-chat'; 
 $title = "New Facebook message";
 $socket = "https://myscoket.mconnectapps.com:4031";
@@ -1458,12 +1458,12 @@ $socket = "https://myscoket.mconnectapps.com:4031";
     curl_close($ch);
 	}
 	function telegram_notification_curl($users,$chat_id,$chat_msg){
-$host_name='https://omni-ticketing-xcupb.ondigitalocean.app';
+//$host_name='https://omni-ticketing-xcupb.ondigitalocean.app';
 		    
   
     $title = "New Telegram message";   
 	//$chat_id =base64_encode($chat_id);
-$click_url = 'https://omni-ticketing-xcupb.ondigitalocean.app/#/tele-chat?c='.$chat_id;
+$click_url = 'https://'.$host_name.'/#/tele-chat?c='.$chat_id;
 $title =  $chat_msg;
 $socket = "https://myscoket.mconnectapps.com:4031";
       $options = [
@@ -1698,10 +1698,10 @@ function wpn_curl($token,$chat_id,$chat_msg,$wpinst_id){
 	$chat_id =base64_encode($chat_id);
 
 	
-	$click_url = 'https://omni-ticketing-xcupb.ondigitalocean.app/#/wp-unoff?c='.$chat_id.'&wp_id='.$wpinst_id;
+	$click_url = 'https://'.$host_name.'/#/wp-unoff?c='.$chat_id.'&wp_id='.$wpinst_id;
 	$chat_id =base64_decode($chat_id);  
 			
-$host_name='https://omni-ticketing-xcupb.ondigitalocean.app';
+//$host_name='https://omni-ticketing-xcupb.ondigitalocean.app';
 $title =  $chat_msg;
 $socket = "https://myscoket.mconnectapps.com:4031";
       $options = [

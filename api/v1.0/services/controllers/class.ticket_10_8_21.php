@@ -2960,8 +2960,8 @@ public function getTicketThread($ticket_id){
 	extract($data);
 
 
-		
-	$host_name='https://omni-ticketing-xcupb.ondigitalocean.app';
+	$host_name='https://'.$_SERVER['HTTP_HOST'];
+	//$host_name='https://omni-ticketing-xcupb.ondigitalocean.app';
 
     $title = $text;
 	$click_url = $host_name.'/#/ticketing-system-new';

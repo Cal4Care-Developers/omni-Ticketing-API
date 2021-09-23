@@ -1459,11 +1459,20 @@ extract($data);
 if($forward_from == ''){				  
   preg_match_all("/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i", $from, $from_array);
   $get_domain = explode('@',$from_array[0][0]);
-  $customer_domain = $get_domain[1];
+  if($get_domain[1] != 'gmail.com' || $get_domain[1] != 'yahoo.com' || $get_domain[1] != 'hotmail.com'){	
+   $customer_domain = $get_domain[1];
+  }else{
+   $customer_domain = '';	  
+  }
 }else{				  
   preg_match_all("/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i", $forward_from, $from_array);
   $get_domain = explode('@',$from_array[0][0]);
   $customer_domain = $get_domain[1];
+  if($get_domain[1] != 'gmail.com' || $get_domain[1] != 'yahoo.com' || $get_domain[1] != 'hotmail.com'){	
+   $customer_domain = $get_domain[1];
+  }else{
+   $customer_domain = '';	  
+  }	
 }
 $rrFrom	= $from;
 //$explode = str_replace(' ', '', $forward_from);
@@ -3557,8 +3566,8 @@ public function updateTicketSignature($data){
 public function makeSignatureDefault($data){
 	extract($data);
 	//print_r($data); exit;
-	$update_data = $this->db_query("UPDATE email_signatures SET is_default='0' where admin_id='$admin_id' and user_id='$user_id'",  array());
-	$qry_result = $this->db_query("UPDATE email_signatures SET is_default='$is_default' where sig_id='$signature_id' and admin_id='$admin_id' and user_id='$user_id'",  array());
+	//$update_data = $this->db_query("UPDATE email_signatures SET is_default='0' where admin_id='$admin_id' and user_id='$user_id'",  array());
+	$qry_result = $this->db_query("UPDATE email_signatures SET is_default='$is_default' WHERE sig_id='$signature_id' and admin_id='$admin_id' and user_id='$user_id'",  array());
 	$update_data = $qry_result = 1 ? 1:0;
 	return $update_data;
 }
@@ -3855,8 +3864,8 @@ public function getTicketThread($ticket_id){
 	extract($data);
 
 
-		
-	$host_name='https://omni-ticketing-xcupb.ondigitalocean.app';
+		$host_name='https://'.$_SERVER['HTTP_HOST'];
+	//$host_name='https://omni-ticketing-xcupb.ondigitalocean.app';
 
     $title = $text;
 	$click_url = $host_name.'/#/ticketing-system-new';
@@ -4089,8 +4098,7 @@ $res= 'done';
 			$agentresult = $this->fetchData($agentqry, array());	
 			$token = $agentresult['notification_code'];
 		
-	$host_name='https://assaabloyccuat.mconnectapps.com';
-
+    $host_name='https://'.$_SERVER['HTTP_HOST'];
     $title = $text;
 	$click_url = $host_name.'/#/ticketing-system-new';
 		 
@@ -4696,6 +4704,7 @@ $ticket_no = $this->db_insert($qry, array());
     }
 	function checking_email($data){
 	  extract($data);
+	  $host_name='https://'.$_SERVER['HTTP_HOST'];
 	  if($user_type==2){	
 	   $dep_query = "SELECT dept_id,department_users FROM `departments` WHERE admin_id='$admin_id'";
 	  }else{
@@ -4720,7 +4729,8 @@ $ticket_no = $this->db_insert($qry, array());
 		  $agentname = $user_row[$j]['agent_name'];
 		  $pimage = $user_row[$j]['profile_image'];
 		  if($pimage==''){
-		    $profileimage = 'https://omni-ticketing-xcupb.ondigitalocean.app/assets/images/user.jpg';
+			  
+		    $profileimage = 'https://'.$host_name.'/assets/images/user.jpg';
 		  }else{
 			$profileimage = $pimage;  
 		  }
@@ -5768,6 +5778,8 @@ $result = $this->dataFetchAll($detail_qry, array());
 	public function ticket_dashboard($data)
 	{
 	  extract($data);//print_r($data);exit;
+		$host_name='https://'.$_SERVER['HTTP_HOST'];
+
 	  if($user_type==2){	
 	   $dep_query = "SELECT dept_id,department_users FROM `departments` WHERE admin_id='$admin_id'";
 	  }else{
@@ -5795,7 +5807,7 @@ $result = $this->dataFetchAll($detail_qry, array());
 		  $agentname = $user_row[$j]['agent_name'];
 		  $pimage = $user_row[$j]['profile_image'];
 		  if($pimage==''){
-		    $profileimage = 'https://omni-ticketing-xcupb.ondigitalocean.app/assets/images/user.jpg';
+		    $profileimage = 'https://'.$host_name.'/assets/images/user.jpg';
 		  }else{
 			$profileimage = $pimage;  
 		  }
@@ -5819,6 +5831,7 @@ $result = $this->dataFetchAll($detail_qry, array());
 
 public function ticket_dashboard_dateFilter($data){
 	extract($data);
+	$host_name='https://'.$_SERVER['HTTP_HOST'];
 	  if($user_type==2){	
 	   $dep_query = "SELECT dept_id,department_users FROM `departments` WHERE admin_id='$admin_id'";
 	  }else{
@@ -5843,7 +5856,7 @@ public function ticket_dashboard_dateFilter($data){
 		  $agentname = $user_row[$j]['agent_name'];
 		  $pimage = $user_row[$j]['profile_image'];
 		  if($pimage==''){
-		    $profileimage = 'https://omni-ticketing-xcupb.ondigitalocean.app/assets/images/user.jpg';
+		    $profileimage = 'https://'.$host_name.'/assets/images/user.jpg';
 		  }else{
 			$profileimage = $pimage;  
 		  }
@@ -5869,6 +5882,8 @@ public function ticket_dashboard_dateFilter($data){
 }
 	
 public function ticket_dashboard_customFilter($data){
+	$host_name='https://'.$_SERVER['HTTP_HOST'];
+
 	extract($data);
 	  if($user_type==2){	
 	   $dep_query = "SELECT dept_id,department_users FROM `departments` WHERE admin_id='$admin_id'";
@@ -5894,7 +5909,7 @@ public function ticket_dashboard_customFilter($data){
 		  $agentname = $user_row[$j]['agent_name'];
 		  $pimage = $user_row[$j]['profile_image'];
 		  if($pimage==''){
-		    $profileimage = 'https://omni-ticketing-xcupb.ondigitalocean.app/assets/images/user.jpg';
+		    $profileimage = 'https://'.$host_name.'/assets/images/user.jpg';
 		  }else{
 			$profileimage = $pimage;  
 		  }
@@ -6571,7 +6586,13 @@ public function replyInternalMail($data){
 		//print_r($messagetoSend); exit;
 		$message =  '<div style="font-family: verdana !important;">'.$message.'</div>';
 		$messagetoSend = $message.'<br> <br>'.$mess;		
-		if( strpos($to, ',') !== false ) { $tos = explode(',',$to); }
+		if( strpos($to, ',') !== false ) {
+			$tos = explode(',',$to); 
+		}else{
+			preg_match_all("/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i", $to, $to_mail_array);
+			$to = $to_mail_array[0][0];
+		}	
+	    //echo $ticket_from;exit;
 		$message_id = $this->fetchOne("SELECT ticket_reply_id FROM outlook_mail_data WHERE ticket_id = '$ticket_id' and ticket_reply_id !=''",array());	           
 		$smtp_qry = "SELECT * FROM smtp_details WHERE status=1";
 		$smtp_qry_value = $this->fetchData($smtp_qry,array());
@@ -6583,20 +6604,21 @@ public function replyInternalMail($data){
 		$subject = $subject; 
         $body = $messagetoSend;   
         $mail = new PHPMailer();
-        $mail->IsSMTP();
+        //$mail->IsSMTP();
         $mail->SMTPAuth = true; 
         $mail->SMTPSecure = 'tls';  
+	    $mail->SMTPDebug  = 1;
 		//$mail->SMTPDebug  = 1;// enable SMTP authentication
         $mail->Host = $hostname; // sets the SMTP server
         $mail->Port = $port;                    // set the SMTP port for the GMAIL server
         $mail->Username = $username; // SMTP account username
         $mail->Password = $password;        // SMTP account password 
-        $mail->SetFrom($from);
+        $mail->SetFrom($ticket_from);
         $mail->Subject = $subject;
 		$mail->MsgHTML($body);
 		$mail->IsHTML(true);
 		$mail->ClearReplyTos();
-		$mail->AddReplyTo($from);
+		$mail->AddReplyTo($ticket_from);
 		$mail->addCustomHeader('In-Reply-To',  '<'.$message_id.'>');
 		$mail->addCustomHeader('References', $message_id);
 		if(count($files_array) > 0){
@@ -6619,7 +6641,8 @@ public function replyInternalMail($data){
 			}
 		} else {
 			$mail->addCC($mail_cc);
-		}
+		}	  
+	    $mail->addAddress($to);
 		if(!$mail->send()) {				
 			print_r($mail->ErrorInfo);exit ;
 			$res = "Mailer Error: " . $mail->ErrorInfo;
@@ -6632,8 +6655,8 @@ public function replyInternalMail($data){
             date_default_timezone_set($user_timezone);  
      	    $created_at = date("Y-m-d H:i:s");$updated_at = date("Y-m-d H:i:s");		          
 		    $resultss = $this->db_query($qryss, $params);
-			$message = str_replace("'","\n",$message);
-			$qry_result = $this->db_insert("INSERT INTO outlook_mail_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,repliesd_by,created_dt,user_id,only_message,only_signature) VALUES ( '$ticket_id','$message','$subject','$from','$to','$mail_cc','$files_arr','Agent','$created_at','$user_id','$only_msg','$mailSignature')", array());			
+			$message = str_replace("'","\n",$message);			
+			$qry_result = $this->db_insert("INSERT INTO outlook_mail_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,repliesd_by,created_dt,user_id,only_message,only_signature) VALUES ( '$ticket_id','$message','$subject','$ticket_from','$to','$mail_cc','$files_arr','Agent','$created_at','$user_id','$only_msg','$mailSignature')", array());			
 		    $result = $qry_result == 1 ? 'mailed' : 'Error';
 			$dt = date('Y-m-d H:i:s');		 
 			$status = array('status' => 'true');     
