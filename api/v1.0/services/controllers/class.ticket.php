@@ -2478,7 +2478,7 @@ if($next_assign!=''){
 		   //$rep_fm = 'user'; 
 			$rep_fm = $tic_details['ticket_to'];
 		}
-		print_r($ticket_user);exit;
+		
 		$ticket_created_by = $tic_details['ticket_created_by'];
 		$admin_id = $tic_details['admin_id'];
 		if($ticket_user=='user'){
@@ -2499,11 +2499,9 @@ if($next_assign!=''){
 
 		
 		
-		$from=$ticket_from;
-		
-		
+		$from=$ticket_from;		
         $res_val= $this->fetchData($qry,array());
-		
+		echo $qry;exit;
 		//$admin_id=$res_val['admin_id'];
 		
 		

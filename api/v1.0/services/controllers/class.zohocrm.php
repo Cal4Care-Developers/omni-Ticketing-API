@@ -497,8 +497,8 @@ public function addZohoUsers($data){
 	public function ssoUsers($admin_id){ 
    
 	//	extract($data);	 
-  echo $admin_id;
-		$omni_users = "SELECT * FROM ms_sso_authentication where admin_id='$admin_id'";
+  echo $admin_id;exit;
+		$omni_users = " SELECT * FROM ms_sso_authentication where admin_id='$admin_id'";
     echo $omni_users;exit;
 		$result = $this->fetchData($omni_users,array());
     
