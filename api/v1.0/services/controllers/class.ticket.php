@@ -2518,11 +2518,11 @@ if($next_assign!=''){
 		$to = str_replace('"',"",$to);
 		$to = explode(',',$to);	
 		unset($to[array_search( $from, $to )]);
-		echo $to;exit;
+
 		$destination_path = getcwd().DIRECTORY_SEPARATOR;            
 				$upload_location = $destination_path."ext-ticket-image/";
 		$qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.ticket_no ='$ticket_id'";
-		$detail_qry=$qry."ORDER BY b.ticket_message_id DESC LIMIT $limit offset $offset";
+		$detail_qry=$qry." ORDER BY b.ticket_message_id DESC LIMIT $limit offset $offset";
 	//echo $detail_qry;exit;
 			
         $result =  $this->dataFetchAll($detail_qry, array());
@@ -6731,6 +6731,7 @@ public function ticket_contract_details($cust_id){
       if($customer_id != ''){
       	return $result;      	
       }else{
+		echo 'tst';exit;
       	$curl = curl_init();
 		curl_setopt_array($curl, array(
 		  CURLOPT_URL => 'https://erp.cal4care.com/erp/apps/index.php',
@@ -6758,7 +6759,7 @@ public function ticket_contract_details($cust_id){
 		$response = curl_exec($curl);
 		curl_close($curl);	
 		$explode_customer_details = explode('||',$response);
-		print_r($explode_customer_details);exit;
+	
         if(count(array_filter($explode_customer_details)) != 0){
           $ticket_customer_id = $explode_customer_details[0];
 	      $contract_name = $explode_customer_details[1];
