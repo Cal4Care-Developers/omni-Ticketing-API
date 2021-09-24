@@ -6727,7 +6727,6 @@ public function deletePhoneBridge($key_id,$admin_id){
 public function ticket_contract_details($cust_id){
       $qry = "SELECT * FROM ticket_customer_contract WHERE customer_id ='$cust_id'";
       $result =  $this->fetchData($qry, array());
-	  echo $qry;exit;
       extract($result);
       if($customer_id != ''){
       	return $result;      	
@@ -6758,7 +6757,8 @@ public function ticket_contract_details($cust_id){
 		));
 		$response = curl_exec($curl);
 		curl_close($curl);	
-		$explode_customer_details = explode('||',$response);//print_r($explode_customer_details);exit;
+		$explode_customer_details = explode('||',$response);
+		print_r($explode_customer_details);exit;
         if(count(array_filter($explode_customer_details)) != 0){
           $ticket_customer_id = $explode_customer_details[0];
 	      $contract_name = $explode_customer_details[1];
