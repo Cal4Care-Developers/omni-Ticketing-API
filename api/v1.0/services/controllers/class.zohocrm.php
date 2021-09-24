@@ -499,9 +499,9 @@ public function addZohoUsers($data){
 	//	extract($data);	 
   // echo $admin_id;exit;
 		$qry = " SELECT * FROM ms_sso_authentication where admin_id='$admin_id'";
-    echo $qry;exit;
-		$result = $this->fetchData($omni_users,array());
-    
+		$result = $this->fetchData($qry,array());
+    print_r($result);exit;
+
 		$omni_users = $result['omni_users'];
 		$omni_mainusers = $result['omni_users'];
 		$omni_users = "SELECT user_id,agent_name,email_id,sip_login FROM user where user_id IN ($omni_users)";

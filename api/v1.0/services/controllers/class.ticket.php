@@ -2526,7 +2526,7 @@ if($next_assign!=''){
 	//echo $detail_qry;exit;
 			
         $result =  $this->dataFetchAll($detail_qry, array());
-		
+		print_r($result);exit;
 		 for($i = 0; count($result) > $i; $i++){ 
 		  $ticket_customer_id = $result[$i]['customer_id'];
 		  $ticket_customer_name = $result[$i]['customer_name'];	 

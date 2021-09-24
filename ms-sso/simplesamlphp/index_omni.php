@@ -14,7 +14,7 @@ $emial = $attributes['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emai
 $emial = implode(',', $emial);
 $element_data = array('logout' => $url,'email'=>$emial);
 
-//echo '<a href="' . htmlspecialchars($url) . '">Logout</a>'; 
+echo '<a href="' . htmlspecialchars($url) . '">Logout</a>'; 
 if($_GET['logout']){
 	//echo $_GET['logout'];
 	$u = $_GET['logout'];	

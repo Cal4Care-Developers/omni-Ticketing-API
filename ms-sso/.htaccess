@@ -1,0 +1,9 @@
+# Turn rewrite engine on
+Options +FollowSymlinks
+RewriteEngine On
+
+RewriteRule ^customers$  index.php?page=customers [nc,qsa]
+RewriteRule ^customers/([0-9]+)/$  index.php?page=customers&id=$1 [nc,qsa]
+
+RewriteRule ^drivers$  index.php?page=drivers [nc,qsa]
+RewriteRule ^drivers/([0-9]+)/$  index.php?page=drivers&id=$1 [nc,qsa]
