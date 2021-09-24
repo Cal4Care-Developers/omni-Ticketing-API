@@ -494,10 +494,11 @@ public function addZohoUsers($data){
 		$update_data = $this->db_query($qry, $params);
 		return true;
 	}
-	public function ssoUsers($data){ 
+	public function ssoUsers($admin_id){ 
    
-		extract($data);	 
-		$omni_users = "SELECT * FROM ms_sso_authentication where admin_id='$data'";
+	//	extract($data);	 
+  echo $admin_id;
+		$omni_users = "SELECT * FROM ms_sso_authentication where admin_id='$admin_id'";
     echo $omni_users;exit;
 		$result = $this->fetchData($omni_users,array());
     
