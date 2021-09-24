@@ -2501,7 +2501,7 @@ if($next_assign!=''){
 		
 		$from=$ticket_from;		
         $res_val= $this->fetchData($qry,array());
-		echo $qry;exit;
+	
 		//$admin_id=$res_val['admin_id'];
 		
 		
@@ -2518,6 +2518,7 @@ if($next_assign!=''){
 		$to = str_replace('"',"",$to);
 		$to = explode(',',$to);	
 		unset($to[array_search( $from, $to )]);
+		echo $to;exit;
 		$destination_path = getcwd().DIRECTORY_SEPARATOR;            
 				$upload_location = $destination_path."ext-ticket-image/";
 		$qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.ticket_no ='$ticket_id'";
@@ -6726,6 +6727,7 @@ public function deletePhoneBridge($key_id,$admin_id){
 public function ticket_contract_details($cust_id){
       $qry = "SELECT * FROM ticket_customer_contract WHERE customer_id ='$cust_id'";
       $result =  $this->fetchData($qry, array());
+	  echo $qry;exit;
       extract($result);
       if($customer_id != ''){
       	return $result;      	
