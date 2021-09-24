@@ -2462,7 +2462,7 @@ if($next_assign!=''){
 			
 		 $qry = "SELECT * FROM external_tickets WHERE ticket_no = '$ticket_id'";
        	$tic_details = $this->fetchData($qry,array());
-		   print_r($tic_details);exit;
+		 
 		//$qryss = "UPDATE `external_tickets` SET status_del = '0' WHERE ticket_no = '$ticket_id'";             
                 //$resultss = $this->db_query($qryss, $params);
 		
@@ -2478,6 +2478,7 @@ if($next_assign!=''){
 		   //$rep_fm = 'user'; 
 			$rep_fm = $tic_details['ticket_to'];
 		}
+		print_r($ticket_user);exit;
 		$ticket_created_by = $tic_details['ticket_created_by'];
 		$admin_id = $tic_details['admin_id'];
 		if($ticket_user=='user'){
