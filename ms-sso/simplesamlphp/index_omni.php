@@ -1,10 +1,10 @@
 <?php
 
-echo 'daa'; exit;
+
 require_once 'lib/_autoload.php';
 $as = new SimpleSAML_Auth_Simple('default-sp');
 $as->requireAuth();
-
+echo 'da111a'; exit;
 $attributes = $as->getAttributes();
 
 
