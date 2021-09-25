@@ -2554,10 +2554,11 @@ if($next_assign!=''){
 		  //$ticket_to = $result[$i]['ticket_to'];	 
 		  $ticket_user = $result[$i]['user_id'];
 		  $ccMails = $result[$i]['replied_cc'];
-		  echo 'Test';exit;
+		  
 		  if($ccMails==''){
 		    $ccMails = $this->fetchOne("SELECT replied_cc FROM external_tickets_data WHERE ticket_id='$ticket_no' ORDER BY ticket_id ASC LIMIT 1",array());
 		  }	 
+		  echo 'Tes23232t';exit;
 		  $is_spam = $result[$i]['is_spam'];
 		  $closedby = $result[$i]['ticket_closed_by']; 
 		  $ticket_delete_status = $result[$i]['delete_status'];
@@ -6728,9 +6729,12 @@ public function ticket_contract_details($cust_id){
       $qry = "SELECT * FROM ticket_customer_contract WHERE customer_id ='$cust_id'";
       $values =  $this->fetchData($qry, array());
       //extract($values);
-	  echo $values;exit;
-	 print_r($values);exit;
+	 
+if($values!='' ){
+	echo 'if';exit;
+	
       if($customer_id != ''){
+		
       	return $values;      	
       }else{
 		
@@ -6778,7 +6782,10 @@ public function ticket_contract_details($cust_id){
         }else{
 		  return $results;	
         }	    
-    }	
+    }
+}else{
+	echo 'el';exit;
+}	
 }
 public function getCustomerDetasils($admin_id){               
         $qry = "SELECT customer_id,customer_name FROM ticket_customer WHERE admin_id ='$admin_id'";
