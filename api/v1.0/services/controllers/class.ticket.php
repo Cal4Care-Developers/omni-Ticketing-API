@@ -2554,6 +2554,7 @@ if($next_assign!=''){
 		  //$ticket_to = $result[$i]['ticket_to'];	 
 		  $ticket_user = $result[$i]['user_id'];
 		  $ccMails = $result[$i]['replied_cc'];
+		  echo 'Test';exit;
 		  if($ccMails==''){
 		    $ccMails = $this->fetchOne("SELECT replied_cc FROM external_tickets_data WHERE ticket_id='$ticket_no' ORDER BY ticket_id ASC LIMIT 1",array());
 		  }	 
@@ -2674,7 +2675,6 @@ if($explode1[0]=='Best regards'){
           $ticket_options = array('ticket_no' => $ticket_no,'is_spam'=>$is_spam,'ticket_media'=>$ticket_media, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $ticket_assigned_to,'ticket_assigned_to_id'=>$ticket_assigned_to_id,'department' => $department,'depart_id'=>$ticket_department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus,'ticket_status_id'=>$ticket_status,'ticket_message'=>$ticket_message,'ticket_signature'=>$ticket_signature,'ticket_notes'=>$ticket_notes_by,'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'ticket_from'=>$ticket_from,'ticket_to'=>$ticket_to,'replied_from'=>$replied_from_db,'ticket_message_id'=>$ticket_message_id,'replied_by'=>$replied_by, 'own_mail' =>$from, 'own_img' =>$own_img, 'rep_img' =>$rep_img, 'rep_name' =>$rep_name, 'user_name'=>$user_name,'mail_cc'=>$ccMails, 'first_letter_r' => strtoupper($replied_from[0]),'ticket_closed_by'=>$tic_closed_by,'ticket_delete_status' => $ticket_delete_status,'ticket_profile_image'=>$ticket_profile_image,'ticket_only_message'=>$ticket_only_message,'ticket_only_signature'=>$ticket_only_signature,'ticket_forward_by'=>$ticket_forward_by,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name);
           $ticket_options_array[] = $ticket_options;
         }
-	echo 'TEST';exit;
 	
 		$first_res_time = "SELECT created_at FROM `external_tickets_data` WHERE repliesd_by = 'Agent' and ticket_id='$ticket_id' LIMIT 1";              
           $first_res_time = $this->fetchmydata($first_res_time,array());
@@ -6727,7 +6727,8 @@ public function deletePhoneBridge($key_id,$admin_id){
 public function ticket_contract_details($cust_id){
       $qry = "SELECT * FROM ticket_customer_contract WHERE customer_id ='$cust_id'";
       $values =  $this->fetchData($qry, array());
-      extract($values);
+      //extract($values);
+	  echo $values;exit;
 	 print_r($values);exit;
       if($customer_id != ''){
       	return $values;      	
