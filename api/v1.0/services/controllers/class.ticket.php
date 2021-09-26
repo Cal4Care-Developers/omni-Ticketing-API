@@ -2558,11 +2558,12 @@ if($next_assign!=''){
 		  if($ccMails==''){
 		    $ccMails = $this->fetchOne("SELECT replied_cc FROM external_tickets_data WHERE ticket_id='$ticket_no' ORDER BY ticket_id ASC LIMIT 1",array());
 		  }	 
-		  echo 'Tes23232t';exit;
+		
 		  $is_spam = $result[$i]['is_spam'];
 		  $closedby = $result[$i]['ticket_closed_by']; 
 		  $ticket_delete_status = $result[$i]['delete_status'];
 		  $ticket_profile_image = $result[$i]['profile_image'];	 
+		  echo $ticket_profile_image;exit;
 			if($ticket_user!='') {
 				/*$rep= $this->fetchData("SELECT profile_image,user_name,agent_name FROM user where user_id='$ticket_user'",array());
 				$rep_img=$rep['profile_image'];
@@ -6728,10 +6729,11 @@ public function deletePhoneBridge($key_id,$admin_id){
 public function ticket_contract_details($cust_id){
       $qry = "SELECT * FROM ticket_customer_contract WHERE customer_id ='$cust_id'";
       $values =  $this->fetchData($qry, array());
+	  echo $qry;
       //extract($values);
 	 
 if($values!='' ){
-	echo 'if';exit;
+	
 	
       if($customer_id != ''){
 		
@@ -6783,9 +6785,7 @@ if($values!='' ){
 		  return $results;	
         }	    
     }
-}else{
-	echo 'el';exit;
-}	
+}
 }
 public function getCustomerDetasils($admin_id){               
         $qry = "SELECT customer_id,customer_name FROM ticket_customer WHERE admin_id ='$admin_id'";

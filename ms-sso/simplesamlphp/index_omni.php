@@ -2,10 +2,10 @@
 
 
 require_once 'lib/_autoload.php';
-echo 'da111211a'; exit;
+
 
 $as = new SimpleSAML_Auth_Simple('default-sp');
-
+echo 'Function'; exit;
 $as->requireAuth();
 $attributes = $as->getAttributes();
 
