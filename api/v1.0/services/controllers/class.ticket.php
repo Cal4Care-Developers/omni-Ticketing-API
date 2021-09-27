@@ -2573,10 +2573,10 @@ if($next_assign!=''){
 		
 				$rep= $this->fetchData("SELECT profile_image,user_name,agent_name,profile_picture_permission FROM user where user_id='$ticket_user' ",array());
 			  
-				print_r($rep);exit;
+				// print_r($rep);exit;
 				$permission = $rep['profile_picture_permission'];	
 				
-echo 'sdsad';exit;
+echo $permission ;exit;
 			    /*if($permission==0){
 				   $rep_img=$rep['profile_image'];
 				}else{
