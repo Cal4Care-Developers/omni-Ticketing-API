@@ -2563,7 +2563,7 @@ if($next_assign!=''){
 		  $closedby = $result[$i]['ticket_closed_by']; 
 		  $ticket_delete_status = $result[$i]['delete_status'];
 		  $ticket_profile_image = $result[$i]['profile_image'];	 
-		  echo $ticket_profile_image;exit;
+		 
 			if($ticket_user!='') {
 				/*$rep= $this->fetchData("SELECT profile_image,user_name,agent_name FROM user where user_id='$ticket_user'",array());
 				$rep_img=$rep['profile_image'];
@@ -2580,7 +2580,7 @@ if($next_assign!=''){
 			}else{
 				$rep_img='';$rep_name='';
 			}
-		
+			echo 'sdfsf';exit;
 			 
 			 /*if($from == $replied_from_db){
 			 	$replied_from = $ticket_created_by;			 					 
@@ -6729,7 +6729,7 @@ public function deletePhoneBridge($key_id,$admin_id){
 public function ticket_contract_details($cust_id){
       $qry = "SELECT * FROM ticket_customer_contract WHERE customer_id ='$cust_id'";
       $values =  $this->fetchData($qry, array());
-	  echo $qry;
+	//   echo $qry;
       //extract($values);
 	 
 if($values!='' ){
