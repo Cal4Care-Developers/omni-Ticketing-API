@@ -2569,11 +2569,11 @@ if($next_assign!=''){
 				/*$rep= $this->fetchData("SELECT profile_image,user_name,agent_name FROM user where user_id='$ticket_user'",array());
 				$rep_img=$rep['profile_image'];
 				$rep_name=$rep['agent_name'];*/
-		$qry123 = "SELECT profile_image,user_name,agent_name,profile_picture_permission FROM user where user_id='$ticket_user' ";
-		echo $qry123;exit;
+		//$qry123 = "SELECT profile_image,user_name,agent_name,profile_picture_permission FROM user where user_id='$ticket_user' ";
+		
 				$rep= $this->fetchData("SELECT profile_image,user_name,agent_name,profile_picture_permission FROM user where user_id='$ticket_user' ",array());
 			    $permission = $rep['profile_picture_permission'];	
-
+echo 'sdsad';exit;
 			    /*if($permission==0){
 				   $rep_img=$rep['profile_image'];
 				}else{
