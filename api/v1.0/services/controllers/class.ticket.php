@@ -2565,6 +2565,7 @@ if($next_assign!=''){
 		  $ticket_profile_image = $result[$i]['profile_image'];	 
 		 
 			if($ticket_user!='') {
+				echo 'if';exit;
 				/*$rep= $this->fetchData("SELECT profile_image,user_name,agent_name FROM user where user_id='$ticket_user'",array());
 				$rep_img=$rep['profile_image'];
 				$rep_name=$rep['agent_name'];*/
@@ -2578,9 +2579,11 @@ if($next_assign!=''){
 				$rep_img=$rep['profile_image'];
 				$rep_name=$rep['agent_name'];
 			}else{
+				echo 'el';exit;
+
 				$rep_img='';$rep_name='';
 			}
-			echo 'sdfsf';exit;
+		
 			 
 			 /*if($from == $replied_from_db){
 			 	$replied_from = $ticket_created_by;			 					 
@@ -6734,7 +6737,7 @@ public function ticket_contract_details($cust_id){
 	 
 if($values!='' ){
 	
-	
+	extract($values);
       if($customer_id != ''){
 		
       	return $values;      	

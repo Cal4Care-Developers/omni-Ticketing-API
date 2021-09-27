@@ -11,6 +11,8 @@
 declare(strict_types=1);
 
 // SSP is loaded as a separate project
+echo '1212';
+echo dirname(dirname(__FILE__)) . '/vendor/autoload.php');exit;
 if (file_exists(dirname(dirname(__FILE__)) . '/vendor/autoload.php')) {
     require_once dirname(dirname(__FILE__)) . '/vendor/autoload.php';
 } else {
