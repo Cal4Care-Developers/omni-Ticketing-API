@@ -2576,7 +2576,7 @@ if($next_assign!=''){
 				// print_r($rep);exit;
 				$permission = $rep['profile_picture_permission'];	
 				
-//echo $permission ;exit;
+echo $permission ;exit;
 			    /*if($permission==0){
 				   $rep_img=$rep['profile_image'];
 				}else{

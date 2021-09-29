@@ -13,7 +13,7 @@ declare(strict_types=1);
 // SSP is loaded as a separate project
 
 $test = dirname(dirname(__FILE__)) ;
-$test=str_replace("workspace","",$test);
+$test=str_replace("workspace/","",$test);
 echo $test;exit;
 
 if (file_exists( $test. '/vendor/autoload.php')) {
