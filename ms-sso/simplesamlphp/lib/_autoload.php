@@ -15,7 +15,7 @@ declare(strict_types=1);
 $test = dirname(dirname(__FILE__)) ;
 $test=str_replace("workspace/","",$test);
 
-
+echo file_exists('ms-sso/simplesamlphp/vendor/autoload.php');exit;
 if (file_exists('ms-sso/simplesamlphp/vendor/autoload.php')) {
     require_once  'ms-sso/simplesamlphp/vendor/autoload.php';
 } else {
