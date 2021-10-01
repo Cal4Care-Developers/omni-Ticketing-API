@@ -2598,7 +2598,7 @@ if($next_assign!=''){
 			 $ccMails = str_replace("(","",$ccMails);
 			 $ccMails = str_replace(")","",$ccMails);
 			 $ccMails = str_replace('"',"",$ccMails);
-			 print_r($ccMails); exit;
+			
 			 //echo $replied_from; echo $from; exit;			 
 			 /*$to = $ticket_to;			 
 			 $to = str_replace("(","",$to);			 
@@ -2613,8 +2613,8 @@ if($next_assign!=''){
 			   $replied_from = str_replace(' >', '',$replied_from);				 
 			 }*/
 			 $pos = array_search( $from, $to);
-			
-			
+			echo  $pos;exit;
+			//  print_r($ccMails); exit;
 			 if(count($to) > 1){
 				  $key = array_search($from, $to);
 				if($key != '' || $key === 0){
