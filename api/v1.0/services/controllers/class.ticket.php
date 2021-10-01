@@ -2613,7 +2613,7 @@ if($next_assign!=''){
 			   $replied_from = str_replace(' >', '',$replied_from);				 
 			 }*/
 			 $pos = array_search( $from, $to);
-			echo  $pos;exit;
+		
 			//  print_r($ccMails); exit;
 			 if(count($to) > 1){
 				  $key = array_search($from, $to);
@@ -2633,7 +2633,8 @@ if($next_assign!=''){
 			 }
 			 
 			
-		  $ticket_message_id = $result[$i]['ticket_message_id']; 
+		  $ticket_message_id = $result[$i]['ticket_message_id'];
+		  echo $ticket_message_id;exit;
           $createdby_qry = "SELECT agent_name FROM user WHERE user_id='$ticket_created_by'";              
           $createdby = $this->fetchmydata($createdby_qry,array()); 
 		  $ticket_notes_by =  $this->dataFetchAll("SELECT a.*,b.profile_image FROM external_ticket_notes a LEFT JOIN user b ON a.created_by=b.user_id WHERE ticket_reply_id='$ticket_message_id'",array());
