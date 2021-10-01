@@ -2594,7 +2594,7 @@ if($next_assign!=''){
 			 /*if($from == $replied_from_db){
 			 	$replied_from = $ticket_created_by;			 					 
 			 }*/
-			 echo 'el';exit;
+			// echo 'el';exit;
 			 $ccMails = str_replace("(","",$ccMails);
 			 $ccMails = str_replace(")","",$ccMails);
 			 $ccMails = str_replace('"',"",$ccMails);
