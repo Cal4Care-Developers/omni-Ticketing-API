@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 $test = dirname(dirname(__FILE__)) ;
 $test=str_replace("workspace/","",$test);
-echo $test;exit;
+
 
 if (file_exists( $test. '/vendor/autoload.php')) {
     require_once  $test . '/vendor/autoload.php';

@@ -2576,7 +2576,7 @@ if($next_assign!=''){
 				// print_r($rep);exit;
 				$permission = $rep['profile_picture_permission'];	
 				
-echo $permission ;exit;
+//echo $permission ;exit;
 			    /*if($permission==0){
 				   $rep_img=$rep['profile_image'];
 				}else{
@@ -2585,7 +2585,7 @@ echo $permission ;exit;
 				$rep_img=$rep['profile_image'];
 				$rep_name=$rep['agent_name'];
 			}else{
-				echo 'el';exit;
+				//echo 'el';exit;
 
 				$rep_img='';$rep_name='';
 			}
@@ -2594,11 +2594,11 @@ echo $permission ;exit;
 			 /*if($from == $replied_from_db){
 			 	$replied_from = $ticket_created_by;			 					 
 			 }*/
-			 
+			 echo 'el';exit;
 			 $ccMails = str_replace("(","",$ccMails);
 			 $ccMails = str_replace(")","",$ccMails);
 			 $ccMails = str_replace('"',"",$ccMails);
-			 // print_r($ccMails); exit;
+			 print_r($ccMails); exit;
 			 //echo $replied_from; echo $from; exit;			 
 			 /*$to = $ticket_to;			 
 			 $to = str_replace("(","",$to);			 
