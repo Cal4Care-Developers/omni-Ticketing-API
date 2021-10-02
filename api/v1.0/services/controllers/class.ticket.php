@@ -2679,7 +2679,8 @@ if($explode1[0]=='Best regards'){
 }else{
 	$ticket_signature = '';
 }
-}*/
+}*/		echo $ticket_assigned_to_id;exit;
+
 
 	      		
           $ticket_options = array('ticket_no' => $ticket_no,'is_spam'=>$is_spam,'ticket_media'=>$ticket_media, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $ticket_assigned_to,'ticket_assigned_to_id'=>$ticket_assigned_to_id,'department' => $department,'depart_id'=>$ticket_department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus,'ticket_status_id'=>$ticket_status,'ticket_message'=>$ticket_message,'ticket_signature'=>$ticket_signature,'ticket_notes'=>$ticket_notes_by,'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'ticket_from'=>$ticket_from,'ticket_to'=>$ticket_to,'replied_from'=>$replied_from_db,'ticket_message_id'=>$ticket_message_id,'replied_by'=>$replied_by, 'own_mail' =>$from, 'own_img' =>$own_img, 'rep_img' =>$rep_img, 'rep_name' =>$rep_name, 'user_name'=>$user_name,'mail_cc'=>$ccMails, 'first_letter_r' => strtoupper($replied_from[0]),'ticket_closed_by'=>$tic_closed_by,'ticket_delete_status' => $ticket_delete_status,'ticket_profile_image'=>$ticket_profile_image,'ticket_only_message'=>$ticket_only_message,'ticket_only_signature'=>$ticket_only_signature,'ticket_forward_by'=>$ticket_forward_by,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name);
@@ -2709,7 +2710,6 @@ if($explode1[0]=='Best regards'){
 		
 		$agents_array_qry = "SELECT user_id,agent_name FROM user where admin_id=$admin_id";
 		$agents_options_array = $this->dataFetchAll($agents_array_qry, array());
-		echo $agents_array_qry;exit;
 		$status = array('status' => 'true');
 		$status_options_array = array('status_options' => $status_options_array);
 		$department_options_array = array('departments' => $department_options_array);
