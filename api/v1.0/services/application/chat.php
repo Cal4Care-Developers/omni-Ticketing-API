@@ -151,7 +151,7 @@ elseif($action == "generate_incoming_sms"){
 	
 	
 elseif($action == "chat_question"){    
-    $data = array("admin_id"=>$admin_id, "chat_question"=>$chat_question,"chat_answer"=>$chat_answer);
+    $data = array("admin_id"=>$admin_id, "widget_id"=>$widget_id, "chat_question"=>$chat_question, "chat_answer"=>$chat_answer);
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $chat->insertchat_question($data);
 }
@@ -161,7 +161,7 @@ elseif($action == "chat_data"){
     $result_data["result"]["data"] = $chat->get_answer($data);
 }
 elseif($action == "get_question"){
-       $data = array("admin_id"=>$admin_id);
+    $data = array("admin_id"=>$admin_id, "widget_id"=>$widget_id);
     $result_data["result"]["data"] = $chat->get_question($data);
 }
 elseif($action == 'edit_chatquestion'){
@@ -169,7 +169,7 @@ elseif($action == 'edit_chatquestion'){
     $result_data["result"]["data"] = $chat->edit_chatquestion($data);   
 }
 elseif($action == "update_chatquestion"){    
-    $data = array("id"=>$id, "admin_id"=>$admin_id, "chat_question"=>$chat_question, "chat_answer"=>$chat_answer);    
+    $data = array("id"=>$id, "admin_id"=>$admin_id, "widget_id"=>$widget_id, "chat_question"=>$chat_question, "chat_answer"=>$chat_answer);    
     $result_data["result"]["data"] = $chat->update_chatquestion($data);
 }
 elseif($action == "delete_chatquestion"){     
@@ -359,8 +359,8 @@ elseif($action == 'sms_list'){
 }
 	
 elseif($action == "get_chatBotQA"){
-    $data = array("url"=>$url);
-    $result_data["result"]["data"] = $chat->get_chatBotQA($url);
+    $data = array("url"=>$url,"widget_name"=>$widget_name);
+    $result_data["result"]["data"] = $chat->get_chatBotQA($data);
 }		
 elseif($action == "chatbot_det"){
     $data = array("url"=>$url,"email"=>$email,"ph_no"=>$ph_no,"country_code"=>$country_code);
@@ -437,4 +437,14 @@ elseif($action == "chatTransfer"){
     $chat_data = array("widget_id"=>$widget_id,"admin_id"=>$admin_id);
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $chat->chatAgents($chat_data);
+}
+elseif($action == "onoff_status"){
+    $chat_data = array("widget_id"=>$widget_id,"admin_id"=>$admin_id,"value"=>$value,"type"=>$type);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $chat->onoff_status($chat_data);
+}
+elseif($action == "copy_chat_question"){
+    $chat_data = array("widget_id"=>$widget_id,"admin_id"=>$admin_id,"chat_question_id"=>$chat_question_id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $chat->copy_chat_question($chat_data);
 }

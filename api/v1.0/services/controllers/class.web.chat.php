@@ -168,11 +168,17 @@ class webChat extends restApi{
     }
 	
 	 function updateOnOffStatus($chat_data){
-		
+	
 		extract($chat_data);
 		$qry = "UPDATE chat SET online_status='$onoff_status' WHERE chat_id='$chat_id'";
 		$qry_result = $this->db_query($qry, array());
-		$result = $qry_result == 1 ? 1 : 0;
+		 if($qry_result == 1){
+		 $selected_value = $this->fetchData("SELECT * FROM chat WHERE chat_id='$chat_id'", array());
+		$result = $selected_value;		 
+		 }else{
+			$result = 0;
+		 }
+		//$result = $qry_result == 1 ? 1 : 0;
 		return $result;
 
 	}

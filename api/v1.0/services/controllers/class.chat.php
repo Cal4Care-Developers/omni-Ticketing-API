@@ -1294,7 +1294,7 @@ curl_close($curl);
     }
   function insertchat_question($data){
       extract($data);    
-      $qry_result = $this->db_query("INSERT INTO chat_question(admin_id,question,answer) VALUES ( '$admin_id','$chat_question','$chat_answer')", array());
+      $qry_result = $this->db_query("INSERT INTO chat_question(admin_id,widget_id,question,answer) VALUES ( '$admin_id','$widget_id','$chat_question','$chat_answer')", array());
       $result = $qry_result == 1 ? 1 : 0;
       return $result;
     }
@@ -1306,7 +1306,7 @@ curl_close($curl);
     }
   public function get_question($data){   
 	   extract($data);
-      $get_queue_qry = "SELECT * FROM chat_question WHERE admin_id='$admin_id'"; 	 
+      $get_queue_qry = "SELECT * FROM chat_question WHERE admin_id='$admin_id' AND widget_id='$widget_id'"; 	 
       $result = $this->dataFetchAll($get_queue_qry,array());
       return $result;
    }
@@ -1318,8 +1318,8 @@ curl_close($curl);
       return $result;    
     }
   public function update_chatquestion($data){
-      extract($data);
-      $qry_result = "UPDATE chat_question SET question='$chat_question',answer='$chat_answer' WHERE admin_id='$admin_id' AND id='$id'";
+      extract($data);//print_r($data);exit;
+      $qry_result = "UPDATE chat_question SET widget_id='$widget_id',question='$chat_question',answer='$chat_answer' WHERE admin_id='$admin_id' AND id='$id'";
       $qry_result = $this->db_query($qry_result, array());
       $result = $qry_result == 1 ? 1 : 0;
       return $result;           
@@ -3487,7 +3487,7 @@ public function listsms($data){
             return $result;
         }	
 
-public function get_chatBotQA($url){    
+public function get_chatBotQA($data){    
 	//echo $url;exit;
 /*$encryption = $url;
 		$ciphering = "AES-128-CTR"; 
@@ -3505,28 +3505,28 @@ public function get_chatBotQA($url){
 		$admin_id = $user_details['user_type'] == '2' ? $user_details['user_id'] : $user_details['admin_id'];
 		$admin_id = $admin_id == '1' ? $admin_id = $user_id : $admin_id = $admin_id; */
 //echo $url;exit;
+	extract($data);
 	$admin_id = $url;
+	$widget_id= $this->fetchOne("SELECT id FROM chat_widget WHERE widget_name='$widget_name' AND admin_id='$admin_id'", array());
  // $get_queue_qry = "SELECT question FROM chat_question where admin_id='$admin_id'";     
-  $questio = $this->dataFetchAll("SELECT  question FROM chat_question where admin_id='$admin_id'",array());
+  $questio = $this->dataFetchAll("SELECT question FROM chat_question WHERE admin_id='$admin_id' AND widget_id='$widget_id'",array());
 	foreach($questio as $question){
 		$questions[][] = $question['question'];
 	}
-
-
-  $answersAll = $this->dataFetchAll("SELECT answer FROM chat_question where admin_id='$admin_id'",array());
+  $answersAll = $this->dataFetchAll("SELECT answer FROM chat_question WHERE admin_id='$admin_id' AND widget_id='$widget_id'",array());
 	foreach($answersAll as $answer){
 		$answers[][] = $answer['answer'];
 	}	
 	
   $alternatives = $this->dataFetchAll("SELECT question FROM chat_question where admin_id='$admin_id' AND status = 2" ,array());	
-    $keyWords = $this->dataFetchAll("SELECT keyword FROM chatcloseKeyWords where admin_id='$admin_id'" ,array());
-    $keyWords = $keyWords[0];	
-   $alterAll[] = $alternatives[0]['question'];
-	$result["questions"] = $questions;
-	$result["answer"] = $answers;
-	    $result["alternative"] = $alterAll;
-    $result["keyWord"] = $keyWords['keyword'];
-	return $result;
+  $keyWords = $this->dataFetchAll("SELECT keyword FROM chatcloseKeyWords where admin_id='$admin_id'" ,array());
+  $keyWords = $keyWords[0];	
+  $alterAll[] = $alternatives[0]['question'];
+  $result["questions"] = $questions;
+  $result["answer"] = $answers;
+  $result["alternative"] = $alterAll;
+  $result["keyWord"] = $keyWords['keyword'];
+  return $result;
 }
 public function chatbot_det($data){   
 
@@ -3682,7 +3682,7 @@ if($admin_id=='1'){
 
 public function chat_closedby_user($data){
       extract($data); //print_r($data);exit;	  
-	    $qry = "UPDATE chat SET chat_status='2' WHERE chat_id='$chat_id'";
+	    $qry = "UPDATE chat SET online_status='0', chat_status='2' WHERE chat_id='$chat_id'";
       $qry_result = $this->db_query($qry, array()); 	
 	    $admin_id_qry = "SELECT admin_id FROM chat WHERE chat_id='$chat_id'";
       $admin_id = $this->fetchOne($admin_id_qry,array());
@@ -5978,5 +5978,26 @@ public function chatAgents($data){
 	
 
 }
-
+public function onoff_status($data){
+		extract($data);	    
+		$qry = "UPDATE chat_widget SET $type='$value' WHERE id='$widget_id' AND admin_id='$admin_id'";
+	    //echo $qry;exit;
+		$qry_result = $this->db_query($qry, array());
+		$result = $qry_result == 1 ? 1 : 0;
+		return $result;
+}
+public function copy_chat_question($data){
+		extract($data);	    
+	    $parms = array();
+		$selectqry = 	"SELECT * FROM `chat_question` WHERE id IN ($chat_question_id) AND admin_id='$admin_id'";
+	    $result = $this->dataFetchAll($selectqry,array());
+	    //print_r($result);exit;
+	    foreach($result as $data){
+		  $question = $data['question'];
+		  $answer = $data['answer'];	
+		  $insertqry = 	"INSERT INTO chat_question (admin_id,question,answer,widget_id) VALUES ('$admin_id','$question','$answer','$widget_id')";
+		  $insert_data = $this->db_query($insertqry, $params);	
+		}
+	    return $insert_data;    
+}	
 }

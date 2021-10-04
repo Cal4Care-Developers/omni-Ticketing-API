@@ -192,7 +192,7 @@ elseif($action == "addNotesForTicketReply"){
 }
 elseif($_REQUEST['action'] == "createTicketSignature"){
 	extract($_REQUEST);
-    $data= array("admin_id"=>$admin_id,"is_default"=>$is_default,"sig_title"=>$sig_title,"sig_content"=>$sig_content,"user_id"=>$user_id,"admin_id"=>$admin_id);
+    $data= array("admin_id"=>$admin_id,"is_default"=>$is_default,"sig_title"=>$sig_title,"sig_content"=>$sig_content,"user_id"=>$user_id,"dept_id"=>$dept_id);
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->createTicketSignature($data);
 }
@@ -210,7 +210,7 @@ elseif($action == "editTicketSignature"){
 }
 elseif($_REQUEST['action'] == "updateTicketSignature"){
 	extract($_REQUEST);
-    $data= array("admin_id"=>$admin_id,"is_default"=>$is_default,"sig_title"=>$sig_title,"sig_content"=>$sig_content, "sig_id"=>$sig_id);
+    $data= array("admin_id"=>$admin_id,"is_default"=>$is_default,"sig_title"=>$sig_title,"sig_content"=>$sig_content, "sig_id"=>$sig_id,"dept_id"=>$dept_id);
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->updateTicketSignature($data);
 }
@@ -516,6 +516,14 @@ elseif($action == "searchFunction"){
     $data = array("user_id"=>$user_id, "user_type"=>$user_type,"admin_id"=>$admin_id,"type"=>$type,"ticket_search"=>$ticket_search,"limit"=>$limit, "offset"=>$offset);  
     $result_data["result"]["data"] = $ticket->searchFunction($data);
 }
+elseif($action == "check_rounrobin_queue"){
+    $data = array("user_id"=>$user_id,"admin_id"=>$admin_id,"dept_id"=>$dept_id);    
+    $result_data["result"]["data"] = $ticket->check_rounrobin_queue($data);
+}
+elseif($action == "reassign_ticket_roundrobin"){
+    $data = array("admin_id"=>$admin_id,"changing_user"=>$changing_user,"changing_user_dept"=>$changing_user_dept,"ticket_id"=>$ticket_id);    
+    $result_data["result"]["data"] = $ticket->reassign_ticket_roundrobin($data);
+}
 elseif($action == "my_internalMail"){
     $data = array("user_id"=>$user_id, "admin_id"=>$admin_id, "agent_email" =>$agent_email, "limit"=>$limit, "offset"=>$offset, "is_spam"=>$is_spam);    
     $result_data["result"]["data"] = $ticket->getmyInternalMail($data);
@@ -548,6 +556,10 @@ elseif($_REQUEST['action'] == 'replyInternalMail') {
     $data= array("message"=>$message,"ticket_id"=>$ticket_id,"to"=>$to,"user_id"=>$user_id,"signature_id"=>$signature_id,"mail_cc"=>$mail_cc,"admin_id"=>$admin_id);
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->replyInternalMail($data);
+}
+elseif($action == "searchInternalMail"){
+    $data = array("agent_email"=>$agent_email,"user_id"=>$user_id,"user_type"=>$user_type,"admin_id"=>$admin_id,"is_spam"=>$is_spam,"ticket_search"=>$ticket_search,"limit"=>$limit, "offset"=>$offset);  
+    $result_data["result"]["data"] = $ticket->searchInternalMail($data);
 }
 elseif($action == "addPhoneBridge"){
     $data= array("admin_id"=>$admin_id,"user_id"=>$user_id,"ip_address"=>$ip_address,"sip_login"=>$sip_login,"sip_password"=>$sip_password);
@@ -591,5 +603,19 @@ elseif($action == "view_phone_bridge_users"){
     $data= array("admin_id"=>$admin_id,"ip_address"=>$ip_address);
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->view_phone_bridge_users($data);
+}
+elseif($action == "updateCustomer"){
+    $data= array("ticket_id"=>$ticket_id,"admin_id"=>$admin_id,"customer_id"=>$customer_id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->updateCustomer($data);
+}
+elseif($action == "get_department_signature"){
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->get_department_signature($admin_id);
+}
+elseif($action == "update_signature_strategy"){
+    $data= array("user_id"=>$user_id,"value"=>$value);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->update_signature_strategy($data);
 }
 ?>

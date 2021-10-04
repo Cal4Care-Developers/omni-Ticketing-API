@@ -424,7 +424,7 @@ $array = json_decode($json,TRUE);
 function generate_incoming_fb($chat_data){
     extract($chat_data);
 	//$profile_pic
-	$payment_log = file_put_contents('demo.txt', $profile_pic.PHP_EOL , FILE_APPEND | LOCK_EX);
+	//$payment_log = file_put_contents('demo.txt', print_r($chat_data,true).PHP_EOL , FILE_APPEND | LOCK_EX);
     //print_r($chat_data);exit;
     //$qry = "SELECT * FROM `admin_details` WHERE `fb_page_id` = '$recipient_id'";
     /*if($recipient_id=='110235083992272'){
@@ -443,6 +443,10 @@ function generate_incoming_fb($chat_data){
       $qry = "SELECT * FROM `admin_details` WHERE `fb_page_id` like '%$recipient_id%'";
       $result = $this->fetchData($qry, array());
       $admin_id = $result['admin_id'];
+      $widget_details= $this->fetchData("SELECT id,has_fb FROM chat_widget WHERE admin_id='$admin_id' AND has_fb = 1", array());
+      $widget_id = $widget_details['id'];
+      $fb_permission = $widget_details['has_fb'];	  
+	  //$payment_log = file_put_contents('fb.txt', $widget_id.$fb_permission.PHP_EOL , FILE_APPEND | LOCK_EX);
       $qry = "SELECT * FROM `user` WHERE `user_id` ='$admin_id'";
       $result = $this->fetchData($qry, array());
       $timezone_id = $result['timezone_id'];
@@ -454,67 +458,96 @@ function generate_incoming_fb($chat_data){
     //}
 	// fb incoming document upload code
 //if($media_extension=='jpg'||$media_extension=='jpeg'||$media_extension=='jpe'|| $media_extension=='jif'||$media_extension=='jfif'||$media_extension=='png')
+    if($fb_permission==0){
+		if(isset($message_attachment)){
+		$base = basename($message_attachment);
+		$explode_question = explode('?',$base);
+		//print_r($explode);
+		$attachment_name = $explode_question[0];
+		$explode_dot = explode('.', $attachment_name);
+		$extension_value = end($explode_dot);
+		$image_name = $attachment_name; 
+		$destination_path = getcwd().DIRECTORY_SEPARATOR;            
+		$fb_media_target_path = $destination_path."facebook_image/".$image_name;
+		file_put_contents($fb_media_target_path, file_get_contents($message_attachment)); 
+		$fb_media_target_path = "https://".$_SERVER['SERVER_NAME']."/api/v1.0/facebook_image/".$image_name; 		
+		copy($message_attachment, $fb_media_target_path);
+		}
+		// fb incoming document upload code
+		$checkqry = "select * from chat_fb where recipient_id ='$recipient_id' AND admin_id='$admin_id'";
+		$results = $this->fetchData($checkqry, array());
+		$result_count = $this->dataRowCount($checkqry , array());
+		if($result_count > 0){
+		  $chat_id=$results['chat_id'];
+		  $chat_msg_id = $this->db_insert("INSERT INTO chat_data_fb (`chat_id`,`recipient_id`,`sender_id`,`access_token`,`first_name`,`last_name`,`profile_pic`,`chat_message`,`message_attachment`,`delivered_status`,`admin_id`,`chat_status`,`created_at`,`page_name`,`page_picture`,`extension`,`read_status`) VALUES ('$chat_id','$recipient_id','$sender_id','$access_token','$first_name','$last_name','$profile_pic','$chat_msg','$fb_media_target_path','1','$admin_id','1','$created_at','$page_name','$page_picture','$extension_value','1')", array());     
+		  $mc_event_data = "Facebook Message From ".$first_name.$last_name;
+			$this->db_insert("INSERT INTO mc_event (mc_event_key,admin_id,mc_event_data,mc_event_type,event_status,created_dt,page_name,page_picture) VALUES('$sender_id','$admin_id','$mc_event_data','7','7','$created_at','$page_name','$page_picture')", array());
+		   // $this->fb_notification_curl($admin_id,$sender_id,$chat_msg);
+			$fb_users = $this->fetchData("SELECT GROUP_CONCAT(user_id) FROM `user` where admin_id='$admin_id' and has_fb='1'", array());
 
-	if(isset($message_attachment)){
-	$base = basename($message_attachment);
-    $explode_question = explode('?',$base);
-    //print_r($explode);
-    $attachment_name = $explode_question[0];
-    $explode_dot = explode('.', $attachment_name);
-    $extension_value = end($explode_dot);
-	$image_name = $attachment_name; 
-	$destination_path = getcwd().DIRECTORY_SEPARATOR;            
-	$fb_media_target_path = $destination_path."facebook_image/".$image_name;
-	file_put_contents($fb_media_target_path, file_get_contents($message_attachment)); 
-	$fb_media_target_path = "https://".$_SERVER['SERVER_NAME']."/api/v1.0/facebook_image/".$image_name; 		
-	copy($message_attachment, $fb_media_target_path);
-	}
-	// fb incoming document upload code
-    $checkqry = "select * from chat_fb where recipient_id ='$recipient_id'";
-    $results = $this->fetchData($checkqry, array());
-    $result_count = $this->dataRowCount($checkqry , array());
-    if($result_count > 0){
-      $chat_id=$results['chat_id'];
-      $chat_msg_id = $this->db_insert("INSERT INTO chat_data_fb (`chat_id`,`recipient_id`,`sender_id`,`access_token`,`first_name`,`last_name`,`profile_pic`,`chat_message`,`message_attachment`,`delivered_status`,`admin_id`,`chat_status`,`created_at`,`page_name`,`page_picture`,`extension`,`read_status`) VALUES ('$chat_id','$recipient_id','$sender_id','$access_token','$first_name','$last_name','$profile_pic','$chat_msg','$fb_media_target_path','1','$admin_id','1','$created_at','$page_name','$page_picture','$extension_value','1')", array());     
-      $mc_event_data = "Facebook Message From ".$first_name.$last_name;
-        $this->db_insert("INSERT INTO mc_event (mc_event_key,admin_id,mc_event_data,mc_event_type,event_status,created_dt,page_name,page_picture) VALUES('$sender_id','$admin_id','$mc_event_data','7','7','$created_at','$page_name','$page_picture')", array());
-       // $this->fb_notification_curl($admin_id,$sender_id,$chat_msg);
-		$fb_users = $this->fetchData("SELECT GROUP_CONCAT(user_id) FROM `user` where admin_id='$admin_id' and has_fb='1'", array());
-
-		    $fb_users = explode(',',$fb_users['GROUP_CONCAT(user_id)']);	
-		    $fb_users[]=$admin_id;
-		    $this->fb_notification_curl($fb_users,$sender_id,$chat_msg);
-			/*$agentresult = $this->dataFetchAll($agentqry, array());		
-			$agentqry = "SELECT user_id FROM `user` WHERE `admin_id` ='$admin_id' AND `notification_code`!=''";
-            //$agentqry = "SELECT notification_code FROM `user` WHERE `admin_id` ='$admin_id' AND `notification_code`!=''";
-			$agentresult = $this->dataFetchAll($agentqry, array());
-			$agentcount = $this->dataRowCount($agentqry, array()); 
-			for($i=0;$i<$agentcount;$i++){		  
-			  $token = $agentresult[$i]['user_id'];
-			  $profile_image = $agentresult[$i]['profile_image'];	
-			  $this->fb_notification_curl($token,$sender_id,$chat_msg);
-			}*/
-		return $chat_msg_id;      
+				$fb_users = explode(',',$fb_users['GROUP_CONCAT(user_id)']);	
+				$fb_users[]=$admin_id;
+				$this->fb_notification_curl($fb_users,$sender_id,$chat_msg);
+				/*$agentresult = $this->dataFetchAll($agentqry, array());		
+				$agentqry = "SELECT user_id FROM `user` WHERE `admin_id` ='$admin_id' AND `notification_code`!=''";
+				//$agentqry = "SELECT notification_code FROM `user` WHERE `admin_id` ='$admin_id' AND `notification_code`!=''";
+				$agentresult = $this->dataFetchAll($agentqry, array());
+				$agentcount = $this->dataRowCount($agentqry, array()); 
+				for($i=0;$i<$agentcount;$i++){		  
+				  $token = $agentresult[$i]['user_id'];
+				  $profile_image = $agentresult[$i]['profile_image'];	
+				  $this->fb_notification_curl($token,$sender_id,$chat_msg);
+				}*/
+			return $chat_msg_id;      
+		}
+		else {
+		  $chat_id = $this->db_insert("INSERT INTO chat_fb (`recipient_id`,`sender_id`,`chat_status`,`admin_id`,`created_at`) VALUES ('$recipient_id','$sender_id','1','$admin_id','$created_at')", array());   
+		  $chat_msg_id = $this->db_insert("INSERT INTO chat_data_fb (`chat_id`,`recipient_id`,`sender_id`,`read_status`,`access_token`,`first_name`,`last_name`,`profile_pic`,`chat_message`,`message_attachment`,`delivered_status`,`admin_id`,`chat_status`,`created_at`,`page_name`,`page_picture`,`extension`,'$extension_value') VALUES ('$chat_id','$recipient_id','$sender_id','1','$access_token','$first_name','$last_name','$profile_pic','$chat_msg','$fb_media_target_path','1','$admin_id','1','$created_at','$page_name','$page_picture')", array());       
+			$mc_event_data = "New Facebook Message From ".$first_name.$last_name;
+			$this->db_insert("INSERT INTO mc_event (mc_event_key,admin_id,mc_event_data,mc_event_type,event_status,created_dt,page_name,page_picture) VALUES('$sender_id','$admin_id','$mc_event_data','7','7','$created_at','$page_name','$page_picture')", array());
+		  //  $this->fb_notification_curl($admin_id,$sender_id,$chat_msg);
+				//$agentqry = "SELECT user_id FROM `user` WHERE `admin_id` ='$admin_id' AND `notification_code`!=''";
+				$fb_users = $this->fetchData("SELECT GROUP_CONCAT(user_id) FROM `user` where admin_id='$admin_id' and has_fb='1'", array());
+				$fb_users = explode(',',$fb_users['GROUP_CONCAT(user_id)']);
+				$fb_users[]=$admin_id;
+				$this->fb_notification_curl($fb_users,$sender_id,$chat_msg);
+				/*$agentresult = $this->dataFetchAll($agentqry, array());
+				$agentcount = $this->dataRowCount($agentqry, array()); 
+				for($i=0;$i<$agentcount;$i++){		  
+				  $token = $agentresult[$i]['user_id'];
+				  $profile_image = $agentresult[$i]['profile_image'];	
+				  $this->fb_notification_curl($token,$sender_id,$chat_msg);
+				}*/
+			return $chat_msg_id;  
+		}
     }
-    else {
-      $chat_id = $this->db_insert("INSERT INTO chat_fb (`recipient_id`,`sender_id`,`chat_status`,`admin_id`,`created_at`) VALUES ('$recipient_id','$sender_id','1','$admin_id','$created_at')", array());   
-      $chat_msg_id = $this->db_insert("INSERT INTO chat_data_fb (`chat_id`,`recipient_id`,`sender_id`,`read_status`,`access_token`,`first_name`,`last_name`,`profile_pic`,`chat_message`,`message_attachment`,`delivered_status`,`admin_id`,`chat_status`,`created_at`,`page_name`,`page_picture`,`extension`,'$extension_value') VALUES ('$chat_id','$recipient_id','$sender_id','1','$access_token','$first_name','$last_name','$profile_pic','$chat_msg','$fb_media_target_path','1','$admin_id','1','$created_at','$page_name','$page_picture')", array());       
-        $mc_event_data = "New Facebook Message From ".$first_name.$last_name;
-        $this->db_insert("INSERT INTO mc_event (mc_event_key,admin_id,mc_event_data,mc_event_type,event_status,created_dt,page_name,page_picture) VALUES('$sender_id','$admin_id','$mc_event_data','7','7','$created_at','$page_name','$page_picture')", array());
-      //  $this->fb_notification_curl($admin_id,$sender_id,$chat_msg);
-			//$agentqry = "SELECT user_id FROM `user` WHERE `admin_id` ='$admin_id' AND `notification_code`!=''";
-	     	$fb_users = $this->fetchData("SELECT GROUP_CONCAT(user_id) FROM `user` where admin_id='$admin_id' and has_fb='1'", array());
-		    $fb_users = explode(',',$fb_users['GROUP_CONCAT(user_id)']);
-		    $fb_users[]=$admin_id;
-		    $this->fb_notification_curl($fb_users,$sender_id,$chat_msg);
-			/*$agentresult = $this->dataFetchAll($agentqry, array());
-			$agentcount = $this->dataRowCount($agentqry, array()); 
-			for($i=0;$i<$agentcount;$i++){		  
-			  $token = $agentresult[$i]['user_id'];
-			  $profile_image = $agentresult[$i]['profile_image'];	
-			  $this->fb_notification_curl($token,$sender_id,$chat_msg);
-			}*/
-		return $chat_msg_id;  
+    else{  // chatbot permission on state		
+	    $checkqry = "select * from chat_fb where recipient_id ='$recipient_id' AND admin_id='$admin_id'";
+        $results = $this->fetchData($checkqry, array());
+        $result_count = $this->dataRowCount($checkqry , array());
+		//file_put_contents('fb.txt', $result_count.PHP_EOL , FILE_APPEND | LOCK_EX);exit;
+        if($result_count > 0){
+            $chat_id=$results['chat_id'];
+            $insertUserChat = $this->db_insert("INSERT INTO chat_data_fb (`chat_id`,`recipient_id`,`sender_id`,`access_token`,`first_name`,`last_name`,`profile_pic`,`chat_message`,`message_attachment`,`delivered_status`,`admin_id`,`chat_status`,`created_at`,`page_name`,`page_picture`,`extension`,`read_status`,`bot_status`) VALUES ('$chat_id','$recipient_id','$sender_id','$access_token','$first_name','$last_name','$profile_pic','$chat_msg','$fb_media_target_path','1','$admin_id','1','$created_at','$page_name','$page_picture','$extension_value','1','1')", array());
+            $chat_bot_reply = $this->fetchOne("SELECT answer FROM chat_question WHERE question LIKE '%$chat_msg%' AND admin_id='$admin_id' AND widget_id = '$widget_id'", array());
+            if($chat_bot_reply != ''){
+              $chat_message = $chat_bot_reply;
+            }else{
+              $chat_message = $this->fetchOne("SELECT question FROM chat_question WHERE admin_id='$admin_id' AND status = 2", array());
+            }
+            $reply_message="{
+                       'recipient': {
+                          'id': '$sender_id'
+                        },
+                       'message':{    
+                          'text': '$chat_message'
+                        }
+                   }";
+            $sr = $this->send_reply($access_token,$reply_message);
+            //file_put_contents('fb.txt', $sr.PHP_EOL , FILE_APPEND | LOCK_EX);
+			$bot_profile_pic = 'https://omni-ticketing-xcupb.ondigitalocean.app/assets/images/bot.png';
+            $insertBotReply = $this->db_insert("INSERT INTO chat_data_fb (`chat_id`,`profile_pic`,`chat_message`,`delivered_status`,`admin_id`,`chat_status`,`created_at`,`read_status`,`bot_status`) VALUES ('$chat_id','$bot_profile_pic','$chat_message','1','$admin_id','1','$created_at','1','1')", array());
+       }
     }  
   }	
 	
@@ -661,6 +694,7 @@ function generate_incoming_fb($chat_data){
 	  //echo "SELECT first_name,last_name,profile_pic,admin_id,page_name,page_picture,access_token FROM chat_data_fb WHERE sender_id='$sender_id' ORDER BY chat_msg_id ASC LIMIT 1";exit;
       $sender_details_qry = "SELECT first_name,last_name,profile_pic,admin_id,page_name,page_picture,access_token FROM chat_data_fb WHERE sender_id='$sender_id' ORDER BY chat_msg_id DESC LIMIT 1";
       $sender_details = $this->fetchData($sender_details_qry,array());
+	  //print_r($sender_details);
      // $first_name = $sender_details['first_name'];
      // $last_name = $sender_details['last_name'];
       $profile_pic = $sender_details['profile_pic'];
