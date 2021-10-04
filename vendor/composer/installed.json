@@ -1,14 +1,9 @@
 {
-    "_readme": [
-        "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
-        "This file is @generated automatically"
-    ],
-    "content-hash": "f916087bd11ab3a9aaa514f52562f1e4",
     "packages": [
         {
             "name": "alrik11es/cowsayphp",
             "version": "1.2.0",
+            "version_normalized": "1.2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alrik11es/cowsayphp.git",
@@ -27,6 +22,7 @@
                 "phpunit/phpunit": "5.*",
                 "scrutinizer/ocular": "~1.1"
             },
+            "time": "2016-08-25T07:53:44+00:00",
             "bin": [
                 "bin/cowsayphp"
             ],
@@ -36,6 +32,7 @@
                     "dev-master": "1.0-dev"
                 }
             },
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Cowsayphp\\": "src"
@@ -62,18 +59,9 @@
                 "issues": "https://github.com/alrik11es/cowsayphp/issues",
                 "source": "https://github.com/alrik11es/cowsayphp/tree/master"
             },
-            "time": "2016-08-25T07:53:44+00:00"
+            "install-path": "../alrik11es/cowsayphp"
         }
     ],
-    "packages-dev": [],
-    "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": [],
-    "prefer-stable": false,
-    "prefer-lowest": false,
-    "platform": {
-        "php": "^7.4.0"
-    },
-    "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "dev": true,
+    "dev-package-names": []
 }
