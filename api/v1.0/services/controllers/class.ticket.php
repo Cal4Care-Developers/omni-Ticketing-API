@@ -2679,7 +2679,7 @@ if($explode1[0]=='Best regards'){
 }else{
 	$ticket_signature = '';
 }
-}*/		echo $ticket_assigned_to_id;exit;
+}*/		//echo $ticket_assigned_to_id;exit;
 
 
 	      		
