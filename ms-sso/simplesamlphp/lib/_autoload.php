@@ -22,7 +22,8 @@ $test=str_replace("workspace/","",$test);
 //     require_once  '/ms-sso/simplesamlphp/vendor/autoload.php';
 // } else {
     if (file_exists($test . '/vendor/autoload.php')){
-        require_once $test . '/vendor/autoload.php';
+        // require_once $test . '/vendor/autoload.php';
+        require_once($test . '/vendor/autoload.php');
         exit;
     }
     if (file_exists($test . '/ms-sso/simplesamlphp/vendor/autoload.php')){
