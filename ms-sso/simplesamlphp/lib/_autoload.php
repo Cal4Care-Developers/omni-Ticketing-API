@@ -18,7 +18,8 @@ $test = dirname(dirname(__FILE__)) ;
 // echo dirname(__FILE__);exit;
 // echo file_exists('/ms-sso');exit;
 // echo file_exists('/ms-sso/simplesamlphp/vendor/autoload.php');exit;
-echo $_SERVER['HTTP_REFERER'];
+echo $_SERVER['PHP_SELF'];
+echo $_SERVER['HTTP_REFERER'];exit;
 // if (file_exists('/ms-sso/simplesamlphp/vendor/autoload.php')) {
 //     require_once  '/ms-sso/simplesamlphp/vendor/autoload.php';
 // } else {
