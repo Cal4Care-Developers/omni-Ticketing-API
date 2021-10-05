@@ -16,19 +16,19 @@ $test = dirname(dirname(__FILE__)) ;
 // $test=str_replace("workspace/","",$test);
 // echo '1212'
 // echo dirname(__FILE__);exit;
-echo file_exists('/ms-sso');exit;
+// echo file_exists('/ms-sso');exit;
 // echo file_exists('/ms-sso/simplesamlphp/vendor/autoload.php');exit;
-
-if (file_exists('/ms-sso/simplesamlphp/vendor/autoload.php')) {
-    require_once  '/ms-sso/simplesamlphp/vendor/autoload.php';
-} else {
-    // if (file_exists(dirname(dirname(__FILE__)) . '/vendor/autoload.php')) {
-    //     require_once dirname(dirname(__FILE__)) . '/vendor/autoload.php';
-    // } else {
+echo $_SERVER['HTTP_REFERER'];
+// if (file_exists('/ms-sso/simplesamlphp/vendor/autoload.php')) {
+//     require_once  '/ms-sso/simplesamlphp/vendor/autoload.php';
+// } else {
+    if (file_exists(dirname(dirname(__FILE__)) . '/vendor/autoload.php')) {
+        require_once dirname(dirname(__FILE__)) . '/vendor/autoload.php';
+    } else {
     // SSP is loaded as a library
-    if (file_exists( $test . '/../../../autoload.php')) {
+    if (file_exists(dirname(dirname(__FILE__)). '/../../../autoload.php')) {
         // echo 'if2';exit;
-        require_once  $test . '/../../../autoload.php';
+        require_once  dirname(dirname(__FILE__)). '/../../../autoload.php';
     } else {
        echo 'el2';exit;
         throw new Exception('Unable to load Composer autoloader');
