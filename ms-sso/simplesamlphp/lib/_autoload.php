@@ -18,11 +18,29 @@ $test = dirname(dirname(__FILE__)) ;
 // echo dirname(__FILE__);exit;
 // echo file_exists('/ms-sso');exit;
 // echo file_exists('/ms-sso/simplesamlphp/vendor/autoload.php');exit;
-echo $_SERVER['PHP_SELF'];
-echo $_SERVER['HTTP_REFERER'];exit;
 // if (file_exists('/ms-sso/simplesamlphp/vendor/autoload.php')) {
 //     require_once  '/ms-sso/simplesamlphp/vendor/autoload.php';
 // } else {
+    if (file_exists(dirname(dirname(__FILE__)) . '/vendor/autoload.php')){
+               echo '1';exit;
+    }
+    if (file_exists((dirname(__FILE__)) . '/ms-sso/simplesamlphp/vendor/autoload.php')){
+        echo '2';exit;
+}
+if (file_exists(dirname(__FILE__) . 'ms-sso/simplesamlphp/vendor/autoload.php')){
+    echo '3';exit;
+}
+if (file_exists(dirname(dirname(__FILE__)) . '/ms-sso/simplesamlphp/vendor/autoload.php')){
+    echo '4';exit;
+}
+if (file_exists(dirname(__FILE__) . '/vendor/autoload.php')){
+    echo '5';exit;
+}
+if (file_exists(dirname(dirname(__FILE__)) . '/../vendor/autoload.php')){
+    echo '6';exit;
+}
+
+    
     if (file_exists(dirname(dirname(__FILE__)) . '/vendor/autoload.php')) {
         require_once dirname(dirname(__FILE__)) . '/vendor/autoload.php';
     } else {
