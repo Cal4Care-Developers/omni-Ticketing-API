@@ -3521,7 +3521,7 @@ public function updateTicketStatus($data){
 	
 	public function createTicketSignature($data){
 			extract($data);		
-			$tos = explode(',',$to);		
+			// $tos = explode(',',$to);		
 			$qry = "SELECT support_email FROM admin_details WHERE admin_id=$admin_id";
 			$from = $this->fetchOne($qry,array());
 			$description = base64_decode($description);
@@ -3627,7 +3627,7 @@ function editTicketSignature($data){
 public function updateTicketSignature($data){
 			extract($data); 
 		
-			$tos = explode(',',$to);
+			// $tos = explode(',',$to);
 		
 			$qry = "SELECT support_email FROM admin_details WHERE admin_id=$admin_id";
 			$from = $this->fetchOne($qry,array());
