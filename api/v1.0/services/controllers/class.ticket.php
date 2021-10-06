@@ -6825,7 +6825,6 @@ public function phone_bridge_users($data){
 public function view_phone_bridge_users($data){
 		extract($data);		
 		$qry = "SELECT * FROM phone_bridge_users WHERE admin_id = '$admin_id' AND ip_address='$ip_address'";
-	
 		$result = $this->fetchData($qry,array());//print_r($result);exit;
 		extract($result);
 		$agt = base64_decode($agents);
@@ -6837,7 +6836,14 @@ public function view_phone_bridge_users($data){
         $merge_result = array_merge($status, $options);       
         $tarray = json_encode($merge_result);           
         print_r($tarray);exit;
+}
 
-}	
+public function get_department_signature($admin_id){
+	//$qry = "SELECT dept_id,department_name FROM departments WHERE admin_id ='$admin_id' AND delete_status=0 AND signature_id=0";
+	$qry = "SELECT dept_id,department_name FROM departments WHERE admin_id ='$admin_id' AND delete_status=0";
+	//echo $qry;exit;
+	$res= $this->dataFetchAll($qry, array(""));	
+	return $res;
+}
 }
 ?>

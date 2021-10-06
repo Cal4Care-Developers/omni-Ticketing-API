@@ -23,7 +23,7 @@ $test=str_replace("workspace/","",$test);
 // } else {
     if (file_exists($test . '/vendor/autoload.php')){
         // require_once $test . '/vendor/autoload.php';
-        require_once($test . '/vendor/autoload.php');
+         include $test . '/vendor/autoload.php';
         exit;
     }
     if (file_exists($test . '/ms-sso/simplesamlphp/vendor/autoload.php')){
