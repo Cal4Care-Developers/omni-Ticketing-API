@@ -718,6 +718,24 @@ function pd_zipfile_archive_update2($pd_zipfile_path,$user_id,$cmp_id,$cmp_pre,$
 		//print_r($output);exit;
 		return $output;
     }
+	
+	function erp_app($api_request_data){
+		//print_r(json_encode($api_request_data));exit;
+    	$url = 'https://erp.cal4care.com/cms/apps/index.php';
+		$ch = curl_init();
+		curl_setopt_array($ch, array(
+			CURLOPT_URL => $url,
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_POST => true,
+		    CURLOPT_POSTFIELDS => json_encode($api_request_data)
+		));
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+		$output = curl_exec($ch);
+		//print_r($output);exit;
+		return $output;
+    }
+	
 	function add_fax_user_curl($data,$token){
 		//print_r($data);exit;
         $url = 'https://myfax.mconnectapps.com/api/users';

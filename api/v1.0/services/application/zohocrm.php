@@ -112,6 +112,7 @@ elseif($action == "addMSTeamsUsers"){
 	$result_data["result"]["data"] = $list->addMSTeamsUsers($data);
 }
 elseif($action == "ssoUsers"){
+	//echo 'test';exit;
    $result_data["result"]["status"] = true;
    $result_data["result"]["data"] = $list->ssoUsers($admin_id);
 }

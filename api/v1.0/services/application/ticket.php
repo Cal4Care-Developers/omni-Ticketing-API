@@ -618,4 +618,14 @@ elseif($action == "update_signature_strategy"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->update_signature_strategy($data);
 }
+elseif($action == "update_switch_signature"){
+    $data= array("user_id"=>$user_id,"value"=>$value);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->update_switch_signature($data);
+}
+elseif($action == "merge_ticket"){
+    $data= array("admin_id"=>$admin_id,"user_id"=>$user_id,"main_ticket_id"=>$main_ticket_id,"sub_ticket_id"=>$sub_ticket_id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->merge_ticket($data);
+}
 ?>
