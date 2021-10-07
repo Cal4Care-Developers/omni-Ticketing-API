@@ -5,7 +5,6 @@ require_once 'lib/_autoload.php';
 
 
 $as = new SimpleSAML_Auth_Simple('default-sp');
-echo 'Function'; exit;
 $as->requireAuth();
 $attributes = $as->getAttributes();
 
@@ -18,7 +17,6 @@ $element_data = array('logout' => $url,'email'=>$emial);
 
 
 if($_GET['logout']){
-	//echo $_GET['logout'];
 	$u = $_GET['logout'];	
 	ob_start();
    	header('Location: '.$u);
