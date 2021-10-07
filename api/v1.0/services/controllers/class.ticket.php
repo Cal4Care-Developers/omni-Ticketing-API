@@ -3012,6 +3012,8 @@ public function createExternalTicket($data){
 		extract($data);//file_put_contents('vaithee.txt', print_r($data,true).PHP_EOL , FILE_APPEND | LOCK_EX); exit;
 		//print_r($data); exit;
 		//$from_address = 'nzassaabloycc@pipe.mconnectapps.com';
+		print_r($data);exit;
+
 		$tos = explode(',',$to);
 		$mail_ccs = explode(",",$mail_cc);
 	
@@ -3522,6 +3524,7 @@ public function updateTicketStatus($data){
 	public function createTicketSignature($data){
 			extract($data);		
 			// $tos = explode(',',$to);		
+			print_r($data);exit;
 			$qry = "SELECT support_email FROM admin_details WHERE admin_id=$admin_id";
 			$from = $this->fetchOne($qry,array());
 			$description = base64_decode($description);
