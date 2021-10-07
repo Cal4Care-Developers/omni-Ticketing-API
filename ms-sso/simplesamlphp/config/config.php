@@ -50,7 +50,9 @@ $config = [
          */
         //'baseURL' => 'https://example.com',
     //],
-
+        'application' => [
+            'baseURL' => 'https://omnitickets.mconnectapps.com/'
+        ],
     /*
      * The following settings are *filesystem paths* which define where
      * SimpleSAMLphp can find or write the following things:

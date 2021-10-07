@@ -3018,8 +3018,9 @@ public function createExternalTicket($data){
 		$mail_ccs = explode(",",$mail_cc);
 	
 	    $qry = "SELECT support_email FROM admin_details WHERE admin_id=$admin_id";
-		echo $qry;exit;
+	
 		$from = $this->fetchOne($qry,array());
+		echo $from;exit;
 		$from = $from_address;
 		$description = base64_decode($description);
 		$html = $description;
@@ -3526,8 +3527,9 @@ public function updateTicketStatus($data){
 			extract($data);		
 			// $tos = explode(',',$to);		
 			$qry = "SELECT support_email FROM admin_details WHERE admin_id=$admin_id";
-			echo $qry;exit;
+		
 			$from = $this->fetchOne($qry,array());
+			echo $from;exit;
 			$description = base64_decode($description);
 			$html = $description;
 			$dom = new DOMDocument();
