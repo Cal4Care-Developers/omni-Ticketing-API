@@ -4,7 +4,8 @@
     "type": "project",
     "require": {
         "alrik11es/cowsayphp": "^1.2",
-        "php": "^7.4.0"
+        "php": "^7.4.0",
+        "ext-dom": "*"
     },
     "authors": [
         {

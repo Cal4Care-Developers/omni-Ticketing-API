@@ -3534,8 +3534,8 @@ public function updateTicketStatus($data){
 			
 			$description = base64_decode($description);
 			$html = $description;
-			echo $html;exit;
 			$dom = new DOMDocument();
+				echo '124';exit;
 			$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
 			$images = $dom->getElementsByTagName('img');
 			foreach ($images as $image) {						
