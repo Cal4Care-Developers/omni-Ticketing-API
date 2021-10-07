@@ -3020,11 +3020,12 @@ public function createExternalTicket($data){
 	    $qry = "SELECT support_email FROM admin_details WHERE admin_id=$admin_id";
 	
 		$from = $this->fetchOne($qry,array());
-		echo $from;exit;
+		//echo $from;exit;
 		$from = $from_address;
 		$description = base64_decode($description);
 		$html = $description;
 		$dom = new DOMDocument();
+		echo $dom;exit;
 		$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
 		$images = $dom->getElementsByTagName('img');
 		foreach ($images as $image) {
@@ -3533,10 +3534,10 @@ public function updateTicketStatus($data){
 			
 			$description = base64_decode($description);
 			$html = $description;
+			echo $html;exit;
 			$dom = new DOMDocument();
 			$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
 			$images = $dom->getElementsByTagName('img');
-			print_r($images);exit;
 			foreach ($images as $image) {						
 				$withoutSrc = $image->getAttribute('src');
 				$img_Src = str_ireplace('src="', '', $withoutSrc);
