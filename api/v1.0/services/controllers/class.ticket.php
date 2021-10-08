@@ -3065,11 +3065,8 @@ $dom->loadHTML($html);
 					//$whatsapp_media_target_path = $tempFolder.$image_name; 
 				}
 
-		} 
-	
-	
-		$countfiles = count($_FILES['up_files']['name']); 
-		echo $countfiles;exit;
+		} 	
+		$countfiles = count($_FILES['up_files']['name']); 		
 		$destination_path = getcwd().DIRECTORY_SEPARATOR;            
 		$upload_location = $destination_path."ext-ticket-image/";
 		$files_arr = array();  
@@ -3657,8 +3654,11 @@ public function updateTicketSignature($data){
 			$description = base64_decode($description);
 			$html = $description;
 			$dom = new DOMDocument();
-			$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+			// $dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+			// $images = $dom->getElementsByTagName('img');
+			// added this bcz of 500 issue
 			$images = $dom->getElementsByTagName('img');
+			$dom->loadHTML($html);
 			foreach ($images as $image) {
 			/*$src = $image->getAttribute('src');
 			$type = pathinfo($src, PATHINFO_EXTENSION);

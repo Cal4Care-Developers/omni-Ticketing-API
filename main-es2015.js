@@ -8432,16 +8432,35 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 let LoginComponent = class LoginComponent {
-    constructor(serverService, router) {
+    constructor(serverService, router, route) {
         this.serverService = serverService;
         this.router = router;
+        this.route = route;
         this.loginFormTemp = true;
         this.sendotp = false;
         this.sendotpmain = false;
         this.loginError = "";
         this.loginSuccess = "";
         this.tab = 1;
+        this.login = this.route.snapshot.queryParamMap.get('login');
+        if (this.login) {
+            // alert(this.login)
+            if (this.login == 'Not an Valid User') {
+                sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.fire({
+                    title: 'Not an Valid User',
+                    text: "Sorry, We can't able to Log you,Please Login manually",
+                    icon: 'error',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Login'
+                });
+            }
+            else
+                this.msAuth(this.login);
+        }
     }
     ngOnInit() {
         this.loginForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
@@ -8458,11 +8477,114 @@ let LoginComponent = class LoginComponent {
         console.log(random, months[random]);
         $(".main-bg").css('background-image', 'url("/../assets/img/custom-images/' + months[random] + '")');
         //Start watching for user inactivity.
-        this.userIdle.startWatching();
+        // this.userIdle.startWatching();
         // Start watching when user idle is starting.
-        this.userIdle.onTimerStart().subscribe(count => console.log(count));
+        // this.userIdle.onTimerStart().subscribe(count => console.log(count));
         // Start watch when time is up.
-        this.userIdle.onTimeout().subscribe(() => console.log('Time is up!'));
+        // this.userIdle.onTimeout().subscribe(() => console.log('Time is up!'));
+    }
+    msAuth(login) {
+        let loginReq = '{"operation":"agents", "moduleType": "agents", "api_type": "web","element_data":{"action":"ms_sso_omni","login":"' + login + '"}}';
+        this.serverService.sendServer2(loginReq).subscribe((response) => {
+            let api_req = '{"operation":"login", "moduleType": "login", "api_type": "web","element_data":{"action":"login_validation","company_name":"' + response.company + '","password":"' + response.password + '","user_name":"' + response.username + '"}}';
+            this.serverService.sendServer2(api_req).subscribe((response) => {
+                //return false;
+                if (response.data == 1) {
+                    this.sendotp = true;
+                    this.loginFormTemp = false;
+                    // this.loginSuccess = "Please Enter the OTP";
+                    this.loginError = "";
+                }
+                else if (response.result.status == 1) {
+                    localStorage.setItem('access_token', response.access_token);
+                    localStorage.setItem('userId', response.result.data.user_id);
+                    localStorage.setItem('user_name', response.result.data.user_name);
+                    localStorage.setItem('user_type', response.result.data.userType);
+                    localStorage.setItem('agent_name', response.result.data.agent_name);
+                    localStorage.setItem('profile_image', response.result.data.profile_image);
+                    localStorage.setItem('logo_image', response.result.data.logo_image);
+                    localStorage.setItem('small_logo_image', response.result.data.small_logo_image);
+                    localStorage.setItem('theme', response.result.data.theme);
+                    localStorage.setItem('layout', response.result.data.layout);
+                    localStorage.setItem('timezone_id', response.result.data.timezone_id);
+                    localStorage.setItem('admin_id', response.result.data.admin_id);
+                    localStorage.setItem('dsk_access', response.result.data.dsk_access);
+                    localStorage.setItem('hardware_id', response.result.data.hardware_id);
+                    localStorage.setItem('has_external_contact', response.result.data.has_external_contact);
+                    localStorage.setItem('external_contact_url', response.result.data.external_contact_url);
+                    localStorage.setItem('show_caller_id', response.result.data.show_caller_id);
+                    localStorage.setItem('has_reports', response.result.data.reports);
+                    localStorage.setItem('whatsapp_account', response.result.data.whatsapp_account);
+                    localStorage.setItem('fb_account', response.result.data.facebook_account);
+                    localStorage.setItem('predective_dialer_behave', response.result.data.predective_dialer_behave);
+                    localStorage.setItem('crm_type', response.result.data.crm_type);
+                    localStorage.setItem('price_sms', response.result.data.price_sms);
+                    localStorage.setItem('has_line', response.result.data.has_fax);
+                    localStorage.setItem('encAdmin', response.result.data.encAdmin);
+                    localStorage.setItem('encUser', response.result.data.encUser);
+                    // localStorage.setItem('has_tele', response.result.data.has_telegram);
+                    localStorage.setItem('N_token', '');
+                    localStorage.setItem('company_name', response.result.data.company_name);
+                    localStorage.setItem('reseller', response.result.data.reseller);
+                    localStorage.setItem('ext_int_status', response.result.data.ext_int_status);
+                    this.loginError = "";
+                    this.loginSuccess = "You have successfully logged in";
+                    this.loginForm.reset();
+                    // setTimeout(() => {
+                    this.router.navigate(['/mc']);
+                }
+                else {
+                    this.serverService.sendServer(api_req).subscribe((response) => {
+                        if (response.result.status == 1) {
+                            localStorage.setItem('access_token', response.access_token);
+                            localStorage.setItem('userId', response.result.data.user_id);
+                            localStorage.setItem('user_name', response.result.data.user_name);
+                            localStorage.setItem('user_type', response.result.data.userType);
+                            localStorage.setItem('agent_name', response.result.data.agent_name);
+                            localStorage.setItem('profile_image', response.result.data.profile_image);
+                            localStorage.setItem('logo_image', response.result.data.logo_image);
+                            localStorage.setItem('small_logo_image', response.result.data.small_logo_image);
+                            localStorage.setItem('theme', response.result.data.theme);
+                            localStorage.setItem('layout', response.result.data.layout);
+                            localStorage.setItem('timezone_id', response.result.data.timezone_id);
+                            localStorage.setItem('admin_id', response.result.data.admin_id);
+                            localStorage.setItem('dsk_access', response.result.data.dsk_access);
+                            localStorage.setItem('hardware_id', response.result.data.hardware_id);
+                            localStorage.setItem('has_external_contact', response.result.data.has_external_contact);
+                            localStorage.setItem('external_contact_url', response.result.data.external_contact_url);
+                            localStorage.setItem('show_caller_id', response.result.data.show_caller_id);
+                            localStorage.setItem('has_reports', response.result.data.reports);
+                            localStorage.setItem('whatsapp_account', response.result.data.whatsapp_account);
+                            localStorage.setItem('fb_account', response.result.data.facebook_account);
+                            localStorage.setItem('predective_dialer_behave', response.result.data.predective_dialer_behave);
+                            localStorage.setItem('crm_type', response.result.data.crm_type);
+                            localStorage.setItem('price_sms', response.result.data.price_sms);
+                            localStorage.setItem('has_line', response.result.data.has_fax);
+                            localStorage.setItem('encAdmin', response.result.data.encAdmin);
+                            localStorage.setItem('encUser', response.result.data.encUser);
+                            // localStorage.setItem('has_tele', response.result.data.has_telegram);
+                            localStorage.setItem('N_token', '');
+                            localStorage.setItem('company_name', response.result.data.company_name);
+                            localStorage.setItem('reseller', response.result.data.reseller);
+                            localStorage.setItem('ext_int_status', response.result.data.ext_int_status);
+                            this.loginError = "";
+                            this.loginSuccess = "You have successfully logged in";
+                            this.loginForm.reset();
+                            // setTimeout(() => {
+                            this.router.navigate(['/mc']);
+                        }
+                        else {
+                            this.loginSuccess = "";
+                            this.loginError = "Please enter the valid company name, username and password";
+                        }
+                    });
+                }
+            }, (error) => {
+                console.log(error);
+            });
+        }, (error) => {
+            console.log(error);
+        });
     }
     stop() {
         this.userIdle.stopTimer();
@@ -8668,7 +8790,8 @@ let LoginComponent = class LoginComponent {
 };
 LoginComponent.ctorParameters = () => [
     { type: _services_server_service__WEBPACK_IMPORTED_MODULE_4__["ServerService"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] }
 ];
 LoginComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
