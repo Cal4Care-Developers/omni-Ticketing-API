@@ -3025,9 +3025,10 @@ public function createExternalTicket($data){
 		$description = base64_decode($description);
 		$html = $description;
 		$dom = new DOMDocument();		
+	$test=mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
+	echo "1244";exit;
+		$dom->loadHTML();
 	
-		$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
-		echo 'test';exit;
 		$images = $dom->getElementsByTagName('img');
 		foreach ($images as $image) {
         /*$src = $image->getAttribute('src');
@@ -3538,10 +3539,12 @@ public function updateTicketStatus($data){
 			$html = $description;
 			$dom = new DOMDocument();
 			//	echo '124';exit;
+			$images = $dom->getElementsByTagName('img');
+			echo 'Ima122ge';exit;
 			$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
 		
-			$images = $dom->getElementsByTagName('img');
-			echo 'Image';exit;
+		
+			
 			foreach ($images as $image) {						
 				$withoutSrc = $image->getAttribute('src');
 				$img_Src = str_ireplace('src="', '', $withoutSrc);
