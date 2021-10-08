@@ -29,11 +29,11 @@ $config = [
 
         // The entity ID of this SP.
         // Can be NULL/unset, in which case an entity ID is generated based on the metadata URL.
-        'entityID' => 'tezt_3cx_entityId',
+        'entityID' => '',
 
         // The entity ID of the IdP this SP should contact.
         // Can be NULL/unset, in which case the user will be shown a list of available IdPs.
-        'idp' => 'https://sts.windows.net/3eda8495-cd20-4cf1-8d32-dc5ba0b065bd/',
+        'idp' => '',
 
         // The URL to the discovery service.
         // Can be NULL/unset, in which case a builtin discovery service will be used.
