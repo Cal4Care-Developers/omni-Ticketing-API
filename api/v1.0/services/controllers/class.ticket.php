@@ -3027,10 +3027,11 @@ public function createExternalTicket($data){
 		$dom = new DOMDocument();		
 	// $test=mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
 	$content = htmlentities($html);
-	echo "1244";exit;
-		$dom->loadHTML();
+		// $dom->loadHTML();
 	
-		$images = $dom->getElementsByTagName('img');
+		$images = $content->getElementsByTagName('img');
+	echo "1222244";exit;
+
 		foreach ($images as $image) {
         /*$src = $image->getAttribute('src');
         $type = pathinfo($src, PATHINFO_EXTENSION);
@@ -3542,8 +3543,8 @@ public function updateTicketStatus($data){
 			//	echo '124';exit;
 			$images = $dom->getElementsByTagName('img');
 			$dom->loadHTML($html);
-			echo 'Ima122ge';exit;
-			$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+			// echo 'Ima122ge';exit;
+			// $dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
 		
 		
 			
