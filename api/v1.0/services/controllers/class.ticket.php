@@ -3025,7 +3025,8 @@ public function createExternalTicket($data){
 		$description = base64_decode($description);
 		$html = $description;
 		$dom = new DOMDocument();		
-	$test=mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
+	// $test=mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
+	$content = htmlentities($html);
 	echo "1244";exit;
 		$dom->loadHTML();
 	
@@ -3540,6 +3541,7 @@ public function updateTicketStatus($data){
 			$dom = new DOMDocument();
 			//	echo '124';exit;
 			$images = $dom->getElementsByTagName('img');
+			$dom->loadHTML($html);
 			echo 'Ima122ge';exit;
 			$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
 		
