@@ -3026,12 +3026,16 @@ public function createExternalTicket($data){
 		$html = $description;
 		$dom = new DOMDocument();		
 	// $test=mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
-	$content = htmlentities($html);
-		// $dom->loadHTML();
+	// $content = htmlentities($html);
+	// 	// $dom->loadHTML();
 	
-		$images = $content->getElementsByTagName('img');
-	echo "1222244";exit;
-
+	// 	$images = $content->getElementsByTagName('img');
+	// echo "1222244";exit;
+//	echo '124';exit;
+$images = $dom->getElementsByTagName('img');
+$dom->loadHTML($html);
+// echo 'Ima122ge';exit;
+// $dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
 		foreach ($images as $image) {
         /*$src = $image->getAttribute('src');
         $type = pathinfo($src, PATHINFO_EXTENSION);

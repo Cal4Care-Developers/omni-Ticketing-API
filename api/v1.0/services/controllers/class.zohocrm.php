@@ -362,6 +362,8 @@ function generateRandomString($length = 10) {
         }
 
         public function activateSSO($data){
+          //print_r($_FILES);
+      
           if (isset($_FILES['federation_metadata_xml']) && ($_FILES['federation_metadata_xml']['error'] == UPLOAD_ERR_OK)) {
             $xml = simplexml_load_file($_FILES['federation_metadata_xml']['tmp_name']);
             $json = json_encode($xml);
@@ -371,7 +373,9 @@ function generateRandomString($length = 10) {
             $SingleLogoutServiceLocation = $configData['IDPSSODescriptor']['SingleLogoutService']['@attributes']['Location'];
             $X509Certificate = $configData['IDPSSODescriptor']['KeyDescriptor']['KeyInfo']['X509Data']['X509Certificate'];
             $t =$_SERVER['DOCUMENT_ROOT'].'/ms-sso/simplesamlphp/metadata/saml20-idp-remote.php';
-            $str = file_get_contents('saml20-idp-remote.php');
+            $t2 =$_SERVER['DOCUMENT_ROOT'].'/ms-sso/simplesamlphp/metadata/saml202-idp-remote.php';
+            $str = file_get_contents($t2);
+            $rrr = $str;
             $str = str_replace('MetaentityID', $entityID ,$str);
             $str = str_replace('SingleLogoutServiceBinding', $SingleLogoutServiceBinding ,$str);
             $str = str_replace('SingleLogoutServiceLocation', $SingleLogoutServiceLocation ,$str);
@@ -381,15 +385,21 @@ function generateRandomString($length = 10) {
           $t =$_SERVER['DOCUMENT_ROOT'].'/ms-sso/simplesamlphp/metadata/saml20-idp-remote.php';
           $fl2c = file_get_contents($t);
           $fl2 = $t;
+          
           extract($data);
           $authsources = $_SERVER['DOCUMENT_ROOT'].'/ms-sso/simplesamlphp/config/authsourcesSSO.php';
           $strs = file_get_contents($authsources);
+      
           $strs = str_replace('AssureEntityID', $sso_entity_id ,$strs);
           $strs = str_replace('AssureIDPVALUE', $azure_ad_id ,$strs);
           $authsourcess = $_SERVER['DOCUMENT_ROOT'].'/ms-sso/simplesamlphp/config/authsources.php';
           file_put_contents($authsourcess, $strs);
-          $f13c = file_get_contents($authsourcess); 
+          
+      $f13c = file_get_contents($authsourcess); 
           $f13 = $authsourcess;
+      
+      
+      
           $user_leadtoken_qry = "SELECT * FROM ms_sso_authentication where admin_id='$admin_id'";
           $result = $this->dataFetchAll($user_leadtoken_qry, array()); 						
           //print_r($user_leadtoken_qry); exit;
@@ -397,18 +407,22 @@ function generateRandomString($length = 10) {
             $id = $result[0]['id'];
             $qry = "UPDATE ms_sso_authentication SET sso_entity_id='$sso_entity_id', sso_reply_url='$sso_reply_url',azure_ad_id='$azure_ad_id',admin_id='$admin_id' where id = $id";
             $results = $this->db_query($qry, $params);
+      
           } else {
             $user_qry = "INSERT INTO ms_sso_authentication(sso_entity_id,sso_reply_url,azure_ad_id,admin_id) values ('$sso_entity_id','$sso_reply_url','$azure_ad_id','$admin_id')";
             $results = $this->db_query($user_qry,array());
           }
           $user_leadtoken_qry = "SELECT * FROM ms_sso_authentication where admin_id='$admin_id'";
           $result = $this->dataFetchAll($user_leadtoken_qry, array()); 
+      
           $result_data["result"]["status"] = true;
           $result_data["result"]["data"] = $result;
           $result_data["result"]["authsources"] = $f13;
           $result_data["result"]["authsourcesContent"] = $f13c;
           $result_data["result"]["saml20-idp-remote"] = $fl2;
+          $result_data["result"]["saml20-idp-remoteold"] = $rrr;
           $result_data["result"]["saml20-idp-remoteContent"] = $fl2c;
+          
           $result = json_encode($result_data);
           print_r($result); exit;
           return $result;
