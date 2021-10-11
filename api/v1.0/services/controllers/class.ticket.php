@@ -7146,7 +7146,15 @@ public function merge_ticket($data){
             $result = $qry_result == 1 ? 1 : 0;
 			$update_data = $this->db_query("UPDATE external_tickets SET delete_status='1' WHERE ticket_no='$sub_ticket_id'", array());
             return $result;        	
-        }else{
+        }
+        elseif($main_customer_id == 0 || $sub_customer_id == 0){
+        	$qry = "UPDATE external_tickets_data SET ticket_id='$main_ticket_id' WHERE ticket_id='$sub_ticket_id'";        
+            $qry_result = $this->db_query($qry, array());
+            $result = $qry_result == 1 ? 1 : 0;
+			$update_data = $this->db_query("UPDATE external_tickets SET delete_status='1' WHERE ticket_no='$sub_ticket_id'", array());
+            return $result;        	
+        }
+        else{
         	$result = 0;
             return $result;        	
         }    
