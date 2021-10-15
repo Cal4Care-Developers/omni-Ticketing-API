@@ -5237,7 +5237,7 @@ function get_unassign_tickets($data){
           $priority = $result[$i]['priority'];
 		  $ticket_created_at = $result[$i]['created_dt'];
           $ticket_message = $result[$i]['ticket_message'];
-          $ticket_subject = $result[$i]['subject'];
+          $ticket_subject = $result[$i]['ticket_subject'];
 		  $spammed = $result[$i]['spammed'];
 		  $unassign_value = $result[$i]['unassign'];	
           $createdby_qry = "SELECT agent_name FROM user WHERE user_id='$ticket_created_by'";              
