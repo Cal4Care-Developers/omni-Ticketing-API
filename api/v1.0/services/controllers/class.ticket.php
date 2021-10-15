@@ -423,7 +423,7 @@ $user_qry = "SELECT timezone_id FROM user WHERE user_id='$user_id'";
 		//echo $unassign;exit;
 		$uassign = 1;	
 			if($ticket_status == 'All' && $ticket_department == 'All'){
-					$qry = "SELECT * FROM external_tickets WHERE admin_id = $user_id and is_spam = '$is_spam' and ticket_status!=9 and ticket_status!=8 and unassign=$uassign and delete_status=0 and ticket_assigned_to!=''";
+					$qry = "SELECT * FROM external_tickets WHERE admin_id = $user_id and is_spam = '$is_spam' and ticket_status!=9 and unassign=$uassign and delete_status=0 and ticket_assigned_to!=''";
 					$detail_qry = $qry." ORDER BY updated_at DESC LIMIT $limit offset $offset";
 				$detail_qry2 = $qry." ORDER BY updated_at DESC";
 					//echo $detail_qry;exit;
@@ -500,7 +500,8 @@ $result = $this->dataFetchAll($detail_qry, array());
 		for($j = 0; $j < count($dep_array); $j++){
 		 $department_id = $dep_array[$j]['department_id'];
 		 $department_name = $dep_array[$j]['department_name'];
-		 $ticket_count = $this->fetchOne("SELECT COUNT(ticket_no) FROM `external_tickets` WHERE admin_id='$admin_id' AND ticket_department='$department_id' AND unassign=1 AND delete_status=0 AND is_spam=0",array());		
+		 //$ticket_count = $this->fetchOne("SELECT COUNT(ticket_no) FROM `external_tickets` WHERE admin_id='$admin_id' AND ticket_department='$department_id' AND unassign=1 AND delete_status=0 AND is_spam=0",array());
+		 $ticket_count = $this->fetchOne("SELECT COUNT(ticket_no) FROM `external_tickets` WHERE admin_id='$admin_id' AND ticket_department='$department_id' AND unassign=1 AND delete_status=0 AND ticket_assigned_to!='' AND ticket_status=3 OR admin_id='$admin_id' AND ticket_department='$department_id' AND unassign=1 AND delete_status=0 AND ticket_assigned_to!='' AND ticket_status=1",array());	
 		 $dept_options = array('department_id' => $department_id, 'department_name' => $department_name, 'ticket_count' => $ticket_count);
 		 $department_options_array[] = $dept_options;  
 	    }	
@@ -508,7 +509,7 @@ $result = $this->dataFetchAll($detail_qry, array());
 else {
 			
 			if($ticket_status == 'All' && $ticket_department == 'All' && $ticket_user==$user_id){
-				 $qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE FIND_IN_SET('$ticket_user',a.ticket_assigned_to ) AND a.is_spam = '$is_spam' AND a.unassign=1 AND a.delete_status=0 AND a.ticket_status!=9 AND a.ticket_status!=8 OR a.ticket_created_by = $ticket_user AND a.is_spam = '$is_spam' AND a.ticket_status!=9 AND a.ticket_status!=8 AND a.unassign=1 AND a.delete_status=0";
+				 $qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE FIND_IN_SET('$ticket_user',a.ticket_assigned_to ) AND a.is_spam = '$is_spam' AND a.unassign=1 AND a.delete_status=0 AND a.ticket_status!=9 OR a.ticket_created_by = $ticket_user AND a.is_spam = '$is_spam' AND a.ticket_status!=9 AND a.unassign=1 AND a.delete_status=0";
 				 $detail_qry = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC LIMIT $limit offset $offset";
 				 $detail_qry2 = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC";
 				//echo $detail_qry;exit;
@@ -554,7 +555,7 @@ else {
 				} // ticket for loop
 			}
 			else if($ticket_status == 'All' && $ticket_department != 'All' && $ticket_user==$user_id){
-                $qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE FIND_IN_SET('$ticket_user',a.ticket_assigned_to ) and a.ticket_department LIKE '%$ticket_department%' and a.is_spam = '$is_spam' AND a.ticket_status!=9 AND a.ticket_status!=8 AND a.unassign=1 AND a.delete_status=0 OR a.ticket_created_by = $ticket_user and a.ticket_department LIKE '%$ticket_department%' and a.is_spam = '$is_spam' AND a.ticket_status!=9 AND a.ticket_status!=8 AND a.unassign=1 AND a.delete_status=0";
+                $qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE FIND_IN_SET('$ticket_user',a.ticket_assigned_to ) and a.ticket_department LIKE '%$ticket_department%' and a.is_spam = '$is_spam' AND a.ticket_status!=9 AND a.unassign=1 AND a.delete_status=0 OR a.ticket_created_by = $ticket_user and a.ticket_department LIKE '%$ticket_department%' and a.is_spam = '$is_spam' AND a.ticket_status!=9 AND a.unassign=1 AND a.delete_status=0";
 				 $detail_qry = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC LIMIT $limit offset $offset";
 				 $detail_qry2 = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC";
 				 $result = $this->dataFetchAll($detail_qry,array());
@@ -599,7 +600,7 @@ else {
 				 } // ticket for loop 				 	
 			} 
 			else if($ticket_status != 'All' && $ticket_department == 'All' && $ticket_user==$user_id){
-				$qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE FIND_IN_SET('$ticket_user',a.ticket_assigned_to ) and a.ticket_status IN ($ticket_status) and a.is_spam = '$is_spam' AND a.unassign=1 AND a.delete_status=0 OR a.ticket_created_by = $ticket_user and a.ticket_status IN ($ticket_status) and a.is_spam = '$is_spam' AND a.ticket_status!=9 AND a.unassign=1 AND a.delete_status=0";
+				$qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE FIND_IN_SET('$ticket_user',a.ticket_assigned_to ) and a.ticket_status IN ($ticket_status) and a.is_spam = '$is_spam' AND a.unassign=1 AND a.delete_status=0 OR a.ticket_created_by = $ticket_user and a.ticket_status IN ($ticket_status) and a.is_spam = '$is_spam' AND a.unassign=1 AND a.delete_status=0";
 				 $detail_qry = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC LIMIT $limit offset $offset";
 				 $detail_qry2 = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC";
 				 $result = $this->dataFetchAll($detail_qry,array());
@@ -643,7 +644,7 @@ else {
 					$ticket_options_array[] = $ticket_options;
 				 } // ticket for loop
 			}else if($ticket_status == 'All' && $ticket_department == 'All' && $ticket_user != $user_id){
-				 $qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.ticket_assigned_to LIKE '%$ticket_user%' AND a.is_spam = '$is_spam' AND a.unassign=1 AND a.delete_status=0 AND a.ticket_status!=9 AND a.ticket_status!=8 OR a.ticket_created_by LIKE '%$ticket_user%' AND a.is_spam = '$is_spam' AND a.ticket_status!=9 AND a.ticket_status!=8 AND a.unassign=1 AND delete_status=0";
+				 $qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.ticket_assigned_to LIKE '%$ticket_user%' AND a.is_spam = '$is_spam' AND a.unassign=1 AND a.delete_status=0 AND a.ticket_status!=9 OR a.ticket_created_by LIKE '%$ticket_user%' AND a.is_spam = '$is_spam' AND a.ticket_status!=9 AND a.unassign=1 AND delete_status=0";
 				 $detail_qry = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC LIMIT $limit offset $offset";
 				 $detail_qry2 = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC";
 				 $result = $this->dataFetchAll($detail_qry,array());
@@ -760,7 +761,7 @@ else {
 				if($sid==3){
 				  $sub_qry = "AND unassign=1 AND delete_status=0 AND ticket_assigned_to!=''";
 				}else{
-				  $sub_qry = " AND delete_status=0";	
+				  $sub_qry = " AND unassign=1 AND delete_status=0";	
 				}
    			    $count_query = "SELECT COUNT(ticket_no) as status_count FROM external_tickets WHERE ticket_status = $sid AND is_spam=0 AND admin_id = '$user_id'$sub_qry";     
 
@@ -784,7 +785,7 @@ else {
 				if($sid==3){
 				  $sub_qry = "AND unassign=1 AND delete_status=0 AND ticket_assigned_to!=''";
 				}else{
-				  $sub_qry = " AND delete_status=0";	
+				  $sub_qry = " AND unassign=1 AND delete_status=0";	
 				}
    			    $count_query = "SELECT COUNT(ticket_no) as status_count FROM external_tickets WHERE ticket_department = '$ticket_department' AND ticket_status = $sid AND is_spam=0 AND admin_id = '$user_id'$sub_qry";     
 //echo $count_query;
@@ -811,11 +812,11 @@ else {
 				if($sid==3){
 				  $sub_qry = "AND unassign=1 AND delete_status=0 AND ticket_assigned_to!=''";
 				}else{
-				  $sub_qry = " AND delete_status=0";	
+				  $sub_qry = " AND unassign=1 AND delete_status=0";	
 				}
    			 ///    $count_query = "SELECT COUNT(ticket_no) as status_count FROM external_tickets WHERE ticket_status = $sid AND FIND_IN_SET('$user_id',ticket_assigned_to ) AND is_spam=0 OR ticket_created_by ='$user_id' AND is_spam=0";     
 		
-				$count_query="SELECT COUNT(ticket_no) as status_count FROM external_tickets WHERE ticket_status = $sid AND FIND_IN_SET('$user_id',ticket_assigned_to ) AND is_spam=0$sub_qry OR ticket_status = $sid AND ticket_created_by ='$user_id' AND is_spam=0$sub_qry";
+				$count_query="SELECT COUNT(ticket_no) as status_count FROM external_tickets WHERE ticket_status = $sid AND ticket_assigned_to='$user_id' AND is_spam=0$sub_qry OR ticket_status = $sid AND ticket_created_by ='$user_id' AND is_spam=0$sub_qry";
 		//echo $count_query;		
      $data1=$this->fetchData($count_query,array());
 		array_push($arr, array("status_id"=>$sid,"status_name"=>$status_name,"status_count"=>$data1['status_count']));
@@ -837,11 +838,11 @@ else {
 				if($sid==3){
 				  $sub_qry = "AND unassign=1 AND delete_status=0 AND ticket_assigned_to!=''";
 				}else{
-				  $sub_qry = " AND delete_status=0";	
+				  $sub_qry = " AND unassign=1 AND delete_status=0";	
 				}
    			   //  $count_query = "SELECT COUNT(ticket_no) as status_count FROM external_tickets WHERE ticket_department = '$ticket_department' AND ticket_status = $sid AND FIND_IN_SET('$user_id',ticket_assigned_to ) OR ticket_created_by ='$user_id' AND is_spam=0";
 				
-				  $count_query = "SELECT * FROM external_tickets WHERE ticket_department = '$ticket_department' AND ticket_status = $sid AND FIND_IN_SET('$user_id',ticket_assigned_to ) AND is_spam=0 OR ticket_created_by ='$user_id' AND is_spam=0$sub_qry AND ticket_status = $sid AND ticket_department = '$ticket_department'$sub_qry";
+				  $count_query = "SELECT * FROM external_tickets WHERE ticket_department = '$ticket_department' AND ticket_status = $sid AND ticket_assigned_to = '$user_id' AND is_spam=0$sub_qry OR ticket_created_by ='$user_id' AND is_spam=0 AND ticket_status = $sid AND ticket_department = '$ticket_department'$sub_qry";
 				
      $data1=$this->fetchData($count_query,array());
 		array_push($arr, array("status_id"=>$sid,"status_name"=>$status_name,"status_count"=>$data1['status_count']));
@@ -1069,7 +1070,7 @@ else {
         
     }
 	
-	public function onchangeDepartment($data){
+	/*public function onchangeDepartment($data){
         extract($data);//print_r($data);exit;
 		$override=$this->fetchOne("SELECT override FROM `admin_details` where admin_id='$admin_id'",array());
         if($override==0){
@@ -1109,7 +1110,7 @@ else {
             $result = $update_data == 1 ? 1 : 0;  
             return $result;
         }
-    }
+    }*/
 	
 	/*public function viewMyTicket($data){
 		extract($data);
@@ -1121,6 +1122,102 @@ else {
         $result["tic_details"] = $this->fetchData($qry,array());        
         return $result;
     }*/
+	
+public function onchangeDepartment($data){
+        extract($data);//print_r($data);exit;
+		$override=$this->fetchOne("SELECT override FROM `admin_details` where admin_id='$admin_id'",array());
+		$ticket_limit=$this->fetchOne("SELECT ticket_limit FROM `admin_details` where admin_id='$admin_id'",array());
+        if($override==0){
+			$get_dep=$this->fetchOne("SELECT department_users FROM `departments` where dept_id='$department_id'",array());		
+	        $qry = "UPDATE external_tickets SET ticket_department='$department_id',ticket_assigned_to='$get_dep',unassign='0' where ticket_no='$ticket_id'";
+	        $update_data = $this->db_query($qry, array());
+	        $result = $update_data == 1 ? 1 : 0;  
+	        return $result;
+        }else{
+        	$get_dep=$this->fetchOne("SELECT department_users FROM `departments` where dept_id='$department_id'",array());
+			if($get_dep!=''){
+				//$get_dep = $this->fetchOne("SELECT department_users FROM `departments` where dept_id IN ($department_id)",array());
+				$dept_users = explode(',',$get_dep);
+				$dept_users = array_unique($dept_users);
+				$lastExt = $this->fetchData("SELECT * FROM external_tickets WHERE ticket_department='$department_id' ORDER BY ticket_no DESC LIMIT 1",array());
+				$assignNext = $lastExt['next_assign_for'];				
+				$ticket_from = $lastExt['ticket_from'];
+				if($assignNext==0 || $assignNext==''){
+					$assugnTo = $dept_users[0];	
+				}
+				else{
+					$assugnTo = $assignNext;
+				}
+				/*if($assignNext){
+					$assugnTo = $assignNext;
+				} else{
+					$assugnTo = $dept_users[0];
+				}*/
+				$current_array_val = array_search($assugnTo, $dept_users);
+				$next_array_val = $dept_users[$current_array_val+1];
+				/*$next_array_val = ($next_array_val) ? $next_array_val :  
+				$dept_users[0]; 
+				$assugnTo = explode(',',$assugnTo);
+				$assugnTo = implode(',',$assugnTo);*/
+				if($next_array_val==''){						
+						$next_array_val=$dept_users[0];						
+				}
+				if($ticket_limit=='0'){	 	
+				    $next_assign = $next_array_val;
+				}else{	
+				    $cnt = $current_array_val;
+					$us = $dept_users[$cnt];
+					$dep_count = count($dept_users);	   
+					for($i=$cnt;$i<$dep_count;$i++){
+					    $j = $dept_users[$i];		    		    
+						$user_ticket_count = $this->fetchOne("SELECT COUNT(`ticket_no`) FROM `external_tickets` WHERE `ticket_assigned_to`='$j' AND `ticket_status`=3 AND ticket_department='$department_id' AND unassign=1 AND delete_status=0",array());		
+						if($user_ticket_count < $ticket_limit){				
+							$assugnTo = $j;
+							$next_assign = $dept_users[$i+1];				    
+							//$next_assign = ($next_assign) ? $next_assign :  $dept_users[0];
+							if($next_assign==''){						
+								$next_assign=$dept_users[0];				
+							}				    
+							break;
+						}else{			
+							$next_assign='';	        	
+						}
+					}
+				}
+				if($next_assign!=''){
+                   $qry = "UPDATE external_tickets SET ticket_department='$department_id',ticket_assigned_to='$assugnTo',next_assign_for='$next_assign',unassign=1 where ticket_no='$ticket_id'";
+                   $createdby_qry = "SELECT agent_name FROM user WHERE user_id='$assugnTo'";
+				   $createdby = $this->fetchmydata($createdby_qry,array());
+				}else{
+				  $qry = "UPDATE external_tickets SET ticket_department='$department_id',ticket_assigned_to='$get_dep',next_assign_for='',unassign=0 where ticket_no='$ticket_id'";
+				  $createdby_qry = "SELECT department_name FROM departments WHERE dept_id='$department_id'";
+				  $createdby = $this->fetchmydata($createdby_qry,array());
+			    }
+					
+				$admin_name = "SELECT agent_name FROM user WHERE user_id='$admin_id'";              
+				$admin_name = $this->fetchmydata($admin_name,array());		
+				$sub = $admin_name.' Assigned a ticket to '.$createdby;
+				$adm = array("user_id"=>$admin_id,"ticket_for"=>"Assign Ticket","ticket_from"=>$ticket_from,"ticket_subject"=>$sub, "ticket_id"=>$ticket_id);
+				$us = $this->send_notification($adm);		
+				$update_data = $this->db_query($qry, $params);
+				$result = $update_data == 1 ? 1 : 0;  
+				return $result;
+		    }else{
+			    $qry = "UPDATE external_tickets SET ticket_department='$department_id',ticket_assigned_to='$get_dep',next_assign_for='',unassign=0 WHERE ticket_no='$ticket_id'";
+			    $depName=$this->fetchOne("SELECT department_name FROM `departments` where dept_id='$department_id'",array());	
+			    $admin_name = "SELECT agent_name FROM user WHERE user_id='$admin_id'";              
+	      		$admin_name = $this->fetchmydata($admin_name,array());		
+				$sub = $admin_name.' Assigned a ticket to '.$depName;
+				$adm = array("user_id"=>$admin_id,"ticket_for"=>"Assign Ticket","ticket_from"=>$ticket_from,"ticket_subject"=>$sub, "ticket_id"=>$ticket_id);
+				$us = $this->send_notification($adm);		
+	            $update_data = $this->db_query($qry, $params);
+	            $result = $update_data == 1 ? 1 : 0;  
+	            return $result;
+			}
+        }
+    }	
+
+
 	function generateWpTicket($data){
         extract($data);
         $user_qry = "SELECT timezone_id FROM user WHERE user_id='$user_id'";
@@ -1651,7 +1748,7 @@ $override=$this->fetchOne("select override from admin_details where admin_id='64
 if($override==0){
 	    //file_put_contents('dat.txt', print_r($data,true).PHP_EOL , FILE_APPEND | LOCK_EX);exit;
         $spam_status = '0';
-		$explode = explode('<',$from);
+		$explode = explode('<',$rrFrom);
         $spam_from = str_replace('>','',$explode[1]);
         $spam_from_val = str_replace(' ','',$spam_from);
 		$qry = "select * from spam_mail_ids where email LIKE '%$spam_from_val%'";
@@ -2003,7 +2100,10 @@ else{
 			exit;
 		}		
 		$attachments = json_decode($data['attachments']);
-		$attachments = implode(',',$attachments);		
+		$attachments = implode(',',$attachments);
+	    //$fattachments = json_decode($data['fattachments']);
+		$fattachments = implode(',',$fattachments);
+	    //file_put_contents('ve.txt', $fattachments.PHP_EOL , FILE_APPEND | LOCK_EX);exit;
 		$to = str_replace('[','(',$to_mail);
 		$to = str_replace(']',')',$to);
 		//print_r($to); 
@@ -2048,28 +2148,29 @@ else{
 			//file_put_contents('dat.txt', $subject.PHP_EOL , FILE_APPEND | LOCK_EX);exit;
 			if(strpos($subject, 'Re: Fw:') !== false || strpos($subject, 'Re: FW:') !== false){
 			   $sub = substr($subject, 4);
-			   $expfrom = explode('<',$from);
-               $strfm = str_replace('>', '', $expfrom[1]);
+				preg_match_all("/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i", $from, $expfrom);
+				$strfm = $expfrom[0][0];
+			   //$expfrom = explode('<',$from);
+               //$strfm = str_replace('>', '', $expfrom[1]);
 			   //$te = 'if';
 			   //file_put_contents('dat.txt', $strfm.$te.PHP_EOL , FILE_APPEND | LOCK_EX);exit;	
 			}			
 			else{
-			   /*if(strpos($subject, 'Re:') !== false || strpos($subject, 'RE:') !== false){
+			   if(strpos($subject, 'Re:') !== false || strpos($subject, 'RE:') !== false){
 				   $sub = substr($subject, 4);
-				   //$te = 'if';
-			       //file_put_contents('dat.txt', $sub.$te.PHP_EOL , FILE_APPEND | LOCK_EX);exit;
 			   }else{
 			       $sub = $subject;
-				   //$te = 'if';
-			       //file_put_contents('dat.txt', $sub.$te.PHP_EOL , FILE_APPEND | LOCK_EX);exit;
-			   }*/	
-			   $sub = $subject;	
-			   $expfrom = explode('<',$from);
+			   }			   
+			   /*$expfrom = explode('<',$from);
 			   if(empty($expfrom)){	
+				   $te = 'if';
 			    $strfm = $from;	
 			   }else{
+				   $te = 'el';
 				$strfm = str_replace('>', '', $expfrom[1]);   
-			   }
+			   }*/
+				preg_match_all("/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i", $from, $expfrom);
+				$strfm = $expfrom[0][0];
 			   //$te = 'el';	
 			   //file_put_contents('dat.txt', $strfm.$te.$sub.PHP_EOL , FILE_APPEND | LOCK_EX);exit;	
             }
@@ -2657,10 +2758,11 @@ if($next_assign!=''){
           $priority_value = $this->fetchmydata($priority_qry,array());		  
 		  $created_time = $this->get_timeago($ticket_created_at);
 		  $created_time = $ticket_created_at;
-			
+			$unassign_value = $result[$i]['unassign'];
 			 
 			$ticket_assigned_to = explode(',',$ticket_assigned_to); 
-			 if(count($ticket_assigned_to) == 1){
+			 if(count($ticket_assigned_to) == 1 && $unassign_value == 1){ 
+			
 			 $ticket_assigned_t = $ticket_assigned_to[0];
 				 $ticket_assigned = "SELECT agent_name,user_id FROM user WHERE user_id='$ticket_assigned_t'";       
           		$ticket_assigned = $this->fetchData($ticket_assigned,array());
@@ -3497,7 +3599,11 @@ public function updateTicketStatus($data){
 							$tickets_count = $this->fetchOne("SELECT COUNT(`ticket_no`) FROM `external_tickets` WHERE `ticket_assigned_to`='$j' AND `ticket_status`=3 AND ticket_department='$department' AND unassign=1 AND delete_status=0",array());
 							if($tickets_count < $ticket_limit){	
 								$assugnTo = $j;
-								$nextVal = $dept_users[$i+1];    
+								if($dept_users[$i+1] == ''){
+								  $nextVal = $j;
+								}else{
+								  $nextVal = $dept_users[$i+1]; 
+								}
 								break;
 							}else{									
 									$nextVal = '';	        	
@@ -5105,11 +5211,11 @@ function get_unassign_tickets($data){
 		    $department_options = $this->dataFetchAll($department_array_qry, array());
 			//print_r($department_options);exit;
 		  if($ticket_department=='All'){		
-			  $qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.admin_id ='$admin_id' AND FIND_IN_SET('$user_id',a.ticket_assigned_to ) AND a.unassign=0 AND b.repliesd_by='Customer' AND a.delete_status=0 AND a.is_spam=0";
+			  $qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.admin_id ='$admin_id' AND FIND_IN_SET('$user_id',a.ticket_assigned_to ) AND a.unassign=0 AND b.repliesd_by='Customer'AND a.delete_status=0";
 			  $detail_qry = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC LIMIT $limit offset $offset";
 			  $detail_qry2 = $qry." ORDER BY updated_at DESC";
 		  }else{	
-			  $qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.admin_id ='$admin_id' AND a.ticket_department='$ticket_department' AND FIND_IN_SET('$user_id',a.ticket_assigned_to ) AND a.unassign=0 AND b.repliesd_by='Customer' AND a.delete_status=0 AND a.is_spam=0";
+			  $qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.admin_id ='$admin_id' AND a.ticket_department='$ticket_department' AND FIND_IN_SET('$user_id',a.ticket_assigned_to ) AND a.unassign=0 AND b.repliesd_by='Customer' AND a.delete_status=0";
 			  $detail_qry = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC LIMIT $limit offset $offset";
 			  $detail_qry2 = $qry." ORDER BY updated_at DESC";
 		  }
@@ -5131,14 +5237,15 @@ function get_unassign_tickets($data){
           $priority = $result[$i]['priority'];
 		  $ticket_created_at = $result[$i]['created_dt'];
           $ticket_message = $result[$i]['ticket_message'];
-          $ticket_subject = $result[$i]['ticket_subject'];
+          $ticket_subject = $result[$i]['subject'];
 		  $spammed = $result[$i]['spammed'];
+		  $unassign_value = $result[$i]['unassign'];	
           $createdby_qry = "SELECT agent_name FROM user WHERE user_id='$ticket_created_by'";              
           $createdby = $this->fetchmydata($createdby_qry,array());			
 		  //$assignedto_qry = "SELECT agent_name FROM user WHERE user_id='$ticket_assigned_to'";              
          // $assignedto = $this->fetchmydata($assignedto_qry,array());			
 		  $ticket_assigned_to = explode(',',$ticket_assigned_to); 
-		  if(count($ticket_assigned_to) == 1){
+		  if(count($ticket_assigned_to) == 1 && $unassign_value == 1){
 			 $ticket_assigned_t = $ticket_assigned_to[0];
 			 $ticket_assigned = "SELECT agent_name,user_id FROM user WHERE user_id='$ticket_assigned_t'";       
           	 $ticket_assigned = $this->fetchData($ticket_assigned,array());
@@ -5283,6 +5390,10 @@ public function forward_ticket($data){
 	   $mess[] = '<div style="border: 1px solid #d1d1d1;font-family: verdana !important; border-radius: 8px; padding: 12px; margin-bottom: 25px;">'.$m.'</div>';
 	}
 	$mess = implode('<br>',$mess);	
+	$media_qry = "SELECT ticket_media,repliesd_by FROM external_tickets_data WHERE ticket_id ='$ticket_id'";
+    $media_detail_qry=$media_qry." ORDER BY ticket_message_id DESC";
+    $media_result =  $this->dataFetchAll($media_detail_qry, array());//print_r($media_result);exit;
+    $media_count = $this->dataRowCount($media_qry,array());//echo $media_count;exit;
 	$qry = "select senderID from department_emails where aliseEmail = '$ticket_from'";
     $from =  $this->fetchOne($qry, array());
 	$message_id = $this->fetchOne("SELECT ticket_reply_id FROM external_tickets_data WHERE ticket_id = '$ticket_id' and ticket_reply_id !=''",array());
@@ -5311,6 +5422,21 @@ public function forward_ticket($data){
 	$mail->AddReplyTo($from);
 	$mail->addCustomHeader('In-Reply-To',  '<'.$message_id.'>');
 	$mail->addCustomHeader('References', $message_id);
+	if(count($media_count) > 0){		
+		foreach($media_result as $media_result_file){
+               $attach = $media_result_file['ticket_media'];
+			   $sentby = $media_result_file['repliesd_by'];
+			   if($sentby=='Customer'){
+				   $str = str_replace("omniChannel", "//", $attach);
+				   $t = explode('////', $str);
+				   $mail->addStringAttachment(file_get_contents($attach), $t[1]);
+               }else{
+			       $str = str_replace("ext-ticket-image", "//", $attach);
+				   $t = explode('////', $str);
+				   $mail->addStringAttachment(file_get_contents($attach), $t[1]);
+			   }
+        }
+	}
 	$mail->addAddress($forward_to);
 	// print_r($mail); exit;
     // $mail->send();
@@ -5361,7 +5487,8 @@ function filter_getmyExternalTicket($data){
 		else {
 			$vals="'" . str_replace(",","','",$user_id)."'";			
 			if($ticket_status == 'All' && $ticket_department == 'All'){
-				$qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.ticket_assigned_to IN ($vals) and is_spam = '$is_spam' and ticket_status=3 and unassign=1 and delete_status=0 OR a.ticket_created_by IN ($vals) and is_spam = '$is_spam' and ticket_status=3 and unassign=1 and delete_status=0";
+				//$qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.ticket_assigned_to IN ($vals) and is_spam = '$is_spam' and ticket_status=3 and unassign=1 and delete_status=0 OR a.ticket_created_by IN ($vals) and is_spam = '$is_spam' and ticket_status=1 and unassign=1 and delete_status=0";
+				$qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.ticket_assigned_to IN ($vals) and is_spam = '$is_spam' and unassign=1 and delete_status=0 and (ticket_status=3 OR ticket_status=1) OR a.ticket_created_by IN ($vals) and is_spam = '$is_spam' and unassign=1 and delete_status=0 and (ticket_status=3 OR ticket_status=1)";
 				 $detail_qry = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC LIMIT $limit offset $offset";				
 				$detail_qry2 = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC";				
 			} else if($ticket_status == 'All' && $ticket_department != 'All'){
@@ -5369,7 +5496,8 @@ function filter_getmyExternalTicket($data){
 				 $detail_qry = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC LIMIT $limit offset $offset";
 				 $detail_qry2 = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC";
 			} else if($ticket_status != 'All' && $ticket_department == 'All'){
-					$qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.ticket_assigned_to IN ($vals) and a.ticket_status IN ($ticket_status) and is_spam = '$is_spam' unassign=1 and delete_status=0 OR a.ticket_created_by IN ($vals) and a.ticket_status IN ($ticket_status) and is_spam = '$is_spam' and unassign=1 and delete_status=0";
+					$qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.ticket_assigned_to IN ($vals) and a.ticket_status IN ($ticket_status) and is_spam = '$is_spam' and unassign=1 and delete_status=0 OR a.ticket_created_by IN ($vals) and a.ticket_status IN ($ticket_status) and is_spam = '$is_spam' and unassign=1 and delete_status=0";
+				//echo $qry;exit;
 				 $detail_qry = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC LIMIT $limit offset $offset";
 				 $detail_qry2 = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC";
 			}  else {
@@ -5446,10 +5574,11 @@ function filter_getmyExternalTicket($data){
 				 $sub_qry = " AND delete_status=0 AND unassign=1";
 				}else{
 				 $sub_qry = " AND delete_status=0";	
-				}     
+				}
+   			 ///    $count_query = "SELECT COUNT(ticket_no) as status_count FROM external_tickets WHERE ticket_status = $sid AND FIND_IN_SET('$user_id',ticket_assigned_to ) AND is_spam=0 OR ticket_created_by ='$user_id' AND is_spam=0";     
 		
-				$count_query="SELECT COUNT(ticket_no) as status_count FROM external_tickets WHERE ticket_status = $sid AND FIND_IN_SET('$user_id',ticket_assigned_to ) AND is_spam=0$sub_qry OR ticket_status = $sid AND ticket_created_by ='$user_id' AND is_spam=0$sub_qry";
-		//echo $count_query;		
+				$count_query="SELECT COUNT(ticket_no) as status_count FROM external_tickets WHERE ticket_status = '$sid' AND FIND_IN_SET('$user_id',ticket_assigned_to ) AND is_spam=0$sub_qry OR ticket_status = '$sid' AND ticket_created_by ='$user_id' AND is_spam=0$sub_qry";
+		//echo $count_query;exit;		
      $data1=$this->fetchData($count_query,array());
 		array_push($arr, array("status_id"=>$sid,"status_name"=>$status_name,"status_count"=>$data1['status_count']));
 			
@@ -5471,8 +5600,9 @@ function filter_getmyExternalTicket($data){
 				}else{
 				 $sub_qry = " AND delete_status=0";	
 				}
+   			   //  $count_query = "SELECT COUNT(ticket_no) as status_count FROM external_tickets WHERE ticket_department = '$ticket_department' AND ticket_status = $sid AND FIND_IN_SET('$user_id',ticket_assigned_to ) OR ticket_created_by ='$user_id' AND is_spam=0";
 				
-				  $count_query = "SELECT * FROM external_tickets WHERE ticket_department = '$ticket_department' AND ticket_status = $sid AND FIND_IN_SET('$user_id',ticket_assigned_to ) AND is_spam=0$sub_qry OR ticket_created_by ='$user_id' AND is_spam=0 AND ticket_status = $sid AND ticket_department = '$ticket_department'$sub_qry";
+				  $count_query = "SELECT * FROM external_tickets WHERE ticket_department = '$ticket_department' AND ticket_status = $sid AND FIND_IN_SET('$user_id',ticket_assigned_to ) AND is_spam=0 $sub_qry OR ticket_created_by ='$user_id' AND is_spam=0 AND ticket_status = $sid AND ticket_department = '$ticket_department'$sub_qry";
 				
      $data1=$this->fetchData($count_query,array());
 		array_push($arr, array("status_id"=>$sid,"status_name"=>$status_name,"status_count"=>$data1['status_count']));
@@ -6002,7 +6132,7 @@ $result = $this->dataFetchAll($detail_qry, array());
 		  // not respond ticket count
 			$not_respond_ticket_count = $this->fetchOne("SELECT COUNT(ticket_no) FROM external_tickets WHERE MONTH(created_dt)=MONTH(now()) AND admin_id = '$admin_id' AND ticket_assigned_to='$userid' AND delete_status=0 AND unassign=1 AND ticket_status=3",array());
 		  //ticket open count
-			$open_ticket_count = $this->fetchOne("SELECT COUNT(ticket_no) FROM external_tickets WHERE MONTH(created_dt)=MONTH(now()) AND admin_id = '$admin_id' AND ticket_assigned_to='$userid' AND delete_status=0 AND unassign=1 AND ticket_status=1 OR ticket_status=6",array());		  	
+			$open_ticket_count = $this->fetchOne("SELECT COUNT(ticket_no) FROM external_tickets WHERE MONTH(created_dt)=MONTH(now()) AND admin_id = '$admin_id' AND ticket_assigned_to='$userid' AND delete_status=0 AND unassign=1 AND (ticket_status=1 OR ticket_status=6)",array());		  	
 		  //close ticket count
 			$close_ticket_count = $this->fetchOne("SELECT COUNT(ticket_no) FROM external_tickets WHERE MONTH(updated_at)=MONTH(now()) AND admin_id = '$admin_id' AND ticket_assigned_to='$userid' AND delete_status=0 AND ticket_status=9",array());	
 		 //total ticket count(this month)
@@ -6051,7 +6181,7 @@ public function ticket_dashboard_dateFilter($data){
 		  // not respond ticket count
 		  if($from_date==$to_date){
 		  	$not_respond_ticket_count = $this->fetchOne("SELECT COUNT(ticket_no) FROM external_tickets WHERE DATE(created_dt) = '$from_date' AND admin_id = '$admin_id' AND ticket_assigned_to='$userid' AND delete_status=0 AND unassign=1 AND ticket_status=3",array());
-		  	$open_ticket_count = $this->fetchOne("SELECT COUNT(ticket_no) FROM external_tickets WHERE DATE(created_dt) = '$from_date' AND admin_id = '$admin_id' AND ticket_assigned_to='$userid' AND delete_status=0 AND unassign=1 AND ticket_status=1 OR ticket_status=6",array());
+		  	$open_ticket_count = $this->fetchOne("SELECT COUNT(ticket_no) FROM external_tickets WHERE DATE(created_dt) = '$from_date' AND admin_id = '$admin_id' AND ticket_assigned_to='$userid' AND delete_status=0 AND unassign=1 AND (ticket_status=1 OR ticket_status=6)",array());
 		  	$close_ticket_count = $this->fetchOne("SELECT COUNT(ticket_no) FROM external_tickets WHERE DATE(updated_at) = '$from_date' AND admin_id = '$admin_id' AND ticket_assigned_to='$userid' AND delete_status=0 AND ticket_status=9",array());
 		  }else{
 		  	$not_respond_ticket_count = $this->fetchOne("SELECT COUNT(ticket_no) FROM external_tickets WHERE DATE(created_dt) >= '$from_date' and DATE(created_dt) <= '$to_date' AND admin_id = '$admin_id' AND ticket_assigned_to='$userid' AND delete_status=0 AND unassign=1 AND ticket_status=3",array());
@@ -6104,7 +6234,7 @@ public function ticket_dashboard_customFilter($data){
 		  if($custom_value=='Today'){
 		  	$qry = " AND DATE(created_dt) = CURDATE()";
 		  }
-		  if($custom_value=='This Month'){
+		  if($custom_value=='Current Month'){
 		  	$qry = " AND MONTH(created_dt)=MONTH(now())";
 		  }
 		  if($custom_value=='Last 30 Days'){
@@ -6112,7 +6242,7 @@ public function ticket_dashboard_customFilter($data){
 		  }
 		  	
 		  $not_respond_ticket_count = $this->fetchOne("SELECT COUNT(ticket_no) FROM external_tickets WHERE admin_id = '$admin_id' AND ticket_assigned_to='$userid' AND delete_status=0 AND unassign=1 AND ticket_status=3$qry",array());
-		  $open_ticket_count = $this->fetchOne("SELECT COUNT(ticket_no) FROM external_tickets WHERE admin_id = '$admin_id' AND ticket_assigned_to='$userid' AND delete_status=0 AND unassign=1$qry AND ticket_status=1 OR ticket_status=6",array());
+		  $open_ticket_count = $this->fetchOne("SELECT COUNT(ticket_no) FROM external_tickets WHERE admin_id = '$admin_id' AND ticket_assigned_to='$userid' AND delete_status=0 AND unassign=1 AND (ticket_status=1 OR ticket_status=6)$qry",array());
 		  $close_ticket_count = $this->fetchOne("SELECT COUNT(ticket_no) FROM external_tickets WHERE admin_id = '$admin_id' AND ticket_assigned_to='$userid' AND delete_status=0 AND ticket_status=9$qry",array());		  	
 		 //total ticket count
 		  $total_count = $not_respond_ticket_count + $open_ticket_count + $close_ticket_count;	
@@ -6169,7 +6299,7 @@ public function check_rounrobin($data){
 				$current_array_val = array_search($userid, $dept_users);
 				$next_array_val = $dept_users[$current_array_val+1];
 				$next_array_val = ($next_array_val) ? $next_array_val :  $dept_users[0];
-				$update_data = "UPDATE external_tickets SET ticket_assigned_to='$userid',next_assign_for='$next_array_val',unassign=1 WHERE ticket_no='$Ticid'";			
+				$update_data = $this->db_query("UPDATE external_tickets SET ticket_assigned_to='$userid',next_assign_for='$next_array_val',unassign=1 WHERE ticket_no='$Ticid'", array());			
 				$parms = array();
 				$results = $this->db_query($update_data,$parms);      
 				$output = $results == 1 ? 1 : 0;    
@@ -6923,7 +7053,7 @@ public function addPhoneBridge($data){
 			$result = 2;
 			return $result;
 		}else {		
-			$ins=$this->db_insert("INSERT INTO phone_bridge(admin_id,ip_address,sip_login,sip_password) VALUES ( '$admin_id','$ip_address','$sip_login','$sip_password')", array());
+			$ins=$this->db_insert("INSERT INTO phone_bridge(admin_id,ip_address,sip_url,sip_port) VALUES ( '$admin_id','$ip_address','$sip_url','$sip_port')", array());
             $result = 1;
             return $result;
 		 }
@@ -6938,7 +7068,8 @@ public function editPhoneBridge($data){
 public function updatePhoneBridge($data){
 		extract($data);
 		//print_r($data);exit;
-		$qry = "UPDATE `phone_bridge` SET  `admin_id` = '$admin_id', `ip_address` = '$ip_address', `sip_login` = '$sip_login', `sip_password` = '$sip_password' WHERE `id` = '$key_id'";
+		$qry = "UPDATE `phone_bridge` SET  `admin_id` = '$admin_id', `ip_address` = '$ip_address', `sip_url` = '$sip_url', `sip_port` = '$sip_port' WHERE `id` = '$key_id'";
+	    //echo $qry;exit;
         $result = $this->db_query($qry, $params);		
 		return $result;
 }
@@ -6957,11 +7088,14 @@ public function listPhoneBridge($data){
 	    $result['total_info'] = $total_info;
 	    return $result;		
 }
-public function deletePhoneBridge($key_id,$admin_id){
+public function deletePhoneBridge($key_id,$admin_id,$ip_address){
       $qry = "DELETE FROM phone_bridge WHERE id='$key_id' AND admin_id='$admin_id'";
       $parms = array();
-      $results = $this->db_query($qry,$parms);      
-      $output = $results == 1 ? 1 : 0;    
+      $results = $this->db_query($qry,$parms);
+	  $qrys = "DELETE FROM phone_bridge_users WHERE ip_address='$ip_address' AND admin_id='$admin_id'";
+      $parms = array();
+      $resultss = $this->db_query($qrys,$parms);
+      $output = $resultss == 1 ? 1 : 0;    
       return  $output;
 }
 public function ticket_contract_details($cust_id){
@@ -7038,7 +7172,7 @@ public function phone_bridge_users($data){
         $result = 1;
         return $result;
 	}else{
-		echo "INSERT INTO phone_bridge_users(ip_address,hardware_id,agents,admin_id) VALUES ( '$bridge_host','$hardware_id','$agent_json','$admin_id')";exit;
+		//echo "INSERT INTO phone_bridge_users(ip_address,hardware_id,agents,admin_id) VALUES ( '$bridge_host','$hardware_id','$agent_json','$admin_id')";exit;
 		$insertqry=$this->db_insert("INSERT INTO phone_bridge_users(ip_address,hardware_id,agents,admin_id) VALUES ( '$bridge_host','$hardware_id','$agent_json','$admin_id')", array());
         $result = 1;
         return $result;

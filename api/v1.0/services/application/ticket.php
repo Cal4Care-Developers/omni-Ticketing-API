@@ -102,7 +102,7 @@ elseif($action == 'ticket_reports'){
     $result_data["result"]["data"] = $ticket->ticketReport($data);   
 }
 elseif($action == "add_notAssigned_tickets"){ 
-    $data = array("from"=>$from, "to"=>$to,"subject"=>$subject,"message"=>$message,"attachments"=>$attachments,"ticket_reply_id"=>$ticket_reply_id,"to_mail"=>$to_mail,"cc_mail"=>$cc_mail,"agent_short_code"=>$agent_short_code,"forward_from"=>$forward_from,"forward_to"=>$forward_to,"forward_cc"=>$forward_cc);
+    $data = array("from"=>$from, "to"=>$to,"subject"=>$subject,"message"=>$message,"attachments"=>$attachments,"ticket_reply_id"=>$ticket_reply_id,"to_mail"=>$to_mail,"cc_mail"=>$cc_mail,"agent_short_code"=>$agent_short_code,"forward_from"=>$forward_from,"forward_to"=>$forward_to,"forward_cc"=>$forward_cc,"fattachments"=>$fattachments);
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->add_notAssigned_tickets($data);
 }
@@ -562,7 +562,7 @@ elseif($action == "searchInternalMail"){
     $result_data["result"]["data"] = $ticket->searchInternalMail($data);
 }
 elseif($action == "addPhoneBridge"){
-    $data= array("admin_id"=>$admin_id,"user_id"=>$user_id,"ip_address"=>$ip_address,"sip_login"=>$sip_login,"sip_password"=>$sip_password);
+    $data= array("admin_id"=>$admin_id,"user_id"=>$user_id,"ip_address"=>$ip_address,"sip_url"=>$sip_url,"sip_port"=>$sip_port);
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->addPhoneBridge($data);
 }
@@ -572,7 +572,7 @@ elseif($action == "editPhoneBridge"){
     $result_data["result"]["data"] = $ticket->editPhoneBridge($data);
 }
 elseif($action == "updatePhoneBridge"){
-    $data= array("admin_id"=>$admin_id,"user_id"=>$user_id,"ip_address"=>$ip_address,"sip_login"=>$sip_login,"sip_password"=>$sip_password,"key_id"=>$key_id);
+    $data= array("admin_id"=>$admin_id,"user_id"=>$user_id,"ip_address"=>$ip_address,"sip_url"=>$sip_url,"sip_port"=>$sip_port,"key_id"=>$key_id);
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->updatePhoneBridge($data);
 }
@@ -627,5 +627,9 @@ elseif($action == "merge_ticket"){
     $data= array("admin_id"=>$admin_id,"user_id"=>$user_id,"main_ticket_id"=>$main_ticket_id,"sub_ticket_id"=>$sub_ticket_id);
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->merge_ticket($data);
+}
+elseif($action == "view_bridge_users"){    
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->view_bridge_users($admin_id);
 }
 ?>

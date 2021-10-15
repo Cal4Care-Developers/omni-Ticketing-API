@@ -20,6 +20,12 @@ $message = $inc_wp_response->message;
 $attachments = $inc_wp_response->attachments;
 $attachments2 = $inc_wp_response->attachments;
 $attachments = json_decode($attachments);
+foreach ($attachments as $key => $value) {
+  $ffile = $value->file;
+  $fattachmen[] = $ffile;	
+}
+//file_put_contents('attachments.txt', print_r($fattachmen,true).PHP_EOL , FILE_APPEND | LOCK_EX);exit;
+//file_put_contents('attachments.txt', $ffile.PHP_EOL , FILE_APPEND | LOCK_EX);exit;
 $attachments2 = json_decode($attachments2);
 $recipients = $inc_wp_response->recipients;
 
@@ -180,7 +186,7 @@ $from=$exp[0].$exp[1];
 $from = str_replace(' ', '', $from);
 //SK Code End
 //$element_data = array('action' => 'add_notAssigned_tickets','from'=>$from,'message'=>$message,'to'=>$to,'to_mail'=>$toRec,'cc_mail'=>$ccRec,'subject'=>$subject,'attachments'=>$attachmen,"ticket_reply_id"=>$message_id[0]);
-$element_data = array('action' => 'add_notAssigned_tickets','from'=>$from,'message'=>$message,'to'=>$to,'to_mail'=>$toRec,'cc_mail'=>$ccRec,'subject'=>$subject,'attachments'=>$attachmen,'ticket_reply_id'=>$message_id[0],'agent_short_code'=>$agent_short_code,'forward_from'=>$forward_from,'forward_to'=>$forward_to,'forward_cc'=>$forward_cc);
+$element_data = array('action' => 'add_notAssigned_tickets','from'=>$from,'message'=>$message,'to'=>$to,'to_mail'=>$toRec,'cc_mail'=>$ccRec,'subject'=>$subject,'attachments'=>$attachmen,'ticket_reply_id'=>$message_id[0],'agent_short_code'=>$agent_short_code,'forward_from'=>$forward_from,'forward_to'=>$forward_to,'forward_cc'=>$forward_cc,'fattachments'=>$fattachmen);
 $fields = array('operation' =>'ticket','moduleType' => 'ticket','api_type' => 'web', 'element_data' => $element_data);
 
 //print_r($fields); exit;
