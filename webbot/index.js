@@ -62,18 +62,13 @@ function closebot() {
   $('#chat').css('display', 'none');
 
   $("#chatget").css("display", "none");
-  unsend()
+  unsend();
+  localStorage.setItem('type','bot');
 }
 
 
 
 function compare(promptsArray, repliesArray, keywordsArray, string) {
-
-  console.log(promptsArray);
-  console.log(repliesArray);
-  console.log(keywordsArray);
-
-
   let reply;
   let replyFound = false;
 
@@ -95,20 +90,47 @@ function compare(promptsArray, repliesArray, keywordsArray, string) {
   }
 
   if (!reply) {
+    count =0;
+    QuesArray=[];
+    AnsArray=[];
+   var reply2;
     for (let x = 0; x < promptsArray.length; x++) {
       for (let y = 0; y < promptsArray[x].length; y++) {
         if (levenshtein(promptsArray[x][y], string) >= 0.50) {
           let replies = repliesArray[x];
-          reply = replies[Math.floor(Math.random() * replies.length)];
-          replyFound = true;
+         reply2 = replies[Math.floor(Math.random() * replies.length)];
+          //replyFound = true;
           // Stop inner loop when input value matches this.prompts
-          break;
+         // break;         
+         QuesArray.push(promptsArray[x][y]);
+         AnsArray.push(repliesArray[x])
+         count =count+1;
         }
+      }     
+    }
+    console.log(QuesArray)
+    console.log(AnsArray)
+    // alert(count);
+    if(count > 0){
+      for (let x = 0; x < QuesArray.length; x++) {      
+        for (let y = 0; y < QuesArray[x].length; y++) {       
+          if (levenshtein(QuesArray[x], string) >= 0.70) {
+            let replies = AnsArray[x];
+           reply = replies[Math.floor(Math.random() * replies.length)];
+           console.log(reply)
+            replyFound = true;
+            // Stop inner loop when input value matches this.prompts
+           break;           
+          }
+          if (replyFound) {
+            // Stop outer loop when reply is found instead of interating through the entire array
+            break;
+          }
+        }     
       }
-      if (replyFound) {
-        // Stop outer loop when reply is found instead of interating through the entire array
-        break;
-      }
+    }else{
+reply=reply2;
+replyFound = true;
     }
   }
   return reply;
@@ -185,11 +207,7 @@ function sendBotChat(messageval, types) {
 
 var arr = [];
 function addChat(input, product) {
-
-  console.log(chat_id);
-  console.log(product);
-  console.log(input);
-  console.log(keywords);
+ 
 
   var split_keyword = keywords.split(",");
   var present = split_keyword.filter(function (item) {
@@ -223,7 +241,7 @@ function addChat(input, product) {
     botDiv.appendChild(botText);
     messagesContainer.appendChild(botDiv);
     // Keep messages at most recent
-    messagesContainer.scrollTop = messagesContainer.scrollHeight - messagesContainer.clientHei
+    messagesContainer.scrollTop = messagesContainer.scrollHeight - messagesContainer.clientHeight;
     setTimeout(() => {
       //botText.innerText = `${product}`;
       // botText.innerHTML = `${product}`;
@@ -290,7 +308,7 @@ function addChat(input, product) {
       botDiv.appendChild(botText);
       messagesContainer.appendChild(botDiv);
       // Keep messages at most recent
-      messagesContainer.scrollTop = messagesContainer.scrollHeight - messagesContainer.clientHei
+      messagesContainer.scrollTop = messagesContainer.scrollHeight - messagesContainer.clientHeight;
       setTimeout(() => {
         //botText.innerText = `${product}`;
 
@@ -342,6 +360,10 @@ function addChat(input, product) {
           //   botText.innerText = `${product}`;
           botText.innerHTML = `${product}`;
           //textToSpeech(product)
+        const messagesContainer = document.getElementById("messages");
+
+        messagesContainer.scrollTop = messagesContainer.scrollHeight - messagesContainer.clientHeight;
+
         }, 2000
         )
 
