@@ -501,7 +501,7 @@ $result = $this->dataFetchAll($detail_qry, array());
 		 $department_id = $dep_array[$j]['department_id'];
 		 $department_name = $dep_array[$j]['department_name'];
 		 //$ticket_count = $this->fetchOne("SELECT COUNT(ticket_no) FROM `external_tickets` WHERE admin_id='$admin_id' AND ticket_department='$department_id' AND unassign=1 AND delete_status=0 AND is_spam=0",array());
-		 $ticket_count = $this->fetchOne("SELECT COUNT(ticket_no) FROM `external_tickets` WHERE admin_id='$admin_id' AND ticket_department='$department_id' AND unassign=1 AND delete_status=0 AND ticket_assigned_to!='' AND ticket_status=3 OR admin_id='$admin_id' AND ticket_department='$department_id' AND unassign=1 AND delete_status=0 AND ticket_assigned_to!='' AND ticket_status=1",array());	
+		 $ticket_count = $this->fetchOne("SELECT COUNT(ticket_no) FROM `external_tickets` WHERE admin_id='$admin_id' AND ticket_department='$department_id' AND unassign=1 AND delete_status=0 AND ticket_assigned_to!='' OR admin_id='$admin_id' AND ticket_department='$department_id' AND unassign=1 AND delete_status=0 AND ticket_assigned_to!=''",array());	
 		 $dept_options = array('department_id' => $department_id, 'department_name' => $department_name, 'ticket_count' => $ticket_count);
 		 $department_options_array[] = $dept_options;  
 	    }	
