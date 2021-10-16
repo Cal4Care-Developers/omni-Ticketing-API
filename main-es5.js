@@ -1057,7 +1057,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "\r\n  <footer class=\"main-footer\">\r\n  \t<div class=\"footer-left\">\r\n\t\t<input type=\"hidden\" name=\"open_chat_detail_id\" id=\"open_chat_detail_id\" value=\"0\" #open_chat_detail_id (click)='chatPanelDetailF(open_chat_detail_id.value)'>\r\n\t\t<input type=\"hidden\" name=\"close_chat_detail_id\" id=\"close_chat_detail_id\" value=\"0\" #close_chat_detail_id (click)='chatPanelDetailF(close_chat_detail_id.value, 2)'>\r\n\r\n\t\t<input type=\"hidden\" id=\"chatPanelView\" (click)='chatPanelView(\"all\")'>\r\n  \t\t<ul class=\"footer-left-menu\">\r\n  \t\t\t<li>\r\n  \t\t\t\t<a href=\"javascript:;\" (click)=\"showChats('chats')\"><span class=\"footer-icon\"><i class=\"fas fa-comments\"></i></span>\r\n  \t\t\t\t\tChats\r\n  \t\t\t\t</a>\r\n  \t\t\t</li>\r\n  \t\t\t<!-- <li>\r\n  \t\t\t\t<a href=\"javascript:;\"><span class=\"footer-icon\"><i class=\"fas fa-users\"></i></span>\r\n  \t\t\t\t\tChannels\r\n  \t\t\t\t</a>\r\n  \t\t\t</li> -->\r\n  \t\t\t<li>\r\n  \t\t\t\t<a href=\"javascript:;\" (click)=\"showChats('contacts')\"><span class=\"footer-icon\"><i class=\"fas fa-user-shield\"></i></span>\r\n  \t\t\t\t\tContacts\r\n  \t\t\t\t</a>\r\n  \t\t\t</li>\r\n  \t\t</ul>\r\n\r\n<!-------------------\r\nInner User Chat List\r\n--------------------->\r\n<div class=\"inner-chat-panel\" *ngIf=\"showChatPannels\">\r\n\t<div class=\"inner-chat-panel-header\">\r\n\t\t<div class=\"inner-chat-aviator\">\r\n\t\t\t<img  class=\"thumbnail-image\" src=\"{{this.agent_image}}\"\r\n\t\t\tonerror=\"this.src='assets/images/user.jpg'\"  alt=\"...\" width=\"50px\" style=\"margin-right: 5px;\"/>\r\n\t\t</div>\r\n\t\t<div class=\"inner-chat-user-deatils\">\r\n\t\t\t<h5 class=\"message-small blk-clr\">{{this.name }}</h5>\r\n\t\t\t<!-- <h6><div class=\"inner-agent-status away-status\"><span></span></div> UI Developer</h6> -->\r\n\t\t\t<!-- <h6><div class=\"inner-agent-status offline-status\"><span></span></div> UI Developer</h6> -->\r\n\t\t\t<h6><div class=\"inner-agent-status online-status\"><span></span></div>{{this.userType}}</h6>\r\n\t\t</div>\r\n\t\t<div class=\"inner-chat-header-action-btn\">\r\n\t\t\t<ul>\r\n\t\t\t\t<!-- <li class=\"inner-chat-actions dropdown\">\r\n\t\t\t\t\t<a href=\"javascript:;\" id=\"actionDropdown\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"><i class=\"fas fa-ellipsis-v\"></i></a>\r\n\r\n\t\t\t\t\t<div class=\"dropdown-menu animated fadeInUp\" aria-labelledby=\"actionDropdown\">\r\n\t\t\t\t\t\t<a class=\"dropdown-item hvr-bounce-to-right toggle-user-status\" href=\"#\"><i class=\"fas fa-user-edit\"></i> Change Status</a>\r\n\t\t\t\t\t\t<div class=\"dropdown-divider\"></div>\r\n\t\t\t\t\t\t<a class=\"dropdown-item hvr-bounce-to-right\" href=\"#\"><i class=\"fas fa-cog\"></i> Settings</a>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</li> -->\r\n\t\t\t\t<li class=\"inner-chat-minimize\">\r\n\t\t\t\t\t<a href=\"javascript:;\" (click)=\"closealldisp()\"><i class=\"far fa-window-minimize\"></i></a>\r\n\t\t\t\t</li>\r\n\t\t\t</ul>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"inner-chat-search-container\">\r\n\t\t<span class=\"inner-search-icon\"><i class=\"fas fa-search\"></i></span>\r\n\t\t<input type=\"text\" name=\"search\"  #chat_search (keyup.enter)=\"chatPanelList(chat_search.value)\">\r\n\t</div>\r\n\r\n\t<div class=\"inner-chat-change-status none\">\r\n\t\t<div class=\"close-chat-panel\"><a class=\"close-overlay-panel\" href=\"javascript:;\"><i class=\"fas fa-times\"></i></a></div>\r\n\t\t<ul>\r\n\t\t\t<li class=\"inner-agent-status online-status active\" *ngIf=\"login_status == '1'\"><a class=\"hvr-bounce-to-right\" href=\"javascript:;\"><span></span> Available</a></li>\r\n\t\t\t<li class=\"inner-agent-status offline-status\" *ngIf=\"login_status == '0'\"><a class=\"hvr-bounce-to-right\" href=\"javascript:;\"><span></span> Offline</a></li>\r\n\t\t</ul>\r\n\t</div>\r\n\r\n\t<div class=\"inner-chat-body internal-users-list\">\r\n\t\t<ul *ngIf=\"showMyChats\">\r\n\t\t\t<li *ngFor=\"let agents of almychat\" (click)=\"chatPanelDetailF(agents.user_id)\">\r\n\t\t\t\t<div class=\"internal-user-thumb\">\r\n\t\t\t\t\t<a href=\"javascript:;\">\r\n\t\t\t\t\t\t<img   src=\"{{agents.profile_image}}\" onerror=\"this.src='assets/images/user.jpg'\"  alt=\"...\" />\r\n\r\n\t\t\t\t\t</a>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"inetral-user-message-details\">\r\n\t\t\t\t\t<a href=\"javascript:;\">\r\n\t\t\t\t\t\t<h5 class=\"message-small blk-clr\">{{agents.agent_name}}</h5>\r\n\t\t\t\t\t\t<h6 class=\"xsmall-title\"><span class=\"internal-msg-description\">{{agents.chat_msg}}</span></h6>\r\n\t\t\t\t\t</a>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"inner-chat-time-details\">\r\n\t\t\t\t\t{{agents.updated_dt}}\r\n\t\t\t\t</div>\r\n\t\t\t</li>\r\n\t\t\r\n\t\t\t\r\n\r\n\t\t\t \r\n\t\t</ul>\r\n\t\t<ul *ngIf=\"showMyContacts\">\r\n\r\n\t\t\t<li *ngFor=\"let agents of admin_list\" (click)=\"chatPanelDetailF(agents.user_id)\">\r\n\t\t\t\t<div class=\"internal-user-thumb\">\r\n\t\t\t\t\t<a href=\"javascript:;\">\r\n\t\t\t\t\t\t<img   src=\"{{agents.profile_image}}\" onerror=\"this.src='assets/images/user.jpg'\"  alt=\"...\" />\r\n\t\t\t\t\t</a>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"inetral-user-message-details\">\r\n\t\t\t\t\t<a href=\"javascript:;\">\r\n\t\t\t\t\t\t<h5 class=\"message-small blk-clr\">{{agents.agent_name}} </h5>\r\n\t\t\t\t\t\t<h6 class=\"xsmall-title\"><span class=\"internal-msg-description\">Admin</span></h6>\r\n\t\t\t\t\t</a>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"inner-chat-time-details\">\r\n\t\t\t\t\t<!-- 10.25 am -->\r\n\t\t\t\t</div>\r\n\t\t\t</li>\r\n\r\n\t\t\t<li *ngFor=\"let agents of agent_list\" (click)=\"chatPanelDetailF(agents.user_id)\">\r\n\t\t\t\t<div class=\"internal-user-thumb\">\r\n\t\t\t\t\t<a href=\"javascript:;\">\r\n\t\t\t\t\t\t<img  src=\"{{agents.profile_image}}\"  onerror=\"this.src='assets/images/user.jpg'\"  alt=\"...\" />\r\n\t\t\t\t\t</a>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"inetral-user-message-details\">\r\n\t\t\t\t\t<a href=\"javascript:;\">\r\n\t\t\t\t\t\t<h5 class=\"message-small blk-clr\">{{agents.agent_name}} </h5>\r\n\t\t\t\t\t\t<h6 class=\"xsmall-title\"><span class=\"internal-msg-description\">Employee</span></h6>\r\n\t\t\t\t\t</a>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"inner-chat-time-details\">\r\n\t\t\t\t\t<!-- 10.25 am -->\r\n\t\t\t\t</div>\r\n\t\t\t</li>\r\n\t\t\t\r\n\t\t\t\r\n\t\t</ul>\r\n\t</div>\r\n\r\n</div>\r\n\r\n<!-------------------\r\nInner User Chat End\r\n--------------------->\r\n\r\n\r\n\r\n\r\n<!-------------------\r\nInner Chat\r\n--------------------->\r\n<div class=\"inner-chat-panel inner-agent-message-panel\" *ngIf=\"showChatDetails\">\r\n\t<div class=\"inner-chat-panel-header\">\r\n\t\t<div class=\"inner-chat-aviator\">\r\n\t\t\t<img   src=\"{{a_profile_image}}\"\r\n                 onerror=\"this.src='assets/images/user.jpg'\"  alt=\"avatar\" />\r\n\t\t</div>\r\n\t\t<div class=\"inner-chat-user-deatils\">\r\n\t\t\t<h5 class=\"message-small blk-clr\">{{this.customer_name}}</h5>\r\n\t\t\t<!-- <h6><div class=\"inner-agent-status away-status\"><span></span></div> UI Developer</h6> -->\r\n\t\t\t<h6 *ngIf=\"login_status == '0'\"><div class=\"inner-agent-status offline-status\" ><span></span></div>{{this.user_type}}</h6>\r\n\t\t\t<h6  *ngIf=\"login_status == '1'\"><div class=\"inner-agent-status online-status\"><span></span></div>{{this.user_type}}</h6>\r\n\t\t</div>\r\n\t\t<div class=\"inner-chat-header-action-btn\">\r\n\t\t\t<ul>\r\n\t\t\t\t\r\n\t\t\t\t<li class=\"inner-chat-minimize\" (click)=\"closealldisp('innerChat')\">\r\n\t\t\t\t\t<a href=\"javascript:;\"><i class=\"far fa-window-minimize\"></i></a>\r\n\t\t\t\t</li>\r\n\t\t\t</ul>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"inner-chat-search-container\">\r\n\t\t<span class=\"inner-search-icon\"><i class=\"fas fa-search\"></i></span>\r\n\t\t<input type=\"text\" name=\"search\">\r\n\t</div>\r\n\r\n\r\n\r\n\t<div id=\"inner-chat\" class=\"inner-chat-body internal-chat-transcript-panel\">\r\n\t\t<!-- <div class=\"agent-msg-date\"><span>Yesterday</span></div> -->\r\n\t\t<div *ngFor=\"let chat_details of chat_panel_details;let i=index\">\r\n\t\t<!--------------------\r\n\t\t\tReceiver Message\r\n\t\t\t----------------->\r\n\t\t\t<div class=\"inner-receiver-chat fr\"  *ngIf=\"chat_details.msg_sender_id != loginUser\">\r\n\t\t\t\t<div class=\"chat-detail-thumb\">\r\n\t\t\t\t\t<img src=\"{{chat_details.profile_image}}\"  onerror=\"this.src='assets/images/user.jpg'\"  alt=\"avatar\" /> \r\n\t\t\t\t</div>\r\n\t\t\t\t<h5 class=\"message-small blk-clr\">{{customer_name}}</h5>\r\n\t\t\t\t<div class=\"receiver-msg-box\">\r\n\t\t\t\t\t<div>{{chat_details.chat_msg}}</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"received-msg-time\">{{chat_details.chat_time}}</div>\r\n\t\t\t</div>\r\n\r\n\t\t\t<div class=\"inner-sender-chat fr\"  *ngIf=\"chat_details.msg_sender_id == loginUser\">\r\n\t\t\t\t<h5 class=\"message-small\">You</h5>\r\n\t\t\t\t<div class=\"sender-msg-box\">\r\n\t\t\t\t\t<div>{{chat_details.chat_msg}}</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"sender-msg-time\">{{chat_details.chat_time}}</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t\t\r\n\r\n\t\t</div>\r\n\r\n\t\t<div class=\"inner-chat-footer-panel\">\r\n\t\t\t<!-- <div class=\"inner-attachment\">\r\n\t\t\t\t<a href=\"javascript:;\"><i class=\"fas fa-paperclip\"></i></a>\r\n\t\t\t</div> -->\r\n\t\t\t<div class=\"inner-textarea\">\r\n\t\t\t\t<textarea class=\"form-control\" class=\"msg\" id=\"chat_msg\" placeholder=\"Type a message\" style=\"height: 50px;width:210px;\" (keydown)=\"onMessageSend($event)\" #chat_message></textarea>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"inner-send-btn\">\r\n\t\t\t\t<input type=\"hidden\" name=\"chat_id\" id=\"chat_detail_id\" value=\"{{chat_detail_key}}\" #chat_detail_id>\r\n\t\t\t\t<a href=\"javascript:;\"><i class=\"far fa-paper-plane\" (click)=\"sendChatMessageData()\"></i></a>\r\n\t\t\t</div>\r\n\r\n\t\t</div>\r\n\r\n\t</div>\r\n\r\n<!-------------------\r\nInner Chat End\r\n--------------------->\r\n\r\n\r\n</div>\r\n<div class=\"footer-right\">\r\n</div>\r\n</footer>\r\n<iframe *ngIf=\"showvifeo\" [src]=\"url\"  allow='geolocation ; microphone ; camera *' id='ChatFrame' style='position: fixed; right: 0px; bottom: 32px; border: none;height:500px;width:350px;Z-index:10;'></iframe>\r\n";
+    __webpack_exports__["default"] = "\n  <footer class=\"main-footer\">\n  \t<div class=\"footer-left\">\n\t\t<input type=\"hidden\" name=\"open_chat_detail_id\" id=\"open_chat_detail_id\" value=\"0\" #open_chat_detail_id (click)='chatPanelDetailF(open_chat_detail_id.value)'>\n\t\t<input type=\"hidden\" name=\"close_chat_detail_id\" id=\"close_chat_detail_id\" value=\"0\" #close_chat_detail_id (click)='chatPanelDetailF(close_chat_detail_id.value, 2)'>\n\n\t\t<input type=\"hidden\" id=\"chatPanelView\" (click)='chatPanelView(\"all\")'>\n  \t\t<ul class=\"footer-left-menu\">\n  \t\t\t<li>\n  \t\t\t\t<a href=\"javascript:;\" (click)=\"showChats('chats')\"><span class=\"footer-icon\"><i class=\"fas fa-comments\"></i></span>\n  \t\t\t\t\tChats\n  \t\t\t\t</a>\n  \t\t\t</li>\n  \t\t\t<!-- <li>\n  \t\t\t\t<a href=\"javascript:;\"><span class=\"footer-icon\"><i class=\"fas fa-users\"></i></span>\n  \t\t\t\t\tChannels\n  \t\t\t\t</a>\n  \t\t\t</li> -->\n  \t\t\t<li>\n  \t\t\t\t<a href=\"javascript:;\" (click)=\"showChats('contacts')\"><span class=\"footer-icon\"><i class=\"fas fa-user-shield\"></i></span>\n  \t\t\t\t\tContacts\n  \t\t\t\t</a>\n  \t\t\t</li>\n  \t\t</ul>\n\n<!-------------------\nInner User Chat List\n--------------------->\n<div class=\"inner-chat-panel\" *ngIf=\"showChatPannels\">\n\t<div class=\"inner-chat-panel-header\">\n\t\t<div class=\"inner-chat-aviator\">\n\t\t\t<img  class=\"thumbnail-image\" src=\"{{this.agent_image}}\"\n\t\t\tonerror=\"this.src='assets/images/user.jpg'\"  alt=\"...\" width=\"50px\" style=\"margin-right: 5px;\"/>\n\t\t</div>\n\t\t<div class=\"inner-chat-user-deatils\">\n\t\t\t<h5 class=\"message-small blk-clr\">{{this.name }}</h5>\n\t\t\t<!-- <h6><div class=\"inner-agent-status away-status\"><span></span></div> UI Developer</h6> -->\n\t\t\t<!-- <h6><div class=\"inner-agent-status offline-status\"><span></span></div> UI Developer</h6> -->\n\t\t\t<h6><div class=\"inner-agent-status online-status\"><span></span></div>{{this.userType}}</h6>\n\t\t</div>\n\t\t<div class=\"inner-chat-header-action-btn\">\n\t\t\t<ul>\n\t\t\t\t<!-- <li class=\"inner-chat-actions dropdown\">\n\t\t\t\t\t<a href=\"javascript:;\" id=\"actionDropdown\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"><i class=\"fas fa-ellipsis-v\"></i></a>\n\n\t\t\t\t\t<div class=\"dropdown-menu animated fadeInUp\" aria-labelledby=\"actionDropdown\">\n\t\t\t\t\t\t<a class=\"dropdown-item hvr-bounce-to-right toggle-user-status\" href=\"#\"><i class=\"fas fa-user-edit\"></i> Change Status</a>\n\t\t\t\t\t\t<div class=\"dropdown-divider\"></div>\n\t\t\t\t\t\t<a class=\"dropdown-item hvr-bounce-to-right\" href=\"#\"><i class=\"fas fa-cog\"></i> Settings</a>\n\t\t\t\t\t</div>\n\t\t\t\t</li> -->\n\t\t\t\t<li class=\"inner-chat-minimize\">\n\t\t\t\t\t<a href=\"javascript:;\" (click)=\"closealldisp()\"><i class=\"far fa-window-minimize\"></i></a>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n\n\t<div class=\"inner-chat-search-container\">\n\t\t<span class=\"inner-search-icon\"><i class=\"fas fa-search\"></i></span>\n\t\t<input type=\"text\" name=\"search\"  #chat_search (keyup.enter)=\"chatPanelList(chat_search.value)\">\n\t</div>\n\n\t<div class=\"inner-chat-change-status none\">\n\t\t<div class=\"close-chat-panel\"><a class=\"close-overlay-panel\" href=\"javascript:;\"><i class=\"fas fa-times\"></i></a></div>\n\t\t<ul>\n\t\t\t<li class=\"inner-agent-status online-status active\" *ngIf=\"login_status == '1'\"><a class=\"hvr-bounce-to-right\" href=\"javascript:;\"><span></span> Available</a></li>\n\t\t\t<li class=\"inner-agent-status offline-status\" *ngIf=\"login_status == '0'\"><a class=\"hvr-bounce-to-right\" href=\"javascript:;\"><span></span> Offline</a></li>\n\t\t</ul>\n\t</div>\n\n\t<div class=\"inner-chat-body internal-users-list\">\n\t\t<ul *ngIf=\"showMyChats\">\n\t\t\t<li *ngFor=\"let agents of almychat\" (click)=\"chatPanelDetailF(agents.user_id)\">\n\t\t\t\t<div class=\"internal-user-thumb\">\n\t\t\t\t\t<a href=\"javascript:;\">\n\t\t\t\t\t\t<img   src=\"{{agents.profile_image}}\" onerror=\"this.src='assets/images/user.jpg'\"  alt=\"...\" />\n\n\t\t\t\t\t</a>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"inetral-user-message-details\">\n\t\t\t\t\t<a href=\"javascript:;\">\n\t\t\t\t\t\t<h5 class=\"message-small blk-clr\">{{agents.agent_name}}</h5>\n\t\t\t\t\t\t<h6 class=\"xsmall-title\"><span class=\"internal-msg-description\">{{agents.chat_msg}}</span></h6>\n\t\t\t\t\t</a>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"inner-chat-time-details\">\n\t\t\t\t\t{{agents.updated_dt}}\n\t\t\t\t</div>\n\t\t\t</li>\n\t\t\n\t\t\t\n\n\t\t\t \n\t\t</ul>\n\t\t<ul *ngIf=\"showMyContacts\">\n\n\t\t\t<li *ngFor=\"let agents of admin_list\" (click)=\"chatPanelDetailF(agents.user_id)\">\n\t\t\t\t<div class=\"internal-user-thumb\">\n\t\t\t\t\t<a href=\"javascript:;\">\n\t\t\t\t\t\t<img   src=\"{{agents.profile_image}}\" onerror=\"this.src='assets/images/user.jpg'\"  alt=\"...\" />\n\t\t\t\t\t</a>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"inetral-user-message-details\">\n\t\t\t\t\t<a href=\"javascript:;\">\n\t\t\t\t\t\t<h5 class=\"message-small blk-clr\">{{agents.agent_name}} </h5>\n\t\t\t\t\t\t<h6 class=\"xsmall-title\"><span class=\"internal-msg-description\">Admin</span></h6>\n\t\t\t\t\t</a>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"inner-chat-time-details\">\n\t\t\t\t\t<!-- 10.25 am -->\n\t\t\t\t</div>\n\t\t\t</li>\n\n\t\t\t<li *ngFor=\"let agents of agent_list\" (click)=\"chatPanelDetailF(agents.user_id)\">\n\t\t\t\t<div class=\"internal-user-thumb\">\n\t\t\t\t\t<a href=\"javascript:;\">\n\t\t\t\t\t\t<img  src=\"{{agents.profile_image}}\"  onerror=\"this.src='assets/images/user.jpg'\"  alt=\"...\" />\n\t\t\t\t\t</a>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"inetral-user-message-details\">\n\t\t\t\t\t<a href=\"javascript:;\">\n\t\t\t\t\t\t<h5 class=\"message-small blk-clr\">{{agents.agent_name}} </h5>\n\t\t\t\t\t\t<h6 class=\"xsmall-title\"><span class=\"internal-msg-description\">Employee</span></h6>\n\t\t\t\t\t</a>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"inner-chat-time-details\">\n\t\t\t\t\t<!-- 10.25 am -->\n\t\t\t\t</div>\n\t\t\t</li>\n\t\t\t\n\t\t\t\n\t\t</ul>\n\t</div>\n\n</div>\n\n<!-------------------\nInner User Chat End\n--------------------->\n\n\n\n\n<!-------------------\nInner Chat\n--------------------->\n<div class=\"inner-chat-panel inner-agent-message-panel\" *ngIf=\"showChatDetails\">\n\t<div class=\"inner-chat-panel-header\">\n\t\t<div class=\"inner-chat-aviator\">\n\t\t\t<img   src=\"{{a_profile_image}}\"\n                 onerror=\"this.src='assets/images/user.jpg'\"  alt=\"avatar\" />\n\t\t</div>\n\t\t<div class=\"inner-chat-user-deatils\">\n\t\t\t<h5 class=\"message-small blk-clr\">{{this.customer_name}}</h5>\n\t\t\t<!-- <h6><div class=\"inner-agent-status away-status\"><span></span></div> UI Developer</h6> -->\n\t\t\t<h6 *ngIf=\"login_status == '0'\"><div class=\"inner-agent-status offline-status\" ><span></span></div>{{this.user_type}}</h6>\n\t\t\t<h6  *ngIf=\"login_status == '1'\"><div class=\"inner-agent-status online-status\"><span></span></div>{{this.user_type}}</h6>\n\t\t</div>\n\t\t<div class=\"inner-chat-header-action-btn\">\n\t\t\t<ul>\n\t\t\t\t\n\t\t\t\t<li class=\"inner-chat-minimize\" (click)=\"closealldisp('innerChat')\">\n\t\t\t\t\t<a href=\"javascript:;\"><i class=\"far fa-window-minimize\"></i></a>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n\n\t<div class=\"inner-chat-search-container\">\n\t\t<span class=\"inner-search-icon\"><i class=\"fas fa-search\"></i></span>\n\t\t<input type=\"text\" name=\"search\">\n\t</div>\n\n\n\n\t<div id=\"inner-chat\" class=\"inner-chat-body internal-chat-transcript-panel\">\n\t\t<!-- <div class=\"agent-msg-date\"><span>Yesterday</span></div> -->\n\t\t<div *ngFor=\"let chat_details of chat_panel_details;let i=index\">\n\t\t<!--------------------\n\t\t\tReceiver Message\n\t\t\t----------------->\n\t\t\t<div class=\"inner-receiver-chat fr\"  *ngIf=\"chat_details.msg_sender_id != loginUser\">\n\t\t\t\t<div class=\"chat-detail-thumb\">\n\t\t\t\t\t<img src=\"{{chat_details.profile_image}}\"  onerror=\"this.src='assets/images/user.jpg'\"  alt=\"avatar\" /> \n\t\t\t\t</div>\n\t\t\t\t<h5 class=\"message-small blk-clr\">{{customer_name}}</h5>\n\t\t\t\t<div class=\"receiver-msg-box\">\n\t\t\t\t\t<div>{{chat_details.chat_msg}}</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"received-msg-time\">{{chat_details.chat_time}}</div>\n\t\t\t</div>\n\n\t\t\t<div class=\"inner-sender-chat fr\"  *ngIf=\"chat_details.msg_sender_id == loginUser\">\n\t\t\t\t<h5 class=\"message-small\">You</h5>\n\t\t\t\t<div class=\"sender-msg-box\">\n\t\t\t\t\t<div>{{chat_details.chat_msg}}</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"sender-msg-time\">{{chat_details.chat_time}}</div>\n\t\t\t</div>\n\t\t</div>\n\t\t\t\n\n\t\t</div>\n\n\t\t<div class=\"inner-chat-footer-panel\">\n\t\t\t<!-- <div class=\"inner-attachment\">\n\t\t\t\t<a href=\"javascript:;\"><i class=\"fas fa-paperclip\"></i></a>\n\t\t\t</div> -->\n\t\t\t<div class=\"inner-textarea\">\n\t\t\t\t<textarea class=\"form-control\" class=\"msg\" id=\"chat_msg\" placeholder=\"Type a message\" style=\"height: 50px;width:210px;\" (keydown)=\"onMessageSend($event)\" #chat_message></textarea>\n\t\t\t</div>\n\t\t\t<div class=\"inner-send-btn\">\n\t\t\t\t<input type=\"hidden\" name=\"chat_id\" id=\"chat_detail_id\" value=\"{{chat_detail_key}}\" #chat_detail_id>\n\t\t\t\t<a href=\"javascript:;\"><i class=\"far fa-paper-plane\" (click)=\"sendChatMessageData()\"></i></a>\n\t\t\t</div>\n\n\t\t</div>\n\n\t</div>\n\n<!-------------------\nInner Chat End\n--------------------->\n\n\n</div>\n<div class=\"footer-right\">\n</div>\n</footer>\n<iframe *ngIf=\"showvifeo\" [src]=\"url\"  allow='geolocation ; microphone ; camera *' id='ChatFrame' style='position: fixed; right: 0px; bottom: 32px; border: none;height:500px;width:350px;Z-index:10;'></iframe>\n";
     /***/
   },
 
@@ -1277,7 +1277,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "                 \r\n                 <div class=\"row\">\r\n                    <div class=\"col-xs-12 col-sm-12 col-md-3 col-lg-3\">\r\n                        <div class=\"card fullHeightCard\">\r\n                            <div class=\"body\">\r\n                                <div id=\"plist\" class=\"people-list chat-search-list\">\r\n                                    <div class=\"chat-search\">\r\n                                       \r\n                                   <div class=\"input-group\">\r\n                                       <input type=\"text\" class=\"form-control\"  placeholder=\"Search...\" #chat_search (keyup.enter)=\"chatPanelList(chat_search.value)\">\r\n                                     <input type=\"hidden\" name=\"open_chat_detail_id\" id=\"open_chat_detail_id\" value=\"0\" #open_chat_detail_id (click)='chatPanelDetail(open_chat_detail_id.value)'>\r\n                                     <input type=\"hidden\" name=\"close_chat_detail_id\" id=\"close_chat_detail_id\" value=\"0\" #close_chat_detail_id (click)='chatPanelDetail(close_chat_detail_id.value, 2)'>\r\n                                     \r\n                                     <input type=\"hidden\" id=\"chatPanelView\" (click)='chatPanelView(\"all\")'>\r\n                                     <span ></span>\r\n                                       <div class=\"input-chat_search-append\">\r\n                                           <button class=\"btn btn-primary chat_list_search\" (click)=\"chatPanelList(chat_search.value)\"><i class=\"fas fa-search\"></i></button>\r\n                                       </div>\r\n                                   </div>\r\n\r\n                                    </div>\r\n                                    <div class=\"m-b-20\">\r\n                                        <div id=\"chat-scroll\">\r\n                                            <ul class=\"chat-list list-unstyled m-b-0 chat_list_data\">\r\n\r\n                                               <!-- <li class=\"clearfix\" *ngFor=\"let chat_list of chat_panel_list;let i=index\"   [id]=\"'chat_'+chat_list.chat_id\"  (click)=\"chatPanelDetail(chat_list.chat_id,chat_list.chat_status)\">\r\n                                                    <div class=\"about\">\r\n                                                        <div class=\"name\">{{chat_list.customer_name}}<i *ngIf=\"chat_list.chat_status=='2'\" class=\"far fa-times-circle\" aria-hidden=\"true\" style=\"color: red;font-size: 15px;\"></i></div>\r\n                                                        <div class=\"text-small text-muted\"> <div class=\"bullet\"></div> {{chat_list.chat_dt}}</div>\r\n                                                    </div>\r\n                                                </li> -->\r\n                                                <li class=\"clearfix\" *ngFor=\"let agents of admin_list;let i=index\"   [id]=\"'agent_'+agents.user_id\"  (click)=\"chatPanelDetail(agents.user_id)\">\r\n                                                  <div class=\"about\">\r\n                                                      <div class=\"name\">\r\n                                                        <img  class=\"thumbnail-image\" src=\"{{agents.profile_image}}\"\r\n                                                        onerror=\"this.src='assets/images/user.jpg'\"  alt=\"...\" width=\"50px\" style=\"margin-right: 5px;\"/>\r\n                                                        {{agents.agent_name}}\r\n                                                        \r\n                                                        <i [class]=\"agents.login_status == 1 ? 'fas fa-circle agent_active' : 'fas fa-circle agent_inactive'\" aria-hidden=\"true\" style=\"font-size: 10px;\"></i>\r\n                                                        </div>\r\n                                                      <div class=\"text-small text-muted\" style=\"display: flex;\"> <div class=\"bullet\"></div>Admin</div>\r\n                                                  </div>\r\n                                              </li>\r\n                                                <li class=\"clearfix\" *ngFor=\"let agents of agent_list;let i=index\"   [id]=\"'agent_'+agents.user_id\"  (click)=\"chatPanelDetail(agents.user_id)\">\r\n                                                  <div class=\"about\">\r\n                                                      <div class=\"name\">\r\n                                                        <img  class=\"thumbnail-image\" src=\"{{agents.profile_image}}\"\r\n                                                        onerror=\"this.src='assets/images/user.jpg'\"  alt=\"...\" width=\"50px\" style=\"margin-right: 5px;\"/>\r\n                                                        {{agents.agent_name}} <i [class]=\"agents.login_status == 1 ? 'fas fa-circle agent_active' : 'fas fa-circle agent_inactive'\" aria-hidden=\"true\" style=\"font-size: 10px;\"></i></div>\r\n                                                      <div class=\"text-small text-muted\" style=\"display: flex;\"> <div class=\"bullet\"></div>Employee</div>\r\n                                                  </div>\r\n                                              </li>\r\n                                               \r\n                                            </ul>\r\n\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-xs-12 col-sm-12 col-md-9 col-lg-9\" id=\"chat_details_view\">\r\n                        <div class=\"card fullHeightCard keep-connect-chat-content\" *ngIf=\"chat_panel_detail_type=='chat_screen'\">\r\n                         <a (click)=\"showdoc('https://youtu.be/0UEeHC9GeJ4')\"  target=\"_blank\"><i style=\"font-size: 24px;\r\n                            float: right;\" class=\"fa fa-question-circle\"></i></a>\r\n                          <!-- <a href=\"https://omnitickets.mconnectapps.com/api/v1.0/pro_contents/pro_internal_chat.pdf\"  target=\"_blank\"><i style=\"font-size: 24px;padding-right: 20px;\r\n                            padding-top: 20px;float: right;\" class=\"fa fa-exclamation-circle\"></i></a> -->\r\n                          <div class=\"card-body\">\r\n                                <div class=\"keep-connect\">\r\n                                    <div class=\"connect-logo\">\r\n                                        <img src=\"assets/img/logo.png\">\r\n                                        <span class=\"logo-name\">Omni Internal Chat</span>\r\n                                    </div>\r\n                                    <h3>Keep your device connected</h3>\r\n                                    <!-- <p>To reduce the data usage,<br>connect your device to Wi-Fi.</p> -->\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n\r\n                        <div class=\"card {{this.chat_status_detail_id}}\" *ngIf=\"chat_panel_detail_type=='chat_detail'\" [id]=\"'chat_detail_'+this.chat_status_detail_id\">\r\n             <div class=\"chat\">\r\n               <div class=\"chat-header clearfix\">\r\n                 <!-- <img src=\"assets/images/user.jpg\" alt=\"avatar\"> -->\r\n                 <img  class=\"thumbnail-image\" src=\"{{a_profile_image}}\"\r\n                 onerror=\"this.src='assets/images/user.jpg'\"  alt=\"avatar\" />\r\n                 <div class=\"chat-about\">\r\n                   <div class=\"chat-with\">{{customer_name}}</div>\r\n                   <div class=\"chat-num-messages\">Web</div>\r\n                 </div>\r\n                 <img src=\"assets/img/mc-dashboard/internal-chat.png\" alt=\"avatar\" style=\"float: right;\">\r\n               </div>\r\n             </div>\r\n             <div class=\"chat-box\" id=\"mychatbox\">\r\n               <div class=\"card-body chat-content\">\r\n                 <div *ngFor=\"let chat_details of chat_panel_details;let i=index\">\r\n                   <div class=\"chat-item chat-left\" *ngIf=\"chat_details.msg_sender_id != loginUser\">\r\n                    <img  class=\"thumbnail-image\" src=\"{{chat_details.profile_image}}\"\r\n                 onerror=\"this.src='assets/images/user.jpg'\"  alt=\"avatar\" /> \r\n                    \r\n                   <div class=\"chat-details\">\r\n                     \r\n                     <div class=\"chat-text\" >\r\n                       {{chat_details.chat_msg}}\r\n       \r\n                     </div>\r\n                     <div class=\"chat-time\">{{chat_details.chat_time}}</div>\r\n                     \r\n                   </div>\r\n                 </div>\r\n\r\n\r\n                 <div class=\"chat-item chat-right\" *ngIf=\"chat_details.msg_sender_id == loginUser\">\r\n                  <img  class=\"thumbnail-image\" src=\"{{chat_details.profile_image}}\"\r\n                  onerror=\"this.src='assets/images/user.jpg'\"  alt=\"avatar\" />  \r\n                   <div class=\"chat-details\">\r\n                     <div class=\"chat-text\">{{chat_details.chat_msg}}</div><div class=\"chat-time\">{{chat_details.chat_time}}</div></div>\r\n                   </div>\r\n\r\n               </div>\r\n\r\n\r\n                 </div>\r\n                 <div class=\"card-footer chat-form\" *ngIf=\"this.is_chat_closed == false\">\r\n                   <!-- <form id=\"chat-form\"> -->\r\n                     <textarea class=\"form-control\" id=\"chat_msg\" placeholder=\"Type a message\" style=\"height: 50px;\" (keydown)=\"onMessageSend($event)\" #chat_message></textarea>\r\n                       <input type=\"hidden\" name=\"chat_id\" id=\"chat_detail_id\" value=\"{{chat_detail_key}}\" #chat_detail_id>\r\n                       <button type=\"button\" class=\"btn btn-primary\" (click)=\"sendChatMessageData()\">\r\n                       <i class=\"far fa-paper-plane\"></i>\r\n                     </button>\r\n\r\n                     <h4 *ngIf=\"this.is_chat_closed == true\">Chat Closed</h4>\r\n\r\n                     <!-- <h3 class=\"chat-closed\"> Chat closed </h3> -->\r\n    \r\n                 </div>\r\n                 <div class=\"card-footer chat-form\" *ngIf=\"this.is_chat_closed == true\">\r\n                     <h4 class=\"close-text\" *ngIf=\"this.is_chat_closed == true\">Chat Closed</h4></div>\r\n               </div>\r\n             </div>\r\n             <audio id=\"beepaud\" src=\"https://omni.mconnectapps.com/webchat/images/beep.mp3\" preload=\"auto\" ></audio>\r\n\r\n                    </div>\r\n                </div>\r\n\r\n                <div class=\"modal fade bd-example-modal-md\" id=\"video_play\">\r\n                  <div class=\"modal-dialog modal-md\"  style=\"max-width: 1200px;\">\r\n                    <div class=\"modal-content\">\r\n                      <div class=\"modal-header\">\r\n                        <h5 class=\"modal-title\" style=\"color:crimson\" id=\"myLargeModalLabel\" >Internal Chat Solutions</h5>\r\n                        <button type=\"button\" class=\"close\" (click)=\"stop()\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n                          <span aria-hidden=\"true\">&times;</span>\r\n                        </button>\r\n                      </div>\r\n                      <div class=\"modal-body\">\r\n                                <iframe class='myvideo' [src]=\"this.doc_link | safe\"  width=\"100%\" style=\"height: 575px;\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>\r\n                                <!-- style=\"margin-bottom: -6px;\" width=\"100%\" height=\"325\"  -->\r\n                              <!-- <embed [src]=\"this.video_link | safe\"  width=\"100%\" style=\"height: 575px;\" /> -->\r\n                      </div>     \r\n                      <div class=\"modal-footer\" >\r\n                          <div class=\"buttons\">\r\n                              <input type=\"button\" data-dismiss=\"modal\" (click)=\"stop()\" class=\"btn btn-outline-secondary\" value=\"close\">\r\n                          </div>\r\n                      </div>\r\n                \r\n                    </div>\r\n                  </div>\r\n                </div>  ";
+    __webpack_exports__["default"] = "<div class=\"row\">\n  <div class=\"col-xs-12 col-sm-12 col-md-3 col-lg-3\">\n    <div class=\"card fullHeightCard\">\n      <div class=\"body\">\n        <div id=\"plist\" class=\"people-list chat-search-list\">\n          <div class=\"chat-search\">\n\n            <div class=\"input-group\">\n              <input type=\"text\" class=\"form-control\" placeholder=\"Search...\" #chat_search\n                (keyup.enter)=\"chatPanelList(chat_search.value)\">\n              <input type=\"hidden\" name=\"open_chat_detail_id\" id=\"open_chat_detail_id\" value=\"0\" #open_chat_detail_id\n                (click)='chatPanelDetail(open_chat_detail_id.value)'>\n              <input type=\"hidden\" name=\"close_chat_detail_id\" id=\"close_chat_detail_id\" value=\"0\" #close_chat_detail_id\n                (click)='chatPanelDetail(close_chat_detail_id.value, 2)'>\n\n              <input type=\"hidden\" id=\"chatPanelView\" (click)='chatPanelView(\"all\")'>\n              <span></span>\n              <div class=\"input-chat_search-append\">\n                <button class=\"btn btn-primary chat_list_search\" (click)=\"chatPanelList(chat_search.value)\"><i\n                    class=\"fas fa-search\"></i></button>\n              </div>\n            </div>\n\n          </div>\n          <div class=\"m-b-20\">\n            <div id=\"chat-scroll\">\n              <ul class=\"chat-list list-unstyled m-b-0 chat_list_data\">\n\n                <!-- <li class=\"clearfix\" *ngFor=\"let chat_list of chat_panel_list;let i=index\"   [id]=\"'chat_'+chat_list.chat_id\"  (click)=\"chatPanelDetail(chat_list.chat_id,chat_list.chat_status)\">\n                                                    <div class=\"about\">\n                                                        <div class=\"name\">{{chat_list.customer_name}}<i *ngIf=\"chat_list.chat_status=='2'\" class=\"far fa-times-circle\" aria-hidden=\"true\" style=\"color: red;font-size: 15px;\"></i></div>\n                                                        <div class=\"text-small text-muted\"> <div class=\"bullet\"></div> {{chat_list.chat_dt}}</div>\n                                                    </div>\n                                                </li> -->\n                <li class=\"clearfix\" *ngFor=\"let agents of admin_list;let i=index\" [id]=\"'agent_'+agents.user_id\"\n                  (click)=\"chatPanelDetail(agents.user_id)\">\n                  <div class=\"about\">\n                    <div class=\"name\">\n                      <img class=\"thumbnail-image\" src=\"{{agents.profile_image}}\"\n                        onerror=\"this.src='assets/images/user.jpg'\" alt=\"...\" width=\"50px\" style=\"margin-right: 5px;\" />\n                      {{agents.agent_name}}\n\n                      <i [class]=\"agents.login_status == 1 ? 'fas fa-circle agent_active' : 'fas fa-circle agent_inactive'\"\n                        aria-hidden=\"true\" style=\"font-size: 10px;\"></i>\n                    </div>\n                    <div class=\"text-small text-muted\" style=\"display: flex;\">\n                      <div class=\"bullet\"></div>Admin\n                    </div>\n                  </div>\n                </li>\n                <li class=\"clearfix\" *ngFor=\"let agents of agent_list;let i=index\" [id]=\"'agent_'+agents.user_id\"\n                  (click)=\"chatPanelDetail(agents.user_id)\">\n                  <div class=\"about\">\n                    <div class=\"name\">\n                      <img class=\"thumbnail-image\" src=\"{{agents.profile_image}}\"\n                        onerror=\"this.src='assets/images/user.jpg'\" alt=\"...\" width=\"50px\" style=\"margin-right: 5px;\" />\n                      {{agents.agent_name}} <i\n                        [class]=\"agents.login_status == 1 ? 'fas fa-circle agent_active' : 'fas fa-circle agent_inactive'\"\n                        aria-hidden=\"true\" style=\"font-size: 10px;\"></i>\n                    </div>\n                    <div class=\"text-small text-muted\" style=\"display: flex;\">\n                      <div class=\"bullet\"></div>Employee\n                    </div>\n                  </div>\n                </li>\n\n              </ul>\n\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"col-xs-12 col-sm-12 col-md-9 col-lg-9\" id=\"chat_details_view\">\n    <div class=\"card fullHeightCard keep-connect-chat-content\" *ngIf=\"chat_panel_detail_type=='chat_screen'\">\n      <a (click)=\"showdoc('https://youtu.be/0UEeHC9GeJ4')\" target=\"_blank\"><i style=\"font-size: 24px;\n                            float: right;\" class=\"fa fa-question-circle\"></i></a>\n      <!-- <a href=\"https://ticketing.mconnectapps.com/api/v1.0/pro_contents/pro_internal_chat.pdf\"  target=\"_blank\"><i style=\"font-size: 24px;padding-right: 20px;\n                            padding-top: 20px;float: right;\" class=\"fa fa-exclamation-circle\"></i></a> -->\n      <div class=\"card-body\">\n        <div class=\"keep-connect\">\n          <div class=\"connect-logo\">\n            <img src=\"assets/img/logo.png\">\n            <span class=\"logo-name\">Omni Internal Chat</span>\n          </div>\n          <h3>Keep your device connected</h3>\n          <!-- <p>To reduce the data usage,<br>connect your device to Wi-Fi.</p> -->\n        </div>\n      </div>\n    </div>\n\n    <div class=\"card {{this.chat_status_detail_id}}\" *ngIf=\"chat_panel_detail_type=='chat_detail'\"\n      [id]=\"'chat_detail_'+this.chat_status_detail_id\">\n      <div class=\"chat\">\n        <div class=\"chat-header clearfix\">\n          <!-- <img src=\"assets/images/user.jpg\" alt=\"avatar\"> -->\n          <img class=\"thumbnail-image\" src=\"{{a_profile_image}}\" onerror=\"this.src='assets/images/user.jpg'\"\n            alt=\"avatar\" />\n          <div class=\"chat-about\">\n            <div class=\"chat-with\">{{customer_name}}</div>\n            <div class=\"chat-num-messages\">Web</div>\n          </div>\n          <img src=\"assets/img/mc-dashboard/internal-chat.png\" alt=\"avatar\" style=\"float: right;\">\n        </div>\n      </div>\n      <div class=\"chat-box\" id=\"mychatbox\">\n        <div class=\"card-body chat-content\">\n          <div *ngFor=\"let chat_details of chat_panel_details;let i=index\">\n            <div class=\"chat-item chat-left\" *ngIf=\"chat_details.msg_sender_id != loginUser\">\n              <img class=\"thumbnail-image\" src=\"{{chat_details.profile_image}}\"\n                onerror=\"this.src='assets/images/user.jpg'\" alt=\"avatar\" />\n\n                <!-- <div class=\"chat-details\" *ngIf=\"chat_details.chat_msg != ''\">\n                  <div class=\"chat-text\">{{chat_details.chat_msg}}</div>\n                  <div class=\"chat-time\">{{chat_details.chat_time}}</div>\n                </div> -->\n\n              <div class=\"chat-details\">\n\n      \n                  <div class=\"chat-text\" *ngIf=\"chat_details.chat_msg != ''\">{{chat_details.chat_msg}}</div>\n\n                  <div class=\"chat-text\"  *ngIf=\"chat_details.img_url\" style=\"max-width: 350px;\">\n                    <div>\n                      <a title=\"Click to View\" target=\"_blank\" href=\"{{chat_details.img_url}}\"><img\n                          style=\"min-width: 50px;\" src=\"{{chat_details.img_url}}\"\n                          onerror=\"this.src='assets/images/icons/quickView.png'\">\n                      </a>\n                    </div>\n                    <!-- <div>\n                      <p style=\"display: table-caption; min-width: 73px;font-size: 10px;margin-bottom: 0px;\"> Click to View </p>\n                    </div> -->\n                  </div>\n\n                <!-- <div class=\"chat-text\" *ngIf=\"chat_details.img_type== 'doc' ||chat_details.img_type=='docx'||chat_details.img_type == 'pdf'||chat_details.img_type == 'csv' || chat_details.img_type =='txt';\"   > -->\n                <!-- <div class=\"chat-text\" *ngIf=\"chat_details.img_type != '' && chat_details.chat_msg == ''\">\n                  <div *ngIf=\"chat_details.img_url\" style=\"max-width: 350px;\"> <a title=\"Click to View\" target=\"_blank\"\n                      href=\"{{chat_details.img_url}}\"><img style=\"min-width: 50px;\" \n                        onerror=\"this.src='assets/images/icons/quickView.png'\">\n                     </a>\n                  </div>\n                </div> -->\n\n                <div class=\"chat-text\" *ngIf=\"chat_details.img_type != '' && chat_details.chat_msg != ''\">\n                  <!-- <div style=\"-webkit-text-stroke: medium;\" class=\"chat-heading-text\">{{chat_details.agent_name}}</div> -->\n                  <div *ngIf=\"chat_details.img_url\" style=\"max-width: 350px;\"> <a title=\"Click to View\" target=\"_blank\"\n                      href=\"{{chat_details.img_url}}\"><img style=\"min-width: 50px;\" \n                        onerror=\"this.src='assets/images/icons/quickView.png'\">\n                      <!-- <b>{{chat_details.chat_images}}</b> -->\n                    </a>\n\n                    <!-- <p style=\"margin-bottom: 0px; font-size: 15px;\" *ngIf=\"chat_details.chat_msg != 'undefined'\">{{chat_details.chat_msg}}</p> -->\n                  </div>\n                </div>\n                <div class=\"chat-time\">{{chat_details.chat_time}}</div>\n\n              </div>\n\n            </div>\n\n\n            <div class=\"chat-item chat-right\"\n              *ngIf=\"chat_details.msg_sender_id == loginUser\">\n              <img class=\"thumbnail-image\" src=\"{{chat_details.profile_image}}\"\n                onerror=\"this.src='assets/images/user.jpg'\" alt=\"avatar\" />\n              <div class=\"chat-details\" *ngIf=\"chat_details.chat_msg != ''\">\n                <div class=\"chat-text\">{{chat_details.chat_msg}}</div>\n                <div class=\"chat-time\">{{chat_details.chat_time}}</div>\n              </div>\n\n              <div class=\"chat-details\">\n\n                <!-- <div *ngIf=\"chat_details.img_type == 'doc' ||chat_details.img_type=='docx'||chat_details.img_type == 'pdf'||chat_details.img_type == 'csv' || chat_details.img_type =='txt';\" class=\"chat-text\" style=\"white-space: pre-line;\"> -->\n                <div *ngIf=\"chat_details.img_type != '' && chat_details.img_type != 'undefined' && chat_details.chat_msg == ''\" class=\"chat-text\"\n                  style=\"white-space: pre-line;\">\n                  <!-- rights -->\n                  <!-- <div style=\"font-weight:800;\">\n                    <span *ngIf=\"chat_details.agent_name !='' && chat_details.agent_name !=null\">\n                      {{chat_details.agent_name}}</span>\n                    <span *ngIf=\"chat_details.agent_name =='' ||chat_details.agent_name ==null\">\n                      {{chat_details.user_name}}</span>\n                  </div> -->\n                  <div *ngIf=\"chat_details.img_url\" style=\"max-width: 350px;\">\n                    <div>\n                      <a title=\"Click to View\" target=\"_blank\" href=\"{{chat_details.img_url}}\"><img\n                          style=\"min-width: 50px;\" src=\"{{chat_details.img_url}}\"\n                          onerror=\"this.src='assets/images/icons/quickView.png'\">\n                      </a>\n                    </div>\n                    <!-- <div>\n                      <p style=\"display: table-caption; min-width: 73px;font-size: 10px;margin-bottom: 0px;\"> Click to View </p>\n                    </div> -->\n                  </div>\n                </div>\n                <div *ngIf=\"chat_details.img_type != '' && chat_details.chat_msg != ''\" class=\"chat-text\"\n                  style=\"white-space: pre-line;\">\n\n                  <div style=\"font-weight:800;\">\n                    <span *ngIf=\"chat_details.agent_name !='' && chat_details.agent_name !=null\">\n                      {{chat_details.agent_name}}</span>\n                    <span *ngIf=\"chat_details.agent_name =='' ||chat_details.agent_name ==null\">\n                      {{chat_details.user_name}}</span>\n                  </div>\n                  <div *ngIf=\"chat_details.img_url\" style=\"max-width: 350px;\">\n                    <div>\n                      <a title=\"Click to View\" target=\"_blank\" href=\"{{chat_details.img_url}}\"><img\n                          style=\"min-width: 50px;\" src=\"{{chat_details.img_url}}\"\n                          onerror=\"this.src='assets/images/icons/quickView.png'\">\n                      </a>\n                    </div>\n                    <p style=\"margin-bottom: 0px; font-size: 15px;\" *ngIf=\"chat_details.chat_msg != 'undefined'\">{{chat_details.chat_msg}}</p>\n                  </div>\n                </div>\n\n\n\n\n              </div>\n\n\n\n            </div>\n\n\n            <!-- <div\n              *ngIf=\"chat_details.img_type == 'doc' || chat_details.img_type=='docx'||chat_details.img_type == 'pdf'||chat_details.img_type == 'csv' || chat_details.img_type =='txt';\"\n              class=\"chat-text\" style=\"white-space: pre-line;\">\n\n              <div style=\"font-weight:800;\">\n                <span *ngIf=\"chat_details.agent_name !='' && chat_details.agent_name !=null\">\n                  {{chat_details.agent_name}}</span>\n                <span *ngIf=\"chat_details.agent_name =='' ||chat_details.agent_name ==null\">\n                  {{chat_details.user_name}}</span>\n              </div>\n              <div *ngIf=\"chat_details.img_url\" style=\"max-width: 350px;\"> <a title=\"Click to View\" target=\"_blank\"\n                  href=\"{{chat_details.img_url}}\"><img src=\"assets/images/icons/quickView.png\">\n                  Click to View File\n                </a>\n              </div>\n            </div>\n\n            <div\n              *ngIf=\"chat_details.img_type != 'doc' && chat_details.img_type!='docx' && chat_details.img_type != 'pdf'&&chat_details.img_type != 'csv' && chat_details.img_type !='txt';\"\n              class=\"chat-text\" style=\"white-space: pre-line;\">\n\n              <div style=\"font-weight:800;\">\n                <span *ngIf=\"chat_details.agent_name !='' && chat_details.agent_name !=null\">\n                  {{chat_details.agent_name}}</span>\n                <span *ngIf=\"chat_details.agent_name =='' ||chat_details.agent_name ==null\">\n                  {{chat_details.user_name}}</span>\n              </div>\n              <div *ngIf=\"chat_details.img_url\" style=\"max-width: 650px;\"> <a target=\"_blank\"\n                  href=\"{{chat_details.img_url}}\"><img src=\"{{chat_details.img_url}}\">\n\n                </a>\n              </div>\n            </div> -->\n\n\n          </div>\n\n\n        </div>\n        <div class=\"card-footer chat-form\" *ngIf=\"this.is_chat_closed == false\">\n          <!-- <form id=\"chat-form\"> -->\n          <textarea class=\"form-control\" id=\"chat_msg\" placeholder=\"Type a message\" style=\"height: 50px;\"\n            (keydown)=\"onMessageSend($event)\" #chat_message></textarea>\n          <input type=\"hidden\" name=\"chat_id\" id=\"chat_detail_id\" value=\"{{chat_detail_key}}\" #chat_detail_id>\n\n          <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#createNewWidget\"\n          style=\"right: 40px;\">\n          <i class=\"fas fa-link\"></i>\n        </button>\n\n          <button type=\"button\" class=\"btn btn-primary\" (click)=\"sendChatMessageData()\">\n            <i class=\"far fa-paper-plane\"></i>\n          </button>\n\n          <h4 *ngIf=\"this.is_chat_closed == true\">Chat Closed</h4>\n\n          <!-- <h3 class=\"chat-closed\"> Chat closed </h3> -->\n\n        </div>\n        <div class=\"card-footer chat-form\" *ngIf=\"this.is_chat_closed == true\">\n          <h4 class=\"close-text\" *ngIf=\"this.is_chat_closed == true\">Chat Closed</h4>\n        </div>\n      </div>\n    </div>\n    <audio id=\"beepaud\" src=\"https://omni.mconnectapps.com/webchat/images/beep.mp3\" preload=\"auto\"></audio>\n\n  </div>\n</div>\n\n<div class=\"modal fade bd-example-modal-md\" id=\"video_play\">\n  <div class=\"modal-dialog modal-md\" style=\"max-width: 1200px;\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h5 class=\"modal-title\" style=\"color:crimson\" id=\"myLargeModalLabel\">Internal Chat Solutions</h5>\n        <button type=\"button\" class=\"close\" (click)=\"stop()\" data-dismiss=\"modal\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        <iframe class='myvideo' [src]=\"this.doc_link | safe\" width=\"100%\" style=\"height: 575px;\" frameborder=\"0\"\n          allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\"\n          allowfullscreen></iframe>\n        <!-- style=\"margin-bottom: -6px;\" width=\"100%\" height=\"325\"  -->\n        <!-- <embed [src]=\"this.video_link | safe\"  width=\"100%\" style=\"height: 575px;\" /> -->\n      </div>\n      <div class=\"modal-footer\">\n        <div class=\"buttons\">\n          <input type=\"button\" data-dismiss=\"modal\" (click)=\"stop()\" class=\"btn btn-outline-secondary\" value=\"close\">\n        </div>\n      </div>\n\n    </div>\n  </div>\n</div>\n\n\n\n<!---------------------\nAdd New Widget Modal\n------------------>\n<div class=\"modal fade\" id=\"createNewWidget\">\n  <div class=\"modal-dialog modal-md\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h5 class=\"modal-title\" id=\"myLargeModalLabel\">Upload Media File (Image, Video, Text and PDF files up to 5 mb)\n        </h5>\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        <div class=\"row\">\n          <div class=\"col-12 col-md-12\">\n            <div class=\"row\">\n              <div class=\"col-md-12 col-12\">\n                <div class=\"form-group\">\n                  <!-- <input type=\"file\" class=\"form-control\" name=\"chat_media\" id=\"chat_media\" multiple> -->\n                  <input type=\"file\" class=\"form-control\" name=\"chat_media\" id=\"chat_media\">\n                </div>\n              </div>\n\n\n            </div>\n          </div>\n\n        </div>\n      </div>\n\n      <div class=\"modal-footer\">\n        <div class=\"buttons\">\n          <input type=\"button\" data-dismiss=\"modal\" class=\"btn btn-outline-secondary\" value=\"Cancel\">\n          <input type=\"button\" class=\"btn btn-primary update_agent\" value=\"Submit\" (click)=\"sendChatMessageData()\">\n        </div>\n      </div>\n    </div>\n  </div>\n</div>";
     /***/
   },
 
@@ -26942,7 +26942,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = ".fr {\r\n    float: right;\r\n    width: 100%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZm9vdGVyL2Zvb3Rlci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtJQUNaLFdBQVc7QUFDZiIsImZpbGUiOiJzcmMvYXBwL2Zvb3Rlci9mb290ZXIuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5mciB7XHJcbiAgICBmbG9hdDogcmlnaHQ7XHJcbiAgICB3aWR0aDogMTAwJTtcclxufSJdfQ== */";
+    __webpack_exports__["default"] = ".fr {\n    float: right;\n    width: 100%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZm9vdGVyL2Zvb3Rlci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtJQUNaLFdBQVc7QUFDZiIsImZpbGUiOiJzcmMvYXBwL2Zvb3Rlci9mb290ZXIuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5mciB7XG4gICAgZmxvYXQ6IHJpZ2h0O1xuICAgIHdpZHRoOiAxMDAlO1xufSJdfQ== */";
     /***/
   },
 
@@ -27063,8 +27063,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             };
 
             this.websocket.onmessage = function (event) {
-              this.socketData = JSON.parse(event.data);
-              console.log(this.socketData); //   if(this.socketData.message_type == "chat"){
+              this.socketData = JSON.parse(event.data); //   if(this.socketData.message_type == "chat"){
               // if(this.socketData.message_info.chat_receiver_id == localStorage.getItem('userId')){
               //   // iziToast.success({
               //   //   message: "New chat Message",
@@ -27177,7 +27176,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           if (this.profile_image != null && this.profile_image != 'null' && this.profile_image != 'undefined') {
             this.profile_image = localStorage.getItem('profile_image');
           } else {
-            this.profile_image = 'https://omnitickets.mconnectapps.com/api/v1.0/profile_image/user.jpg';
+            this.profile_image = 'https://ticketing.mconnectapps.com/api/v1.0/profile_image/user.jpg';
           }
 
           var chat_message = $('#chat_msg').val();
@@ -33922,7 +33921,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "i.agent_active.fa-circle.fas {\r\n    color: #669a11;\r\n}\r\ni.agent_inactive.fa-circle.fas {\r\n    color: #da0303;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbWMvaW50ZXJuYWwtY2hhdC9pbnRlcm5hbC1jaGF0LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxjQUFjO0FBQ2xCO0FBQ0E7SUFDSSxjQUFjO0FBQ2xCIiwiZmlsZSI6InNyYy9hcHAvbWMvaW50ZXJuYWwtY2hhdC9pbnRlcm5hbC1jaGF0LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpLmFnZW50X2FjdGl2ZS5mYS1jaXJjbGUuZmFzIHtcclxuICAgIGNvbG9yOiAjNjY5YTExO1xyXG59XHJcbmkuYWdlbnRfaW5hY3RpdmUuZmEtY2lyY2xlLmZhcyB7XHJcbiAgICBjb2xvcjogI2RhMDMwMztcclxufSJdfQ== */";
+    __webpack_exports__["default"] = "i.agent_active.fa-circle.fas {\n    color: #669a11;\n}\ni.agent_inactive.fa-circle.fas {\n    color: #da0303;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbWMvaW50ZXJuYWwtY2hhdC9pbnRlcm5hbC1jaGF0LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxjQUFjO0FBQ2xCO0FBQ0E7SUFDSSxjQUFjO0FBQ2xCIiwiZmlsZSI6InNyYy9hcHAvbWMvaW50ZXJuYWwtY2hhdC9pbnRlcm5hbC1jaGF0LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpLmFnZW50X2FjdGl2ZS5mYS1jaXJjbGUuZmFzIHtcbiAgICBjb2xvcjogIzY2OWExMTtcbn1cbmkuYWdlbnRfaW5hY3RpdmUuZmEtY2lyY2xlLmZhcyB7XG4gICAgY29sb3I6ICNkYTAzMDM7XG59Il19 */";
     /***/
   },
 
@@ -34015,21 +34014,25 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   if (this.socketData.message_info.chat_receiver_id == self.socketParam) {
                     // console.log('hello_app')
                     self.chat_panel_details.push(this.socketData.message_info);
+                    self.chatautoScroll();
                   }
                 }
               }
 
-              if (this.socketData.message_info.chat_receiver_id == localStorage.getItem('userId')) {
-                // console.log(self.socketParam);
-                // console.log(this.socketData.message_info.chat_sender_id);
-                if (this.socketData.message_info.chat_sender_id == self.socketParam) {
-                  // console.log($('#chat_detail_id').val());
-                  // console.log('get the recevier data');
-                  //this.chatPanelDetail(this.socketData.message_info.chat_id);
-                  console.log(this.socketData.message_info); // $('#open_chat_detail_id').val(this.socketData.message_info.chat_sender_id);
-                  // $('#open_chat_detail_id').click();
+              if (this.socketData.message_status == "existing") {
+                if (this.socketData.message_info.chat_receiver_id == localStorage.getItem('userId')) {
+                  // console.log(self.socketParam);
+                  // console.log(this.socketData.message_info.chat_sender_id);
+                  if (this.socketData.message_info.chat_sender_id == self.socketParam) {
+                    // console.log($('#chat_detail_id').val());
+                    // console.log('get the recevier data');
+                    //this.chatPanelDetail(this.socketData.message_info.chat_id);
+                    console.log(this.socketData.message_info); // $('#open_chat_detail_id').val(this.socketData.message_info.chat_sender_id);
+                    // $('#open_chat_detail_id').click();
 
-                  self.chat_panel_details.push(this.socketData.message_info);
+                    self.chat_panel_details.push(this.socketData.message_info);
+                    self.chatautoScroll();
+                  }
                 }
               }
             }
@@ -34073,22 +34076,61 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "chatautoScroll",
         value: function chatautoScroll() {
-          if ($(".card-body.chat-content").length > 0) {
-            setTimeout(function () {
-              $(".card-body.chat-content").scrollTop($(".card-body.chat-content")[0].scrollHeight);
-            }, 10);
-          }
+          // if ($(".card-body.chat-content").length > 0) {	
+          setTimeout(function () {
+            $(".card-body.chat-content").scrollTop($(".card-body.chat-content")[0].scrollHeight);
+          }, 10); // }
         }
       }, {
         key: "chatSearch",
         value: function chatSearch(_chatSearch3) {
           console.log(_chatSearch3);
-        }
+        } // sendChatMessageData() {
+        // 	this.profile_image = localStorage.getItem('profile_image');
+        // 	if (this.profile_image == null || this.profile_image == 'null' || this.profile_image == 'undefined') {
+        // 		this.profile_image = 'https://ticketing.mconnectapps.com/api/v1.0/profile_image/user.jpg';
+        // 	} else {
+        // 		this.profile_image = localStorage.getItem('profile_image');
+        // 	}
+        // 	var chat_message = $('#chat_msg').val();
+        // 	chat_message = chat_message.trim();
+        // 	if (chat_message.length > 0) {
+        // 		let api_req: any = new Object();
+        // 		let chat_req: any = new Object();
+        // 		chat_req.action = "send_internal_chat_message";
+        // 		chat_req.chat_type = "webchat";
+        // 		chat_req.chat_receiver_id = this.chat_detail_key;
+        // 		chat_req.chat_sender_id = this.loginUser;
+        // 		chat_req.chat_msg = chat_message;
+        // 		api_req.operation = "chatinternal";
+        // 		api_req.moduleType = "chatinternal";
+        // 		api_req.api_type = "web";
+        // 		chat_req.admin_id = localStorage.getItem('admin_id');
+        // 		api_req.timezone_id = localStorage.getItem('timezone_id');
+        // 		api_req.access_token = localStorage.getItem('access_token');
+        // 		api_req.element_data = chat_req;
+        // 		this.serverService.sendServer(api_req).subscribe((response: any) => {
+        // 			if (response.result.status == true || response.result.status == 'true') {
+        // 				var chat_msg = response.result.data;
+        // 				let agent_name = localStorage.getItem('user_name');
+        // 				var socket_message = '{"message_type":"chat","message_status":"existing","message_info" : {"chat_id" : "' + chat_msg.chat_id + '","msg_user_id" : "' + chat_msg.msg_user_id + '","msg_user_type" : "2","msg_type":"text","chat_msg" : "' + chat_msg.chat_msg + '","queue_id":"1","agent_aviator":"' + this.profile_image + '","agent_name":"' + agent_name + '","chat_receiver_id":"' + chat_msg.msg_receiver_id + '","chat_sender_id":"' + this.loginUser + '","sender_name":"' + agent_name + '","profile_image":"' + chat_msg.profile_image + '","chat_dt":"' +chat_msg.chat_dt+ '","chat_time":"' +chat_msg.chat_time+ '","img_url":"'+chat_msg.img_url+'","img_type":"'+chat_msg.img_type+'"}}';
+        // 				var socket_message2 = '{"message_type":"chat","message_status":"web_msg_existing","message_info" : {"chat_id" : "' + chat_msg.chat_id + '","msg_user_id" : "' + chat_msg.msg_user_id + '","msg_user_type" : "2","msg_type":"text","chat_msg" : "' + chat_msg.chat_msg + '","queue_id":"1","agent_aviator":"' + this.profile_image + '","agent_name":"' + agent_name + '","msg_sender_id":"' + chat_msg.msg_sender_id + '","chat_receiver_id":"' + chat_msg.msg_receiver_id + '","chat_sender_id":"' + this.loginUser + '","sender_name":"' + agent_name + '","profile_image":"' + chat_msg.profile_image + '","chat_dt":"' +chat_msg.chat_dt+ '","chat_time":"' +chat_msg.chat_time+ '","img_url":"'+chat_msg.img_url+'","img_type":"'+chat_msg.img_type+'"}}';
+        // 				this.websocket.send(socket_message);
+        // 				this.websocket.send(socket_message2);
+        // 				this.chat_panel_details.push(chat_msg);
+        // 				this.chatautoScroll();
+        // 				$('#chat_msg').val('');
+        // 			}
+        // 		},
+        // 			(error) => {
+        // 				console.log(error);
+        // 			});
+        // 	}
+        // }
+
       }, {
         key: "sendChatMessageData",
         value: function sendChatMessageData() {
-          var _this353 = this;
-
           this.profile_image = localStorage.getItem('profile_image');
 
           if (this.profile_image == null || this.profile_image == 'null' || this.profile_image == 'undefined') {
@@ -34098,45 +34140,52 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           }
 
           var chat_message = $('#chat_msg').val();
-          chat_message = chat_message.trim();
+          $("#createNewWidget").modal('hide');
+          var formData = new FormData();
+          formData.append('operation', 'chatinternal');
+          formData.append('moduleType', 'chatinternal');
+          formData.append('api_type', 'web');
+          formData.append('action', 'send_internal_chat_message');
+          formData.append('chat_type', "webchat");
+          formData.append('chat_receiver_id', this.chat_detail_key);
+          formData.append('chat_sender_id', this.loginUser);
+          formData.append('chat_msg', chat_message);
+          formData.append('admin_id', localStorage.getItem('admin_id'));
+          formData.append('timezone_id', localStorage.getItem('timezone_id'));
+          formData.append('access_token', localStorage.getItem('access_token'));
 
-          if (chat_message.length > 0) {
-            var api_req = new Object();
-            var chat_req = new Object();
-            chat_req.action = "send_internal_chat_message";
-            chat_req.chat_type = "webchat";
-            chat_req.chat_receiver_id = this.chat_detail_key;
-            chat_req.chat_sender_id = this.loginUser;
-            chat_req.chat_msg = chat_message;
-            api_req.operation = "chatinternal";
-            api_req.moduleType = "chatinternal";
-            api_req.api_type = "web";
-            chat_req.admin_id = localStorage.getItem('admin_id');
-            api_req.timezone_id = localStorage.getItem('timezone_id');
-            api_req.access_token = localStorage.getItem('access_token');
-            api_req.element_data = chat_req;
-            this.serverService.sendServer(api_req).subscribe(function (response) {
-              if (response.result.status == true) {
+          if (document.getElementById('chat_media').value != null) {
+            // var ins = (<HTMLInputElement>document.getElementById('chat_media')).files.length;
+            // for (var x = 0; x < ins; x++) {
+            //   formData.append("image_file[]", (<HTMLInputElement>document.getElementById('chat_media')).files[x]);
+            // }
+            formData.append("image_file", document.getElementById('chat_media').files[0]);
+          }
+
+          var self = this;
+          $.ajax({
+            url: "https://ticketing.mconnectapps.com/api/v1.0/index_new.php",
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function success(data) {
+              var response = JSON.parse(data);
+              console.log(response);
+
+              if (response.result.status == true || response.result.status == 'true') {
                 var chat_msg = response.result.data;
-                var agent_name = localStorage.getItem('user_name'); //    var socket_message  =  '{"message_type":"chat","message_status":"existing","message_info" : {"chat_id" : "'+chat_msg.chat_id+'","msg_user_id" : "'+chat_msg.msg_user_id+'","msg_user_type" : "2","msg_type":"text","message" : "'+chat_msg.chat_msg+'","queue_id":"1","agent_aviator":"'+this.profile_image+'","agent_name":"'+agent_name+'","chat_receiver_id":"'+this.chat_detail_key+'","chat_sender_id":"'+this.loginUser+'","sender_name":"'+agent_name+'","sender_image":"'+this.profile_image+'"}}';
-
-                var socket_message = '{"message_type":"chat","message_status":"existing","message_info" : {"chat_id" : "' + chat_msg.chat_id + '","msg_user_id" : "' + chat_msg.msg_user_id + '","msg_user_type" : "2","msg_type":"text","chat_msg" : "' + chat_msg.chat_msg + '","queue_id":"1","agent_aviator":"' + _this353.profile_image + '","agent_name":"' + agent_name + '","chat_receiver_id":"' + chat_msg.msg_receiver_id + '","chat_sender_id":"' + _this353.loginUser + '","sender_name":"' + agent_name + '","profile_image":"' + chat_msg.profile_image + '"}}';
-                var socket_message2 = '{"message_type":"chat","message_status":"web_msg_existing","message_info" : {"chat_id" : "' + chat_msg.chat_id + '","msg_user_id" : "' + chat_msg.msg_user_id + '","msg_user_type" : "2","msg_type":"text","chat_msg" : "' + chat_msg.chat_msg + '","queue_id":"1","agent_aviator":"' + _this353.profile_image + '","agent_name":"' + agent_name + '","msg_sender_id":"' + chat_msg.msg_sender_id + '","chat_receiver_id":"' + chat_msg.msg_receiver_id + '","chat_sender_id":"' + _this353.loginUser + '","sender_name":"' + agent_name + '","profile_image":"' + chat_msg.profile_image + '"}}';
-
-                _this353.websocket.send(socket_message);
-
-                _this353.websocket.send(socket_message2);
-
-                _this353.chat_panel_details.push(chat_msg);
-
-                _this353.chatautoScroll();
-
+                var agent_name = localStorage.getItem('user_name');
+                var socket_message = '{"message_type":"chat","message_status":"existing","message_info" : {"chat_id" : "' + chat_msg.chat_id + '","msg_user_id" : "' + chat_msg.msg_user_id + '","msg_user_type" : "2","msg_type":"text","chat_msg" : "' + chat_msg.chat_msg + '","queue_id":"1","agent_aviator":"' + self.profile_image + '","agent_name":"' + agent_name + '","chat_receiver_id":"' + chat_msg.msg_receiver_id + '","chat_sender_id":"' + self.loginUser + '","sender_name":"' + agent_name + '","profile_image":"' + chat_msg.profile_image + '","chat_dt":"' + chat_msg.chat_dt + '","chat_time":"' + chat_msg.chat_time + '","img_url":"' + chat_msg.img_url + '","img_type":"' + chat_msg.img_type + '"}}';
+                var socket_message2 = '{"message_type":"chat","message_status":"web_msg_existing","message_info" : {"chat_id" : "' + chat_msg.chat_id + '","msg_user_id" : "' + chat_msg.msg_user_id + '","msg_user_type" : "2","msg_type":"text","chat_msg" : "' + chat_msg.chat_msg + '","queue_id":"1","agent_aviator":"' + self.profile_image + '","agent_name":"' + agent_name + '","msg_sender_id":"' + chat_msg.msg_sender_id + '","chat_receiver_id":"' + chat_msg.msg_receiver_id + '","chat_sender_id":"' + self.loginUser + '","sender_name":"' + agent_name + '","profile_image":"' + chat_msg.profile_image + '","chat_dt":"' + chat_msg.chat_dt + '","chat_time":"' + chat_msg.chat_time + '","img_url":"' + chat_msg.img_url + '","img_type":"' + chat_msg.img_type + '"}}';
+                self.websocket.send(socket_message);
+                self.websocket.send(socket_message2);
+                self.chat_panel_details.push(chat_msg);
                 $('#chat_msg').val('');
               }
-            }, function (error) {
-              console.log(error);
-            });
-          }
+            }
+          });
+          this.chatautoScroll();
         }
       }, {
         key: "onMessageSend",
@@ -34150,7 +34199,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "chatPanelView",
         value: function chatPanelView(chat_id) {
-          var _this354 = this;
+          var _this353 = this;
 
           var api_req = new Object();
           var chat_req = new Object();
@@ -34165,20 +34214,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           api_req.element_data = chat_req;
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == 1) {
-              _this354.chat_panel_list = response.result.data.chat_list;
+              _this353.chat_panel_list = response.result.data.chat_list;
 
               if (chat_id == "all" || chat_id == "" || chat_id == 0) {
-                _this354.chat_panel_detail_type = "chat_screen";
+                _this353.chat_panel_detail_type = "chat_screen";
               } else {
-                _this354.chat_panel_details = response.result.data.chat_detail_list;
-                _this354.chat_panel_detail_type = "chat_detail";
+                _this353.chat_panel_details = response.result.data.chat_detail_list;
+                _this353.chat_panel_detail_type = "chat_detail";
 
-                _this354.chatPanelDetail(chat_id);
+                _this353.chatPanelDetail(chat_id);
               }
 
-              _this354.chatautoScroll();
+              _this353.chatautoScroll();
 
-              _this354.chat_detail_key = chat_id;
+              _this353.chat_detail_key = chat_id;
             }
           }, function (error) {
             console.log(error);
@@ -34187,7 +34236,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "chatPanelList",
         value: function chatPanelList(search_text) {
-          var _this355 = this;
+          var _this354 = this;
 
           var api_req = new Object();
           var chat_req = new Object();
@@ -34202,7 +34251,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           api_req.element_data = chat_req;
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == 1) {
-              _this355.chat_panel_list = response.result.data.chat_list;
+              _this354.chat_panel_list = response.result.data.chat_list;
             }
           }, function (error) {
             console.log(error);
@@ -34211,7 +34260,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "chatPanelDetail",
         value: function chatPanelDetail(agent_id) {
-          var _this356 = this;
+          var _this355 = this;
 
           this.socketParam = agent_id;
           var api_req = new Object();
@@ -34235,12 +34284,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               // } else {
               // 	this.is_chat_closed = false;
               // }
-              _this356.chat_panel_detail_type = "chat_detail";
-              _this356.chat_panel_details = response.result.data.chat_detail_list;
-              _this356.customer_name = response.result.data.agent_name;
-              _this356.a_profile_image = response.result.data.agent_profile_image;
+              _this355.chat_panel_detail_type = "chat_detail";
+              _this355.chat_panel_details = response.result.data.chat_detail_list;
+              _this355.customer_name = response.result.data.agent_name;
+              _this355.a_profile_image = response.result.data.agent_profile_image;
 
-              _this356.chatautoScroll();
+              _this355.chatautoScroll();
             }
           }, function (error) {
             console.log(error);
@@ -34372,7 +34421,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var McComponent = /*#__PURE__*/function () {
       function McComponent(serverService, router) {
-        var _this357 = this;
+        var _this356 = this;
 
         _classCallCheck(this, McComponent);
 
@@ -34384,7 +34433,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.wp_unoff = false;
         this.wp_off = false;
         this.serverService.changeDetectionEmitter.subscribe(function () {
-          _this357.mcInitialize("");
+          _this356.mcInitialize("");
         }, function (err) {});
       }
 
@@ -34426,13 +34475,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getadmininstance",
         value: function getadmininstance() {
-          var _this358 = this;
+          var _this357 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"wp_instance", "moduleType": "wp_instance", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"getInstanceDetailsForAdmin","user_id":"' + this.loginUser + '","user_type":"' + this.user_type + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
-              if (response.result.data.length) _this358.instance_value = response.result.data[0].wp_inst_id; // this.routedept=response.result.data.dept;
+              if (response.result.data.length) _this357.instance_value = response.result.data[0].wp_inst_id; // this.routedept=response.result.data.dept;
             }
           }, function (error) {
             console.log(error);
@@ -34441,7 +34490,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "mcEventList",
         value: function mcEventList() {
-          var _this359 = this;
+          var _this358 = this;
 
           var api_req = new Object();
           var mc_event_req = new Object();
@@ -34454,7 +34503,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           api_req.element_data = mc_event_req;
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == 1) {
-              _this359.mc_event_list = response.result.data.mc_event_list;
+              _this358.mc_event_list = response.result.data.mc_event_list;
             }
           }, function (error) {
             console.log(error);
@@ -34463,7 +34512,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "mcInitialize",
         value: function mcInitialize(search_text) {
-          var _this360 = this;
+          var _this359 = this;
 
           sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
             html: '<div style="display: flex;justify-content: center;"><div class="pong-loader"></div></div>',
@@ -34487,8 +34536,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.close();
 
             if (response.result.status == 1) {
-              _this360.mc_event_list = response.result.data.mc_event_list;
-              _this360.mc_queue_list = response.result.data.user_access;
+              _this359.mc_event_list = response.result.data.mc_event_list;
+              _this359.mc_queue_list = response.result.data.user_access;
             }
           }, function (error) {
             console.log(error);
@@ -34639,7 +34688,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "hasContactAccess",
         value: function hasContactAccess() {
-          var _this361 = this;
+          var _this360 = this;
 
           var api_req = new Object();
           var conct_req = new Object();
@@ -34653,7 +34702,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.data.has_internal_chat == 1) {
-              _this361.h_int_chat = true;
+              _this360.h_int_chat = true;
             }
           }, function (error) {
             console.log(error);
@@ -34767,7 +34816,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var SmsComponent = /*#__PURE__*/function () {
       function SmsComponent(serverService, route) {
-        var _this362 = this;
+        var _this361 = this;
 
         _classCallCheck(this, SmsComponent);
 
@@ -34790,7 +34839,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           if (pagefor == 'SMS') {
             // this.chatPanelDetail(pageid);			
-            _this362.chatPanelView2("all"); // setTimeout(()=>{ 
+            _this361.chatPanelView2("all"); // setTimeout(()=>{ 
             //   $(".card-body.chat-content").scrollTop($(".card-body.chat-content")[0].scrollHeight);
             //   }, 4000);
 
@@ -34879,7 +34928,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "sendChatMessageData",
         value: function sendChatMessageData() {
-          var _this363 = this;
+          var _this362 = this;
 
           sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
             title: 'Please Wait',
@@ -34916,13 +34965,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 var chat_msg = response.result.data;
                 var socket_message = '{"message_type":"chat","message_status":"existing","message_info" : {"chat_id" : "' + chat_msg.chat_id + '","msg_user_id" : "' + chat_msg.msg_user_id + '","msg_user_type" : "2","msg_type":"text","message" : "' + chat_msg.chat_msg + '","queue_id":"1"}}';
 
-                _this363.websocket.send(socket_message);
+                _this362.websocket.send(socket_message);
 
-                _this363.chat_panel_details.push(chat_msg);
+                _this362.chat_panel_details.push(chat_msg);
 
-                _this363.chatautoScroll();
+                _this362.chatautoScroll();
 
-                _this363.chatPanelDetail2(_this363.chat_detail_id.nativeElement.value);
+                _this362.chatPanelDetail2(_this362.chat_detail_id.nativeElement.value);
 
                 $('#chat_msg').val('');
               } else if (response.result.data == 2) {
@@ -34963,6 +35012,43 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "chatPanelView",
         value: function chatPanelView(chat_id) {
+          var _this363 = this;
+
+          var api_req = new Object();
+          var chat_req = new Object();
+          chat_req.action = "chat_message_panel";
+          chat_req.chat_id = chat_id;
+          chat_req.user_id = this.loginUser;
+          chat_req.admin_id = this.admin_id;
+          chat_req.limit = 10;
+          chat_req.offset = this.offset_count;
+          api_req.operation = "chat";
+          api_req.moduleType = "chat";
+          api_req.api_type = "web";
+          api_req.access_token = localStorage.getItem('access_token');
+          api_req.element_data = chat_req;
+          this.serverService.sendServer(api_req).subscribe(function (response) {
+            if (response.result.status == 1) {
+              _this363.chat_panel_list = response.result.data.chat_list;
+
+              if (chat_id == "all" || chat_id == "" || chat_id == 0) {
+                _this363.chat_panel_detail_type = "chat_screen";
+              } else {
+                _this363.chat_panel_details = response.result.data.chat_detail_list;
+                _this363.chat_panel_detail_type = "chat_detail";
+              }
+
+              _this363.chatautoScroll();
+
+              _this363.chat_detail_key = chat_id;
+            }
+          }, function (error) {
+            console.log(error);
+          });
+        }
+      }, {
+        key: "chatPanelView2",
+        value: function chatPanelView2(chat_id) {
           var _this364 = this;
 
           var api_req = new Object();
@@ -34980,44 +35066,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           api_req.element_data = chat_req;
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == 1) {
-              _this364.chat_panel_list = response.result.data.chat_list;
-
-              if (chat_id == "all" || chat_id == "" || chat_id == 0) {
-                _this364.chat_panel_detail_type = "chat_screen";
-              } else {
-                _this364.chat_panel_details = response.result.data.chat_detail_list;
-                _this364.chat_panel_detail_type = "chat_detail";
-              }
-
-              _this364.chatautoScroll();
-
-              _this364.chat_detail_key = chat_id;
-            }
-          }, function (error) {
-            console.log(error);
-          });
-        }
-      }, {
-        key: "chatPanelView2",
-        value: function chatPanelView2(chat_id) {
-          var _this365 = this;
-
-          var api_req = new Object();
-          var chat_req = new Object();
-          chat_req.action = "chat_message_panel";
-          chat_req.chat_id = chat_id;
-          chat_req.user_id = this.loginUser;
-          chat_req.admin_id = this.admin_id;
-          chat_req.limit = 10;
-          chat_req.offset = this.offset_count;
-          api_req.operation = "chat";
-          api_req.moduleType = "chat";
-          api_req.api_type = "web";
-          api_req.access_token = localStorage.getItem('access_token');
-          api_req.element_data = chat_req;
-          this.serverService.sendServer(api_req).subscribe(function (response) {
-            if (response.result.status == 1) {
-              _this365.chat_panel_list = response.result.data.chat_list; //  if(chat_id == "all" || chat_id == "" || chat_id == 0){
+              _this364.chat_panel_list = response.result.data.chat_list; //  if(chat_id == "all" || chat_id == "" || chat_id == 0){
               // 	 //this.chat_panel_detail_type = "chat_screen";
               //  }
               //  else{
@@ -35034,7 +35083,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "chatPanelList",
         value: function chatPanelList(search_text) {
-          var _this366 = this;
+          var _this365 = this;
 
           sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
             title: 'Searching',
@@ -35064,7 +35113,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.close();
 
             if (response.result.status == 1) {
-              _this366.chat_panel_list = response.result.data.chat_list;
+              _this365.chat_panel_list = response.result.data.chat_list;
             }
           }, function (error) {
             sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.close();
@@ -35074,6 +35123,50 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "chatPanelDetail",
         value: function chatPanelDetail(chat_id) {
+          var _this366 = this;
+
+          this.chat_ids = chat_id;
+          $('#chat_msg').val('');
+          var api_req = new Object();
+          var chat_req = new Object();
+          chat_req.action = "chat_detail_list";
+          chat_req.chat_id = chat_id;
+          chat_req.user_id = this.loginUser;
+          chat_req.admin_id = this.admin_id;
+          chat_req.limit = "5";
+          chat_req.offset = 0;
+          api_req.operation = "chat";
+          api_req.moduleType = "chat";
+          api_req.api_type = "web";
+          api_req.access_token = localStorage.getItem('access_token');
+          api_req.element_data = chat_req;
+          this.serverService.sendServer(api_req).subscribe(function (response) {
+            if (response.result.status == 1) {
+              _this366.chat_panel_detail_type = "chat_detail";
+              _this366.chat_panel_details = response.result.data.chat_detail_list;
+              _this366.customer_number = response.result.data.chat_detail_list[0].customer_name;
+              _this366.cus_name = response.result.data.chat_detail_list[0].cus_name;
+
+              _this366.chatPanelView2('all'); //    alert(this.cus_name);
+
+
+              $('#id_' + chat_id).attr('style', 'display:none');
+
+              _this366.chatautoScroll(); //this.scrollSmoothToBottom ('infscrollUp');
+
+
+              _this366.chat_detail_key = chat_id;
+              console.log(_this366.chat_panel_list);
+              _this366.chat_panel_list = _this366.chat_panel_list;
+              _this366.offset_count_msg = 0;
+            }
+          }, function (error) {
+            console.log(error);
+          });
+        }
+      }, {
+        key: "chatPanelDetail2",
+        value: function chatPanelDetail2(chat_id) {
           var _this367 = this;
 
           this.chat_ids = chat_id;
@@ -35096,10 +35189,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               _this367.chat_panel_detail_type = "chat_detail";
               _this367.chat_panel_details = response.result.data.chat_detail_list;
               _this367.customer_number = response.result.data.chat_detail_list[0].customer_name;
-              _this367.cus_name = response.result.data.chat_detail_list[0].cus_name;
-
-              _this367.chatPanelView2('all'); //    alert(this.cus_name);
-
+              _this367.cus_name = response.result.data.chat_detail_list[0].cus_name; // this.chatPanelView2('all');
+              //    alert(this.cus_name);
 
               $('#id_' + chat_id).attr('style', 'display:none');
 
@@ -35110,48 +35201,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               console.log(_this367.chat_panel_list);
               _this367.chat_panel_list = _this367.chat_panel_list;
               _this367.offset_count_msg = 0;
-            }
-          }, function (error) {
-            console.log(error);
-          });
-        }
-      }, {
-        key: "chatPanelDetail2",
-        value: function chatPanelDetail2(chat_id) {
-          var _this368 = this;
-
-          this.chat_ids = chat_id;
-          $('#chat_msg').val('');
-          var api_req = new Object();
-          var chat_req = new Object();
-          chat_req.action = "chat_detail_list";
-          chat_req.chat_id = chat_id;
-          chat_req.user_id = this.loginUser;
-          chat_req.admin_id = this.admin_id;
-          chat_req.limit = "5";
-          chat_req.offset = 0;
-          api_req.operation = "chat";
-          api_req.moduleType = "chat";
-          api_req.api_type = "web";
-          api_req.access_token = localStorage.getItem('access_token');
-          api_req.element_data = chat_req;
-          this.serverService.sendServer(api_req).subscribe(function (response) {
-            if (response.result.status == 1) {
-              _this368.chat_panel_detail_type = "chat_detail";
-              _this368.chat_panel_details = response.result.data.chat_detail_list;
-              _this368.customer_number = response.result.data.chat_detail_list[0].customer_name;
-              _this368.cus_name = response.result.data.chat_detail_list[0].cus_name; // this.chatPanelView2('all');
-              //    alert(this.cus_name);
-
-              $('#id_' + chat_id).attr('style', 'display:none');
-
-              _this368.chatautoScroll(); //this.scrollSmoothToBottom ('infscrollUp');
-
-
-              _this368.chat_detail_key = chat_id;
-              console.log(_this368.chat_panel_list);
-              _this368.chat_panel_list = _this368.chat_panel_list;
-              _this368.offset_count_msg = 0;
             }
           }, function (error) {
             console.log(error);
@@ -35203,14 +35252,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "get_temps",
         value: function get_temps() {
-          var _this369 = this;
+          var _this368 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"template", "moduleType":"template", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"listTemplateByUSer","admin_id":"' + this.admin_id + '","user_id":"' + this.uadmin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this369.temp_list = response.result.data;
-              console.log(_this369.temp_list);
+              _this368.temp_list = response.result.data;
+              console.log(_this368.temp_list);
             }
           }, function (error) {
             console.log(error);
@@ -35219,14 +35268,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getDepartments",
         value: function getDepartments() {
-          var _this370 = this;
+          var _this369 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"get_dept_settings","user_id":"' + this.uadmin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this370.departments = response.result.data;
-              console.log(_this370.departments);
+              _this369.departments = response.result.data;
+              console.log(_this369.departments);
             } else {}
           }, function (error) {
             console.log(error);
@@ -35267,7 +35316,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onScroll",
         value: function onScroll() {
-          var _this371 = this;
+          var _this370 = this;
 
           var off = this.offset_count + 10;
           this.offset_count = off;
@@ -35295,7 +35344,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               for (var index = 0; index < mydatas.length; index++) {
                 var data = mydatas[index];
 
-                _this371.chat_panel_list.push(data);
+                _this370.chat_panel_list.push(data);
               }
             }
           }, function (error) {
@@ -35305,7 +35354,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onUp",
         value: function onUp() {
-          var _this372 = this;
+          var _this371 = this;
 
           $('#chat_msg').val('');
           var api_req = new Object();
@@ -35343,10 +35392,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               for (var index = 0; index < mydatas.length; index++) {
                 var data = mydatas[index];
 
-                _this372.chat_panel_details.unshift(data);
+                _this371.chat_panel_details.unshift(data);
               }
 
-              console.log(_this372.chat_panel_details);
+              console.log(_this371.chat_panel_details);
             }
           }, function (error) {
             console.log(error);
@@ -35491,7 +35540,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var MenuComponent = /*#__PURE__*/function () {
       // listinstacne;
       function MenuComponent(router, _ngZone, serverService, afMessaging, bnIdle) {
-        var _this373 = this;
+        var _this372 = this;
 
         _classCallCheck(this, MenuComponent);
 
@@ -35540,7 +35589,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.has_internal_mail = false;
         this.serverService.profile.subscribe(function (val) {
           // this.dept_settings();
-          _this373.dialPadOpens(); // this.hasContactAccess();
+          _this372.dialPadOpens(); // this.hasContactAccess();
 
         }); // this.serverService.sidebar.subscribe((val: any) => {
         //   this.fullScreenBtn();
@@ -35552,10 +35601,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var dpContent = JSON.parse(val);
 
           if (dpContent.type == "showDialer") {
-            _this373.showHideDialerS = false;
+            _this372.showHideDialerS = false;
             $('#video_widget').click();
           } else {
-            _this373.showHideDialerS = true;
+            _this372.showHideDialerS = true;
           }
         });
       }
@@ -35574,7 +35623,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this374 = this;
+          var _this373 = this;
 
           if (localStorage.getItem('access_token')) {
             this.notificationscall();
@@ -35582,7 +35631,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
             this.bnIdle.startWatching(3400).subscribe(function (isTimedOut) {
               if (isTimedOut) {
-                _this374.logout();
+                _this373.logout();
 
                 iziToast.warning({
                   message: "You have LoggedOut for an one hour InActive session",
@@ -35623,7 +35672,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             };
 
             this.websocket.onmessage = function (event) {
-              var _this375 = this;
+              var _this374 = this;
 
               //console.log(event.data);
               this.socketData = JSON.parse(event.data);
@@ -35716,7 +35765,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                           iziToast.show({
                             theme: 'dark',
-                            title: _this375.socketData.message_info.customer_name,
+                            title: _this374.socketData.message_info.customer_name,
                             image: 'https://omnitickets.mconnectapps.com/api/v1.0/logo_image/omni-channels-logo.jpg',
                             imageWidth: 100,
                             message: 'Existing Message',
@@ -35755,7 +35804,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   nameArr.push(this.socketData.message_info.admin_id);
                   nameArr.forEach(function (element) {
                     if (element == localStorage.getItem('userId')) {
-                      var uni_id = _this375.socketData.message_info.chat_id;
+                      var uni_id = _this374.socketData.message_info.chat_id;
                       uni_id = btoa(uni_id);
                       var audioPlayer = document.getElementById('beepaud');
                       audioPlayer.play();
@@ -35870,13 +35919,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getinstance",
         value: function getinstance() {
-          var _this376 = this;
+          var _this375 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"wp_instance", "moduleType":"wp_instance", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"getInstanceDetailsForAdmin","user_id":"' + this.userID + '","admin_id":"' + this.admin_id + '","user_type":"' + this.user_type + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
-              _this376.list_wpinsts = response.result.data; //  if(response.status)
+              _this375.list_wpinsts = response.result.data; //  if(response.status)
             }
           }, function (error) {
             console.log(error);
@@ -35885,14 +35934,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getReports",
         value: function getReports() {
-          var _this377 = this;
+          var _this376 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"agents", "moduleType":"agents", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"list_report"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
-              _this377.list_reports = response.result.data;
-              console.log(_this377.list_reports); // console.log(response);
+              _this376.list_reports = response.result.data;
+              console.log(_this376.list_reports); // console.log(response);
             }
           }, function (error) {
             console.log(error);
@@ -35901,31 +35950,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "dept_settings",
         value: function dept_settings() {
-          var _this378 = this;
+          var _this377 = this;
 
           var access_token = localStorage.getItem('access_token');
           var user_id = localStorage.getItem('userId');
           var api_req = '{"operation":"agents", "moduleType":"agents", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"get_agent_data","user_id":"' + user_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             var agent_data = response.result.data;
-            _this378.profile_image = agent_data.profile_image;
+            _this377.profile_image = agent_data.profile_image;
 
-            if (_this378.profile_image == null || _this378.profile_image == 'null' || _this378.profile_image == 'undefined') {
-              _this378.profile_image = 'assets/images/user.jpg';
+            if (_this377.profile_image == null || _this377.profile_image == 'null' || _this377.profile_image == 'undefined') {
+              _this377.profile_image = 'assets/images/user.jpg';
             } else {
-              _this378.profile_image = agent_data.profile_image;
+              _this377.profile_image = agent_data.profile_image;
             }
 
-            if (_this378.logo_image == null || _this378.logo_image == 'null' || _this378.logo_image == 'undefined') {
-              _this378.logo_image = 'assets/images/omni-channels-logo.jpg';
+            if (_this377.logo_image == null || _this377.logo_image == 'null' || _this377.logo_image == 'undefined') {
+              _this377.logo_image = 'assets/images/omni-channels-logo.jpg';
             } else {
-              _this378.logo_image = agent_data.logo_image;
+              _this377.logo_image = agent_data.logo_image;
             }
 
-            if (_this378.small_logo_image == null || _this378.small_logo_image == 'null' || _this378.small_logo_image == 'undefined') {
-              _this378.small_logo_image = 'assets/images/favicon.png';
+            if (_this377.small_logo_image == null || _this377.small_logo_image == 'null' || _this377.small_logo_image == 'undefined') {
+              _this377.small_logo_image = 'assets/images/favicon.png';
             } else {
-              _this378.small_logo_image = agent_data.small_logo_image;
+              _this377.small_logo_image = agent_data.small_logo_image;
             }
           }, function (error) {
             console.log(error);
@@ -35940,7 +35989,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "hasContactAccess",
         value: function hasContactAccess() {
-          var _this379 = this;
+          var _this378 = this;
 
           var api_req = new Object();
           var conct_req = new Object();
@@ -36002,15 +36051,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             localStorage.setItem('email_id', response.result.data.email_id);
             localStorage.setItem('signature_strategy', response.result.data.signature_strategy);
             localStorage.setItem('switch_signature', response.result.data.switch_signature);
-            _this379.agent_name = response.result.data.agent_name;
+            _this378.agent_name = response.result.data.agent_name;
 
             if (localStorage.getItem('server_FQDN') && localStorage.getItem('server_FQDN') != 'undefined') {
               // this.loadScript('../assets/custom/js/mconnect-webrtc.js');
-              _this379.loadScript('../assets/custom/js/webConnect.js');
+              _this378.loadScript('../assets/custom/js/webConnect.js');
 
               var api_reqs = '{"type": "HookRegister"}';
 
-              _this379.serverService.show.next(api_reqs);
+              _this378.serverService.show.next(api_reqs);
             } else {// iziToast.warning({
               //   message:"You Need to choose WebRTC for dialer",
               //   position:"topRight"
@@ -36018,11 +36067,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             }
 
             if (response.result.data.fax_user_id == null) {
-              _this379.fax_user = false;
+              _this378.fax_user = false;
             }
 
             if (response.result.data.admin_permision == 1 || response.result.data.admin_permision == '1') {
-              _this379.has_admin_permission = true; // alert()
+              _this378.has_admin_permission = true; // alert()
             } // this.e_tic = response.result.data.has_external_ticket;
             // this.i_tick = response.result.data.has_internal_ticket;
             // 
@@ -36031,194 +36080,194 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
             if (response.result.status == true) {
-              if (_this379.admin_reports == null || _this379.admin_reports == '') {
-                _this379.is_reports = 'null';
+              if (_this378.admin_reports == null || _this378.admin_reports == '') {
+                _this378.is_reports = 'null';
               } else {
-                _this379.report_checked = _this379.admin_reports.split(','); //alert(' menu'+this.report_checked);
+                _this378.report_checked = _this378.admin_reports.split(','); //alert(' menu'+this.report_checked);
               }
 
               if (response.result.data.has_contact == 1) {
-                _this379.h_con = true;
+                _this378.h_con = true;
               } // if (this.predective_dialer_behave == '1') {
               //   this.h_con = false;
               // }
 
 
               if (response.result.data.has_sms == 0 && response.result.data.has_chat == 0 && response.result.data.has_fb == 0 && response.result.data.has_whatsapp == 0 && response.result.data.has_telegram == 0 && response.result.data.has_fax == 0) {
-                _this379.hidemessaging = 'close';
+                _this378.hidemessaging = 'close';
               }
 
-              if (response.result.data.has_sms == 1 || response.result.data.has_chat == 1 || response.result.data.has_fb == 1 || response.result.data.has_whatsapp == 1 || response.result.data.has_telegram == 1 || response.result.data.has_fax == 1) _this379.h_message = true;
+              if (response.result.data.has_sms == 1 || response.result.data.has_chat == 1 || response.result.data.has_fb == 1 || response.result.data.has_whatsapp == 1 || response.result.data.has_telegram == 1 || response.result.data.has_fax == 1) _this378.h_message = true;
 
               if (response.result.data.h_con == 0 && response.result.data.voice_3cx == 0) {
-                _this379.hidemessagingVoi = 'close';
+                _this378.hidemessagingVoi = 'close';
               }
 
               if (response.result.data.has_sms == 1) {
-                _this379.h_sms = true;
+                _this378.h_sms = true;
               }
 
               if (response.result.data.has_chat == 1) {
-                _this379.h_chat = true;
+                _this378.h_chat = true;
               }
 
               if (response.result.data.has_internal_chat == 1) {
-                _this379.h_int_chat = true;
+                _this378.h_int_chat = true;
               }
 
               if (response.result.data.has_fb == 1) {
-                _this379.h_fb = true;
+                _this378.h_fb = true;
               }
 
               if (response.result.data.has_whatsapp == 1) {
                 if (response.result.data.whatsapp_type == 0) {
-                  _this379.h_wp_unoff = true;
+                  _this378.h_wp_unoff = true;
                 } else {
-                  _this379.h_wp_off = true;
+                  _this378.h_wp_off = true;
                 }
               }
 
               if (response.result.data.voice_3cx == 1) {
                 if (response.result.data.ext_int_status == 1) {
-                  _this379.cust_pbx = true;
-                  _this379.showHideDialerS = false;
-                  _this379.has_video_call = false;
+                  _this378.cust_pbx = true;
+                  _this378.showHideDialerS = false;
+                  _this378.has_video_call = false;
 
-                  _this379.dialPadOpens();
+                  _this378.dialPadOpens();
                 }
 
                 if (response.result.data.ext_int_status == 2) {
-                  _this379.cust_pbx = false;
-                  _this379.showHideDialerS = true;
-                  _this379.has_video_call = false;
+                  _this378.cust_pbx = false;
+                  _this378.showHideDialerS = true;
+                  _this378.has_video_call = false;
 
                   if (response.result.data.has_video_call == 1) {
                     localStorage.setItem('has_video_dialer', response.result.data.has_video_call); // $('#video_widget').click();
 
-                    _this379.showHideDialerS = false;
-                    _this379.has_video_call = true;
+                    _this378.showHideDialerS = false;
+                    _this378.has_video_call = true;
                     $('#video_widget').click();
                   }
                 }
               } else {
-                _this379.showHideDialerS = false;
-                _this379.has_video_call = false;
+                _this378.showHideDialerS = false;
+                _this378.has_video_call = false;
               }
 
               if (response.result.data.ext_int_status == 0) {
-                _this379.showHideDialerS = false;
-                _this379.has_video_call = false;
+                _this378.showHideDialerS = false;
+                _this378.has_video_call = false;
               }
 
               if (response.result.data.has_chatbot == 1) {
-                _this379.h_cbot = true;
+                _this378.h_cbot = true;
               }
 
               if (response.result.data.has_external_ticket == 1) {
-                _this379.e_tic = true;
-                _this379.h_ticket = '';
+                _this378.e_tic = true;
+                _this378.h_ticket = '';
               }
 
               if (response.result.data.has_internal_ticket == 1) {
-                _this379.i_tick = true;
-                _this379.h_ticket = '';
+                _this378.i_tick = true;
+                _this378.h_ticket = '';
               } // alert(response.result.data.voice_3cx);
               // alert(this.show_admin_sett);
 
 
               if (response.result.data.voice_3cx == 1) {
-                _this379.voice_3cx = true;
+                _this378.voice_3cx = true;
               }
 
               if (response.result.data.voice_3cx == 0) {
-                _this379.voice = 'disabled';
+                _this378.voice = 'disabled';
               }
 
               if (response.result.data.close_all_menu == '1') {
-                _this379.close_all_menu = 'close';
+                _this378.close_all_menu = 'close';
               }
 
               if (response.result.data.predective_dialer == 0) {
-                _this379.pred_dial = 'disabled';
+                _this378.pred_dial = 'disabled';
               }
 
               if (response.result.data.predective_dialer == 1) {
-                _this379.has_pd = true;
+                _this378.has_pd = true;
               }
 
               if (response.result.data.lead == 1) {
-                _this379.lead = true;
+                _this378.lead = true;
               } // alert('dsd')
               // alert(response.result.data.wallboard_one);
 
 
               if (response.result.data.wallboard_one == 1) {
-                _this379.wall_1 = true;
+                _this378.wall_1 = true;
               }
 
               if (response.result.data.wallboard_two == 1) {
-                _this379.wall_2 = true;
+                _this378.wall_2 = true;
               }
 
               if (response.result.data.wallboard_three == 1) {
-                _this379.wall_3 = true;
+                _this378.wall_3 = true;
               }
 
               if (response.result.data.wallboard_four == 1) {
-                _this379.wall_4 = true;
+                _this378.wall_4 = true;
               }
 
               if (response.result.data.wallboard_five == 1) {
-                _this379.wall_5 = true;
+                _this378.wall_5 = true;
               }
 
               if (response.result.data.wallboard_six == 1) {
-                _this379.wall_6 = true;
+                _this378.wall_6 = true;
               }
 
               if (response.result.data.wallboard_eight == 1) {
-                _this379.wall_8 = true;
+                _this378.wall_8 = true;
               }
 
               if (response.result.data.has_fax == 1) {
-                _this379.h_fax = true;
+                _this378.h_fax = true;
               }
 
               if (response.result.data.has_webinar == 1) {
-                _this379.h_webinar = true;
+                _this378.h_webinar = true;
               }
 
               if (response.result.data.has_telegram == 1) {
-                _this379.h_tele = true;
+                _this378.h_tele = true;
               }
 
               if (response.result.data.mr_voip == 1) {
-                _this379.mrvoip = true;
+                _this378.mrvoip = true;
               }
 
               if (response.result.data.voice_manage == 1) {
-                _this379.h_call_rec = true;
+                _this378.h_call_rec = true;
               }
 
               if (response.result.data.baisc_wallboard == 1) {
-                _this379.wall_basic = true;
+                _this378.wall_basic = true;
               }
 
               if (response.result.data.queue == 1) {
-                _this379.h_que_manage = true;
+                _this378.h_que_manage = true;
               }
 
-              _this379.reseller_values = localStorage.getItem('reseller');
+              _this378.reseller_values = localStorage.getItem('reseller');
 
-              if ((_this379.reseller_values == '' || _this379.reseller_values == null) && _this379.user_type != 'Super Admin') {
-                _this379.show_sup_admin_sett = false;
+              if ((_this378.reseller_values == '' || _this378.reseller_values == null) && _this378.user_type != 'Super Admin') {
+                _this378.show_sup_admin_sett = false;
               } else {
                 // this.show_sup_admin_sett= true;
-                _this379.reseller_sett = true;
+                _this378.reseller_sett = true;
               }
 
               if (response.result.data.internal_mail == 1) {
-                _this379.has_internal_mail = true;
+                _this378.has_internal_mail = true;
               }
             }
 
@@ -36326,7 +36375,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "dialPadOpens",
         value: function dialPadOpens() {
-          var _this380 = this;
+          var _this379 = this;
 
           this.uadmin_id = localStorage.getItem('userId');
           var access_token = localStorage.getItem('access_token');
@@ -36334,11 +36383,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var api_req = '{"operation":"call", "moduleType":"call", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"queue_login_logout","user_id":"' + this.uadmin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.data.status == "1") {
-              _this380.queLogStatus = response.result.data.status;
-              _this380.queLogStatusNma = "Logout";
+              _this379.queLogStatus = response.result.data.status;
+              _this379.queLogStatusNma = "Logout";
             } else {
-              _this380.queLogStatus = response.result.data.status;
-              _this380.queLogStatusNma = "Login";
+              _this379.queLogStatus = response.result.data.status;
+              _this379.queLogStatusNma = "Login";
               $('#onHookIndi').addClass('red');
             }
           }, function (error) {
@@ -36633,16 +36682,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "dept_settings",
         value: function dept_settings() {
-          var _this381 = this;
+          var _this380 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"template", "moduleType":"template", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"listTemplate","admin_id":"' + this.uadmin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this381.queue_list = response.result.data;
-              console.log(_this381.queue_list);
+              _this380.queue_list = response.result.data;
+              console.log(_this380.queue_list);
             } else {
-              _this381.recordNotFound = true;
+              _this380.recordNotFound = true;
             }
           }, function (error) {
             console.log(error);
@@ -36651,16 +36700,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "get_dept_list",
         value: function get_dept_list() {
-          var _this382 = this;
+          var _this381 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"get_dept_settings","user_id":"' + this.uadmin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this382.dept_list = response.result.data;
-              console.log(_this382.dept_list);
+              _this381.dept_list = response.result.data;
+              console.log(_this381.dept_list);
             } else {
-              _this382.recordNotFound = true;
+              _this381.recordNotFound = true;
             }
           }, function (error) {
             console.log(error);
@@ -36679,7 +36728,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "editDepartmentSettings",
         value: function editDepartmentSettings(id) {
-          var _this383 = this;
+          var _this382 = this;
 
           // alert("test");
           var access_token = localStorage.getItem('access_token');
@@ -36688,19 +36737,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             if (response.result.status == true) {
               var agent_data = response.result.data;
 
-              _this383.editDept.setValue({
+              _this382.editDept.setValue({
                 //  'template' : agent_data.template_message,
                 'template_name': agent_data.template_name
               });
 
-              _this383.dep_id = response.result.data.template_id; // alert(agent_data.department);
+              _this382.dep_id = response.result.data.template_id; // alert(agent_data.department);
 
               $('#template').val(agent_data.template_message);
               var checked = agent_data.department.split(",");
               $('#Upd_queue_no').val(checked);
               $('#edit_deptform').modal('show');
 
-              _this383.dept_settings();
+              _this382.dept_settings();
             } else {
               iziToast.warning({
                 message: "Wrap Up codes not retrive. Please try again",
@@ -36719,7 +36768,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "editDepartment",
         value: function editDepartment(id) {
-          var _this384 = this;
+          var _this383 = this;
 
           var api_req = new Object();
           var agent_req = this.editDept.value;
@@ -36744,7 +36793,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             if (response.result.status == 1) {
               $('#edit_deptform').modal('hide');
 
-              _this384.dept_settings();
+              _this383.dept_settings();
 
               iziToast.success({
                 message: "Template updated successfully",
@@ -36767,7 +36816,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addDeptData",
         value: function addDeptData() {
-          var _this385 = this;
+          var _this384 = this;
 
           var api_req = new Object();
           var content = this.chat_message.nativeElement.value;
@@ -36791,7 +36840,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 position: 'topRight'
               });
 
-              _this385.dept_settings();
+              _this384.dept_settings();
             } else if (response.result.data == 2) {
               iziToast.warning({
                 message: "Template name already inserted",
@@ -36814,7 +36863,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deletedata",
         value: function deletedata(id) {
-          var _this386 = this;
+          var _this385 = this;
 
           sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
             title: 'Are you sure?',
@@ -36831,11 +36880,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
               var api_req = '{"operation":"template", "moduleType": "template", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"deleteTemplate","template_id":"' + id + '"}}';
 
-              _this386.serverService.sendServer(api_req).subscribe(function (response) {
+              _this385.serverService.sendServer(api_req).subscribe(function (response) {
                 if (response.result.data == 1) {
                   sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire('Deleted!', 'success');
 
-                  _this386.dept_settings();
+                  _this385.dept_settings();
                 }
               }, function (error) {
                 console.log(error);
@@ -36977,17 +37026,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "pbc_settings",
         value: function pbc_settings() {
-          var _this387 = this;
+          var _this386 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"chat", "moduleType": "chat", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"get_pbx_settings","user_id":"' + this.uadmin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this387.queue_list = response.result.data;
-              _this387.queue_length = Object.keys(response.result.data).length;
+              _this386.queue_list = response.result.data;
+              _this386.queue_length = Object.keys(response.result.data).length;
               ;
             } else {
-              _this387.recordNotFound = true;
+              _this386.recordNotFound = true;
             }
           }, function (error) {
             console.log(error);
@@ -36996,13 +37045,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "pbc_details",
         value: function pbc_details() {
-          var _this388 = this;
+          var _this387 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"chat", "moduleType": "chat", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"get_pbx_details","user_id":"' + this.uadmin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this388.pbx_count = response.result.data[0].pbx_count;
+              _this387.pbx_count = response.result.data[0].pbx_count;
             }
           }, function (error) {
             console.log(error);
@@ -37011,7 +37060,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "editPbc",
         value: function editPbc(pbx) {
-          var _this389 = this;
+          var _this388 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"chat", "moduleType": "chat", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"get_single_pbx_settings","pbx_id":"' + pbx + '"}}';
@@ -37019,13 +37068,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             if (response.result.status == true) {
               var agent_data = response.result.data[0];
 
-              _this389.editPbx.setValue({
+              _this388.editPbx.setValue({
                 'sip_port': agent_data.sip_port,
                 'sip_url': agent_data.sip_url,
                 'status': agent_data.status
               });
 
-              _this389.old_sip_url = pbx;
+              _this388.old_sip_url = pbx;
 
               if (agent_data.status == 1) {
                 $('#status').prop('checked', true);
@@ -37035,7 +37084,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
               $('#edit_pbxform').modal('show');
 
-              _this389.pbc_settings();
+              _this388.pbc_settings();
             } else {
               iziToast.warning({
                 message: "PBX data could not retrive. Please try again",
@@ -37054,7 +37103,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "editPbxData",
         value: function editPbxData(main_url) {
-          var _this390 = this;
+          var _this389 = this;
 
           console.log(main_url);
           var agent_req = this.editPbx.value;
@@ -37065,7 +37114,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             if (response.result.status == 1) {
               $('#edit_pbxform').modal('hide');
 
-              _this390.pbc_settings();
+              _this389.pbc_settings();
 
               iziToast.success({
                 message: "PBX updated successfully",
@@ -37088,7 +37137,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addPbxData",
         value: function addPbxData() {
-          var _this391 = this;
+          var _this390 = this;
 
           var agent_req = this.addPbx.value;
           console.log(agent_req.sip_id);
@@ -37102,7 +37151,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 position: 'topRight'
               });
 
-              _this391.pbc_settings();
+              _this390.pbc_settings();
             } else {
               iziToast.warning({
                 message: "PBX not updated. Please try again",
@@ -37120,7 +37169,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deletedata",
         value: function deletedata(id) {
-          var _this392 = this;
+          var _this391 = this;
 
           sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
             title: 'Are you sure?',
@@ -37136,13 +37185,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               var admin_id = localStorage.getItem('admin_id');
               var api_req = '{"operation":"chat", "moduleType": "chat", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"delete_pbx","id":"' + id + '","admin_id":"' + admin_id + '"}}';
 
-              _this392.serverService.sendServer(api_req).subscribe(function (response) {
+              _this391.serverService.sendServer(api_req).subscribe(function (response) {
                 if (response.result.data == 1) {
                   sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire('Deleted!', 'success');
 
-                  _this392.pbc_settings();
+                  _this391.pbc_settings();
 
-                  _this392.pbc_details();
+                  _this391.pbc_details();
                 }
               }, function (error) {
                 console.log(error);
@@ -37334,7 +37383,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "myProfile",
         value: function myProfile() {
-          var _this393 = this;
+          var _this392 = this;
 
           var api_req = new Object();
           var get_agent_req = new Object();
@@ -37349,23 +37398,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             // let api_reqs:any = '{"type": "profile"}';
             // this.serverService.profile.next(api_reqs);
             if (response.result.status == true) {
-              _this393.usersL = response.result.data;
+              _this392.usersL = response.result.data;
 
               if (response.result.data.has_contact == '1') {
-                _this393.has_contact = 'Yes';
+                _this392.has_contact = 'Yes';
               } else {
-                _this393.has_contact = 'No';
+                _this392.has_contact = 'No';
               }
 
               if (response.result.data.has_sms == '1') {
-                _this393.has_sms = 'Yes';
+                _this392.has_sms = 'Yes';
               } else {
-                _this393.has_sms = 'No';
+                _this392.has_sms = 'No';
               }
 
               var agent_data = response.result.data;
 
-              _this393.editAgent.setValue({
+              _this392.editAgent.setValue({
                 'user_name': agent_data.user_name,
                 'email_id': agent_data.email_id,
                 'sip_login': agent_data.sip_login,
@@ -37379,12 +37428,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               }); // alert($('#sip_username').val());
 
 
-              _this393.profilePic = agent_data.profile_image;
-              _this393.logoPic = agent_data.logo_image;
-              _this393.small_logo_image = agent_data.small_logo_image;
-              _this393.ext_num = agent_data.sip_login;
-              localStorage.setItem('profile_image', _this393.profilePic);
-              localStorage.setItem('ext_num', _this393.ext_num);
+              _this392.profilePic = agent_data.profile_image;
+              _this392.logoPic = agent_data.logo_image;
+              _this392.small_logo_image = agent_data.small_logo_image;
+              _this392.ext_num = agent_data.sip_login;
+              localStorage.setItem('profile_image', _this392.profilePic);
+              localStorage.setItem('ext_num', _this392.ext_num);
               localStorage.setItem('user_name', agent_data.user_name);
               $('#timezone').val(agent_data.timezone_id).prop('selected', true);
 
@@ -37407,14 +37456,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "get_timezone",
         value: function get_timezone() {
-          var _this394 = this;
+          var _this393 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"getTimezone", "moduleType":"agents", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"get_timezone"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == "true") {
-              _this394.queue_list = response.timezone_options;
-              console.log(_this394.queue_list);
+              _this393.queue_list = response.timezone_options;
+              console.log(_this393.queue_list);
             } else {}
           }, function (error) {
             console.log(error);
@@ -37773,7 +37822,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var QLoginLogoutComponent = /*#__PURE__*/function () {
       function QLoginLogoutComponent(serverService, router) {
-        var _this395 = this;
+        var _this394 = this;
 
         _classCallCheck(this, QLoginLogoutComponent);
 
@@ -37787,7 +37836,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           if (dpContent.type == "queLoginOut") {
             //alert(dpContent.status)
-            _this395.q_logout(dpContent.status);
+            _this394.q_logout(dpContent.status);
           }
         });
       }
@@ -37858,7 +37907,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "q_logout",
         value: function q_logout(queu) {
-          var _this396 = this;
+          var _this395 = this;
 
           this.myProfile();
 
@@ -37874,9 +37923,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               confirmButtonText: 'Yes'
             }).then(function (result) {
               if (result.value) {
-                _this396.aux_codeDatas();
+                _this395.aux_codeDatas();
 
-                _this396.myqueues();
+                _this395.myqueues();
               }
             });
           } else {
@@ -37886,14 +37935,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "myqueues",
         value: function myqueues() {
-          var _this397 = this;
+          var _this396 = this;
 
           var access_token = localStorage.getItem('access_token');
           var admin_id = localStorage.getItem('admin_id');
           var api_req = '{"operation":"queue", "moduleType":"queue", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"user_queue","agent_id":"' + this.uadmin_id + '","admin_id":"' + admin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this397.allmyQues = response.result.data;
+              _this396.allmyQues = response.result.data;
               $('#Qlogform').modal('show');
             }
           }, function (error) {
@@ -37903,7 +37952,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "updateQ",
         value: function updateQ() {
-          var _this398 = this;
+          var _this397 = this;
 
           var access_token = localStorage.getItem('access_token');
           var queues = $('.getallmyqueues:checked').map(function () {
@@ -37933,7 +37982,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.serverService.sendServer(api_req).subscribe(function (response) {
             var api_reqs = '{"type": "profile"}';
 
-            _this398.serverService.profile.next(api_reqs);
+            _this397.serverService.profile.next(api_reqs);
 
             if (response.result.status == true) {
               iziToast.success({
@@ -37958,7 +38007,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "loginQ",
         value: function loginQ() {
-          var _this399 = this;
+          var _this398 = this;
 
           var access_token = localStorage.getItem('access_token');
           var que = $('#que').val();
@@ -37967,15 +38016,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.serverService.sendServer(api_req).subscribe(function (response) {
             var api_reqs = '{"type": "profile"}';
 
-            _this399.serverService.profile.next(api_reqs);
+            _this398.serverService.profile.next(api_reqs);
 
             if (response.result.status == true) {
               iziToast.success({
                 message: "Login successfully!",
                 position: 'topRight'
               });
-              _this399.queLogStatus = '1';
-              _this399.redyForCall = 'Ready for calls';
+              _this398.queLogStatus = '1';
+              _this398.redyForCall = 'Ready for calls';
             } else {
               iziToast.error({
                 message: "Sorry some error occured",
@@ -37989,14 +38038,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "aux_codeDatas",
         value: function aux_codeDatas() {
-          var _this400 = this;
+          var _this399 = this;
 
           var access_token = localStorage.getItem('access_token');
           var admin_id = localStorage.getItem('admin_id');
           var api_req = '{"operation":"auxcode", "moduleType":"auxcode", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"get_auxcode","admin_id":"' + admin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this400.auxcodesM = response.result.data;
+              _this399.auxcodesM = response.result.data;
             }
           }, function (error) {
             console.log(error);
@@ -38012,7 +38061,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "myProfile",
         value: function myProfile() {
-          var _this401 = this;
+          var _this400 = this;
 
           var api_req = new Object();
           var get_agent_req = new Object();
@@ -38025,7 +38074,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           api_req.element_data = get_agent_req;
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this401.extension = response.result.data.sip_login;
+              _this400.extension = response.result.data.sip_login;
             }
           }, function (error) {
             console.log(error);
@@ -38169,13 +38218,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "question_lists",
         value: function question_lists() {
-          var _this402 = this;
+          var _this401 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"questionaire", "moduleType":"questionaire", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"question_list","admin_id":"' + this.uadmin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
-              _this402.question_list = response.result.data;
+              _this401.question_list = response.result.data;
+              console.log(_this401.queue_list);
+            } else {
+              _this401.recordNotFound = true;
+            }
+          }, function (error) {
+            console.log(error);
+          });
+        }
+      }, {
+        key: "user_lists",
+        value: function user_lists() {
+          var _this402 = this;
+
+          var access_token = localStorage.getItem('access_token');
+          var api_req = '{"operation":"getQueue", "moduleType":"questionaire", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"get_queue","admin_id":"' + this.uadmin_id + '"}}';
+          this.serverService.sendServer(api_req).subscribe(function (response) {
+            if (response.status == true) {
+              _this402.queue_list = response.result.data;
               console.log(_this402.queue_list);
             } else {
               _this402.recordNotFound = true;
@@ -38185,27 +38252,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
         }
       }, {
-        key: "user_lists",
-        value: function user_lists() {
-          var _this403 = this;
-
-          var access_token = localStorage.getItem('access_token');
-          var api_req = '{"operation":"getQueue", "moduleType":"questionaire", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"get_queue","admin_id":"' + this.uadmin_id + '"}}';
-          this.serverService.sendServer(api_req).subscribe(function (response) {
-            if (response.status == true) {
-              _this403.queue_list = response.result.data;
-              console.log(_this403.queue_list);
-            } else {
-              _this403.recordNotFound = true;
-            }
-          }, function (error) {
-            console.log(error);
-          });
-        }
-      }, {
         key: "editQuestionSettings",
         value: function editQuestionSettings(id) {
-          var _this404 = this;
+          var _this403 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"questionaire", "moduleType": "questionaire", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"edit_question","question_id":"' + id + '"}}';
@@ -38213,14 +38262,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             if (response.status == "true") {
               var agent_data = response;
 
-              _this404.editDept.setValue({
+              _this403.editDept.setValue({
                 'question_name': agent_data.question,
                 'status': agent_data.status
               });
 
-              _this404.ques_id = response.question_id;
-              _this404.userchecked = agent_data.department_id.split(",");
-              console.log(_this404.userchecked);
+              _this403.ques_id = response.question_id;
+              _this403.userchecked = agent_data.department_id.split(",");
+              console.log(_this403.userchecked);
 
               if (agent_data.status == 1) {
                 $('#status').prop('checked', true);
@@ -38230,7 +38279,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
               $('#edit_deptform').modal('show');
 
-              _this404.question_lists();
+              _this403.question_lists();
             } else {
               iziToast.warning({
                 message: "Questioncount not retrive. Please try again",
@@ -38249,7 +38298,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "editQuestion",
         value: function editQuestion(id) {
-          var _this405 = this;
+          var _this404 = this;
 
           var question_queuess = $('.ads_Checkbox:checked').map(function () {
             return this.value;
@@ -38270,7 +38319,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             if (response.result.data == 1) {
               $('#edit_deptform').modal('hide');
 
-              _this405.question_lists();
+              _this404.question_lists();
 
               iziToast.success({
                 message: "Question updated successfully",
@@ -38293,7 +38342,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addQuestData",
         value: function addQuestData() {
-          var _this406 = this;
+          var _this405 = this;
 
           var question_queues = $('.add_Checkbox:checked').map(function () {
             return this.value;
@@ -38317,7 +38366,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 position: 'topRight'
               });
 
-              _this406.question_lists();
+              _this405.question_lists();
             } else {
               iziToast.error({
                 message: "Question not added. Please try again",
@@ -38335,7 +38384,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deletedata",
         value: function deletedata(id) {
-          var _this407 = this;
+          var _this406 = this;
 
           sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
             title: 'Are you sure?',
@@ -38351,11 +38400,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               var admin_id = localStorage.getItem('admin_id');
               var api_req = '{"operation":"questionaire", "moduleType": "questionaire", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"delete_question","id":"' + id + '","admin_id":"' + admin_id + '"}}';
 
-              _this407.serverService.sendServer(api_req).subscribe(function (response) {
+              _this406.serverService.sendServer(api_req).subscribe(function (response) {
                 if (response.result.data == 1) {
                   sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire('Deleted!', 'success');
 
-                  _this407.question_lists();
+                  _this406.question_lists();
                 }
               }, function (error) {
                 console.log(error);
@@ -38603,7 +38652,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "queueList",
         value: function queueList(data) {
-          var _this408 = this;
+          var _this407 = this;
 
           var list_data = this.listDataInfo(data);
           var api_req = new Object();
@@ -38622,14 +38671,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           api_req.element_data = queue_req;
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == 1) {
-              _this408.queue_list = response.result.data.list_data;
-              _this408.offset_count = list_data.offset;
-              _this408.paginationData = _this408.serverService.pagination({
+              _this407.queue_list = response.result.data.list_data;
+              _this407.offset_count = list_data.offset;
+              _this407.paginationData = _this407.serverService.pagination({
                 'offset': response.result.data.list_info.offset,
                 'total': response.result.data.list_info.total,
-                'page_limit': _this408.pageLimit
+                'page_limit': _this407.pageLimit
               });
-              _this408.recordNotFound = _this408.queue_list.length == 0 ? true : false;
+              _this407.recordNotFound = _this407.queue_list.length == 0 ? true : false;
             }
           }, function (error) {
             console.log(error);
@@ -38638,13 +38687,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "user_lists",
         value: function user_lists() {
-          var _this409 = this;
+          var _this408 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"agents", "moduleType":"agents", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"user_list","user_id":"' + this.uadmin_id + '","search_text":"","order_by_name":"user.user_id","order_by_type":"desc","limit":100,"offset":0}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == 1) {
-              _this409.agents_list = response.result.data.list_data;
+              _this408.agents_list = response.result.data.list_data;
             }
           }, function (error) {
             console.log(error);
@@ -38653,7 +38702,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "editQueueSettings",
         value: function editQueueSettings(id) {
-          var _this410 = this;
+          var _this409 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"queue", "moduleType": "queue", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"edit_queue","id":"' + id + '"}}';
@@ -38661,14 +38710,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             if (response.status == true) {
               var agent_data = response.result.data;
 
-              _this410.editQueue.setValue({
+              _this409.editQueue.setValue({
                 'queue_name': agent_data.queue_name,
                 'queue_number': agent_data.queue_number,
                 'queue_status': agent_data.queue_status
               });
 
-              _this410.dep_id = id;
-              _this410.userchecked = agent_data.queue_users.split(",");
+              _this409.dep_id = id;
+              _this409.userchecked = agent_data.queue_users.split(",");
 
               if (agent_data.queue_status == 1) {
                 $('#queue_status').prop('checked', true);
@@ -38678,7 +38727,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
               $('#edit_deptform').modal('show');
 
-              _this410.queueList({});
+              _this409.queueList({});
             } else {
               iziToast.warning({
                 message: "Queue count not retrive. Please try again",
@@ -38738,7 +38787,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "editQueues",
         value: function editQueues(id) {
-          var _this411 = this;
+          var _this410 = this;
 
           var department_users = $('#editinQueuser').val(); //  alert('"UpdateQueueData"');
 
@@ -38761,7 +38810,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             if (response.result.status == 1) {
               $('#edit_deptform').modal('hide');
 
-              _this411.queueList({});
+              _this410.queueList({});
 
               iziToast.success({
                 message: "Queue updated successfully",
@@ -38792,7 +38841,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addQueueData",
         value: function addQueueData() {
-          var _this412 = this;
+          var _this411 = this;
 
           var department_users = $('#addinQueuser').val(); // alert(department_users);
 
@@ -38849,7 +38898,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 });
               }
 
-              _this412.queueList({});
+              _this411.queueList({});
             } else if (response.result.data == 2) {
               iziToast.warning({
                 message: "Queue name already inserted",
@@ -38872,7 +38921,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deletedata",
         value: function deletedata(id) {
-          var _this413 = this;
+          var _this412 = this;
 
           sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.fire({
             title: 'Are you sure?',
@@ -38888,11 +38937,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               var admin_id = localStorage.getItem('admin_id');
               var api_req = '{"operation":"queue", "moduleType": "queue", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"delete_queue","id":"' + id + '"}}';
 
-              _this413.serverService.sendServer(api_req).subscribe(function (response) {
+              _this412.serverService.sendServer(api_req).subscribe(function (response) {
                 if (response.result.data == 1) {
                   sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.fire('Deleted!', 'success');
 
-                  _this413.queueList({});
+                  _this412.queueList({});
                 }
               }, function (error) {
                 console.log(error);
@@ -39122,7 +39171,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addQueueData",
         value: function addQueueData() {
-          var _this414 = this;
+          var _this413 = this;
 
           var api_req = new Object();
           var add_queue_req = new Object();
@@ -39141,7 +39190,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             if (response.result.status == 1) {
               $('#add_queue_form').modal('hide');
 
-              _this414.addQueue.reset();
+              _this413.addQueue.reset();
 
               iziToast.success({
                 message: "Queue - " + response.result.data.queue_name + " added successfully",
@@ -39164,7 +39213,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "assignQueueForm",
         value: function assignQueueForm(id) {
-          var _this415 = this;
+          var _this414 = this;
 
           // this.assignQueue.reset();        
           var api_req = new Object();
@@ -39180,8 +39229,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           $('#assign_queue_form').modal('show');
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == 1) {
-              _this415.queue_assign_users = response.result.data.queue_assign_users;
-              _this415.queue_assign_user_data = response.result.data.queue_assign_users;
+              _this414.queue_assign_users = response.result.data.queue_assign_users;
+              _this414.queue_assign_user_data = response.result.data.queue_assign_users;
             } else {
               iziToast.warning({
                 message: "Queue user data could not retrive. Please try again",
@@ -39315,16 +39364,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "dept_settings",
         value: function dept_settings() {
-          var _this416 = this;
+          var _this415 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"agents", "moduleType":"agents", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"list_report"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
-              _this416.queue_list = response.result.data;
-              console.log(_this416.queue_list);
+              _this415.queue_list = response.result.data;
+              console.log(_this415.queue_list);
             } else {
-              _this416.recordNotFound = true;
+              _this415.recordNotFound = true;
             }
           }, function (error) {
             console.log(error);
@@ -39333,7 +39382,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "editDepartmentSettings",
         value: function editDepartmentSettings(id) {
-          var _this417 = this;
+          var _this416 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"agents", "moduleType": "agents", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"edit_report","id":"' + id + '"}}';
@@ -39341,15 +39390,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             if (response.status == true) {
               var agent_data = response.result.data;
 
-              _this417.editDept.setValue({
+              _this416.editDept.setValue({
                 'department_name': agent_data.report_name,
                 'report_path': agent_data.report_url
               });
 
-              _this417.dep_id = response.result.data.id;
+              _this416.dep_id = response.result.data.id;
               $('#edit_deptform').modal('show');
 
-              _this417.dept_settings();
+              _this416.dept_settings();
             } else {
               iziToast.warning({
                 message: "Wrap Up codes not retrive. Please try again",
@@ -39368,7 +39417,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "editDepartment",
         value: function editDepartment(id) {
-          var _this418 = this;
+          var _this417 = this;
 
           var agent_req = this.editDept.value;
           var access_token = localStorage.getItem('access_token');
@@ -39377,7 +39426,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             if (response.status == true) {
               $('#edit_deptform').modal('hide');
 
-              _this418.dept_settings();
+              _this417.dept_settings();
 
               iziToast.success({
                 message: "WrapUp updated successfully",
@@ -39400,7 +39449,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addDeptData",
         value: function addDeptData() {
-          var _this419 = this;
+          var _this418 = this;
 
           var agent_req = this.addDept.value; // if(agent_req.status == true){  this.dep_status = 1 } else { this.dep_status  = 0 }
 
@@ -39414,7 +39463,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 position: 'topRight'
               });
 
-              _this419.dept_settings();
+              _this418.dept_settings();
             } else if (response.result.data == 2) {
               iziToast.warning({
                 message: "Wrap Up Code name already inserted",
@@ -40179,14 +40228,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "dept_settings",
         value: function dept_settings() {
-          var _this420 = this;
+          var _this419 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"contact", "moduleType":"contact", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"list_smsgroup","admin_id":"' + this.uadmin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
-              _this420.queue_list = response.result.data;
-              console.log(_this420.queue_list);
+              _this419.queue_list = response.result.data;
+              console.log(_this419.queue_list);
             }
           }, function (error) {
             console.log(error);
@@ -40379,16 +40428,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "dept_settings",
         value: function dept_settings() {
-          var _this421 = this;
+          var _this420 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"contact", "moduleType":"contact", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"list_smsgroup","admin_id":"' + this.uadmin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
-              _this421.queue_list = response.result.data;
-              console.log(_this421.queue_list);
+              _this420.queue_list = response.result.data;
+              console.log(_this420.queue_list);
             } else {
-              _this421.recordNotFound = true;
+              _this420.recordNotFound = true;
             }
           }, function (error) {
             console.log(error);
@@ -40397,13 +40446,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "user_lists",
         value: function user_lists() {
-          var _this422 = this;
+          var _this421 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"agents", "moduleType":"agents", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"user_list","user_id":"' + this.uadmin_id + '","search_text":"","order_by_name":"user.user_id","order_by_type":"desc","limit":100,"offset":0}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == 1) {
-              _this422.agents_list = response.result.data.list_data;
+              _this421.agents_list = response.result.data.list_data;
             }
           }, function (error) {
             console.log(error);
@@ -40412,7 +40461,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "editGroupSettings",
         value: function editGroupSettings(id) {
-          var _this423 = this;
+          var _this422 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"contact", "moduleType": "contact", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"edit_smsgroup","group_id":"' + id + '"}}';
@@ -40420,14 +40469,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             if (response.result.status == true) {
               var agent_data = response.result.data[0];
 
-              _this423.editDept.setValue({
+              _this422.editDept.setValue({
                 'group_name': agent_data.group_name,
                 'status': agent_data.status
               });
 
-              _this423.dep_id = agent_data.group_id;
-              _this423.userchecked = agent_data.group_users.split(",");
-              console.log(_this423.userchecked);
+              _this422.dep_id = agent_data.group_id;
+              _this422.userchecked = agent_data.group_users.split(",");
+              console.log(_this422.userchecked);
 
               if (agent_data.status == 1) {
                 $('#status').prop('checked', true);
@@ -40454,7 +40503,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "editGroup",
         value: function editGroup(id) {
-          var _this424 = this;
+          var _this423 = this;
 
           var group_userss = $('.ads_Checkbox:checked').map(function () {
             return this.value;
@@ -40475,7 +40524,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             if (response.result.data == 1) {
               $('#edit_deptform').modal('hide');
 
-              _this424.dept_settings();
+              _this423.dept_settings();
 
               iziToast.success({
                 message: "Group updated successfully",
@@ -40498,7 +40547,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addDeptData",
         value: function addDeptData() {
-          var _this425 = this;
+          var _this424 = this;
 
           var group_users = $('.add_Checkbox:checked').map(function () {
             return this.value;
@@ -40522,7 +40571,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 position: 'topRight'
               });
 
-              _this425.dept_settings();
+              _this424.dept_settings();
             } else if (response.result.data == 2) {
               iziToast.warning({
                 message: "Group name already inserted",
@@ -40545,7 +40594,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deletedata",
         value: function deletedata(id) {
-          var _this426 = this;
+          var _this425 = this;
 
           sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
             title: 'Are you sure?',
@@ -40561,11 +40610,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               var admin_id = localStorage.getItem('admin_id');
               var api_req = '{"operation":"contact", "moduleType": "contact", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"delete_smsgroup","group_id":"' + id + '","admin_id":"' + admin_id + '"}}';
 
-              _this426.serverService.sendServer(api_req).subscribe(function (response) {
+              _this425.serverService.sendServer(api_req).subscribe(function (response) {
                 if (response.result.data == 1) {
                   sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire('Deleted!', 'success');
 
-                  _this426.dept_settings();
+                  _this425.dept_settings();
                 }
               }, function (error) {
                 console.log(error);
@@ -40586,7 +40635,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "contactsList",
         value: function contactsList(data) {
-          var _this427 = this;
+          var _this426 = this;
 
           var list_data = this.listDataInfo(data);
           var api_req = new Object();
@@ -40605,7 +40654,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           api_req.element_data = agents_req;
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == 1) {
-              _this427.agents_list = response.result.data.list_data;
+              _this426.agents_list = response.result.data.list_data;
             }
           }, function (error) {
             console.log(error);
@@ -40754,7 +40803,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "searchData",
         value: function searchData(data) {
-          var _this428 = this;
+          var _this427 = this;
 
           var list_data = this.listDataInfo(data);
           var api_req = new Object();
@@ -40771,13 +40820,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           api_req.element_data = history_req;
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
-              _this428.call_history_list = response.result.data.list_data;
-              _this428.price_sms = response.result.data.sms_bal;
-              _this428.offset_count = list_data.offset;
-              _this428.paginationData = _this428.serverService.pagination({
+              _this427.call_history_list = response.result.data.list_data;
+              _this427.price_sms = response.result.data.sms_bal;
+              _this427.offset_count = list_data.offset;
+              _this427.paginationData = _this427.serverService.pagination({
                 'offset': response.result.data.list_info.offset,
                 'total': response.result.data.list_info.total,
-                'page_limit': _this428.pageLimit
+                'page_limit': _this427.pageLimit
               });
             }
           }, function (error) {
@@ -40787,7 +40836,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "genReport",
         value: function genReport() {
-          var _this429 = this;
+          var _this428 = this;
 
           var access_token = localStorage.getItem('access_token');
           var report_details = this.getRep.value;
@@ -40804,8 +40853,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             console.log(response);
 
             if (response.result.status == true) {
-              _this429.res = response;
-              var arrStr = encodeURIComponent(JSON.stringify(_this429.res)); // document.location.href = 'https://omnitickets.mconnectapps.com/api/storage/contact/download.php?res='+arrStr;
+              _this428.res = response;
+              var arrStr = encodeURIComponent(JSON.stringify(_this428.res)); // document.location.href = 'https://omnitickets.mconnectapps.com/api/storage/contact/download.php?res='+arrStr;
 
               var url = 'https://omnitickets.mconnectapps.com/api/storage/chat/Sms_Report.php';
               var form = $('<form action="' + url + '" method="post">' + '<input type="text" name="res" value="' + arrStr + '" />' + '</form>');
@@ -41020,7 +41069,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "searchData",
         value: function searchData() {
-          var _this430 = this;
+          var _this429 = this;
 
           var api_req = new Object();
           var history_req = new Object();
@@ -41033,7 +41082,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           api_req.element_data = history_req;
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
-              _this430.call_history_list = response.result.data.def_plan;
+              _this429.call_history_list = response.result.data.def_plan;
             }
           }, function (error) {
             console.log(error);
@@ -41050,7 +41099,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "insertTariff",
         value: function insertTariff(Tid) {
-          var _this431 = this;
+          var _this430 = this;
 
           var api_req = new Object();
           var history_req = new Object();
@@ -41068,7 +41117,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             if (response.status == true) {
               $('#add_deptform').modal('hide');
 
-              _this431.getSingleTariffs(_this431.planID);
+              _this430.getSingleTariffs(_this430.planID);
             }
           }, function (error) {
             console.log(error);
@@ -41077,15 +41126,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getTariffsList",
         value: function getTariffsList() {
-          var _this432 = this;
+          var _this431 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"wpchat", "moduleType":"wpchat", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"view_tarrif"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
-              _this432.smsTariffs = response.result.data.plans;
-              _this432.call_history_list = response.result.data.def_plan;
-              _this432.planID = response.result.data.plans[0].id;
+              _this431.smsTariffs = response.result.data.plans;
+              _this431.call_history_list = response.result.data.def_plan;
+              _this431.planID = response.result.data.plans[0].id;
             } else {}
           }, function (error) {
             console.log(error);
@@ -41094,14 +41143,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getSingleTariffs",
         value: function getSingleTariffs(id) {
-          var _this433 = this;
+          var _this432 = this;
 
           this.planID = id;
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"wpchat", "moduleType":"wpchat", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"get_sel_tarrif","id":"' + this.planID + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
-              _this433.call_history_list = response.result.data;
+              _this432.call_history_list = response.result.data;
             } else {}
           }, function (error) {
             console.log(error);
@@ -41110,7 +41159,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addChatWidget",
         value: function addChatWidget() {
-          var _this434 = this;
+          var _this433 = this;
 
           var access_token = localStorage.getItem('access_token');
           var user_id = localStorage.getItem('userId');
@@ -41122,9 +41171,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 message: "Data Added Successfully",
                 position: 'topRight'
               });
-              _this434.planID = response.result.data;
+              _this433.planID = response.result.data;
 
-              _this434.getTariffsList2(_this434.planID);
+              _this433.getTariffsList2(_this433.planID);
 
               $('#widget_name').val('');
               $('#createNewWidget').modal('hide');
@@ -41141,16 +41190,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getTariffsList2",
         value: function getTariffsList2(Pid) {
-          var _this435 = this;
+          var _this434 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"wpchat", "moduleType":"wpchat", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"view_tarrif"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
-              _this435.smsTariffs = response.result.data.plans;
+              _this434.smsTariffs = response.result.data.plans;
               $("#MPlanName option:selected").val(Pid);
 
-              _this435.getSingleTariffs(Pid);
+              _this434.getSingleTariffs(Pid);
             } else {}
           }, function (error) {
             console.log(error);
@@ -41159,7 +41208,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deletedata",
         value: function deletedata(id) {
-          var _this436 = this;
+          var _this435 = this;
 
           sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
             title: 'Are you sure?',
@@ -41175,11 +41224,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               var admin_id = localStorage.getItem('admin_id');
               var api_req = '{"operation":"wpchat", "moduleType": "wpchat", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"del_tarrif","tarrif_name":"' + id + '"}}';
 
-              _this436.serverService.sendServer(api_req).subscribe(function (response) {
+              _this435.serverService.sendServer(api_req).subscribe(function (response) {
                 if (response.result.data == 1) {
                   sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire('Deleted!', 'success');
 
-                  _this436.getTariffsList();
+                  _this435.getTariffsList();
                 }
               }, function (error) {
                 console.log(error);
@@ -41311,16 +41360,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "dept_settings",
         value: function dept_settings() {
-          var _this437 = this;
+          var _this436 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"template", "moduleType":"template", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"get_template","admin_id":"' + this.uadmin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this437.queue_list = response.result.data;
-              console.log(_this437.queue_list);
+              _this436.queue_list = response.result.data;
+              console.log(_this436.queue_list);
             } else {
-              _this437.recordNotFound = true;
+              _this436.recordNotFound = true;
             }
           }, function (error) {
             console.log(error);
@@ -41339,7 +41388,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "queueList",
         value: function queueList(data) {
-          var _this438 = this;
+          var _this437 = this;
 
           var list_data = this.listDataInfo(data);
           var api_req = new Object();
@@ -41358,7 +41407,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           api_req.element_data = queue_req;
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == 1) {
-              _this438.Mqueue_list = response.result.data.list_data;
+              _this437.Mqueue_list = response.result.data.list_data;
             }
           }, function (error) {
             console.log(error);
@@ -41367,7 +41416,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "editDepartmentSettings",
         value: function editDepartmentSettings(id) {
-          var _this439 = this;
+          var _this438 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"template", "moduleType": "template", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"edit_template","template_id":"' + id + '","admin_id":"' + this.uadmin_id + '"}}';
@@ -41375,15 +41424,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             if (response.result.status == true) {
               var agent_data = response.result.data;
 
-              _this439.editDept.setValue({
+              _this438.editDept.setValue({
                 'template': agent_data.template_message
               });
 
-              _this439.dep_id = response.result.data.template_id;
+              _this438.dep_id = response.result.data.template_id;
               $('#Upd_queue_no').val(agent_data.queue_no).prop('selected', true);
               $('#edit_deptform').modal('show');
 
-              _this439.dept_settings();
+              _this438.dept_settings();
             } else {
               iziToast.warning({
                 message: "Wrap Up codes not retrive. Please try again",
@@ -41402,7 +41451,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "editDepartment",
         value: function editDepartment(id) {
-          var _this440 = this;
+          var _this439 = this;
 
           var agent_req = this.editDept.value;
           var access_token = localStorage.getItem('access_token');
@@ -41419,7 +41468,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             if (response.result.status == 1) {
               $('#edit_deptform').modal('hide');
 
-              _this440.dept_settings();
+              _this439.dept_settings();
 
               iziToast.success({
                 message: "Template updated successfully",
@@ -41442,7 +41491,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addDeptData",
         value: function addDeptData() {
-          var _this441 = this;
+          var _this440 = this;
 
           var agent_req = this.addDept.value;
           var queue_no = $('#queue_no').val();
@@ -41456,7 +41505,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 position: 'topRight'
               });
 
-              _this441.dept_settings();
+              _this440.dept_settings();
             } else if (response.result.data == 2) {
               iziToast.warning({
                 message: "Template name already inserted",
@@ -41479,7 +41528,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deletedata",
         value: function deletedata(id) {
-          var _this442 = this;
+          var _this441 = this;
 
           sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
             title: 'Are you sure?',
@@ -41496,11 +41545,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
               var api_req = '{"operation":"template", "moduleType": "template", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"delete_template","template_id":"' + id + '","admin_id":"' + admin_id + '"}}';
 
-              _this442.serverService.sendServer(api_req).subscribe(function (response) {
+              _this441.serverService.sendServer(api_req).subscribe(function (response) {
                 if (response.result.data == 1) {
                   sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire('Deleted!', 'success');
 
-                  _this442.dept_settings();
+                  _this441.dept_settings();
                 }
               }, function (error) {
                 console.log(error);
@@ -41614,7 +41663,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "smsList",
         value: function smsList() {
-          var _this443 = this;
+          var _this442 = this;
 
           // {"operation":"chat","moduleType":"chat","api_type":"web","access_token":"","element_data":{"action":"chat_message_panel","chat_id":"all","user_id":"64","admin_id":"64","limit":10,"offset":0}}
           var api_req = new Object();
@@ -41632,7 +41681,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           api_req.element_data = chat_req;
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this443.sms_list = response.result.data.chat_list;
+              _this442.sms_list = response.result.data.chat_list;
             }
           }, function (error) {
             console.log(error);
@@ -41800,7 +41849,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "selectSmsList",
         value: function selectSmsList(chat_id) {
-          var _this444 = this;
+          var _this443 = this;
 
           // {"operation":"chat","moduleType":"chat","api_type":"web","access_token":"","element_data":{"action":"chat_detail_list","chat_id":"71844","user_id":"64","admin_id":"64","limit":"5","offset":0}}
           var api_req = new Object();
@@ -41821,9 +41870,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           api_req.element_data = chat_req;
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == 1) {
-              _this444.chat_panel_details = response.result.data.chat_detail_list;
-              _this444.customer_number = response.result.data.chat_detail_list[0].customer_name;
-              _this444.cus_name = response.result.data.chat_detail_list[0].cus_name;
+              _this443.chat_panel_details = response.result.data.chat_detail_list;
+              _this443.customer_number = response.result.data.chat_detail_list[0].customer_name;
+              _this443.cus_name = response.result.data.chat_detail_list[0].cus_name;
             }
           }, function (error) {
             console.log(error);
@@ -41958,7 +42007,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(SpamListComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this445 = this;
+          var _this444 = this;
 
           this.uadmin_id = localStorage.getItem('admin_id');
           this.user_id = localStorage.getItem('admin_id');
@@ -41982,7 +42031,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               text: 'You have no access view that page!'
             });
             setTimeout(function () {
-              _this445.router.navigate(['/']);
+              _this444.router.navigate(['/']);
             }, 2000);
             return false;
           }
@@ -41993,17 +42042,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getspamlist",
         value: function getspamlist() {
-          var _this446 = this;
+          var _this445 = this;
 
           var access_token = localStorage.getItem('access_token'); // {"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"", "element_data":{"action":"getIncomingEmailIds","admin_id":"1203"}}
 
           var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"getIncomingEmailIds","admin_id":"' + this.uadmin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this446.spamlist = response.result.spamLists;
-              _this446.emailList = response.result.data;
+              _this445.spamlist = response.result.spamLists;
+              _this445.emailList = response.result.data;
             } else {
-              _this446.recordNotFound == true;
+              _this445.recordNotFound == true;
             }
           }, function (error) {
             console.log(error);
@@ -42017,7 +42066,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changespamStatus",
         value: function changespamStatus(words, events, email_id) {
-          var _this447 = this;
+          var _this446 = this;
 
           var spam_status = '';
           var black_status = '';
@@ -42044,11 +42093,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               });
 
               if (events.target.checked == false) {
-                _this447.router.navigate(['/ticketing-system-new']);
+                _this446.router.navigate(['/ticketing-system-new']);
               } else {
-                _this447.getspamlist();
+                _this446.getspamlist();
 
-                _this447.my_spamtickets({});
+                _this446.my_spamtickets({});
               }
             } else {
               iziToast.error({
@@ -42063,7 +42112,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changeblackStatus",
         value: function changeblackStatus(words, events, email_id) {
-          var _this448 = this;
+          var _this447 = this;
 
           var spam_status = '';
           var black_status = '';
@@ -42089,9 +42138,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 position: 'topRight'
               });
 
-              _this448.getspamlist();
+              _this447.getspamlist();
 
-              _this448.my_spamtickets({});
+              _this447.my_spamtickets({});
             } else {
               iziToast.error({
                 message: "BlackList Updated Failed",
@@ -42105,7 +42154,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deletespam",
         value: function deletespam(email) {
-          var _this449 = this;
+          var _this448 = this;
 
           sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.fire({
             title: 'Are you sure?',
@@ -42119,16 +42168,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             if (result.value) {
               var access_token = localStorage.getItem('access_token'); // {"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"s", "element_data":{"action":"delSpamEmail","admin_id":"1203","email":"Cal4Care | RT < rt@cal4care.com >"}}
 
-              var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"delSpamEmail","admin_id":"' + _this449.uadmin_id + '","email":"' + email + '"}}';
+              var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"delSpamEmail","admin_id":"' + _this448.uadmin_id + '","email":"' + email + '"}}';
 
-              _this449.serverService.sendServer(api_req).subscribe(function (response) {
+              _this448.serverService.sendServer(api_req).subscribe(function (response) {
                 if (response.result.status == true) {
                   iziToast.success({
                     message: "Spam Delete Successfully",
                     position: 'topRight'
                   });
 
-                  _this449.getspamlist();
+                  _this448.getspamlist();
                 } else {
                   iziToast.error({
                     message: "Failed to Delete",
@@ -42144,7 +42193,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "createSpamList",
         value: function createSpamList() {
-          var _this450 = this;
+          var _this449 = this;
 
           var access_token = localStorage.getItem('access_token');
           var user_id = localStorage.getItem('admin_id');
@@ -42178,9 +42227,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 position: 'topRight'
               });
 
-              _this450.getspamlist();
+              _this449.getspamlist();
 
-              _this450.my_spamtickets({});
+              _this449.my_spamtickets({});
             } else {
               iziToast.error({
                 message: "Spam Updated Failed",
@@ -42195,7 +42244,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "my_spamtickets",
         value: function my_spamtickets(data) {
-          var _this451 = this;
+          var _this450 = this;
 
           sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.fire({
             html: '<div style="display: flex;justify-content: center;"><div class="pong-loader"></div></div>',
@@ -42240,15 +42289,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.close();
 
             if (response.status == "true") {
-              _this451.new_queue_list = response.ticket_options;
-              _this451.department = response.department_options;
-              _this451.offset_count = list_data.offset;
-              _this451.paginationData = _this451.serverService.pagination({
+              _this450.new_queue_list = response.ticket_options;
+              _this450.department = response.department_options;
+              _this450.offset_count = list_data.offset;
+              _this450.paginationData = _this450.serverService.pagination({
                 'offset': response.list_info.offset,
                 'total': response.list_info.total,
-                'page_limit': _this451.pageLimit
+                'page_limit': _this450.pageLimit
               });
-              _this451.recordNotFound = _this451.new_queue_list == null ? true : false;
+              _this450.recordNotFound = _this450.new_queue_list == null ? true : false;
             }
           }, function (error) {
             console.log(error);
@@ -42336,10 +42385,29 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changeMyDepartment",
         value: function changeMyDepartment(ticket_id, department) {
-          var _this452 = this;
+          var _this451 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"onchange_department","department_id":"' + department + '","ticket_id":"' + ticket_id + '"}}';
+          this.serverService.sendServer(api_req).subscribe(function (response) {
+            if (response.status == true) {
+              // this.my_externaltickets();
+              if (_this451.filter_agents != 'All') {// this.filterByAgent(this.filter_agents, this.select_agent);
+              } else {
+                _this451.my_spamtickets({});
+              }
+            }
+          }, function (error) {
+            console.log(error);
+          });
+        }
+      }, {
+        key: "changeMyPriority",
+        value: function changeMyPriority(ticket_id, priority) {
+          var _this452 = this;
+
+          var access_token = localStorage.getItem('access_token');
+          var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"onchange_priority","priority_id":"' + priority + '","ticket_id":"' + ticket_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
               // this.my_externaltickets();
@@ -42353,12 +42421,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
         }
       }, {
-        key: "changeMyPriority",
-        value: function changeMyPriority(ticket_id, priority) {
+        key: "changeMyStatus",
+        value: function changeMyStatus(ticket_id, status) {
           var _this453 = this;
 
           var access_token = localStorage.getItem('access_token');
-          var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"onchange_priority","priority_id":"' + priority + '","ticket_id":"' + ticket_id + '"}}';
+          var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"onchange_status","status_id":"' + status + '","ticket_id":"' + ticket_id + '","user_id":"' + this.user_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
               // this.my_externaltickets();
@@ -42372,28 +42440,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
         }
       }, {
-        key: "changeMyStatus",
-        value: function changeMyStatus(ticket_id, status) {
-          var _this454 = this;
-
-          var access_token = localStorage.getItem('access_token');
-          var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"onchange_status","status_id":"' + status + '","ticket_id":"' + ticket_id + '","user_id":"' + this.user_id + '"}}';
-          this.serverService.sendServer(api_req).subscribe(function (response) {
-            if (response.status == true) {
-              // this.my_externaltickets();
-              if (_this454.filter_agents != 'All') {// this.filterByAgent(this.filter_agents, this.select_agent);
-              } else {
-                _this454.my_spamtickets({});
-              }
-            }
-          }, function (error) {
-            console.log(error);
-          });
-        }
-      }, {
         key: "my_deletedtickets",
         value: function my_deletedtickets(data) {
-          var _this455 = this;
+          var _this454 = this;
 
           sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.fire({
             html: '<div style="display: flex;justify-content: center;"><div class="pong-loader"></div></div>',
@@ -42433,14 +42482,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.close();
 
             if (response.status == "true") {
-              _this455.delete_queue_list = response.ticket_options;
-              _this455.offset_count2 = list_data.offset;
-              _this455.paginationData2 = _this455.serverService.pagination({
+              _this454.delete_queue_list = response.ticket_options;
+              _this454.offset_count2 = list_data.offset;
+              _this454.paginationData2 = _this454.serverService.pagination({
                 'offset': response.list_info.offset,
                 'total': response.list_info.total,
-                'page_limit': _this455.pageLimit
+                'page_limit': _this454.pageLimit
               });
-              _this455.recordNotFound2 = _this455.delete_queue_list == null ? true : false; // $("html, body").animate({ scrollTop: 0 }, "slow");
+              _this454.recordNotFound2 = _this454.delete_queue_list == null ? true : false; // $("html, body").animate({ scrollTop: 0 }, "slow");
             }
           }, function (error) {
             console.log(error);
@@ -42449,11 +42498,66 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deletepermenent",
         value: function deletepermenent() {
-          var _this456 = this;
+          var _this455 = this;
 
           var i = 0;
           var invalidContacts = [];
           $('.emailtickets2:checked').each(function () {
+            invalidContacts[i++] = $(this).val();
+          });
+
+          if (invalidContacts.length == 0) {
+            iziToast.warning({
+              message: "Please Choose a Ticket",
+              position: 'topRight'
+            });
+            return false;
+          }
+
+          sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to restore this Ticket!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then(function (result) {
+            if (result.value) {
+              var access_token = localStorage.getItem('access_token'); //   let api_req:any = '{"operation":"predective_dialer_contact", "moduleType":"predective_dialer_contact", "api_type": "web", "access_token":"'+access_token+'", "element_data":{"action":"delete_contact","user_id":"'+this.user_id+'","contact_id":"'+invalidContacts+'"}}';
+
+              var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"delete_ticket","value":"' + invalidContacts + '","admin_id":"' + _this455.uadmin_id + '"}}';
+
+              _this455.serverService.sendServer(api_req).subscribe(function (response) {
+                if (response.result.data == true) {
+                  iziToast.success({
+                    message: "Ticket deleted successfully",
+                    position: 'topRight'
+                  });
+
+                  _this455.my_deletedtickets({});
+
+                  $("#selectAllDel").prop("checked", false);
+                } else {
+                  iziToast.warning({
+                    message: "Contact not deleted, Please try again!",
+                    position: 'topRight'
+                  });
+                }
+              }, function (error) {
+                console.log(error);
+              });
+            }
+          });
+        }
+      }, {
+        key: "deleteSpampermenent",
+        value: function deleteSpampermenent() {
+          var _this456 = this;
+
+          var i = 0;
+          var invalidContacts = [];
+          $('.emailtickets:checked').each(function () {
             invalidContacts[i++] = $(this).val();
           });
 
@@ -42486,62 +42590,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     position: 'topRight'
                   });
 
-                  _this456.my_deletedtickets({});
-
-                  $("#selectAllDel").prop("checked", false);
-                } else {
-                  iziToast.warning({
-                    message: "Contact not deleted, Please try again!",
-                    position: 'topRight'
-                  });
-                }
-              }, function (error) {
-                console.log(error);
-              });
-            }
-          });
-        }
-      }, {
-        key: "deleteSpampermenent",
-        value: function deleteSpampermenent() {
-          var _this457 = this;
-
-          var i = 0;
-          var invalidContacts = [];
-          $('.emailtickets:checked').each(function () {
-            invalidContacts[i++] = $(this).val();
-          });
-
-          if (invalidContacts.length == 0) {
-            iziToast.warning({
-              message: "Please Choose a Ticket",
-              position: 'topRight'
-            });
-            return false;
-          }
-
-          sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to restore this Ticket!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-          }).then(function (result) {
-            if (result.value) {
-              var access_token = localStorage.getItem('access_token'); //   let api_req:any = '{"operation":"predective_dialer_contact", "moduleType":"predective_dialer_contact", "api_type": "web", "access_token":"'+access_token+'", "element_data":{"action":"delete_contact","user_id":"'+this.user_id+'","contact_id":"'+invalidContacts+'"}}';
-
-              var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"delete_ticket","value":"' + invalidContacts + '","admin_id":"' + _this457.uadmin_id + '"}}';
-
-              _this457.serverService.sendServer(api_req).subscribe(function (response) {
-                if (response.result.data == true) {
-                  iziToast.success({
-                    message: "Ticket deleted successfully",
-                    position: 'topRight'
-                  });
-
-                  _this457.my_spamtickets({});
+                  _this456.my_spamtickets({});
 
                   $("#selectAllSpam").prop("checked", false);
                 } else {
@@ -42559,7 +42608,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "my_deletedtickets2",
         value: function my_deletedtickets2(data) {
-          var _this458 = this;
+          var _this457 = this;
 
           if ($('#collapseOne2.card-body.collapse.show').length) {
             return false;
@@ -42607,14 +42656,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.close();
 
             if (response.status == "true") {
-              _this458.delete_queue_list = response.ticket_options;
-              _this458.offset_count2 = list_data.offset;
-              _this458.paginationData2 = _this458.serverService.pagination({
+              _this457.delete_queue_list = response.ticket_options;
+              _this457.offset_count2 = list_data.offset;
+              _this457.paginationData2 = _this457.serverService.pagination({
                 'offset': response.list_info.offset,
                 'total': response.list_info.total,
-                'page_limit': _this458.pageLimit
+                'page_limit': _this457.pageLimit
               });
-              _this458.recordNotFound2 = _this458.delete_queue_list == null ? true : false;
+              _this457.recordNotFound2 = _this457.delete_queue_list == null ? true : false;
               $("html, body").animate({
                 scrollTop: $('html, body').get(0).scrollHeight
               }, 1000);
@@ -42801,7 +42850,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "msSSODetails",
         value: function msSSODetails() {
-          var _this459 = this;
+          var _this458 = this;
 
           var access_tokens = localStorage.getItem('access_token');
           var admin_id = localStorage.getItem('admin_id');
@@ -42812,7 +42861,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             if (response.result) {
               var data = response.result.data[0];
               console.log(data);
-              _this459.generateAccessTok = true;
+              _this458.generateAccessTok = true;
               $("#sso_entity_id").val(data.sso_entity_id);
               $("#sso_reply_url").val(data.sso_reply_url);
               $("#azure_ad_id").val(data.azure_ad_id); //alert(data.access_token)          
@@ -42824,7 +42873,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getAgentsList",
         value: function getAgentsList() {
-          var _this460 = this;
+          var _this459 = this;
 
           var api_req = new Object();
           var agents_req = new Object();
@@ -42841,7 +42890,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           api_req.access_token = localStorage.getItem('access_token');
           api_req.element_data = agents_req;
           this.serverService.sendServer(api_req).subscribe(function (response) {
-            _this460.agents_list = response.result.data.list_data;
+            _this459.agents_list = response.result.data.list_data;
           }, function (error) {
             console.log(error);
           });
@@ -42849,7 +42898,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getAddeduser",
         value: function getAddeduser() {
-          var _this461 = this;
+          var _this460 = this;
 
           var api_req = new Object();
           var agents_req = new Object();
@@ -42870,10 +42919,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
           this.serverService.sendServer(api_req).subscribe(function (response) {
             sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.close();
-            _this461.omni_users = response.result.data.omni_users;
-            _this461.teams_users = response.result.data.teams_users;
-            _this461.omnichecked = response.result.data.omni_main_users.split(",");
-            _this461.teamschecked = response.result.data.teams_main_users.split(",");
+            _this460.omni_users = response.result.data.omni_users;
+            _this460.teams_users = response.result.data.teams_users;
+            _this460.omnichecked = response.result.data.omni_main_users.split(",");
+            _this460.teamschecked = response.result.data.teams_main_users.split(",");
           }, function (error) {
             console.log(error);
           });
@@ -42881,7 +42930,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "AddOmniUser",
         value: function AddOmniUser() {
-          var _this462 = this;
+          var _this461 = this;
 
           var omni_users = $('.ads_Checkbox_omni:checked').map(function () {
             return this.value;
@@ -42924,7 +42973,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 position: 'topRight'
               });
 
-              _this462.getAddeduser();
+              _this461.getAddeduser();
             } else {
               iziToast.warning({
                 message: "Sorry not updated. Please try again",
@@ -42952,7 +43001,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "AddTeamsUser",
         value: function AddTeamsUser() {
-          var _this463 = this;
+          var _this462 = this;
 
           var team_users = $('.ads_Checkbox_teams:checked').map(function () {
             return this.value;
@@ -42995,7 +43044,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 position: 'topRight'
               });
 
-              _this463.getAddeduser();
+              _this462.getAddeduser();
             } else {
               iziToast.warning({
                 message: "Sorry not updated. Please try again",
@@ -43159,15 +43208,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getUsers",
         value: function getUsers() {
-          var _this464 = this;
+          var _this463 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"survey", "moduleType": "survey", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"get_survey_agents","admin_id":"' + this.admin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this464.usersL = response.result.data;
+              _this463.usersL = response.result.data;
             } else {
-              _this464.recordNotFound = true;
+              _this463.recordNotFound = true;
             }
           }, function (error) {
             console.log(error);
@@ -43176,15 +43225,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getCallers",
         value: function getCallers() {
-          var _this465 = this;
+          var _this464 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"survey", "moduleType": "survey", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"get_survey_callers","admin_id":"' + this.admin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this465.callers = response.result.data;
+              _this464.callers = response.result.data;
             } else {
-              _this465.recordNotFound = true;
+              _this464.recordNotFound = true;
             }
           }, function (error) {
             console.log(error);
@@ -43203,7 +43252,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "searchData",
         value: function searchData(data) {
-          var _this466 = this;
+          var _this465 = this;
 
           var list_data = this.listDataInfo(data);
           var api_req = new Object();
@@ -43224,14 +43273,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           api_req.element_data = history_req;
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == 1) {
-              _this466.call_history_list = response.result.data.list_data;
-              _this466.offset_count = list_data.offset;
-              _this466.paginationData = _this466.serverService.pagination({
+              _this465.call_history_list = response.result.data.list_data;
+              _this465.offset_count = list_data.offset;
+              _this465.paginationData = _this465.serverService.pagination({
                 'offset': response.result.data.list_info.offset,
                 'total': response.result.data.list_info.total,
-                'page_limit': _this466.pageLimit
+                'page_limit': _this465.pageLimit
               });
-              _this466.recordNotFound = _this466.call_history_list.length == 0 ? true : false;
+              _this465.recordNotFound = _this465.call_history_list.length == 0 ? true : false;
             }
           }, function (error) {
             console.log(error);
@@ -43240,7 +43289,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "searchDatalist",
         value: function searchDatalist(data) {
-          var _this467 = this;
+          var _this466 = this;
 
           var list_data = this.listDataInfo(data); //alert(this.getRep.value.from_date);
 
@@ -43284,14 +43333,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.close();
 
             if (response.result.status == 1) {
-              _this467.call_history_list = response.result.data.list_data;
-              _this467.offset_count = list_data.offset;
-              _this467.paginationData = _this467.serverService.pagination({
+              _this466.call_history_list = response.result.data.list_data;
+              _this466.offset_count = list_data.offset;
+              _this466.paginationData = _this466.serverService.pagination({
                 'offset': response.result.data.list_info.offset,
                 'total': response.result.data.list_info.total,
-                'page_limit': _this467.pageLimit
+                'page_limit': _this466.pageLimit
               });
-              _this467.recordNotFound = _this467.call_history_list.length == 0 ? true : false;
+              _this466.recordNotFound = _this466.call_history_list.length == 0 ? true : false;
             }
           }, function (error) {
             console.log(error);
@@ -43300,7 +43349,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getReports",
         value: function getReports() {
-          var _this468 = this;
+          var _this467 = this;
 
           console.log(this.getRep.value);
           if (this.getRep.value.aget_ids != null && this.getRep.value.aget_ids != '') var agents = this.getRep.value.aget_ids.join();
@@ -43346,8 +43395,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.close();
 
             if (response.result.status == true) {
-              _this468.res = response;
-              var arrStr = encodeURIComponent(JSON.stringify(_this468.res)); // document.location.href = 'https://omnitickets.mconnectapps.com/api/storage/contact/download.php?res='+arrStr;
+              _this467.res = response;
+              var arrStr = encodeURIComponent(JSON.stringify(_this467.res)); // document.location.href = 'https://omnitickets.mconnectapps.com/api/storage/contact/download.php?res='+arrStr;
 
               var url = 'https://omnitickets.mconnectapps.com/api/storage/call/survey_report.php';
               var form = $('<form action="' + url + '" method="post">' + '<input type="text" name="res" value="' + arrStr + '" />' + '</form>');
@@ -43372,7 +43421,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "initializeItems",
         value: function initializeItems(val) {
-          var _this469 = this;
+          var _this468 = this;
 
           this.accessToken = localStorage.getItem('access_token');
           this.user_id = localStorage.getItem('userId');
@@ -43390,8 +43439,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           console.log(api_req);
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this469.items = response.result.data;
-              _this469.isItemAvailable = true;
+              _this468.items = response.result.data;
+              _this468.isItemAvailable = true;
             } else {
               iziToast.warning({
                 message: "No Records Found. Please try again",
@@ -43417,7 +43466,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "pickcaller",
         value: function pickcaller(cID) {
-          var _this470 = this;
+          var _this469 = this;
 
           if (this.getRep.value.from_date == null) {
             this.getRep.value.from_date = '';
@@ -43431,9 +43480,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var api_req = '{"operation":"survey", "moduleType": "survey", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"get_survey_callers_bydt","admin_id":"' + this.admin_id + '","from_dt":"' + this.getRep.value.from_date + '","to_dt":"' + this.getRep.value.to_date + '","ag_id":"' + cID + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this470.callers = response.result.data;
+              _this469.callers = response.result.data;
             } else {
-              _this470.recordNotFound = true;
+              _this469.recordNotFound = true;
             }
           }, function (error) {
             console.log(error);
@@ -43572,7 +43621,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "searchData",
         value: function searchData() {
-          var _this471 = this;
+          var _this470 = this;
 
           // if(this.getRep.value.from_date == null||this.getRep.value.to_date ==null){
           //   iziToast.warning({
@@ -43594,10 +43643,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           api_req.element_data = history_req;
           this.serverService.sendServer(api_req).subscribe(function (response) {
             console.log(response);
-            _this471.call_history_list = response.list_data;
-            _this471.tot_data = response.nos;
-            _this471.total_name = response.total;
-            _this471.percent = response.percentage;
+            _this470.call_history_list = response.list_data;
+            _this470.tot_data = response.nos;
+            _this470.total_name = response.total;
+            _this470.percent = response.percentage;
           }, function (error) {
             console.log(error);
           });
@@ -43605,7 +43654,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "searchData1",
         value: function searchData1() {
-          var _this472 = this;
+          var _this471 = this;
 
           if (this.getRep.value.from_date == null || this.getRep.value.to_date == null) {
             iziToast.warning({
@@ -43638,10 +43687,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           api_req.element_data = history_req;
           this.serverService.sendServer(api_req).subscribe(function (response) {
             sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.close();
-            _this472.call_history_list = response.list_data;
-            _this472.tot_data = response.nos;
-            _this472.total_name = response.total;
-            _this472.percent = response.percentage;
+            _this471.call_history_list = response.list_data;
+            _this471.tot_data = response.nos;
+            _this471.total_name = response.total;
+            _this471.percent = response.percentage;
           }, function (error) {
             console.log(error);
           });
@@ -43649,7 +43698,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getReports",
         value: function getReports() {
-          var _this473 = this;
+          var _this472 = this;
 
           var api_req = new Object();
           var agents_req = new Object();
@@ -43666,8 +43715,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           console.log(api_req);
           this.serverService.sendServer(api_req).subscribe(function (response) {
             console.log(response);
-            _this473.res = response;
-            var arrStr = encodeURIComponent(JSON.stringify(_this473.res)); // document.location.href = 'https://omnitickets.mconnectapps.com/api/storage/contact/download.php?res='+arrStr;
+            _this472.res = response;
+            var arrStr = encodeURIComponent(JSON.stringify(_this472.res)); // document.location.href = 'https://omnitickets.mconnectapps.com/api/storage/contact/download.php?res='+arrStr;
 
             var url = 'https://omnitickets.mconnectapps.com/api/storage/call/survey_Summary_report.php';
             var form = $('<form action="' + url + '" method="post">' + '<input type="text" name="res" value="' + arrStr + '" />' + '</form>');
@@ -43686,7 +43735,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "initializeItems",
         value: function initializeItems(val) {
-          var _this474 = this;
+          var _this473 = this;
 
           this.accessToken = localStorage.getItem('access_token');
           this.user_id = localStorage.getItem('userId');
@@ -43704,8 +43753,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           console.log(api_req);
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this474.items = response.result.data;
-              _this474.isItemAvailable = true;
+              _this473.items = response.result.data;
+              _this473.isItemAvailable = true;
             } else {
               iziToast.warning({
                 message: "No Records Found. Please try again",
@@ -43829,7 +43878,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var TeleChatComponent = /*#__PURE__*/function () {
       function TeleChatComponent(serverService, route) {
-        var _this475 = this;
+        var _this474 = this;
 
         _classCallCheck(this, TeleChatComponent);
 
@@ -43844,7 +43893,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           if (pagefor == 'telegram') {
             // this.chatPanelDetail(pageid);
-            _this475.chatPanelView(pageid);
+            _this474.chatPanelView(pageid);
 
             setTimeout(function () {
               $(".card-body.chat-content").scrollTop($(".card-body.chat-content")[0].scrollHeight);
@@ -43873,7 +43922,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "sendChatMessageData",
         value: function sendChatMessageData(sender, receiver) {
-          var _this476 = this;
+          var _this475 = this;
 
           var chat_message = this.chat_message.nativeElement.value;
           chat_message = chat_message.trim();
@@ -43908,9 +43957,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.close();
 
               if (response.status == true) {
-                _this476.chatautoScroll();
+                _this475.chatautoScroll();
 
-                _this476.chatPanelDetail(_this476.chat_detail_id.nativeElement.value);
+                _this475.chatPanelDetail(_this475.chat_detail_id.nativeElement.value);
 
                 $('#chat_msg').val('');
               }
@@ -43922,7 +43971,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "chatPanelView",
         value: function chatPanelView(chat_id) {
-          var _this477 = this;
+          var _this476 = this;
 
           var api_req = new Object();
           var chat_req = new Object();
@@ -43937,21 +43986,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             console.log(response);
 
             if (response.status == true) {
-              _this477.chat_panel_list = response.result.data;
-              _this477.chat_panel_list_all = response.result.data;
+              _this476.chat_panel_list = response.result.data;
+              _this476.chat_panel_list_all = response.result.data;
 
               if (chat_id == "all" || chat_id == "" || chat_id == 0) {
-                _this477.chat_panel_detail_type = "chat_screen";
+                _this476.chat_panel_detail_type = "chat_screen";
               } else {
-                _this477.chat_panel_details = response.result.data.chat_detail_list;
-                _this477.chat_panel_detail_type = "chat_detail";
+                _this476.chat_panel_details = response.result.data.chat_detail_list;
+                _this476.chat_panel_detail_type = "chat_detail";
 
-                _this477.chatPanelDetail(chat_id);
+                _this476.chatPanelDetail(chat_id);
               }
 
-              _this477.chatautoScroll();
+              _this476.chatautoScroll();
 
-              _this477.chat_detail_key = chat_id;
+              _this476.chat_detail_key = chat_id;
             }
           }, function (error) {
             console.log(error);
@@ -43960,7 +44009,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "chatPanelDetail",
         value: function chatPanelDetail(chat_id) {
-          var _this478 = this;
+          var _this477 = this;
 
           $('#chat_msg').val('');
           var api_req = new Object();
@@ -43975,16 +44024,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           api_req.element_data = chat_req;
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
-              _this478.chat_panel_detail_type = "chat_detail";
-              _this478.chat_panel_details = response.result.data.chat_detail_list;
-              _this478.displayName = response.result.data.chat_detail_list[0].displayName;
-              _this478.recipient_id = response.result.data.chat_detail_list[0].recipient_id;
-              _this478.sender_id = response.result.data.chat_detail_list[0].sender_id;
-              _this478.profile_pic = response.result.data.chat_detail_list[0].profile_picture;
+              _this477.chat_panel_detail_type = "chat_detail";
+              _this477.chat_panel_details = response.result.data.chat_detail_list;
+              _this477.displayName = response.result.data.chat_detail_list[0].displayName;
+              _this477.recipient_id = response.result.data.chat_detail_list[0].recipient_id;
+              _this477.sender_id = response.result.data.chat_detail_list[0].sender_id;
+              _this477.profile_pic = response.result.data.chat_detail_list[0].profile_picture;
 
-              _this478.chatautoScroll();
+              _this477.chatautoScroll();
 
-              _this478.chat_detail_key = chat_id;
+              _this477.chat_detail_key = chat_id;
             }
           }, function (error) {
             console.log(error);
@@ -44009,13 +44058,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "get_temps",
         value: function get_temps() {
-          var _this479 = this;
+          var _this478 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"template", "moduleType":"template", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"listTemplateByUSer","admin_id":"' + this.uadmin_id + '","user_id":"' + this.loginUser + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this479.temp_list = response.result.data; // console.log(this.temp_list);
+              _this478.temp_list = response.result.data; // console.log(this.temp_list);
             }
           }, function (error) {
             console.log(error);
@@ -44308,7 +44357,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "addTo",
         value: function addTo(event) {
-          var _this480 = this;
+          var _this479 = this;
 
           var value = (event.value || '').trim();
           var input = event.input; // var filtered = this.EmailToAddress.filter(
@@ -44335,10 +44384,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             api_req.element_data = chat_req;
             this.serverService.sendServer(api_req).subscribe(function (response) {
               if (response.result.data == 1) {
-                _this480.presentEmails = true; // this.email_error_msg = 'This wrapCode already existed';
+                _this479.presentEmails = true; // this.email_error_msg = 'This wrapCode already existed';
               } else {
                 if (value) {
-                  _this480.EmailToAddress.push({
+                  _this479.EmailToAddress.push({
                     email_to: value
                   });
                 }
@@ -44379,7 +44428,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getAlldetailsOfAgents",
         value: function getAlldetailsOfAgents() {
-          var _this481 = this;
+          var _this480 = this;
 
           var access_token = localStorage.getItem('access_token'); // var subject = $('#subject').val();
           // var description = btoa(tinymce.activeEditor.getContent());
@@ -44389,9 +44438,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status = "true") {
               // this.agents_options=response.agents_options;
-              _this481.department_options = response.department_options;
-              _this481.priority_options = response.priority_options;
-              _this481.status_options = response.status_options;
+              _this480.department_options = response.department_options;
+              _this480.priority_options = response.priority_options;
+              _this480.status_options = response.status_options;
             } else {
               iziToast.warning({
                 message: "Sorry not able to fetch Data.Please contact Admin",
@@ -44658,14 +44707,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "editDepartmentSettings",
         value: function editDepartmentSettings(id) {
-          var _this482 = this;
+          var _this481 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"ticket", "moduleType": "ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"get_agents_by_department","dept_id":"' + id + '","admin_id":"' + this.admin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
               // console.log(response);
-              _this482.agents_options = response.result.data;
+              _this481.agents_options = response.result.data;
             }
           }, function (error) {
             console.log(error);
@@ -44694,7 +44743,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getDeptAliasName",
         value: function getDeptAliasName() {
-          var _this483 = this;
+          var _this482 = this;
 
           // {"operation":"ticket","moduleType":"ticket","api_type":"web","access_token":"","element_data":{"action":"getMyAliasEmails","admin_id":"1203"}}
           var access_token = localStorage.getItem('access_token');
@@ -44702,8 +44751,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
               // console.log(response);
-              _this483.email_from_list = response.result.data;
-              console.log(_this483.email_from_list);
+              _this482.email_from_list = response.result.data;
+              console.log(_this482.email_from_list);
             }
           }, function (error) {
             console.log(error);
@@ -44908,7 +44957,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getReports",
         value: function getReports() {
-          var _this484 = this;
+          var _this483 = this;
 
           var tic_status = $('#tic_status').val();
           var fromDate = $('#from_date').val();
@@ -44955,8 +45004,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             console.log(response);
 
             if (response.result.status == true) {
-              _this484.res = response;
-              var arrStr = encodeURIComponent(JSON.stringify(_this484.res)); // document.location.href = 'https://omnitickets.mconnectapps.com/api/storage/contact/download.php?res='+arrStr;
+              _this483.res = response;
+              var arrStr = encodeURIComponent(JSON.stringify(_this483.res)); // document.location.href = 'https://omnitickets.mconnectapps.com/api/storage/contact/download.php?res='+arrStr;
 
               var url = 'https://omnitickets.mconnectapps.com/api/storage/contact/ticket.php';
               var form = $('<form action="' + url + '" method="post">' + '<input type="text" name="res" value="' + arrStr + '" />' + '</form>');
@@ -45119,7 +45168,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "get_mails",
         value: function get_mails() {
-          var _this485 = this;
+          var _this484 = this;
 
           sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
             html: '<div style="display: flex;justify-content: center;"><div class="pong-loader"></div></div>',
@@ -45135,10 +45184,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.close();
 
             if (response.status == true) {
-              _this485.queue_list = response.result.data; // this.queue_list_user = response.result.data.user_sig;
+              _this484.queue_list = response.result.data; // this.queue_list_user = response.result.data.user_sig;
               // console.log(this.queue_list);
             } else {
-              _this485.recordNotFound = true;
+              _this484.recordNotFound = true;
             }
           }, function (error) {
             console.log(error);
@@ -45306,14 +45355,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "editDepartmentSettings",
         value: function editDepartmentSettings(id) {
-          var _this486 = this;
+          var _this485 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"ticket", "moduleType": "ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"get_agents_by_department","dept_id":"' + id + '","admin_id":"' + this.admin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
               // console.log(response);
-              _this486.agents_options = response.result.data;
+              _this485.agents_options = response.result.data;
             }
           }, function (error) {
             console.log(error);
@@ -45322,7 +45371,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changedefault",
         value: function changedefault(id) {
-          var _this487 = this;
+          var _this486 = this;
 
           var status;
 
@@ -45341,7 +45390,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 position: 'topRight'
               });
 
-              _this487.get_mails();
+              _this486.get_mails();
             }
           }, function (error) {
             console.log(error);
@@ -45350,7 +45399,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "editsignpopup",
         value: function editsignpopup(id) {
-          var _this488 = this;
+          var _this487 = this;
 
           // {"operation":"ticket", "moduleType": "ticket", "api_type": "web", "access_token":"", "element_data":{"action":"editTicketSignature","admin_id":"1203","sig_id":"19"}}
           sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
@@ -45373,25 +45422,25 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             if (response.result.status == true) {
               // this.getDepts();
               // $('#add_deptform').modal('show');
-              _this488.isDisabled = false;
+              _this487.isDisabled = false;
               $("html, body").animate({
                 scrollTop: 0
               }, "slow");
-              _this488.edit_sign = response.result.data[0];
-              _this488.update_sign_id = _this488.edit_sign.sig_id;
+              _this487.edit_sign = response.result.data[0];
+              _this487.update_sign_id = _this487.edit_sign.sig_id;
 
-              if (_this488.edit_sign.is_default == '1') {
+              if (_this487.edit_sign.is_default == '1') {
                 // $("#edit_default_check").prop("checked", true);
                 $("#default_check").prop("checked", true);
               } else {
                 $("#default_check").prop("checked", false);
               }
 
-              _this488.NotEdit = true;
+              _this487.NotEdit = true;
               tinymce.get('richTextArea').setContent('');
-              $('#subject').val(_this488.edit_sign.sig_title);
-              tinymce.activeEditor.setContent(_this488.edit_sign.sig_content);
-              _this488.sign_dept_id = _this488.edit_sign.dept_id; // setTimeout(() => {
+              $('#subject').val(_this487.edit_sign.sig_title);
+              tinymce.activeEditor.setContent(_this487.edit_sign.sig_content);
+              _this487.sign_dept_id = _this487.edit_sign.dept_id; // setTimeout(() => {
               //   this.depts_options.push({
               //     'dept_id':this.edit_sign.dept_id,
               //     'department_name': this.edit_sign.dept_name
@@ -45507,7 +45556,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deletedata",
         value: function deletedata(id) {
-          var _this489 = this;
+          var _this488 = this;
 
           sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
             title: 'Are you sure?',
@@ -45521,9 +45570,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             if (result.value) {
               var access_token = localStorage.getItem('access_token'); //   let api_req:any = '{"operation":"predective_dialer_contact", "moduleType":"predective_dialer_contact", "api_type": "web", "access_token":"'+access_token+'", "element_data":{"action":"delete_contact","user_id":"'+this.user_id+'","contact_id":"'+invalidContacts+'"}}';
 
-              var api_req = '{"operation":"ticket", "moduleType": "ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"deleteSignature","admin_id":"' + _this489.admin_id + '","sig_id":"' + id + '"}}';
+              var api_req = '{"operation":"ticket", "moduleType": "ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"deleteSignature","admin_id":"' + _this488.admin_id + '","sig_id":"' + id + '"}}';
 
-              _this489.serverService.sendServer(api_req).subscribe(function (response) {
+              _this488.serverService.sendServer(api_req).subscribe(function (response) {
                 console.log(response);
 
                 if (response.result.data == true) {
@@ -45532,7 +45581,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     position: 'topRight'
                   });
 
-                  _this489.get_mails(); // this.getDepts();
+                  _this488.get_mails(); // this.getDepts();
 
                 } else {
                   iziToast.warning({
@@ -45554,13 +45603,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getDepts",
         value: function getDepts() {
-          var _this490 = this;
+          var _this489 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"ticket", "moduleType": "ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"get_department_signature","admin_id":"' + this.admin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this490.depts_options = response.result.data;
+              _this489.depts_options = response.result.data;
             }
           }, function (error) {
             console.log(error);
@@ -45679,7 +45728,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(TicketTemplateComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this491 = this;
+          var _this490 = this;
 
           // $('#auto_reply').click();
           this.admin_id = localStorage.getItem('admin_id');
@@ -45700,13 +45749,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               text: 'You have no access view this page!'
             });
             setTimeout(function () {
-              _this491.router.navigate(['/']);
+              _this490.router.navigate(['/']);
             }, 2000);
             return false;
           }
 
           setTimeout(function () {
-            _this491.deptList();
+            _this490.deptList();
           }, 500);
           this.initTiny(); //this.GetTicketTemp('created_ticket');
           // setTimeout(() => {
@@ -45780,7 +45829,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deptList",
         value: function deptList() {
-          var _this492 = this;
+          var _this491 = this;
 
           // {"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"", "element_data":{"action":"get_dept_settings","user_id":"1203"}}
           var api_req = new Object();
@@ -45798,17 +45847,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             if (response.result.status == true) {
               var arr1 = response.result.data;
               var arr2 = response.result.data;
-              _this492.dept_ids = response.result.data[0].dept_id; // alert(this.dept_ids);
+              _this491.dept_ids = response.result.data[0].dept_id; // alert(this.dept_ids);
 
-              _this492.dept_listing = arr1.filter(function (d) {
+              _this491.dept_listing = arr1.filter(function (d) {
                 return d.has_email == 1;
               }); // this.GetTicketTemp('created_ticket');
 
               setTimeout(function () {
                 $('.removing').removeClass('active');
-                $("#list_dept_" + _this492.dept_ids).addClass("active");
+                $("#list_dept_" + _this491.dept_ids).addClass("active");
 
-                _this492.getDeptId(_this492.dept_ids);
+                _this491.getDeptId(_this491.dept_ids);
               }, 500);
             }
           }, function (error) {
@@ -45818,26 +45867,26 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "GetTicketTemp",
         value: function GetTicketTemp(data) {
-          var _this493 = this;
+          var _this492 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"getEmaiautoResponses","admin_id":"' + this.admin_id + '","dept_id":"' + this.dept_ids + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.data !== 'empty') {
-              _this493.response_content = response.result.data; // console.log(this.response_content);
+              _this492.response_content = response.result.data; // console.log(this.response_content);
               // console.log(this.response_content.length);
 
-              if (_this493.response_content.length == 1) {
+              if (_this492.response_content.length == 1) {
                 var message; //   console.log(this.response_content[0].response_for);
 
-                if (_this493.response_content[0].response_for == 'close_ticket') {
+                if (_this492.response_content[0].response_for == 'close_ticket') {
                   message = 'create_ticket';
-                } else if (_this493.response_content[0].response_for == 'created_ticket') {
+                } else if (_this492.response_content[0].response_for == 'created_ticket') {
                   message = 'close_ticket';
-                  console.log(_this493.response_content[0].status);
+                  console.log(_this492.response_content[0].status);
                 } else {
                   message = 'agent_template';
-                  console.log(_this493.response_content[0].status);
+                  console.log(_this492.response_content[0].status);
                 }
 
                 var addingData = {
@@ -45848,19 +45897,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   "response_content": "",
                   "response_for": message,
                   "response_subject": null,
-                  "status": _this493.response_content[0].status
+                  "status": _this492.response_content[0].status
                 };
 
-                _this493.response_content.push(addingData); //   console.log(this.response_content);
+                _this492.response_content.push(addingData); //   console.log(this.response_content);
 
               }
 
-              _this493.dept_settings(data);
+              _this492.dept_settings(data);
 
-              _this493.show = true;
-              _this493.show2 = false;
+              _this492.show = true;
+              _this492.show2 = false;
             } else {
-              _this493.response_content2 = []; // var testing = [{
+              _this492.response_content2 = []; // var testing = [{
               //   "admin_id": "",
               //   "created_at": "",
               //   "dept_id": "",
@@ -45880,8 +45929,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               //   "status": "",
               // }];   
 
-              _this493.show = false;
-              _this493.show2 = true;
+              _this492.show = false;
+              _this492.show2 = true;
               var addingData2 = {
                 "admin_id": "",
                 "created_at": "",
@@ -45893,13 +45942,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 "status": ""
               }; // this.response_content = testing;        
 
-              _this493.response_content2.push(addingData2);
+              _this492.response_content2.push(addingData2);
 
-              _this493.select_create_temp(data);
+              _this492.select_create_temp(data);
             }
 
             $('.removing').removeClass('active');
-            $("#list_dept_" + _this493.dept_ids).addClass("active");
+            $("#list_dept_" + _this492.dept_ids).addClass("active");
           }, function (error) {
             console.log(error);
           });
@@ -46006,7 +46055,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "UpdateTemp",
         value: function UpdateTemp(data) {
-          var _this494 = this;
+          var _this493 = this;
 
           var api_req = new Object();
           var chat_req = new Object(); // let status=$('#'+data+'_status').val();
@@ -46048,14 +46097,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             confirmButtonText: 'Yes, Update!'
           }).then(function (result) {
             if (result.value) {
-              _this494.serverService.sendServer(api_req).subscribe(function (response) {
+              _this493.serverService.sendServer(api_req).subscribe(function (response) {
                 if (response.result.status == true) {
                   iziToast.success({
                     message: "template Updated",
                     position: "topRight"
                   });
 
-                  _this494.GetTicketTemp(data);
+                  _this493.GetTicketTemp(data);
                 } else {
                   iziToast.warning({
                     message: "Sorry Some error ocurred",
@@ -46078,7 +46127,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "AddTemp",
         value: function AddTemp(data) {
-          var _this495 = this;
+          var _this494 = this;
 
           var api_req = new Object();
           var chat_req = new Object(); // let status=$('#'+data+'_status').val();
@@ -46116,7 +46165,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 position: "topRight"
               });
 
-              _this495.GetTicketTemp(data);
+              _this494.GetTicketTemp(data);
             } else {
               iziToast.warning({
                 message: "Sorry Some error ocurred",
@@ -46323,7 +46372,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var TicketViewThreadComponent = /*#__PURE__*/function () {
       function TicketViewThreadComponent(serverService, router, route, _location, sanitizer, tinymce) {
-        var _this496 = this;
+        var _this495 = this;
 
         _classCallCheck(this, TicketViewThreadComponent);
 
@@ -46362,9 +46411,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           console.log(dpContent);
 
           if (dpContent.pagefor == "email_ticketing") {
-            _this496.ticket_t = dpContent.id;
+            _this495.ticket_t = dpContent.id;
 
-            _this496.getTicketDetails(dpContent.id); // alert('called')
+            _this495.getTicketDetails(dpContent.id); // alert('called')
 
           }
         });
@@ -46461,14 +46510,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "get_singnature",
         value: function get_singnature() {
-          var _this497 = this;
+          var _this496 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"viewTicketSignature","admin_id":"' + this.admin_id + '","user_id":"' + this.user_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
-              _this497.singnatures = response.result.data;
-              console.log(_this497.singnatures);
+              _this496.singnatures = response.result.data;
+              console.log(_this496.singnatures);
             }
           }, function (error) {
             console.log(error);
@@ -46582,7 +46631,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getTicketDetails",
         value: function getTicketDetails(tick_id) {
-          var _this498 = this;
+          var _this497 = this;
 
           this.EmailToAddress = [];
           this.collobrators = [];
@@ -46600,102 +46649,102 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             sweetalert2__WEBPACK_IMPORTED_MODULE_9___default.a.close();
 
             if (response.status == "true") {
-              _this498.ticket_replies = response.tick_options;
-              _this498.ticket_replies_all = response.tick_options;
-              _this498.tick_subject = response.tick_options[0].subject;
-              _this498.ticket_created_by = response.tick_options[0].ticket_created_by;
-              _this498.tick_from = response.tick_options[0].user_name;
-              _this498.ticket_status_sel = response.tick_options[0].ticket_status_id;
-              _this498.customer_name = response.tick_options[0].customer_name;
-              _this498.customer_id = response.tick_options[0].customer_id;
+              _this497.ticket_replies = response.tick_options;
+              _this497.ticket_replies_all = response.tick_options;
+              _this497.tick_subject = response.tick_options[0].subject;
+              _this497.ticket_created_by = response.tick_options[0].ticket_created_by;
+              _this497.tick_from = response.tick_options[0].user_name;
+              _this497.ticket_status_sel = response.tick_options[0].ticket_status_id;
+              _this497.customer_name = response.tick_options[0].customer_name;
+              _this497.customer_id = response.tick_options[0].customer_id;
 
               if (response.tick_options[0].is_spam == '0') {
-                _this498.unmarkspamshow = false;
-                _this498.markspamshow = true;
+                _this497.unmarkspamshow = false;
+                _this497.markspamshow = true;
               } else if (response.tick_options[0].is_spam == '1') {
-                _this498.unmarkspamshow = true;
-                _this498.markspamshow = false;
+                _this497.unmarkspamshow = true;
+                _this497.markspamshow = false;
               }
 
-              _this498.ticket_delete_status = response.tick_options[0].ticket_delete_status == '1' ? true : false; //   if(this.ticket_status_sel !=''){      
+              _this497.ticket_delete_status = response.tick_options[0].ticket_delete_status == '1' ? true : false; //   if(this.ticket_status_sel !=''){      
               //   this.get_agents_by_department_dup(this.ticket_status_sel)
               // }
 
-              _this498.ticket_status = response.tick_options[0].ticket_status;
+              _this497.ticket_status = response.tick_options[0].ticket_status;
 
-              if (_this498.ticket_status == "Closed") {
-                _this498.closed = true;
+              if (_this497.ticket_status == "Closed") {
+                _this497.closed = true;
               } else {
-                _this498.closed = false;
+                _this497.closed = false;
 
                 if (response.closed_at == "" || response.closed_at == null) {} else {
-                  _this498.Reopen_closed = true;
+                  _this497.Reopen_closed = true;
                 }
               }
 
-              _this498.first_letter = response.tick_options[0].first_letter;
-              _this498.department = response.tick_options[0].department;
-              _this498.selectedDepart = response.tick_options[0].depart_id;
-              _this498.selectedDepart_perm = response.tick_options[0].depart_id;
+              _this497.first_letter = response.tick_options[0].first_letter;
+              _this497.department = response.tick_options[0].department;
+              _this497.selectedDepart = response.tick_options[0].depart_id;
+              _this497.selectedDepart_perm = response.tick_options[0].depart_id;
 
-              if (_this498.selectedDepart != '') {
-                _this498.get_agents_by_department_dup(_this498.selectedDepart);
+              if (_this497.selectedDepart != '') {
+                _this497.get_agents_by_department_dup(_this497.selectedDepart);
               }
 
-              _this498.ticket_agent = response.tick_options[0].ticket_assigned_to; // setTimeout(() => {
+              _this497.ticket_agent = response.tick_options[0].ticket_assigned_to; // setTimeout(() => {
 
-              _this498.selectedAgentID = response.tick_options[0].ticket_assigned_to_id; // }, 4000);
+              _this497.selectedAgentID = response.tick_options[0].ticket_assigned_to_id; // }, 4000);
 
-              _this498.tick_time = response.tick_options[0].ticket_created_at;
-              _this498.ticket_to = response.tick_options[0].ticket_to;
-              _this498.ticket_cc = response.tick_options[0].mail_cc;
-              _this498.own_mail = response.tick_options[0].own_mail;
-              _this498.replied_from = response.tick_options[0].replied_from;
-              _this498.mainCont = response.tick_options[0].ticket_message;
-              _this498.ticket_message_id = response.tick_options[0].ticket_message_id;
-              _this498.ticket_t = atob(_this498.ticket_t);
-              _this498.status = response.status_options.filter(function (t) {
+              _this497.tick_time = response.tick_options[0].ticket_created_at;
+              _this497.ticket_to = response.tick_options[0].ticket_to;
+              _this497.ticket_cc = response.tick_options[0].mail_cc;
+              _this497.own_mail = response.tick_options[0].own_mail;
+              _this497.replied_from = response.tick_options[0].replied_from;
+              _this497.mainCont = response.tick_options[0].ticket_message;
+              _this497.ticket_message_id = response.tick_options[0].ticket_message_id;
+              _this497.ticket_t = atob(_this497.ticket_t);
+              _this497.status = response.status_options.filter(function (t) {
                 return t.status_id != '9';
               }); // console.log(this.status);
 
-              _this498.dept_list = response.departments;
-              _this498.total_offet = response.totel;
-              _this498.reply_from_arr = response.tick_options[0].replied_from.split(','); // this.ticket_to_arr = response.tick_options[0].ticket_to.split(',');
+              _this497.dept_list = response.departments;
+              _this497.total_offet = response.totel;
+              _this497.reply_from_arr = response.tick_options[0].replied_from.split(','); // this.ticket_to_arr = response.tick_options[0].ticket_to.split(',');
 
-              _this498.ticket_to_arr = response.tick_options[0].ticket_to.split(','); // var ticket_to_arr = response.tick_options[0].ticket_to.split(',');
+              _this497.ticket_to_arr = response.tick_options[0].ticket_to.split(','); // var ticket_to_arr = response.tick_options[0].ticket_to.split(',');
 
-              if (_this498.ticket_to == response.tick_options[0].own_mail) {
+              if (_this497.ticket_to == response.tick_options[0].own_mail) {
                 // this.EmailToAddress.push({email_to:response.tick_options[0].replied_from.split(',')});
-                if (response.tick_options[0].replied_from != 'null' && response.tick_options[0].replied_from != '') for (var value in _this498.reply_from_arr) {
-                  _this498.EmailToAddress.push({
-                    email_to: _this498.reply_from_arr[value]
+                if (response.tick_options[0].replied_from != 'null' && response.tick_options[0].replied_from != '') for (var value in _this497.reply_from_arr) {
+                  _this497.EmailToAddress.push({
+                    email_to: _this497.reply_from_arr[value]
                   });
                 }
               } else {
                 // this.EmailToAddress.push({email_to:response.tick_options[0].ticket_to});
-                if (response.tick_options[0].ticket_to != 'null' && response.tick_options[0].ticket_to != '') for (var value in _this498.ticket_to_arr) {
-                  _this498.EmailToAddress.push({
-                    email_to: _this498.ticket_to_arr[value]
+                if (response.tick_options[0].ticket_to != 'null' && response.tick_options[0].ticket_to != '') for (var value in _this497.ticket_to_arr) {
+                  _this497.EmailToAddress.push({
+                    email_to: _this497.ticket_to_arr[value]
                   });
                 }
               }
 
-              console.log(_this498.EmailToAddress);
+              console.log(_this497.EmailToAddress);
 
               if (response.tick_options[0].mail_cc != 'null' && response.tick_options[0].mail_cc != '') {
                 // this.collobrators.push({email_name: response.tick_options[0].mail_cc.split(',')});
-                var ticket_cc = _this498.ticket_cc.split(',');
+                var ticket_cc = _this497.ticket_cc.split(',');
 
                 for (var value in ticket_cc) {
-                  _this498.collobrators.push({
+                  _this497.collobrators.push({
                     email_name: ticket_cc[value]
                   });
                 }
               } // this.getdeptuser(this.department);dept_status
 
 
-              $('#dept_status').val(_this498.department);
-              if ($('#dept_status').val() != null) _this498.get_agents_by_department(); // $('#ticket_status select').val(response.tick_options[0].ticket_status_id);
+              $('#dept_status').val(_this497.department);
+              if ($('#dept_status').val() != null) _this497.get_agents_by_department(); // $('#ticket_status select').val(response.tick_options[0].ticket_status_id);
               // $('#ticket_status [name=options] option').filter(function() { 
               //   return ($(this).text() == 'New'); //To select Blue
               // }).prop('selected', true);
@@ -46704,12 +46753,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
               if (response.total > 5) {
                 // alert(this.queue_list_all.length)
-                _this498.showmore_button = true;
+                _this497.showmore_button = true;
               }
 
-              _this498.first_res_time = response.first_res_time;
-              _this498.closed_time = response.closed_at;
-              _this498.closed_by = response.ticket_closed_by;
+              _this497.first_res_time = response.first_res_time;
+              _this497.closed_time = response.closed_at;
+              _this497.closed_by = response.ticket_closed_by;
             }
           }, function (error) {
             console.log(error);
@@ -46762,7 +46811,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changeMyStatus",
         value: function changeMyStatus() {
-          var _this499 = this;
+          var _this498 = this;
 
           var tickto;
 
@@ -46816,26 +46865,26 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               api_req.moduleType = "ticket";
               api_req.api_type = "web";
               api_req.access_token = localStorage.getItem('access_token');
-              post_req.admin_id = _this499.admin_id;
-              post_req.user_id = _this499.user_id;
+              post_req.admin_id = _this498.admin_id;
+              post_req.user_id = _this498.user_id;
               post_req.action = "oncloseTocket";
               post_req.status_id = "9";
               post_req.alert_status = result.value;
-              post_req.ticket_id = _this499.ticket_t;
+              post_req.ticket_id = _this498.ticket_t;
               post_req.ticket_to = tickto;
-              post_req.ticket_cc = _this499.ticket_cc;
-              post_req.agent_name = _this499.user_name;
+              post_req.ticket_cc = _this498.ticket_cc;
+              post_req.agent_name = _this498.user_name;
               api_req.element_data = post_req;
 
-              _this499.serverService.sendServer(api_req).subscribe(function (response) {
+              _this498.serverService.sendServer(api_req).subscribe(function (response) {
                 sweetalert2__WEBPACK_IMPORTED_MODULE_9___default.a.close();
 
                 if (response.status == true) {
                   sweetalert2__WEBPACK_IMPORTED_MODULE_9___default.a.fire('Closed!', 'success');
 
-                  _this499.backtoPage();
+                  _this498.backtoPage();
 
-                  if (_this499.has_robin == 1) _this499.check_robin_queue(); // this.closed = true;
+                  if (_this498.has_robin == 1) _this498.check_robin_queue(); // this.closed = true;
                   // this.ticket_t = btoa(this.ticket_t);
                   // this.getTicketDetails(this.ticket_t);
                   // this.EmailToAddress = [];
@@ -46850,7 +46899,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changetoSpam",
         value: function changetoSpam() {
-          var _this500 = this;
+          var _this499 = this;
 
           var access_token = localStorage.getItem('access_token');
           var user_id = localStorage.getItem('userId');
@@ -46873,20 +46922,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 focusConfirm: false,
                 background: 'transparent'
               });
-              var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"blockEmailIds","admin_id":"' + _this500.admin_id + '","user_id":"' + user_id + '","email_id":"' + _this500.ticket_created_by + '","spam_status":"1","blacklist_status":"0" }}';
+              var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"blockEmailIds","admin_id":"' + _this499.admin_id + '","user_id":"' + user_id + '","email_id":"' + _this499.ticket_created_by + '","spam_status":"1","blacklist_status":"0" }}';
 
-              _this500.serverService.sendServer(api_req).subscribe(function (response) {
+              _this499.serverService.sendServer(api_req).subscribe(function (response) {
                 sweetalert2__WEBPACK_IMPORTED_MODULE_9___default.a.close();
 
                 if (response.result.status == true) {
-                  _this500.router.navigate(['/ticketing-system-new']);
+                  _this499.router.navigate(['/ticketing-system-new']);
 
                   iziToast.success({
                     message: "Marked as Spam Successfully",
                     position: 'topRight'
                   });
 
-                  _this500.router.navigate(['/ticketing-system-new']);
+                  _this499.router.navigate(['/ticketing-system-new']);
                 } else {
                   iziToast.error({
                     message: "Failed to mark as spam",
@@ -46902,7 +46951,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changetoUnspam",
         value: function changetoUnspam() {
-          var _this501 = this;
+          var _this500 = this;
 
           var access_token = localStorage.getItem('access_token');
           var user_id = localStorage.getItem('userId');
@@ -46925,13 +46974,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 background: 'transparent'
               }); // {"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"", "element_data":{"action":"blockEmailIds","admin_id":"1203","user_id":"1253","email_id":"Cal4Care | MR < mr@cal4care.com >","spam_status":"0","blacklist_status":"1"}}
 
-              var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"blockEmailIds","admin_id":"' + _this501.admin_id + '","user_id":"' + user_id + '","email_id":"' + _this501.ticket_created_by + '","spam_status":"0","blacklist_status":"0" }}';
+              var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"blockEmailIds","admin_id":"' + _this500.admin_id + '","user_id":"' + user_id + '","email_id":"' + _this500.ticket_created_by + '","spam_status":"0","blacklist_status":"0" }}';
 
-              _this501.serverService.sendServer(api_req).subscribe(function (response) {
+              _this500.serverService.sendServer(api_req).subscribe(function (response) {
                 sweetalert2__WEBPACK_IMPORTED_MODULE_9___default.a.close();
 
                 if (response.result.status == true) {
-                  _this501.backtoPage();
+                  _this500.backtoPage();
 
                   iziToast.success({
                     message: "Unspam Successfully",
@@ -46979,7 +47028,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "replyMessage",
         value: function replyMessage(msg_id, to, extra) {
-          var _this502 = this;
+          var _this501 = this;
 
           var access_token = localStorage.getItem('access_token');
           var user_id = localStorage.getItem('userId');
@@ -47079,18 +47128,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             formData.append('user_id', user_id);
             formData.append('action', 'replyTicketMessage');
             formData.append('message', msg_id);
-            formData.append('ticket_id', _this502.ticket_t);
+            formData.append('ticket_id', _this501.ticket_t);
             formData.append('signature_id', sign);
             formData.append('to', result_to);
             formData.append('mail_cc', result_cc);
-            formData.append('customer_id', _this502.customer_id); // formData.append('up_files', $('#reply_file')[0].files);
+            formData.append('customer_id', _this501.customer_id); // formData.append('up_files', $('#reply_file')[0].files);
 
             var files = $('#up_files')[0].files;
             var totalSize = 0;
 
             for (var i = 0; i < files.length; i++) {
               totalSize += files[i].size;
-            }
+            } // 20981110   ->this is 20 MB
+            // 5242880   ->this is 5 MB
+
 
             if (totalSize < 5242880) {} else {
               iziToast.warning({
@@ -47174,7 +47225,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "get_agents_by_department",
         value: function get_agents_by_department() {
-          var _this503 = this;
+          var _this502 = this;
 
           var data = $('#dept_status').val(); // alert(data)
 
@@ -47191,7 +47242,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             sweetalert2__WEBPACK_IMPORTED_MODULE_9___default.a.close();
 
             if (response.status == true) {
-              _this503.agent_options = response.result.data; // this.getTicketDetails(this.ticket_t);
+              _this502.agent_options = response.result.data; // this.getTicketDetails(this.ticket_t);
             }
           }, function (error) {
             console.log(error);
@@ -47200,7 +47251,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "get_agents_by_department_dup",
         value: function get_agents_by_department_dup(data) {
-          var _this504 = this;
+          var _this503 = this;
 
           // var data=$('#dept_status').val();
           // alert(data)
@@ -47217,7 +47268,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             sweetalert2__WEBPACK_IMPORTED_MODULE_9___default.a.close();
 
             if (response.status == true) {
-              _this504.agent_options = response.result.data; // this.selectedAgentID=id;
+              _this503.agent_options = response.result.data; // this.selectedAgentID=id;
               // this.getTicketDetails(this.ticket_t);
             }
           }, function (error) {
@@ -47227,7 +47278,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "UpdateTicketStatus",
         value: function UpdateTicketStatus() {
-          var _this505 = this;
+          var _this504 = this;
 
           var dept = $('#dept_status').val();
           var status = $('#ticket_status').val();
@@ -47270,7 +47321,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 position: "topRight"
               }); // this.router.navigate(['/ticketing-system-new']);
 
-              _this505.backtoPage(); // this.ticket_t=btoa(this.ticket_t);
+              _this504.backtoPage(); // this.ticket_t=btoa(this.ticket_t);
               // this.getTicketDetails(this.ticket_t);
               // this.EmailToAddress=[];
               // this.collobrators=[];
@@ -47278,7 +47329,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               //       this.checkRobinuser
 
 
-              if (_this505.has_robin == 1 && _this505.selectedDepart_perm == dept && _this505.selectedAgentID == agent) _this505.check_robin_queue();
+              if (_this504.has_robin == 1 && _this504.selectedDepart_perm == dept && _this504.selectedAgentID == agent) _this504.check_robin_queue();
             }
           }, function (error) {
             console.log(error);
@@ -47287,7 +47338,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "AddNote",
         value: function AddNote() {
-          var _this506 = this;
+          var _this505 = this;
 
           var api_req = new Object();
           var chat_req = new Object();
@@ -47312,12 +47363,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               });
               $('#userDepartmentManagement').modal('hide');
               $('#privateNote').val('');
-              _this506.ticket_t = btoa(_this506.ticket_t);
+              _this505.ticket_t = btoa(_this505.ticket_t);
 
-              _this506.getTicketDetails(_this506.ticket_t);
+              _this505.getTicketDetails(_this505.ticket_t);
 
-              _this506.EmailToAddress = [];
-              _this506.collobrators = [];
+              _this505.EmailToAddress = [];
+              _this505.collobrators = [];
             } else {
               iziToast.warning({
                 message: "Sorry Some error ocurred",
@@ -47344,7 +47395,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "showmore",
         value: function showmore() {
-          var _this507 = this;
+          var _this506 = this;
 
           // $("html, body").animate({ scrollTop: $(document).height() }, "slow");
           // $('.ticketing-system-panel').scrollTop($('.ticketing-system-panel')[0].scrollHeight);
@@ -47377,7 +47428,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               for (var index = 0; index < mydatas.length; index++) {
                 var data = mydatas[index];
 
-                _this507.ticket_replies.push(data);
+                _this506.ticket_replies.push(data);
               }
             }
           }, function (error) {
@@ -47400,7 +47451,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getsignpopup",
         value: function getsignpopup() {
-          var _this508 = this;
+          var _this507 = this;
 
           var access_token = localStorage.getItem('access_token');
           var sign = $('#singature_id').val();
@@ -47408,8 +47459,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
               $('#showpop_signature').modal('show');
-              _this508.signature_content = response.result.data[0].sig_content;
-              _this508.signature_title = response.result.data[0].sig_title;
+              _this507.signature_content = response.result.data[0].sig_content;
+              _this507.signature_title = response.result.data[0].sig_title;
             } else {
               iziToast.warning({
                 message: "Please try again",
@@ -47427,7 +47478,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "PickUpTicket",
         value: function PickUpTicket() {
-          var _this509 = this;
+          var _this508 = this;
 
           sweetalert2__WEBPACK_IMPORTED_MODULE_9___default.a.fire({
             title: 'Claim this Ticket',
@@ -47439,19 +47490,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             confirmButtonText: 'Yes!'
           }).then(function (result) {
             if (result.value) {
-              var tick_id = btoa(_this509.ticket_t);
+              var tick_id = btoa(_this508.ticket_t);
               var access_token = localStorage.getItem('access_token');
-              var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type":"web", "access_token":"' + access_token + '", "element_data":{"action":"claimMyTicket","user_id":"' + _this509.user_id + '","ticket_id":"' + tick_id + '","user_name":"' + _this509.user_name + '","admin_id":"' + _this509.admin_id + '"}}';
+              var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type":"web", "access_token":"' + access_token + '", "element_data":{"action":"claimMyTicket","user_id":"' + _this508.user_id + '","ticket_id":"' + tick_id + '","user_name":"' + _this508.user_name + '","admin_id":"' + _this508.admin_id + '"}}';
 
-              _this509.serverService.sendServer(api_req).subscribe(function (response) {
+              _this508.serverService.sendServer(api_req).subscribe(function (response) {
                 if (response.result.status == true) {
                   iziToast.success({
                     message: "You have Claimed this ticket",
                     position: 'topRight'
                   });
-                  _this509.ticket_t = btoa(_this509.ticket_t);
+                  _this508.ticket_t = btoa(_this508.ticket_t);
 
-                  _this509.getTicketDetails(_this509.ticket_t);
+                  _this508.getTicketDetails(_this508.ticket_t);
                 } else {
                   iziToast.warning({
                     message: "Please try again",
@@ -47471,7 +47522,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "DeleteTicket",
         value: function DeleteTicket() {
-          var _this510 = this;
+          var _this509 = this;
 
           // this.ticket_t = btoa(this.ticket_t);
           //alert(this.ticket_t);
@@ -47496,9 +47547,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             if (result.value) {
               var access_token = localStorage.getItem('access_token'); //   let api_req:any = '{"operation":"predective_dialer_contact", "moduleType":"predective_dialer_contact", "api_type": "web", "access_token":"'+access_token+'", "element_data":{"action":"delete_contact","user_id":"'+this.user_id+'","contact_id":"'+invalidContacts+'"}}';
 
-              var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"delete_multiple_ticket","value":"' + _this510.ticket_t + '","admin_id":"' + _this510.admin_id + '"}}';
+              var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"delete_multiple_ticket","value":"' + _this509.ticket_t + '","admin_id":"' + _this509.admin_id + '"}}';
 
-              _this510.serverService.sendServer(api_req).subscribe(function (response) {
+              _this509.serverService.sendServer(api_req).subscribe(function (response) {
                 sweetalert2__WEBPACK_IMPORTED_MODULE_9___default.a.close();
                 console.log(response);
 
@@ -47508,9 +47559,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     position: 'topRight'
                   }); // this.router.navigate(['/ticketing-system-new']);
 
-                  _this510.backtoPage();
+                  _this509.backtoPage();
 
-                  if (_this510.has_robin == 1) _this510.check_robin_queue();
+                  if (_this509.has_robin == 1) _this509.check_robin_queue();
                 } else {
                   iziToast.warning({
                     message: "Contact not deleted, Please try again!",
@@ -47526,7 +47577,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "RestoreTicket",
         value: function RestoreTicket() {
-          var _this511 = this;
+          var _this510 = this;
 
           // this.ticket_t = btoa(this.ticket_t);
           //alert(this.ticket_t);
@@ -47550,9 +47601,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 background: 'transparent'
               }); //   let api_req:any = '{"operation":"predective_dialer_contact", "moduleType":"predective_dialer_contact", "api_type": "web", "access_token":"'+access_token+'", "element_data":{"action":"delete_contact","user_id":"'+this.user_id+'","contact_id":"'+invalidContacts+'"}}';
 
-              var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"restore_ticket","ticket_id":"' + _this511.ticket_t + '","admin_id":"' + _this511.admin_id + '"}}';
+              var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"restore_ticket","ticket_id":"' + _this510.ticket_t + '","admin_id":"' + _this510.admin_id + '"}}';
 
-              _this511.serverService.sendServer(api_req).subscribe(function (response) {
+              _this510.serverService.sendServer(api_req).subscribe(function (response) {
                 sweetalert2__WEBPACK_IMPORTED_MODULE_9___default.a.close();
 
                 if (response.result.data == true) {
@@ -47561,9 +47612,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     position: 'topRight'
                   });
 
-                  _this511.backtoPage();
+                  _this510.backtoPage();
 
-                  if (_this511.has_robin == 1) _this511.check_robin_queue();
+                  if (_this510.has_robin == 1) _this510.check_robin_queue();
                 } else {
                   iziToast.warning({
                     message: "Contact not deleted, Please try again!",
@@ -47632,7 +47683,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "sendFullThread",
         value: function sendFullThread() {
-          var _this512 = this;
+          var _this511 = this;
 
           var access_token = localStorage.getItem('access_token');
           var new_array = [];
@@ -47673,9 +47724,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 message: "Ticket Forwarded successfully",
                 position: 'topRight'
               });
-              _this512.ticket_t = btoa(_this512.ticket_t);
+              _this511.ticket_t = btoa(_this511.ticket_t);
 
-              _this512.getTicketDetails(_this512.ticket_t);
+              _this511.getTicketDetails(_this511.ticket_t);
             } else {
               iziToast.warning({
                 message: "Some,Server error occured",
@@ -47713,7 +47764,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getDeptAliasName",
         value: function getDeptAliasName() {
-          var _this513 = this;
+          var _this512 = this;
 
           // {"operation":"ticket","moduleType":"ticket","api_type":"web","access_token":"","element_data":{"action":"getMyAliasEmails","admin_id":"1203"}}
           var access_token = localStorage.getItem('access_token');
@@ -47721,7 +47772,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
               // console.log(response);
-              _this513.Alias_emails = response.result.data;
+              _this512.Alias_emails = response.result.data;
             }
           }, function (error) {
             console.log(error);
@@ -47739,7 +47790,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "viewContract",
         value: function viewContract(id) {
-          var _this514 = this;
+          var _this513 = this;
 
           sweetalert2__WEBPACK_IMPORTED_MODULE_9___default.a.fire({
             html: '<div style="display: flex;justify-content: center;"><div class="pong-loader"></div></div>',
@@ -47761,7 +47812,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 text: 'There is no contract details'
               });
             } else {
-              _this514.contract_detial = response.result.data;
+              _this513.contract_detial = response.result.data;
               $('#ContractDetails').modal('show');
             }
           }, function (error) {
@@ -47771,7 +47822,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getAllCustomer",
         value: function getAllCustomer() {
-          var _this515 = this;
+          var _this514 = this;
 
           // {"operation":"ticket","moduleType":"ticket","api_type":"web","access_token":"","element_data":{"action":"getMyAliasEmails","admin_id":"1203"}}
           var access_token = localStorage.getItem('access_token');
@@ -47779,8 +47830,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
               // console.log(response);
-              _this515.customer_details = response.result.data;
-              _this515.customer_details_all = response.result.data;
+              _this514.customer_details = response.result.data;
+              _this514.customer_details_all = response.result.data;
             }
           }, function (error) {
             console.log(error);
@@ -47794,7 +47845,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "ChangeCustomer",
         value: function ChangeCustomer(id) {
-          var _this516 = this;
+          var _this515 = this;
 
           // {"operation":"ticket","moduleType":"ticket","api_type":"web","access_token":"","element_data":{"action":"getMyAliasEmails","admin_id":"1203"}}
           $('#changecustomerpopup').modal('hide');
@@ -47811,18 +47862,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           }).then(function (result) {
             if (result.value) {
               var access_token = localStorage.getItem('access_token');
-              var api_req = '{"operation":"ticket", "moduleType": "ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"updateCustomer","admin_id":"' + _this516.admin_id + '","ticket_id":"' + _this516.ticket_t + '","customer_id":"' + id + '"}}';
+              var api_req = '{"operation":"ticket", "moduleType": "ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"updateCustomer","admin_id":"' + _this515.admin_id + '","ticket_id":"' + _this515.ticket_t + '","customer_id":"' + id + '"}}';
 
-              _this516.serverService.sendServer(api_req).subscribe(function (response) {
+              _this515.serverService.sendServer(api_req).subscribe(function (response) {
                 if (response.status == true) {
                   iziToast.success({
                     message: "Customer Detail updated Successfully",
                     position: "topRight"
                   }); // console.log(response);
 
-                  _this516.ticket_t = btoa(_this516.ticket_t);
+                  _this515.ticket_t = btoa(_this515.ticket_t);
 
-                  _this516.getTicketDetails(_this516.ticket_t);
+                  _this515.getTicketDetails(_this515.ticket_t);
                 }
               }, function (error) {
                 console.log(error);
@@ -47958,17 +48009,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "viewMaTicket",
         value: function viewMaTicket(ticket) {
-          var _this517 = this;
+          var _this516 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type":"web", "access_token":"' + access_token + '", "element_data":{"action":"view_tickets","ticket_id":"' + ticket + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this517.main_list = response.result.data['main_data'];
-              _this517.replay_list = response.result.data['replies'];
-              _this517.tic_details = response.result.data['tic_details'];
-              _this517.ticket_status = _this517.tic_details['ticket_status'];
-              _this517.ticket_closed_by = _this517.tic_details.closed;
+              _this516.main_list = response.result.data['main_data'];
+              _this516.replay_list = response.result.data['replies'];
+              _this516.tic_details = response.result.data['tic_details'];
+              _this516.ticket_status = _this516.tic_details['ticket_status'];
+              _this516.ticket_closed_by = _this516.tic_details.closed;
             }
           }, function (error) {
             console.log(error);
@@ -47983,7 +48034,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "assignTicket",
         value: function assignTicket(ticket_id) {
-          var _this518 = this;
+          var _this517 = this;
 
           var assigned_department_id = $('#departments').val();
           console.log(assigned_department_id);
@@ -48005,7 +48056,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 position: 'topRight'
               });
 
-              _this518.viewMaTicket(_this518.ticket_id);
+              _this517.viewMaTicket(_this517.ticket_id);
 
               $('#assign_ticket').modal('hide');
             } else {
@@ -48025,13 +48076,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getDepartments",
         value: function getDepartments() {
-          var _this519 = this;
+          var _this518 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"get_dept_settings","user_id":"' + this.uadmin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this519.departments = response.result.data;
+              _this518.departments = response.result.data;
             } else {}
           }, function (error) {
             console.log(error);
@@ -48046,7 +48097,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "ReplyTicket",
         value: function ReplyTicket(ticket_id) {
-          var _this520 = this;
+          var _this519 = this;
 
           var reply_msg = $('#reply_editor').val();
 
@@ -48067,7 +48118,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 position: 'topRight'
               });
 
-              _this520.viewMaTicket(_this520.ticket_id);
+              _this519.viewMaTicket(_this519.ticket_id);
 
               $('#reply_ticket').modal('hide');
             } else {
@@ -48087,7 +48138,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "closeTicket",
         value: function closeTicket(ticket_id) {
-          var _this521 = this;
+          var _this520 = this;
 
           if (window.confirm("Are you sure to close this ticket?")) {
             console.log("Implement delete functionality here");
@@ -48105,7 +48156,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 position: 'topRight'
               });
 
-              _this521.viewMaTicket(_this521.ticket_id);
+              _this520.viewMaTicket(_this520.ticket_id);
             } else {}
           }, function (error) {
             console.log(error);
@@ -48220,7 +48271,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var TicketingSystemNewComponent = /*#__PURE__*/function () {
       function TicketingSystemNewComponent(serverService, router, rd) {
-        var _this522 = this;
+        var _this521 = this;
 
         _classCallCheck(this, TicketingSystemNewComponent);
 
@@ -48259,7 +48310,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var pageid = mData.id;
 
           if (pagefor == 'email_ticketing') {
-            _this522.my_externaltickets();
+            _this521.my_externaltickets();
           }
         }, function (err) {});
       }
@@ -48308,7 +48359,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "searchTickets",
         value: function searchTickets(data) {
-          var _this523 = this;
+          var _this522 = this;
 
           console.log(data); // {"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"", "element_data":{"action":"searchTicketID","user_type":"3","admin_id":"1203","user_id":"1250","is_spam":"0","ticket_search":"507","limit":"10","offset":"0"}}
 
@@ -48338,6 +48389,88 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + this.access_token + '", "element_data":{"action":"searchTicketID","user_type":"' + this.user_type + '","user_id":"' + this.user_id + '","admin_id":"' + this.admin_id + '","ticket_search":"' + search_value + '","limit":"' + this.pageLimit + '", "is_spam":"0" ,"offset":"' + this.offset_count + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
+            _this522.filter_status = 'All';
+            _this522.filter_depart = 'All';
+            _this522.filter_agents = 'All';
+            _this522.select_status = "Select Status";
+            _this522.select_depart = "Select Department";
+            _this522.select_agent = "Select Agent";
+            sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.close();
+            _this522.global_search = false;
+
+            if (response.status == "true") {
+              _this522.queue_list = response.ticket_options;
+              _this522.queue_list_all = response.ticket_options; // this.offset_count=response.ticket_options.length>=10?response.ticket_options.length-10:response.ticket_options.length;
+
+              if (_this522.queue_list == null) {
+                _this522.emptyticket = true;
+                _this522.showtickets = false;
+              } else {
+                _this522.emptyticket = false;
+                _this522.showtickets = true;
+              }
+
+              _this522.priority = response.priority_options;
+              _this522.department = response.department_options;
+              _this522.status = response.status_options.filter(function (t) {
+                return t.status_id != '9' && t.status_id != '3';
+              }); // this.status = this.status.filter(t => t.status_id != '3');
+              // this.filterlist_status = response.status_options;
+              // this.status_all = response.count_options;
+
+              _this522.total_offet = response.total; // localStorage.setItem('ticket_status',this.status);
+              // localStorage.setItem('priority_options',this.priority);
+              // localStorage.setItem('department_options',this.department);
+
+              if (response.status_option == 'closed') {
+                $("#dropdown-toggle").prop("disabled", true);
+                _this522.closed = true;
+              }
+
+              console.log(_this522.priority);
+              _this522.showmore_filter = false;
+              _this522.showmore_button = false;
+              _this522.search_ticket = false;
+
+              if (response.total > _this522.pageLimit) {
+                // alert(this.queue_list_all.length)
+                // this.showmore_button = true;
+                _this522.search_ticket = true;
+              }
+            }
+          }, function (error) {
+            console.log(error);
+          });
+        }
+      }, {
+        key: "searchTicketsGlobal",
+        value: function searchTicketsGlobal(data) {
+          var _this523 = this;
+
+          console.log(data); // {"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"", "element_data":{"action":"searchTicketID","user_type":"3","admin_id":"1203","user_id":"1250","is_spam":"0","ticket_search":"507","limit":"10","offset":"0"}}
+
+          this.global_search = true;
+          var search_value = data.search_text;
+          this.searched_value = data.search_text;
+
+          if (this.searched_value == '' || this.searched_value == null || this.searched_value == undefined) {
+            iziToast.warning({
+              message: "Please Enter the Search text ",
+              position: "topRight"
+            });
+            return false;
+          }
+
+          sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.fire({
+            html: '<div style="display: flex;justify-content: center;"><div class="pong-loader"></div></div>',
+            showCloseButton: false,
+            showCancelButton: false,
+            showConfirmButton: false,
+            focusConfirm: false,
+            background: 'transparent'
+          });
+          var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + this.access_token + '", "element_data":{"action":"searchTicketID","user_type":"2","user_id":"' + this.admin_id + '","admin_id":"' + this.admin_id + '","ticket_search":"' + search_value + '","limit":"' + this.pageLimit + '", "is_spam":"0" ,"offset":"' + this.offset_count + '"}}';
+          this.serverService.sendServer(api_req).subscribe(function (response) {
             _this523.filter_status = 'All';
             _this523.filter_depart = 'All';
             _this523.filter_agents = 'All';
@@ -48345,7 +48478,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             _this523.select_depart = "Select Department";
             _this523.select_agent = "Select Agent";
             sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.close();
-            _this523.global_search = false;
 
             if (response.status == "true") {
               _this523.queue_list = response.ticket_options;
@@ -48392,24 +48524,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
         }
       }, {
-        key: "searchTicketsGlobal",
-        value: function searchTicketsGlobal(data) {
+        key: "filterSomething",
+        value: function filterSomething(filterArgs) {
+          var firstArg = filterArgs[0];
+          var secondArg = filterArgs[1];
+          return firstArg;
+        }
+      }, {
+        key: "my_externaltickets",
+        value: function my_externaltickets() {
           var _this524 = this;
 
-          console.log(data); // {"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"", "element_data":{"action":"searchTicketID","user_type":"3","admin_id":"1203","user_id":"1250","is_spam":"0","ticket_search":"507","limit":"10","offset":"0"}}
-
-          this.global_search = true;
-          var search_value = data.search_text;
-          this.searched_value = data.search_text;
-
-          if (this.searched_value == '' || this.searched_value == null || this.searched_value == undefined) {
-            iziToast.warning({
-              message: "Please Enter the Search text ",
-              position: "topRight"
-            });
-            return false;
-          }
-
+          // this.inputName.nativeElement.value = ' ';
+          this.offset_count = 0;
+          var admin_id = localStorage.getItem('admin_id');
           sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.fire({
             html: '<div style="display: flex;justify-content: center;"><div class="pong-loader"></div></div>',
             showCloseButton: false,
@@ -48418,15 +48546,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             focusConfirm: false,
             background: 'transparent'
           });
-          var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + this.access_token + '", "element_data":{"action":"searchTicketID","user_type":"2","user_id":"' + this.admin_id + '","admin_id":"' + this.admin_id + '","ticket_search":"' + search_value + '","limit":"' + this.pageLimit + '", "is_spam":"0" ,"offset":"' + this.offset_count + '"}}';
+          var api_req = '{"operation":"getmyExternalTicket", "moduleType":"ticket", "api_type": "web", "access_token":"' + this.access_token + '", "element_data":{"action":"my_externaltickets","user_type":"' + this.user_type + '","user_id":"' + this.user_id + '","admin_id":"' + admin_id + '","ticket_status":"' + this.filter_status + '","limit":"' + this.pageLimit + '", "is_spam":"0" ,"offset":"' + this.offset_count + '","ticket_department":"' + this.filter_depart + '","ticket_user":"' + this.user_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
-            _this524.filter_status = 'All';
-            _this524.filter_depart = 'All';
-            _this524.filter_agents = 'All';
-            _this524.select_status = "Select Status";
-            _this524.select_depart = "Select Department";
-            _this524.select_agent = "Select Agent";
             sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.close();
+            _this524.search_ticket = false; // Search option Readmore button
+
+            _this524.global_search = false; //This will enable for the global search
 
             if (response.status == "true") {
               _this524.queue_list = response.ticket_options;
@@ -48445,10 +48570,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               _this524.status = response.status_options.filter(function (t) {
                 return t.status_id != '9' && t.status_id != '3';
               }); // this.status = this.status.filter(t => t.status_id != '3');
-              // this.filterlist_status = response.status_options;
-              // this.status_all = response.count_options;
 
-              _this524.total_offet = response.total; // localStorage.setItem('ticket_status',this.status);
+              _this524.filterlist_status = response.status_options;
+              _this524.status_all = response.count_options;
+              _this524.total_offet = response.total; // this.offset_count=response.ticket_options.length>=10?response.ticket_options.length-10:response.ticket_options.length;
+              // localStorage.setItem('ticket_status',this.status);
               // localStorage.setItem('priority_options',this.priority);
               // localStorage.setItem('department_options',this.department);
 
@@ -48458,88 +48584,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               }
 
               console.log(_this524.priority);
-              _this524.showmore_filter = false;
-              _this524.showmore_button = false;
-              _this524.search_ticket = false;
+              _this524.total_offset_filter = response.total;
 
               if (response.total > _this524.pageLimit) {
                 // alert(this.queue_list_all.length)
-                // this.showmore_button = true;
-                _this524.search_ticket = true;
-              }
-            }
-          }, function (error) {
-            console.log(error);
-          });
-        }
-      }, {
-        key: "filterSomething",
-        value: function filterSomething(filterArgs) {
-          var firstArg = filterArgs[0];
-          var secondArg = filterArgs[1];
-          return firstArg;
-        }
-      }, {
-        key: "my_externaltickets",
-        value: function my_externaltickets() {
-          var _this525 = this;
-
-          // this.inputName.nativeElement.value = ' ';
-          this.offset_count = 0;
-          var admin_id = localStorage.getItem('admin_id');
-          sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.fire({
-            html: '<div style="display: flex;justify-content: center;"><div class="pong-loader"></div></div>',
-            showCloseButton: false,
-            showCancelButton: false,
-            showConfirmButton: false,
-            focusConfirm: false,
-            background: 'transparent'
-          });
-          var api_req = '{"operation":"getmyExternalTicket", "moduleType":"ticket", "api_type": "web", "access_token":"' + this.access_token + '", "element_data":{"action":"my_externaltickets","user_type":"' + this.user_type + '","user_id":"' + this.user_id + '","admin_id":"' + admin_id + '","ticket_status":"' + this.filter_status + '","limit":"' + this.pageLimit + '", "is_spam":"0" ,"offset":"' + this.offset_count + '","ticket_department":"' + this.filter_depart + '","ticket_user":"' + this.user_id + '"}}';
-          this.serverService.sendServer(api_req).subscribe(function (response) {
-            sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.close();
-            _this525.search_ticket = false; // Search option Readmore button
-
-            _this525.global_search = false; //This will enable for the global search
-
-            if (response.status == "true") {
-              _this525.queue_list = response.ticket_options;
-              _this525.queue_list_all = response.ticket_options; // this.offset_count=response.ticket_options.length>=10?response.ticket_options.length-10:response.ticket_options.length;
-
-              if (_this525.queue_list == null) {
-                _this525.emptyticket = true;
-                _this525.showtickets = false;
+                _this524.showmore_button = true;
               } else {
-                _this525.emptyticket = false;
-                _this525.showtickets = true;
-              }
-
-              _this525.priority = response.priority_options;
-              _this525.department = response.department_options;
-              _this525.status = response.status_options.filter(function (t) {
-                return t.status_id != '9' && t.status_id != '3';
-              }); // this.status = this.status.filter(t => t.status_id != '3');
-
-              _this525.filterlist_status = response.status_options;
-              _this525.status_all = response.count_options;
-              _this525.total_offet = response.total; // this.offset_count=response.ticket_options.length>=10?response.ticket_options.length-10:response.ticket_options.length;
-              // localStorage.setItem('ticket_status',this.status);
-              // localStorage.setItem('priority_options',this.priority);
-              // localStorage.setItem('department_options',this.department);
-
-              if (response.status_option == 'closed') {
-                $("#dropdown-toggle").prop("disabled", true);
-                _this525.closed = true;
-              }
-
-              console.log(_this525.priority);
-              _this525.total_offset_filter = response.total;
-
-              if (response.total > _this525.pageLimit) {
-                // alert(this.queue_list_all.length)
-                _this525.showmore_button = true;
-              } else {
-                _this525.showmore_button = false;
+                _this524.showmore_button = false;
               }
             }
           }, function (error) {
@@ -48587,14 +48638,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changeMyDepartment",
         value: function changeMyDepartment(ticket_id, department) {
-          var _this526 = this;
+          var _this525 = this;
 
           if (this.round_robin == 1) this.check_robin_queue(ticket_id);
           var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + this.access_token + '", "element_data":{"action":"onchange_department","department_id":"' + department + '","ticket_id":"' + ticket_id + '","admin_id":"' + this.admin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
               // this.my_externaltickets();
-              if (_this526.round_robin == 1) {
+              if (_this525.round_robin == 1) {
                 //  this.check_robin_queue(ticket_id);
                 iziToast.success({
                   message: "Ticket Queue updated",
@@ -48607,10 +48658,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 });
               }
 
-              if (_this526.filter_agents != 'All') {
-                _this526.filterByAgent(_this526.filter_agents);
+              if (_this525.filter_agents != 'All') {
+                _this525.filterByAgent(_this525.filter_agents);
               } else {
-                _this526.my_externaltickets();
+                _this525.my_externaltickets();
               }
             }
           }, function (error) {
@@ -48620,14 +48671,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changeMyStatus",
         value: function changeMyStatus(ticket, ticket_id, status, name) {
-          var _this527 = this;
+          var _this526 = this;
 
           var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + this.access_token + '", "element_data":{"action":"onchange_status","status_id":"' + status + '","ticket_id":"' + ticket_id + '","user_id":"' + this.user_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
               ticket.ticket_status = name; // if(status==5){
 
-              if (_this527.round_robin == 1) _this527.check_robin_queue(ticket_id); // setTimeout(() => {
+              if (_this526.round_robin == 1) _this526.check_robin_queue(ticket_id); // setTimeout(() => {
               // 	if (this.filter_agents != 'All') {
               // 		this.filterByAgent(this.filter_agents, this.select_agent);
               // 	} else {
@@ -48721,7 +48772,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "showmore",
         value: function showmore() {
-          var _this528 = this;
+          var _this527 = this;
 
           // $("html, body").animate({ scrollTop: $(document).height() }, "slow");
           // $('.ticketing-system-panel').scrollTop($('.ticketing-system-panel')[0].scrollHeight);
@@ -48790,9 +48841,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           var api_req = '{"operation":"getmyExternalTicket", "moduleType":"ticket", "api_type": "web", "access_token":"' + this.access_token + '", "element_data":{"action":"my_externaltickets","user_type":"' + this.user_type + '","user_id":"' + this.user_id + '","admin_id":"' + admin_id + '","ticket_status":"' + this.filter_status + '","is_spam":"0","limit":"' + this.pageLimit + '","offset":"' + this.offset_count + '","ticket_department":"' + this.filter_depart + '","ticket_user":"' + this.user_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
-            _this528.search_ticket = false; // Search option Readmore button
+            _this527.search_ticket = false; // Search option Readmore button
 
-            _this528.global_search = false; //This will enable for the global search
+            _this527.global_search = false; //This will enable for the global search
 
             sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.close();
 
@@ -48806,7 +48857,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               for (var index = 0; index < mydatas.length; index++) {
                 var data = mydatas[index];
 
-                _this528.queue_list.push(data);
+                _this527.queue_list.push(data);
               }
             }
           }, function (error) {
@@ -48837,7 +48888,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "filterByStatus",
         value: function filterByStatus(id) {
-          var _this529 = this;
+          var _this528 = this;
 
           // alert(id);
           this.inputName.nativeElement.value = ' ';
@@ -48896,26 +48947,26 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             var api_req = '{"operation":"getmyExternalTicket", "moduleType":"ticket", "api_type": "web", "access_token":"' + this.access_token + '", "element_data":{"action":"my_externaltickets","user_type":"' + this.user_type + '","user_id":"' + this.user_id + '","admin_id":"' + admin_id + '","ticket_status":"' + this.filter_status + '","is_spam":"0" ,"limit":"' + this.pageLimit + '","offset":"' + this.filter_offset + '","ticket_department":"' + this.filter_depart + '","ticket_user":"' + this.user_id + '"}}';
             this.serverService.sendServer(api_req).subscribe(function (response) {
               sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.close();
-              _this529.search_ticket = false; // Search option Readmore button
+              _this528.search_ticket = false; // Search option Readmore button
 
-              _this529.global_search = false; //This will enable for the global search
+              _this528.global_search = false; //This will enable for the global search
 
               if (response.status == "true") {
-                _this529.queue_list = response.ticket_options;
-                _this529.total_offset_filter = response.total; // this.offset_count=response.ticket_options.length>=10?response.ticket_options.length-10:response.ticket_options.length;
+                _this528.queue_list = response.ticket_options;
+                _this528.total_offset_filter = response.total; // this.offset_count=response.ticket_options.length>=10?response.ticket_options.length-10:response.ticket_options.length;
                 //this.filter_status='All';
 
-                if (_this529.total_offset_filter > _this529.pageLimit) {
+                if (_this528.total_offset_filter > _this528.pageLimit) {
                   // alert(this.queue_list_all.length)
-                  _this529.showmore_filter = true;
+                  _this528.showmore_filter = true;
                 }
 
-                if (_this529.queue_list == null) {
-                  _this529.emptyticket = true;
-                  _this529.showtickets = false;
+                if (_this528.queue_list == null) {
+                  _this528.emptyticket = true;
+                  _this528.showtickets = false;
                 } else {
-                  _this529.emptyticket = false;
-                  _this529.showtickets = true;
+                  _this528.emptyticket = false;
+                  _this528.showtickets = true;
                 }
               }
             }, function (error) {
@@ -48929,7 +48980,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "filterByDepartment",
         value: function filterByDepartment(id, name) {
-          var _this530 = this;
+          var _this529 = this;
 
           this.inputName.nativeElement.value = ' ';
           var admin_id = localStorage.getItem('admin_id');
@@ -48972,27 +49023,27 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
             this.serverService.sendServer(api_req).subscribe(function (response) {
               sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.close();
-              _this530.search_ticket = false; // Search option Readmore button
+              _this529.search_ticket = false; // Search option Readmore button
 
-              _this530.global_search = false; //This will enable for the global search
+              _this529.global_search = false; //This will enable for the global search
 
               if (response.status == "true") {
-                _this530.queue_list = response.ticket_options;
-                _this530.total_offset_filter = response.total;
-                _this530.status_all = response.count_options; // this.offset_count=response.ticket_options.length>=10?response.ticket_options.length-10:response.ticket_options.length;
+                _this529.queue_list = response.ticket_options;
+                _this529.total_offset_filter = response.total;
+                _this529.status_all = response.count_options; // this.offset_count=response.ticket_options.length>=10?response.ticket_options.length-10:response.ticket_options.length;
                 //this.filter_status='All';
 
-                if (_this530.total_offset_filter > _this530.pageLimit) {
+                if (_this529.total_offset_filter > _this529.pageLimit) {
                   // alert(this.queue_list_all.length)
-                  _this530.showmore_filter = true;
+                  _this529.showmore_filter = true;
                 }
 
-                if (_this530.queue_list == null) {
-                  _this530.emptyticket = true;
-                  _this530.showtickets = false;
+                if (_this529.queue_list == null) {
+                  _this529.emptyticket = true;
+                  _this529.showtickets = false;
                 } else {
-                  _this530.emptyticket = false;
-                  _this530.showtickets = true;
+                  _this529.emptyticket = false;
+                  _this529.showtickets = true;
                 }
               }
             }, function (error) {
@@ -49005,7 +49056,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "showmoreFilter",
         value: function showmoreFilter() {
-          var _this531 = this;
+          var _this530 = this;
 
           this.showmore_filter = true;
           this.filter_offset = this.filter_offset + 10; // alert(this.offset_count);
@@ -49040,9 +49091,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var api_req = '{"operation":"getmyExternalTicket", "moduleType":"ticket", "api_type": "web", "access_token":"' + this.access_token + '", "element_data":{"action":"my_externaltickets","user_type":"' + this.user_type + '","user_id":"' + this.user_id + '","admin_id":"' + admin_id + '","ticket_status":"' + this.filter_status + '","is_spam":"0" ,"limit":"' + this.pageLimit + '","offset":"' + this.filter_offset + '","ticket_department":"' + this.filter_depart + '","ticket_user":"' + this.user_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.close();
-            _this531.search_ticket = false; // Search option Readmore button
+            _this530.search_ticket = false; // Search option Readmore button
 
-            _this531.global_search = false; //This will enable for the global search
+            _this530.global_search = false; //This will enable for the global search
 
             if (response.status == "true") {
               // this.queue_list = response.ticket_options;
@@ -49054,7 +49105,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               for (var index = 0; index < mydatas.length; index++) {
                 var data = mydatas[index];
 
-                _this531.queue_list.push(data);
+                _this530.queue_list.push(data);
               }
             }
           }, function (error) {
@@ -49105,7 +49156,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "BAssignTickets",
         value: function BAssignTickets() {
-          var _this532 = this;
+          var _this531 = this;
 
           var department = $('#BAssignTickets').val();
           var access_token = localStorage.getItem('access_token'); // alert(this.bulk_tickets);
@@ -49113,16 +49164,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"external_ticket_bulk_assign","ticket_id":"' + this.bulk_tickets + '","department":"' + department + '","agent_id":" ","user_id":"' + this.user_id + '","admin_id":"' + this.admin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this532.bulk_tickets = '';
+              _this531.bulk_tickets = '';
               iziToast.success({
                 message: "Assigned Successfully",
                 position: 'topRight'
               });
 
-              _this532.my_externaltickets();
+              _this531.my_externaltickets();
 
-              if (_this532.round_robin == 1) _this532.bulk_tickets.forEach(function (element) {
-                _this532.check_robin_queue(element);
+              if (_this531.round_robin == 1) _this531.bulk_tickets.forEach(function (element) {
+                _this531.check_robin_queue(element);
               });
             } else {
               iziToast.error({
@@ -49137,14 +49188,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "user_lists",
         value: function user_lists() {
-          var _this533 = this;
+          var _this532 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"agents", "moduleType":"agents", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"user_list","user_id":"' + this.user_id + '","search_text":"","order_by_name":"user.agent_name","order_by_type":"asc","limit":250,"offset":0}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == 1) {
-              _this533.agents_list = response.result.data.list_data;
-              _this533.agents_list = _this533.agents_list.sort(function (a, b) {
+              _this532.agents_list = response.result.data.list_data;
+              _this532.agents_list = _this532.agents_list.sort(function (a, b) {
                 return a.agent_name > b.agent_name;
               });
             }
@@ -49155,7 +49206,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "filterByAgent",
         value: function filterByAgent(id) {
-          var _this534 = this;
+          var _this533 = this;
 
           this.inputName.nativeElement.value = ' ';
           var name = 'Reset Filter';
@@ -49211,28 +49262,28 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var api_req = '{"operation":"filter_getmyExternalTicket", "moduleType":"ticket", "api_type": "web", "access_token":"' + this.access_token + '", "element_data":{"action":"filter_getmyExternalTicket","user_type":"3", "is_spam":"0" ,"user_id":"' + this.filter_agents + '","admin_id":"' + admin_id + '","ticket_department":"' + this.filter_depart + '","limit":"' + this.pageLimit + '","offset":"' + this.filter_offset + '","ticket_status":"' + this.filter_status + '","ticket_user":"' + this.filter_agents + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.close();
-            _this534.search_ticket = false; // Search option Readmore button
+            _this533.search_ticket = false; // Search option Readmore button
 
-            _this534.global_search = false; //This will enable for the global search
+            _this533.global_search = false; //This will enable for the global search
 
             if (response.status == "true") {
-              _this534.queue_list = response.ticket_options;
-              _this534.total_offset_filter = response.total;
-              _this534.status_all = response.count_options; // this.offset_count=response.ticket_options.length>=10?response.ticket_options.length-10:response.ticket_options.length;
+              _this533.queue_list = response.ticket_options;
+              _this533.total_offset_filter = response.total;
+              _this533.status_all = response.count_options; // this.offset_count=response.ticket_options.length>=10?response.ticket_options.length-10:response.ticket_options.length;
               //this.filter_status='All';
 
-              if (_this534.total_offset_filter > _this534.pageLimit) {
+              if (_this533.total_offset_filter > _this533.pageLimit) {
                 // alert(this.queue_list_all.length)
-                _this534.showmore_filter = false;
-                _this534.showmore_button = true;
+                _this533.showmore_filter = false;
+                _this533.showmore_button = true;
               }
 
-              if (_this534.queue_list == null) {
-                _this534.emptyticket = true;
-                _this534.showtickets = false;
+              if (_this533.queue_list == null) {
+                _this533.emptyticket = true;
+                _this533.showtickets = false;
               } else {
-                _this534.emptyticket = false;
-                _this534.showtickets = true;
+                _this533.emptyticket = false;
+                _this533.showtickets = true;
               }
             }
           }, function (error) {
@@ -49242,7 +49293,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "showmoreSearch",
         value: function showmoreSearch() {
-          var _this535 = this;
+          var _this534 = this;
 
           var admin_id = localStorage.getItem('admin_id');
           this.filter_status = 'All';
@@ -49298,7 +49349,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               for (var index = 0; index < mydatas.length; index++) {
                 var data = mydatas[index];
 
-                _this535.queue_list.push(data);
+                _this534.queue_list.push(data);
               }
             }
           }, function (error) {
@@ -49308,7 +49359,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "DeleteTickets",
         value: function DeleteTickets() {
-          var _this536 = this;
+          var _this535 = this;
 
           var i = 0;
           var invalidContacts = [];
@@ -49337,9 +49388,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             if (result.value) {
               var access_token = localStorage.getItem('access_token'); //   let api_req:any = '{"operation":"predective_dialer_contact", "moduleType":"predective_dialer_contact", "api_type": "web", "access_token":"'+access_token+'", "element_data":{"action":"delete_contact","user_id":"'+this.user_id+'","contact_id":"'+invalidContacts+'"}}';
 
-              var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"delete_multiple_ticket","value":"' + invalidContacts + '","admin_id":"' + _this536.admin_id + '"}}';
+              var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"delete_multiple_ticket","value":"' + invalidContacts + '","admin_id":"' + _this535.admin_id + '"}}';
 
-              _this536.serverService.sendServer(api_req).subscribe(function (response) {
+              _this535.serverService.sendServer(api_req).subscribe(function (response) {
                 console.log(response);
 
                 if (response.result.data == true) {
@@ -49347,11 +49398,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     message: "Ticket deleted successfully",
                     position: 'topRight'
                   });
-                  if (_this536.round_robin == 1) invalidContacts.forEach(function (element) {
-                    _this536.check_robin_queue(element);
+                  if (_this535.round_robin == 1) invalidContacts.forEach(function (element) {
+                    _this535.check_robin_queue(element);
                   });
                   setTimeout(function () {
-                    _this536.my_externaltickets();
+                    _this535.my_externaltickets();
                   }, 2000);
                 } else {
                   iziToast.warning({
@@ -49368,16 +49419,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "sharedAgents",
         value: function sharedAgents() {
-          var _this537 = this;
+          var _this536 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"ticket_shared_agent","user_id":"' + this.user_id + '","admin_id":"' + this.admin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == 'true') {
-              _this537.agents_list_shared = response.user_options;
-              console.log(_this537.agents_list_shared);
-              _this537.agents_list_shared = _this537.removeDuplicates(_this537.agents_list_shared, "user_id");
-              console.log(_this537.agents_list_shared);
+              _this536.agents_list_shared = response.user_options;
+              console.log(_this536.agents_list_shared);
+              _this536.agents_list_shared = _this536.removeDuplicates(_this536.agents_list_shared, "user_id");
+              console.log(_this536.agents_list_shared);
             }
           }, function (error) {
             console.log(error);
@@ -49402,7 +49453,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "filterByAgent2",
         value: function filterByAgent2(id, name) {
-          var _this538 = this;
+          var _this537 = this;
 
           this.inputName.nativeElement.value = ' ';
           var admin_id = localStorage.getItem('admin_id');
@@ -49441,27 +49492,27 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var api_req = '{"operation":"getmyExternalTicket", "moduleType":"ticket", "api_type": "web", "access_token":"' + this.access_token + '", "element_data":{"action":"my_externaltickets","user_type":"3", "is_spam":"0" ,"user_id":"' + this.filter_agents + '","admin_id":"' + admin_id + '","ticket_department":"' + this.filter_depart + '","limit":"' + this.pageLimit + '","offset":"' + this.filter_offset + '","ticket_status":"' + this.filter_status + '","ticket_user":"' + this.filter_agents + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.close();
-            _this538.search_ticket = false; // Search option Readmore button
+            _this537.search_ticket = false; // Search option Readmore button
 
-            _this538.global_search = false; //This will enable for the global search
+            _this537.global_search = false; //This will enable for the global search
 
             if (response.status == "true") {
-              _this538.queue_list = response.ticket_options;
-              _this538.total_offset_filter = response.total;
-              _this538.status_all = response.count_options; // this.offset_count=response.ticket_options.length>=10?response.ticket_options.length-10:response.ticket_options.length;
+              _this537.queue_list = response.ticket_options;
+              _this537.total_offset_filter = response.total;
+              _this537.status_all = response.count_options; // this.offset_count=response.ticket_options.length>=10?response.ticket_options.length-10:response.ticket_options.length;
               //this.filter_status='All';
 
-              if (_this538.total_offset_filter > _this538.pageLimit) {
+              if (_this537.total_offset_filter > _this537.pageLimit) {
                 // alert(this.queue_list_all.length)
-                _this538.showmore_filter = true;
+                _this537.showmore_filter = true;
               }
 
-              if (_this538.queue_list == null) {
-                _this538.emptyticket = true;
-                _this538.showtickets = false;
+              if (_this537.queue_list == null) {
+                _this537.emptyticket = true;
+                _this537.showtickets = false;
               } else {
-                _this538.emptyticket = false;
-                _this538.showtickets = true;
+                _this537.emptyticket = false;
+                _this537.showtickets = true;
               }
             }
           }, function (error) {
@@ -49513,7 +49564,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "filterByAgentshowmore",
         value: function filterByAgentshowmore() {
-          var _this539 = this;
+          var _this538 = this;
 
           sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.fire({
             html: '<div style="display: flex;justify-content: center;"><div class="pong-loader"></div></div>',
@@ -49533,9 +49584,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var api_req = '{"operation":"filter_getmyExternalTicket", "moduleType":"ticket", "api_type": "web", "access_token":"' + this.access_token + '", "element_data":{"action":"filter_getmyExternalTicket","user_type":"3", "is_spam":"0" ,"user_id":"' + this.filter_agents + '","admin_id":"' + this.admin_id + '","ticket_department":"' + this.filter_depart + '","limit":"' + this.pageLimit + '","offset":"' + this.filter_offset + '","ticket_status":"' + this.filter_status + '","ticket_user":"' + this.filter_agents + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.close();
-            _this539.search_ticket = false; // Search option Readmore button
+            _this538.search_ticket = false; // Search option Readmore button
 
-            _this539.global_search = false; //This will enable for the global search
+            _this538.global_search = false; //This will enable for the global search
 
             if (response.status == "true") {
               // this.queue_list = response.ticket_options;
@@ -49547,7 +49598,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               for (var index = 0; index < mydatas.length; index++) {
                 var data = mydatas[index];
 
-                _this539.queue_list.push(data);
+                _this538.queue_list.push(data);
               }
             }
           }, function (error) {
@@ -49557,7 +49608,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "viewContract",
         value: function viewContract(id) {
-          var _this540 = this;
+          var _this539 = this;
 
           sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.fire({
             html: '<div style="display: flex;justify-content: center;"><div class="pong-loader"></div></div>',
@@ -49579,7 +49630,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 text: 'There is no contract details'
               });
             } else {
-              _this540.contract_detial = response.result.data;
+              _this539.contract_detial = response.result.data;
               $('#ContractDetails').modal('show'); // alert(response.result.data.color)
               // $(".box-shadow").css('background','#'+response.result.data.color+'');
             }
@@ -49590,7 +49641,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "MergeTickets",
         value: function MergeTickets() {
-          var _this541 = this;
+          var _this540 = this;
 
           var i = 0;
           var invalidContacts = [];
@@ -49642,9 +49693,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 _iterator3.f();
               }
 
-              var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"merge_ticket","main_ticket_id":"' + main_ticket_id + '","sub_ticket_id":"' + sub_ticket_id + '","admin_id":"' + _this541.admin_id + '"}}';
+              var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"merge_ticket","main_ticket_id":"' + main_ticket_id + '","sub_ticket_id":"' + sub_ticket_id + '","admin_id":"' + _this540.admin_id + '"}}';
 
-              _this541.serverService.sendServer(api_req).subscribe(function (response) {
+              _this540.serverService.sendServer(api_req).subscribe(function (response) {
                 console.log(response);
 
                 if (response.result.data == true) {
@@ -49653,7 +49704,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     position: 'topRight'
                   });
                   setTimeout(function () {
-                    _this541.my_externaltickets();
+                    _this540.my_externaltickets();
                   }, 2000);
                 } else {
                   iziToast.warning({
@@ -49786,7 +49837,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "myTickets",
         value: function myTickets() {
-          var _this542 = this;
+          var _this541 = this;
 
           var access_token = localStorage.getItem('access_token');
           this.user_type = localStorage.getItem('user_type');
@@ -49802,9 +49853,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type":"web", "access_token":"' + access_token + '", "element_data":{"action":"my_tickets","user_type":"' + this.user_type + '","user_id":"' + this.user_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this542.queue_list = response.result.data;
+              _this541.queue_list = response.result.data;
             } else {
-              _this542.recordNotFound = true;
+              _this541.recordNotFound = true;
             }
           }, function (error) {
             console.log(error);
@@ -49939,7 +49990,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "allDocuments",
         value: function allDocuments() {
-          var _this543 = this;
+          var _this542 = this;
 
           var access_token = localStorage.getItem('access_token');
           var user_id = localStorage.getItem('userId');
@@ -49947,34 +49998,34 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
               var data = response.result.data;
-              _this543.mrvoip_main = data.mrvoip_data[0].main_document;
-              _this543.mrvoip_lin = data.mrvoip_data[0].linux_document;
-              _this543.mrvoip_win = data.mrvoip_data[0].windows_document;
-              _this543.mrvoip_lin_file = data.mrvoip_data[0].linux_document_1;
-              _this543.mrvoip_win_file = data.mrvoip_data[0].windows_document_1;
-              _this543.mrvoip_lin2 = data.mrvoip_data[0].linux2_doc;
-              _this543.mrvoip_win2 = data.mrvoip_data[0].windows2_doc;
-              _this543.mrvoip_lin_file2 = data.mrvoip_data[0].linux2_file;
-              _this543.mrvoip_win_file2 = data.mrvoip_data[0].window_file;
-              _this543.agent_rating_main = data.agentrating_data[0].agent_rating_main;
-              _this543.ar_1 = data.agentrating_data[0].agent_rating_1;
-              _this543.ar_2 = data.agentrating_data[0].agent_rating_2;
-              _this543.prdic_dialer_main = data.pd_data[0].pd_main;
-              _this543.pd_camp_1 = data.pd_data[0].camp_1;
-              _this543.pd_camp_2 = data.pd_data[0].camp_2;
-              _this543.pd_camp_3 = data.pd_data[0].camp_3;
-              _this543.pd_camp_4 = data.pd_data[0].camp_4;
-              _this543.pro_version = data.pro_data[0].pro_version;
-              _this543.bd_version = data.bd_main[0].bd_version;
-              _this543.pro_main = data.pro_data[0].pro_main;
-              _this543.pro_camp_1 = data.pro_data[0].camp_1;
-              _this543.bd_main = data.bd_data[0].bd_main;
-              _this543.bd_camp_1 = data.bd_data[0].camp_1;
-              _this543.bd_camp_2 = data.bd_data[0].camp_2;
-              _this543.bds_main = data.broadcast_survey_dialler[0].bs_main;
-              _this543.bds_camp_1 = data.broadcast_survey_dialler[0].camp_1;
-              _this543.bds_camp_2 = data.broadcast_survey_dialler[0].camp_2;
-              _this543.bs_version = data.broadcast_survey_dialler[0].bs_version;
+              _this542.mrvoip_main = data.mrvoip_data[0].main_document;
+              _this542.mrvoip_lin = data.mrvoip_data[0].linux_document;
+              _this542.mrvoip_win = data.mrvoip_data[0].windows_document;
+              _this542.mrvoip_lin_file = data.mrvoip_data[0].linux_document_1;
+              _this542.mrvoip_win_file = data.mrvoip_data[0].windows_document_1;
+              _this542.mrvoip_lin2 = data.mrvoip_data[0].linux2_doc;
+              _this542.mrvoip_win2 = data.mrvoip_data[0].windows2_doc;
+              _this542.mrvoip_lin_file2 = data.mrvoip_data[0].linux2_file;
+              _this542.mrvoip_win_file2 = data.mrvoip_data[0].window_file;
+              _this542.agent_rating_main = data.agentrating_data[0].agent_rating_main;
+              _this542.ar_1 = data.agentrating_data[0].agent_rating_1;
+              _this542.ar_2 = data.agentrating_data[0].agent_rating_2;
+              _this542.prdic_dialer_main = data.pd_data[0].pd_main;
+              _this542.pd_camp_1 = data.pd_data[0].camp_1;
+              _this542.pd_camp_2 = data.pd_data[0].camp_2;
+              _this542.pd_camp_3 = data.pd_data[0].camp_3;
+              _this542.pd_camp_4 = data.pd_data[0].camp_4;
+              _this542.pro_version = data.pro_data[0].pro_version;
+              _this542.bd_version = data.bd_main[0].bd_version;
+              _this542.pro_main = data.pro_data[0].pro_main;
+              _this542.pro_camp_1 = data.pro_data[0].camp_1;
+              _this542.bd_main = data.bd_data[0].bd_main;
+              _this542.bd_camp_1 = data.bd_data[0].camp_1;
+              _this542.bd_camp_2 = data.bd_data[0].camp_2;
+              _this542.bds_main = data.broadcast_survey_dialler[0].bs_main;
+              _this542.bds_camp_1 = data.broadcast_survey_dialler[0].camp_1;
+              _this542.bds_camp_2 = data.broadcast_survey_dialler[0].camp_2;
+              _this542.bs_version = data.broadcast_survey_dialler[0].bs_version;
               $('#mrvoip_version').val(data.mrvoip_data[0].mrvoip_version);
               $('#agent_rating_version').val(data.agentrating_data[0].agent_rating_version);
               $('#pd_version').val(data.pd_data[0].pd_version);
@@ -50131,7 +50182,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deletedata",
         value: function deletedata(name) {
-          var _this544 = this;
+          var _this543 = this;
 
           sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
             title: 'Are you sure?',
@@ -50146,11 +50197,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               var access_token = localStorage.getItem('access_token');
               var api_req = '{"operation":"predective_dialer_contact", "moduleType": "predective_dialer_contact", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"delete_mrvoip_upload","column_name":"' + name + '"}}';
 
-              _this544.serverService.sendServer(api_req).subscribe(function (response) {
+              _this543.serverService.sendServer(api_req).subscribe(function (response) {
                 if (response.result.data == 1) {
                   sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire('Deleted!', 'success');
 
-                  _this544.allDocuments();
+                  _this543.allDocuments();
                 } else {
                   sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire('Some Error Occured!', 'error');
                 }
@@ -50514,16 +50565,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getChatCount",
         value: function getChatCount() {
-          var _this545 = this;
+          var _this544 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"user", "moduleType":"agents", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"wallboard_counts","user_id":"' + this.loginUser + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == "true") {
-              _this545.total_wp = response.wp_count;
-              _this545.total_sms = response.sms_count;
-              _this545.total_chat = response.chat_count;
-              _this545.total_ticket = 2;
+              _this544.total_wp = response.wp_count;
+              _this544.total_sms = response.sms_count;
+              _this544.total_chat = response.chat_count;
+              _this544.total_ticket = 2;
             } else {}
           }, function (error) {
             console.log(error);
@@ -50538,13 +50589,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "checkLicenseKey",
         value: function checkLicenseKey() {
-          var _this546 = this;
+          var _this545 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"agents", "moduleType":"agents", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"check_hardware","user_id":"' + this.loginUser + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.data.value == '1') {
-              _this546.initSocket();
+              _this545.initSocket();
             } else {
               iziToast.error({
                 message: "Your Licence Key is expired!.. please enter your key or contact admin",
@@ -50553,7 +50604,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               $("#addLicence").modal({
                 "backdrop": "static"
               });
-              _this546.show_act_wall = true;
+              _this545.show_act_wall = true;
             }
           }, function (error) {
             console.log(error);
@@ -50562,7 +50613,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "activateLicenseKey",
         value: function activateLicenseKey() {
-          var _this547 = this;
+          var _this546 = this;
 
           var access_token = localStorage.getItem('access_token');
           var l_key = $('#licence_key').val();
@@ -50580,7 +50631,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             if (response.result.data.value == 1) {
               localStorage.setItem('hardware_id', response.result.data.hardware_id);
 
-              _this547.initSocket();
+              _this546.initSocket();
 
               iziToast.success({
                 message: "Wallboard activated",
@@ -50726,7 +50777,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "webinarList",
         value: function webinarList() {
-          var _this548 = this;
+          var _this547 = this;
 
           var api_req = new Object();
           var queue_req = new Object();
@@ -50739,7 +50790,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           api_req.element_data = queue_req;
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == "true") {
-              _this548.Mqueue_list = response.List_options;
+              _this547.Mqueue_list = response.List_options;
             }
           }, function (error) {
             console.log(error);
@@ -50765,7 +50816,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "viewwebinar",
         value: function viewwebinar(id) {
-          var _this549 = this;
+          var _this548 = this;
 
           this.meet_id = id;
           var api_req = new Object();
@@ -50781,7 +50832,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
               $('#viewParticipans').modal('show');
-              _this549.participants_list = response.result.data;
+              _this548.participants_list = response.result.data;
             }
           }, function (error) {
             console.log(error);
@@ -50858,7 +50909,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "exportcsv",
         value: function exportcsv() {
-          var _this550 = this;
+          var _this549 = this;
 
           var report_details = new Object();
           var api_req = new Object();
@@ -50873,8 +50924,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             console.log(response);
 
             if (response.status == true) {
-              _this550.res = response;
-              var arrStr = encodeURIComponent(JSON.stringify(_this550.res)); // document.location.href = 'https://omnitickets.mconnectapps.com/api/storage/contact/download.php?res='+arrStr;
+              _this549.res = response;
+              var arrStr = encodeURIComponent(JSON.stringify(_this549.res)); // document.location.href = 'https://omnitickets.mconnectapps.com/api/storage/contact/download.php?res='+arrStr;
 
               var url = 'https://omnitickets.mconnectapps.com/api/storage/chat/webinar_participants.php';
               var form = $('<form action="' + url + '" method="post">' + '<input type="text" name="res" value="' + arrStr + '" />' + '</form>');
@@ -50893,7 +50944,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "deletedata",
         value: function deletedata(id) {
-          var _this551 = this;
+          var _this550 = this;
 
           sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
             title: 'Are you sure?',
@@ -50910,9 +50961,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
               var api_req = '{"operation":"delete_meeting", "moduleType": "webinar_configuration", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"delete_meeting","meetingid":"' + id + '"}}';
 
-              _this551.serverService.sendServer(api_req).subscribe(function (response) {
+              _this550.serverService.sendServer(api_req).subscribe(function (response) {
                 if (response.result.data == 1) {
-                  _this551.webinarList();
+                  _this550.webinarList();
 
                   sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire('Deleted!', 'success');
                 }
@@ -51011,7 +51062,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var WhatsappChatComponent = /*#__PURE__*/function () {
       function WhatsappChatComponent(serverService, _ngZone, route) {
-        var _this552 = this;
+        var _this551 = this;
 
         _classCallCheck(this, WhatsappChatComponent);
 
@@ -51027,7 +51078,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var pageid = mData.id;
 
           if (pagefor == 'whatsapp') {
-            _this552.chatPanelDetail(pageid);
+            _this551.chatPanelDetail(pageid);
 
             setTimeout(function () {
               $(".card-body.chat-content").scrollTop($(".card-body.chat-content")[0].scrollHeight);
@@ -51100,7 +51151,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "sendChatMessageData",
         value: function sendChatMessageData() {
-          var _this553 = this;
+          var _this552 = this;
 
           var chat_message = this.chat_message.nativeElement.value;
           chat_message = chat_message.trim();
@@ -51124,15 +51175,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 console.log(response);
                 var socket_message = '{"message_type":"chat","message_status":"existing","message_info" : {"chat_id" : "' + chat_msg.chat_id + '","msg_user_id" : "' + chat_msg.msg_user_id + '","msg_user_type" : "2","msg_type":"text","message" : "' + chat_msg.chat_msg + '","queue_id":"1"}}';
 
-                _this553.websocket.send(socket_message);
+                _this552.websocket.send(socket_message);
 
                 console.log(socket_message);
 
-                _this553.chat_panel_details.push(chat_msg);
+                _this552.chat_panel_details.push(chat_msg);
 
-                _this553.chatautoScroll();
+                _this552.chatautoScroll();
 
-                _this553.chatPanelDetail(_this553.chat_detail_id.nativeElement.value);
+                _this552.chatPanelDetail(_this552.chat_detail_id.nativeElement.value);
 
                 $('#chat_msg').val('');
               }
@@ -51153,7 +51204,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "chatPanelView",
         value: function chatPanelView(chat_id) {
-          var _this554 = this;
+          var _this553 = this;
 
           var api_req = new Object();
           var chat_req = new Object();
@@ -51169,18 +51220,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             console.log(response);
 
             if (response.result.status == 1) {
-              _this554.chat_panel_list = response.result.data.chat_list;
+              _this553.chat_panel_list = response.result.data.chat_list;
 
               if (chat_id == "all" || chat_id == "" || chat_id == 0) {
-                _this554.chat_panel_detail_type = "chat_screen";
+                _this553.chat_panel_detail_type = "chat_screen";
               } else {
-                _this554.chat_panel_details = response.result.data.chat_detail_list;
-                _this554.chat_panel_detail_type = "chat_detail";
+                _this553.chat_panel_details = response.result.data.chat_detail_list;
+                _this553.chat_panel_detail_type = "chat_detail";
               }
 
-              _this554.chatautoScroll();
+              _this553.chatautoScroll();
 
-              _this554.chat_detail_key = chat_id;
+              _this553.chat_detail_key = chat_id;
             }
           }, function (error) {
             console.log(error);
@@ -51189,7 +51240,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "chatPanelList",
         value: function chatPanelList(search_text) {
-          var _this555 = this;
+          var _this554 = this;
 
           var api_req = new Object();
           var chat_req = new Object();
@@ -51203,7 +51254,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           api_req.element_data = chat_req;
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == 1) {
-              _this555.chat_panel_list = response.result.data.chat_list;
+              _this554.chat_panel_list = response.result.data.chat_list;
             }
           }, function (error) {
             console.log(error);
@@ -51212,7 +51263,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "chatPanelDetail",
         value: function chatPanelDetail(chat_id) {
-          var _this556 = this;
+          var _this555 = this;
 
           var api_req = new Object();
           var chat_req = new Object();
@@ -51227,13 +51278,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
               console.log(response.result.status);
-              _this556.chat_panel_detail_type = "chat_detail";
-              _this556.chat_panel_details = response.result.data.chat_detail_list;
-              _this556.customer_name = response.result.data.chat_detail_list[0].customer_name;
+              _this555.chat_panel_detail_type = "chat_detail";
+              _this555.chat_panel_details = response.result.data.chat_detail_list;
+              _this555.customer_name = response.result.data.chat_detail_list[0].customer_name;
 
-              _this556.chatautoScroll();
+              _this555.chatautoScroll();
 
-              _this556.chat_detail_key = chat_id;
+              _this555.chat_detail_key = chat_id;
               setTimeout(function () {
                 $(".card-body.chat-content").scrollTop($(".card-body.chat-content")[0].scrollHeight);
               }, 10);
@@ -51290,13 +51341,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getDepartments",
         value: function getDepartments() {
-          var _this557 = this;
+          var _this556 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"get_dept_settings","user_id":"' + this.uadmin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this557.departments = response.result.data;
+              _this556.departments = response.result.data;
             } else {}
           }, function (error) {
             console.log(error);
@@ -51346,7 +51397,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "sendChatMediaData",
         value: function sendChatMediaData() {
-          var _this558 = this;
+          var _this557 = this;
 
           var chat_message = this.chat_message.nativeElement.value;
           chat_message = chat_message.trim();
@@ -51368,15 +51419,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               var chat_msg = response.result.data;
               var socket_message = '{"message_type":"chat","message_status":"existing","message_info" : {"chat_id" : "' + chat_msg.chat_id + '","msg_user_id" : "' + chat_msg.msg_user_id + '","msg_user_type" : "2","msg_type":"text","message" : "' + chat_msg.chat_msg + '","queue_id":"1"}}';
 
-              _this558.websocket.send(socket_message);
+              _this557.websocket.send(socket_message);
 
               console.log(socket_message);
 
-              _this558.chat_panel_details.push(chat_msg);
+              _this557.chat_panel_details.push(chat_msg);
 
-              _this558.chatautoScroll();
+              _this557.chatautoScroll();
 
-              _this558.chatPanelDetail(_this558.chat_detail_id.nativeElement.value);
+              _this557.chatPanelDetail(_this557.chat_detail_id.nativeElement.value);
 
               $('#chat_msg').val('');
             }
@@ -51499,7 +51550,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var WhatsappUnoffComponent = /*#__PURE__*/function () {
       function WhatsappUnoffComponent(serverService, _ngZone, route, router) {
-        var _this559 = this;
+        var _this558 = this;
 
         _classCallCheck(this, WhatsappUnoffComponent);
 
@@ -51535,7 +51586,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           if (pagefor == 'whatsapp_unoff') {
             // this.chatPanelDetail(pageid);
-            _this559.chatPanelView2(pageid);
+            _this558.chatPanelView2(pageid);
 
             setTimeout(function () {
               $(".card-body.chat-content").scrollTop($(".card-body.chat-content")[0].scrollHeight);
@@ -51618,7 +51669,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "sendChatMessageData",
         value: function sendChatMessageData() {
-          var _this560 = this;
+          var _this559 = this;
 
           if (this.isthisgroup == true) {
             var is_group = '1';
@@ -51664,20 +51715,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                 console.log(socket_message);
 
-                _this560.chat_panel_details.push(chat_msg);
+                _this559.chat_panel_details.push(chat_msg);
 
-                _this560.chatautoScroll();
+                _this559.chatautoScroll();
 
-                _this560.chatPanelDetail(_this560.chat_detail_id.nativeElement.value);
+                _this559.chatPanelDetail(_this559.chat_detail_id.nativeElement.value);
 
-                clearTimeout(_this560.callonce);
+                clearTimeout(_this559.callonce);
                 $('#chat_msg').val('');
                 iziToast.success({
                   message: 'Sent Successfully',
                   position: 'topRight'
                 });
               } else {
-                _this560.validateQR();
+                _this559.validateQR();
               }
             }, function (error) {
               console.log(error);
@@ -51696,7 +51747,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "chatPanelView",
         value: function chatPanelView(chat_id) {
-          var _this561 = this;
+          var _this560 = this;
 
           // this.param1=  atob(this.param1);
           // this.param1=  atob(this.param1);
@@ -51720,31 +51771,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             console.log(response);
 
             if (response.result.status == 1) {
-              _this561.chat_panel_list = response.result.data.chat_list;
-              _this561.user_list = response.result.data.user_list;
+              _this560.chat_panel_list = response.result.data.chat_list;
+              _this560.user_list = response.result.data.user_list;
 
-              for (var i = 0; i < _this561.user_list.length; i++) {
-                if (_this561.agentname == _this561.user_list[i].user_name) {
+              for (var i = 0; i < _this560.user_list.length; i++) {
+                if (_this560.agentname == _this560.user_list[i].user_name) {
                   // alert(this.agentname);
-                  _this561.user_list.splice(_this561.user_list.indexOf(_this561.user_list[i]), 1);
+                  _this560.user_list.splice(_this560.user_list.indexOf(_this560.user_list[i]), 1);
                 }
               } //   $("#tranfer_user option[value='"+this.loginUser+"']").remove();
 
 
               if (chat_id == "all" || chat_id == "" || chat_id == 0) {
-                _this561.chat_panel_detail_type = "chat_screen";
+                _this560.chat_panel_detail_type = "chat_screen";
               } else {
-                _this561.chat_panel_details = response.result.data.chat_detail_list;
-                _this561.chat_panel_detail_type = "chat_detail";
+                _this560.chat_panel_details = response.result.data.chat_detail_list;
+                _this560.chat_panel_detail_type = "chat_detail";
 
-                _this561.chatPanelDetail(chat_id);
+                _this560.chatPanelDetail(chat_id);
 
-                clearTimeout(_this561.callonce);
+                clearTimeout(_this560.callonce);
               } //  if(this.rollonce==false)
               // this.chatautoScroll();
 
 
-              _this561.chat_detail_key = chat_id; //  alert(this.chat_detail_key+"  id 1");
+              _this560.chat_detail_key = chat_id; //  alert(this.chat_detail_key+"  id 1");
             }
           }, function (error) {
             console.log(error);
@@ -51757,7 +51808,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "chatPanelView2",
         value: function chatPanelView2(chat_id) {
-          var _this562 = this;
+          var _this561 = this;
 
           var api_req = new Object();
           var chat_req = new Object();
@@ -51777,25 +51828,25 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             console.log(response);
 
             if (response.result.status == true) {
-              _this562.chat_panel_list = response.result.data.chat_list;
-              _this562.user_list = response.result.data.user_list;
+              _this561.chat_panel_list = response.result.data.chat_list;
+              _this561.user_list = response.result.data.user_list;
 
-              for (var i = 0; i < _this562.user_list.length; i++) {
-                if (_this562.agentname == _this562.user_list[i].user_name) {
-                  _this562.user_list.splice(_this562.user_list.indexOf(_this562.user_list[i]), 1);
+              for (var i = 0; i < _this561.user_list.length; i++) {
+                if (_this561.agentname == _this561.user_list[i].user_name) {
+                  _this561.user_list.splice(_this561.user_list.indexOf(_this561.user_list[i]), 1);
                 }
               }
 
-              if (chat_id == _this562.chat_detail_key) {
-                _this562.chat_panel_details = response.result.data.chat_detail_list;
-                _this562.chat_panel_detail_type = "chat_detail";
+              if (chat_id == _this561.chat_detail_key) {
+                _this561.chat_panel_details = response.result.data.chat_detail_list;
+                _this561.chat_panel_detail_type = "chat_detail";
 
-                _this562.chatPanelDetail2(chat_id);
+                _this561.chatPanelDetail2(chat_id);
 
-                clearTimeout(_this562.callonce);
+                clearTimeout(_this561.callonce);
               }
 
-              _this562.chat_detail_key = chat_id;
+              _this561.chat_detail_key = chat_id;
             }
           }, function (error) {
             console.log(error);
@@ -51810,7 +51861,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "chatPanelViewoncemore",
         value: function chatPanelViewoncemore(chat_id) {
-          var _this563 = this;
+          var _this562 = this;
 
           var api_req = new Object();
           var chat_req = new Object();
@@ -51829,13 +51880,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             // console.log(response);
             if (response.result.status == 1) {
               //  alert("called");
-              _this563.chat_panel_list = response.result.data.chat_list;
-              _this563.user_list = response.result.data.user_list;
+              _this562.chat_panel_list = response.result.data.chat_list;
+              _this562.user_list = response.result.data.user_list;
 
-              for (var i = 0; i < _this563.user_list.length; i++) {
-                if (_this563.agentname == _this563.user_list[i].user_name) {
+              for (var i = 0; i < _this562.user_list.length; i++) {
+                if (_this562.agentname == _this562.user_list[i].user_name) {
                   // alert(this.agentname);
-                  _this563.user_list.splice(_this563.user_list.indexOf(_this563.user_list[i]), 1);
+                  _this562.user_list.splice(_this562.user_list.indexOf(_this562.user_list[i]), 1);
                 }
               } //   $("#tranfer_user option[value='"+this.loginUser+"']").remove();
               //  if(chat_id == "all" || chat_id == "" || chat_id == 0){
@@ -51863,7 +51914,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "chatPanelList",
         value: function chatPanelList(search_text) {
-          var _this564 = this;
+          var _this563 = this;
 
           clearTimeout(this.callonce); // alert(this.param1);
 
@@ -51895,7 +51946,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
             if (response.result.status == 1) {
               console.log(response);
-              _this564.chat_panel_list = response.result.data; //$('#searchText').val();
+              _this563.chat_panel_list = response.result.data; //$('#searchText').val();
             }
           }, function (error) {
             sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.close();
@@ -51912,9 +51963,89 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "chatPanelDetail",
         value: function chatPanelDetail(chat_id) {
-          var _this565 = this;
+          var _this564 = this;
 
           // this.chatPanelView(chat_id);
+          this.chat_ids = chat_id;
+          $('#chat_msg').val('');
+          var api_req = new Object();
+          var chat_req = new Object();
+          chat_req.action = "chat_detail_listOFF";
+          chat_req.chat_id = chat_id;
+          chat_req.limit = "5";
+          chat_req.offset = 0;
+          chat_req.user_id = this.loginUser;
+          api_req.operation = "wpchat";
+          api_req.moduleType = "wpchat";
+          api_req.api_type = "web";
+          api_req.access_token = localStorage.getItem('access_token');
+          api_req.element_data = chat_req;
+          this.serverService.sendServer(api_req).subscribe(function (response) {
+            if (response.result.status == true) {
+              //console.log(response.result.status);
+              _this564.chat_panel_detail_type = "chat_detail";
+              _this564.chat_panel_details = response.result.data.chat_detail_list;
+              _this564.customer_name = response.result.data.chat_detail_list[0].customer_name;
+              _this564.group_name = response.result.data.chat_detail_list[0].group_name;
+              _this564.group_icon = response.result.data.chat_detail_list[0].group_icon;
+              _this564.prof_image = response.result.data.chat_detail_list[0].customer_image;
+              _this564.offset_count_msg = 0;
+
+              if (_this564.group_name != null) {
+                _this564.isthisgroup = true;
+                _this564.customer_name = _this564.group_name;
+              } else {
+                _this564.isthisgroup = false;
+                _this564.customer_name = response.result.data.chat_detail_list[0].customer_name;
+              }
+
+              _this564.customer_number = response.result.data.chat_detail_list[0].customer_number;
+              _this564.forworduser = response.result.data.chat_detail_list[0].f_user_id;
+              _this564.forworduser_name = response.result.data.chat_detail_list[0].f_user_nm;
+              _this564.username = response.result.data.chat_detail_list[0].user_name;
+
+              if (_this564.forworduser != null || _this564.forworduser != undefined) {
+                _this564.transfered = true; // this.transferedforMe=false; agentname
+                //  if(this.username != this.forworduser && (this.username != null ||this.username != undefined) ){
+                // if (this.agentname == this.forworduser) {
+
+                if (_this564.uadmin_id == _this564.forworduser) {
+                  // alert(this.username);
+                  _this564.transferedforMe = true; // this.transfered=false;
+                } else {
+                  _this564.transferedforMe = false;
+                }
+              } else {
+                _this564.transfered = false;
+                _this564.transferedforMe = false;
+              }
+
+              _this564.chat_detail_key = chat_id; // alert(this.chat_detail_key+"  id 3 details");
+
+              if (_this564.rollonce == false) {
+                //  this.chatautoScroll();  2-3-21
+                setTimeout(function () {
+                  $(".card-body.chat-content").scrollTop($(".card-body.chat-content")[0].scrollHeight);
+                }, 10);
+              } // this.rollonce==true;
+              // setTimeout(()=>{ 
+              //   this.rollonce==true;
+              //   this.chatPanelDetail(chat_id);
+              //     }, 20000);
+
+            }
+
+            clearTimeout(_this564.callonce);
+            $("#calloncemore").click();
+          }, function (error) {
+            console.log(error);
+          });
+        }
+      }, {
+        key: "chatPanelDetail2",
+        value: function chatPanelDetail2(chat_id) {
+          var _this565 = this;
+
           this.chat_ids = chat_id;
           $('#chat_msg').val('');
           var api_req = new Object();
@@ -51950,17 +52081,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
               _this565.customer_number = response.result.data.chat_detail_list[0].customer_number;
               _this565.forworduser = response.result.data.chat_detail_list[0].f_user_id;
-              _this565.forworduser_name = response.result.data.chat_detail_list[0].f_user_nm;
               _this565.username = response.result.data.chat_detail_list[0].user_name;
 
               if (_this565.forworduser != null || _this565.forworduser != undefined) {
-                _this565.transfered = true; // this.transferedforMe=false; agentname
-                //  if(this.username != this.forworduser && (this.username != null ||this.username != undefined) ){
-                // if (this.agentname == this.forworduser) {
+                _this565.transfered = true;
 
                 if (_this565.uadmin_id == _this565.forworduser) {
-                  // alert(this.username);
-                  _this565.transferedforMe = true; // this.transfered=false;
+                  _this565.transferedforMe = true;
                 } else {
                   _this565.transferedforMe = false;
                 }
@@ -51972,82 +52099,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               _this565.chat_detail_key = chat_id; // alert(this.chat_detail_key+"  id 3 details");
 
               if (_this565.rollonce == false) {
-                //  this.chatautoScroll();  2-3-21
-                setTimeout(function () {
-                  $(".card-body.chat-content").scrollTop($(".card-body.chat-content")[0].scrollHeight);
-                }, 10);
-              } // this.rollonce==true;
-              // setTimeout(()=>{ 
-              //   this.rollonce==true;
-              //   this.chatPanelDetail(chat_id);
-              //     }, 20000);
-
-            }
-
-            clearTimeout(_this565.callonce);
-            $("#calloncemore").click();
-          }, function (error) {
-            console.log(error);
-          });
-        }
-      }, {
-        key: "chatPanelDetail2",
-        value: function chatPanelDetail2(chat_id) {
-          var _this566 = this;
-
-          this.chat_ids = chat_id;
-          $('#chat_msg').val('');
-          var api_req = new Object();
-          var chat_req = new Object();
-          chat_req.action = "chat_detail_listOFF";
-          chat_req.chat_id = chat_id;
-          chat_req.limit = "5";
-          chat_req.offset = 0;
-          chat_req.user_id = this.loginUser;
-          api_req.operation = "wpchat";
-          api_req.moduleType = "wpchat";
-          api_req.api_type = "web";
-          api_req.access_token = localStorage.getItem('access_token');
-          api_req.element_data = chat_req;
-          this.serverService.sendServer(api_req).subscribe(function (response) {
-            if (response.result.status == true) {
-              //console.log(response.result.status);
-              _this566.chat_panel_detail_type = "chat_detail";
-              _this566.chat_panel_details = response.result.data.chat_detail_list;
-              _this566.customer_name = response.result.data.chat_detail_list[0].customer_name;
-              _this566.group_name = response.result.data.chat_detail_list[0].group_name;
-              _this566.group_icon = response.result.data.chat_detail_list[0].group_icon;
-              _this566.prof_image = response.result.data.chat_detail_list[0].customer_image;
-              _this566.offset_count_msg = 0;
-
-              if (_this566.group_name != null) {
-                _this566.isthisgroup = true;
-                _this566.customer_name = _this566.group_name;
-              } else {
-                _this566.isthisgroup = false;
-                _this566.customer_name = response.result.data.chat_detail_list[0].customer_name;
-              }
-
-              _this566.customer_number = response.result.data.chat_detail_list[0].customer_number;
-              _this566.forworduser = response.result.data.chat_detail_list[0].f_user_id;
-              _this566.username = response.result.data.chat_detail_list[0].user_name;
-
-              if (_this566.forworduser != null || _this566.forworduser != undefined) {
-                _this566.transfered = true;
-
-                if (_this566.uadmin_id == _this566.forworduser) {
-                  _this566.transferedforMe = true;
-                } else {
-                  _this566.transferedforMe = false;
-                }
-              } else {
-                _this566.transfered = false;
-                _this566.transferedforMe = false;
-              }
-
-              _this566.chat_detail_key = chat_id; // alert(this.chat_detail_key+"  id 3 details");
-
-              if (_this566.rollonce == false) {
                 //  this.chatautoScroll();  2-3-21
                 setTimeout(function () {
                   $(".card-body.chat-content").scrollTop($(".card-body.chat-content")[0].scrollHeight);
@@ -52106,13 +52157,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getDepartments",
         value: function getDepartments() {
-          var _this567 = this;
+          var _this566 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"get_dept_settings","user_id":"' + this.uadmin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this567.departments = response.result.data;
+              _this566.departments = response.result.data;
             } else {}
           }, function (error) {
             console.log(error);
@@ -52188,7 +52239,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "sendChatMediaData",
         value: function sendChatMediaData() {
-          var _this568 = this;
+          var _this567 = this;
 
           var chat_message = $('#whatsapp_media_with_text').val();
           chat_message = chat_message.trim(); // alert(chat_message);
@@ -52231,18 +52282,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
               console.log(socket_message);
 
-              _this568.chat_panel_details.push(chat_msg); //  this.forworded=
+              _this567.chat_panel_details.push(chat_msg); //  this.forworded=
 
 
-              _this568.chatautoScroll();
+              _this567.chatautoScroll();
 
-              clearTimeout(_this568.callonce); //  this.chatPanelDetail(this.chat_detail_id.nativeElement.value);
+              clearTimeout(_this567.callonce); //  this.chatPanelDetail(this.chat_detail_id.nativeElement.value);
 
-              _this568.chatPanelDetail(_this568.chat_detail_key);
+              _this567.chatPanelDetail(_this567.chat_detail_key);
 
               $('#chat_msg').val('');
             } else {
-              _this568.validateQR();
+              _this567.validateQR();
             }
           }, function (error) {
             console.log(error);
@@ -52254,7 +52305,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "get_wp_number",
         value: function get_wp_number() {
-          var _this569 = this;
+          var _this568 = this;
 
           var agent_req = this.getWp.value;
           console.log(this.getWp.value);
@@ -52262,8 +52313,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var api_req = '{"operation":"agents", "moduleType": "agents", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"update_whatsapp_num","admin_id":"' + this.admin_id + '","whatsapp_num":"' + agent_req.wp_number + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.data == 1) {
-              _this569.scan_content = true;
-              console.log(_this569.scan_content);
+              _this568.scan_content = true;
+              console.log(_this568.scan_content);
               $('#scan_qr').modal('hide');
               $('#show_qr').modal('show'); // $('#dailyfIframes').attr("src", $('#dailyfIframes').attr("src"));
 
@@ -52289,7 +52340,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "tranfer_chat",
         value: function tranfer_chat() {
-          var _this570 = this;
+          var _this569 = this;
 
           if (this.username == '' || this.username == null || this.username == undefined) {
             iziToast.warning({
@@ -52305,15 +52356,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var api_req = '{"operation":"wp_instance", "moduleType": "wp_instance", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"chatTransfer","chat_id":"' + this.chat_detail_key + '","user_id":"' + trans_user + '","instance_id":"' + this.param1 + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this570.transfered = true;
+              _this569.transfered = true;
               iziToast.success({
                 message: "Chat successfully Transfered to Agent",
                 position: 'topRight'
               });
               $('#transferModel').modal('hide');
-              clearTimeout(_this570.callonce);
+              clearTimeout(_this569.callonce);
 
-              _this570.chatPanelDetail(_this570.chat_detail_key);
+              _this569.chatPanelDetail(_this569.chat_detail_key);
             }
           }, function (error) {
             iziToast.error({
@@ -52331,19 +52382,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "revokeransfer",
         value: function revokeransfer() {
-          var _this571 = this;
+          var _this570 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"wp_instance", "moduleType": "wp_instance", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"revokeTransfer","chat_id":"' + this.chat_detail_key + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this571.transfered = false;
-              clearTimeout(_this571.callonce);
+              _this570.transfered = false;
+              clearTimeout(_this570.callonce);
 
-              _this571.chatPanelDetail(_this571.chat_detail_key);
+              _this570.chatPanelDetail(_this570.chat_detail_key);
 
               iziToast.success({
-                message: "Chat successfully Revoked from " + _this571.forworduser + "",
+                message: "Chat successfully Revoked from " + _this570.forworduser + "",
                 position: 'topRight'
               }); //  $('#transferModel').modal('hide');
             }
@@ -52380,7 +52431,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "validateQR",
         value: function validateQR() {
-          var _this572 = this;
+          var _this571 = this;
 
           // alert(this.param1);
           var access_token = localStorage.getItem('access_token');
@@ -52393,14 +52444,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   position: 'topRight'
                 });
               } else if (response.result.data == "CONFLICT") {
-                _this572.refereshInstance();
+                _this571.refereshInstance();
 
                 iziToast.warning({
                   message: "Instance was Conflicted. May your WhatsApp is opend on another Brower/Computer. Please refresh our page once and try again",
                   position: 'topRight'
                 });
               } else {
-                _this572.refereshInstance();
+                _this571.refereshInstance();
 
                 iziToast.warning({
                   message: "May you can try again after few seconds. Some error occured",
@@ -52459,14 +52510,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "get_temps",
         value: function get_temps() {
-          var _this573 = this;
+          var _this572 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"template", "moduleType":"template", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"listTemplateByUSer","user_id":"' + this.uadmin_id + '","admin_id":"' + this.admin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.result.status == true) {
-              _this573.temp_list = response.result.data;
-              console.log(_this573.temp_list);
+              _this572.temp_list = response.result.data;
+              console.log(_this572.temp_list);
             }
           }, function (error) {
             console.log(error);
@@ -52499,7 +52550,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onScroll",
         value: function onScroll() {
-          var _this574 = this;
+          var _this573 = this;
 
           if ($('#searchText').val() != '') {
             var off = this.offset_count + 5;
@@ -52529,7 +52580,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 for (var index = 0; index < mydatas.length; index++) {
                   var data = mydatas[index];
 
-                  _this574.chat_panel_list.push(data);
+                  _this573.chat_panel_list.push(data);
                 }
               }
             }, function (error) {
@@ -52568,7 +52619,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 for (var index = 0; index < mydatas.length; index++) {
                   var data = mydatas[index];
 
-                  _this574.chat_panel_list.push(data);
+                  _this573.chat_panel_list.push(data);
                 }
               }
             }, function (error) {
@@ -52579,7 +52630,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onUp",
         value: function onUp() {
-          var _this575 = this;
+          var _this574 = this;
 
           console.log('scroll ups');
           var off = this.offset_count_msg + 5;
@@ -52616,10 +52667,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               for (var index = 0; index < mydatas.length; index++) {
                 var data = mydatas[index];
 
-                _this575.chat_panel_details.unshift(data);
+                _this574.chat_panel_details.unshift(data);
               }
 
-              console.log(_this575.chat_panel_details);
+              console.log(_this574.chat_panel_details);
             }
           }, function (error) {
             console.log(error);
@@ -52815,13 +52866,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "senders",
         value: function senders() {
-          var _this576 = this;
+          var _this575 = this;
 
           var access_token = localStorage.getItem('access_token');
           var user_id = localStorage.getItem('userId');
           var api_req = '{"operation":"contact", "moduleType":"contact", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"get_senderid","admin_id":"' + this.admin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
-            _this576.senders_list = response.result.data;
+            _this575.senders_list = response.result.data;
           }, function (error) {
             console.log(error);
           });
@@ -52965,14 +53016,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "smsGroups",
         value: function smsGroups() {
-          var _this577 = this;
+          var _this576 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"contact", "moduleType":"contact", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"list_smsgroup","admin_id":"' + this.uadmin_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
-              _this577.groups_list = response.result.data;
-              console.log(_this577.groups_list);
+              _this576.groups_list = response.result.data;
+              console.log(_this576.groups_list);
             }
           }, function (error) {
             console.log(error);
@@ -53183,13 +53234,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "admininsts",
         value: function admininsts() {
-          var _this578 = this;
+          var _this577 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"wp_instance", "moduleType": "wp_instance", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"getInstanceDetailsForAdmin","user_id":"' + this.user_id + '","admin_id":"' + this.admin_id + '","user_type":"' + this.user_type + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
-              _this578.listinstacne = response.result.data; // this.routedept=response.result.data.dept;
+              _this577.listinstacne = response.result.data; // this.routedept=response.result.data.dept;
             }
           }, function (error) {
             console.log(error);
@@ -53198,13 +53249,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "listDepts",
         value: function listDepts() {
-          var _this579 = this;
+          var _this578 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"ticket", "moduleType": "ticket", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"get_dept_settings","user_id":"' + this.user_id + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
-              _this579.listdept = response.result.data;
+              _this578.listdept = response.result.data;
             }
           }, function (error) {
             console.log(error);
@@ -53278,7 +53329,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "validateQR",
         value: function validateQR() {
-          var _this580 = this;
+          var _this579 = this;
 
           // this.assign=true;
           var access_token = localStorage.getItem('access_token');
@@ -53289,7 +53340,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               if (response.result.data == 'CONNECTED') {
                 //  alert("connect");
                 // this.assign=true;
-                _this580.connected = true;
+                _this579.connected = true;
               } else if (response.result.data == "CONFLICT") {
                 iziToast.warning({
                   message: "Instance was Conflicted.",
@@ -53299,21 +53350,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   message: "May your WhatsApp is opend on another Brower/Computer. Please refresh our page once and send message",
                   position: 'topRight'
                 });
-                _this580.alreadyassign = false;
-                _this580.assign = false;
-                _this580.connected = false;
+                _this579.alreadyassign = false;
+                _this579.assign = false;
+                _this579.connected = false;
               } else {
-                _this580.alreadyassign = false;
-                _this580.assign = false;
-                _this580.connected = false;
+                _this579.alreadyassign = false;
+                _this579.assign = false;
+                _this579.connected = false;
 
-                _this580.disonnectrevoke();
+                _this579.disonnectrevoke();
               }
             } else {
               // this.revokeinstant();
-              _this580.alreadyassign = false;
-              _this580.assign = false;
-              _this580.connected = false;
+              _this579.alreadyassign = false;
+              _this579.assign = false;
+              _this579.connected = false;
             }
           }, function (error) {
             console.log(error);
@@ -53322,7 +53373,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "assingtodept",
         value: function assingtodept() {
-          var _this581 = this;
+          var _this580 = this;
 
           var dept = $('#dept_assign').val(); // this.dept=$('#dept_assign').val();
           // alert(dept);
@@ -53336,14 +53387,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 message: "Instance Assigned Successfully!",
                 position: 'topRight'
               });
-              _this581.assign = true;
-              _this581.alreadyassign = true;
+              _this580.assign = true;
+              _this580.alreadyassign = true;
 
-              _this581.route(_this581.instroute, _this581.instroutename, _this581.insturl, dept, _this581.assigneddept);
+              _this580.route(_this580.instroute, _this580.instroutename, _this580.insturl, dept, _this580.assigneddept);
 
-              _this581.admininsts();
+              _this580.admininsts();
 
-              _this581.route(_this581.instroute, _this581.instroutename, _this581.insturl, dept, _this581.assigneddept);
+              _this580.route(_this580.instroute, _this580.instroutename, _this580.insturl, dept, _this580.assigneddept);
 
               $('#scan_qr_again').modal('hide');
             } else if (response.result.data == 'mismatch') {
@@ -53366,7 +53417,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "reloadQR",
         value: function reloadQR() {
-          var _this582 = this;
+          var _this581 = this;
 
           $('#show_qr').modal('hide');
           this.closeall = true;
@@ -53391,22 +53442,22 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 }
               });
               var access_token = localStorage.getItem('access_token');
-              var api_req = '{"operation":"wp_instance", "moduleType": "wp_instance", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"reloadInstance","instance_id":"' + _this582.instroute + '"}}';
+              var api_req = '{"operation":"wp_instance", "moduleType": "wp_instance", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"reloadInstance","instance_id":"' + _this581.instroute + '"}}';
 
-              _this582.serverService.sendServer(api_req).subscribe(function (response) {
+              _this581.serverService.sendServer(api_req).subscribe(function (response) {
                 if (response.status == true) {
-                  _this582.realoded = true; // location.reload();
+                  _this581.realoded = true; // location.reload();
 
                   setTimeout(function () {
                     this.realoded = false;
                   }, 3000); //  setTimeout(() => this.scan(), 5000);
 
                   setTimeout(function () {
-                    return _this582.closeLoading();
+                    return _this581.closeLoading();
                   }, 6000);
                 }
               }, function (error) {
-                _this582.closeLoading();
+                _this581.closeLoading();
 
                 iziToast.warning({
                   message: 'Sorry, Some error occured',
@@ -53425,7 +53476,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "submitscan",
         value: function submitscan() {
-          var _this583 = this;
+          var _this582 = this;
 
           var access_token = localStorage.getItem('access_token');
           var api_req = '{"operation":"wp_instance", "moduleType": "wp_instance", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"readInstance","instance_id":"' + this.instroute + '"}}';
@@ -53433,10 +53484,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             if (response.result.status == true) {
               if (response.result.data == 'CONNECTED') {
                 $('#show_qr').modal('hide');
-                _this583.assign = true;
-                clearInterval(_this583.interval);
+                _this582.assign = true;
+                clearInterval(_this582.interval);
               } else {
-                clearInterval(_this583.interval);
+                clearInterval(_this582.interval);
                 iziToast.error({
                   message: "Some Error Occured, Please Scan Again",
                   position: 'topRight'
@@ -53454,7 +53505,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "revokeinstant",
         value: function revokeinstant() {
-          var _this584 = this;
+          var _this583 = this;
 
           // Swal.fire({
           //   title: 'Are you sure?',
@@ -53470,11 +53521,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var api_req = '{"operation":"wp_instance", "moduleType": "wp_instance", "api_type": "web", "access_token":"' + access_token + '", "element_data":{"action":"revokeInstance","instance_id":"' + this.instroute + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
-              _this584.route(_this584.instroute, _this584.instroutename, _this584.insturl, _this584.deparment, _this584.assigneddept);
+              _this583.route(_this583.instroute, _this583.instroutename, _this583.insturl, _this583.deparment, _this583.assigneddept);
 
-              _this584.alreadyassign = false;
-              _this584.assign = false;
-              _this584.connected = false; //alert(this.deparment);
+              _this583.alreadyassign = false;
+              _this583.assign = false;
+              _this583.connected = false; //alert(this.deparment);
               //  this.admininsts();
             }
           }, function (error) {
@@ -53491,7 +53542,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "disonnectrevoke",
         value: function disonnectrevoke() {
-          var _this585 = this;
+          var _this584 = this;
 
           // Swal.fire({
           //   title: 'Are you sure?',
@@ -53508,9 +53559,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           this.serverService.sendServer(api_req).subscribe(function (response) {
             if (response.status == true) {
               //  this.route(this.instroute,this.instroutename,this.insturl,this.deparment,this.assigneddept);
-              _this585.alreadyassign = false;
-              _this585.assign = false;
-              _this585.connected = false; //alert(this.deparment);
+              _this584.alreadyassign = false;
+              _this584.assign = false;
+              _this584.connected = false; //alert(this.deparment);
               //  this.admininsts();
             }
           }, function (error) {
@@ -53579,7 +53630,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "validateQRduplicate",
         value: function validateQRduplicate() {
-          var _this586 = this;
+          var _this585 = this;
 
           // this.assign=true;
           // alert("called");
@@ -53591,16 +53642,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               // $('#checkreadinst').click();
               if (response.result.data == 'CONNECTED') {
                 $('#checkreadinst').click();
-                clearTimeout(_this586.interval); //  this.connected=true;
+                clearTimeout(_this585.interval); //  this.connected=true;
               } else if (response.result.data == "CONFLICT") {
                 // $('#checkreadinst').click();
-                clearTimeout(_this586.interval);
+                clearTimeout(_this585.interval);
                 setTimeout(function () {
-                  _this586.get_wp_number();
+                  _this585.get_wp_number();
                 }, 5000); //5s
                 // NEW change settimeout 27-10-2020
 
-                clearTimeout(_this586.settimeout); //   iziToast.warning({
+                clearTimeout(_this585.settimeout); //   iziToast.warning({
                 //     message: "Your Instance was Conflicted. Please Reload It.",
                 //     position: 'topRight'
                 // });
@@ -53608,12 +53659,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 // alert('else')
                 // clearTimeout(this.interval);
                 setTimeout(function () {
-                  _this586.get_wp_number();
+                  _this585.get_wp_number();
 
-                  clearTimeout(_this586.interval);
+                  clearTimeout(_this585.interval);
                 }, 5000); //5s
 
-                clearTimeout(_this586.settimeout);
+                clearTimeout(_this585.settimeout);
               }
             } else {
               iziToast.warning({
