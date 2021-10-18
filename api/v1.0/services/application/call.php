@@ -171,3 +171,18 @@ elseif($action == "call_report"){
     $result_data["result"]["data"] = $call->add_warp_external($data);
 
 }
+if($action == "getMyCallHistoryDetails"){
+    $data= array("login"=>$login, "order_by_name"=>$order_by_name, "order_by_type"=>$order_by_type,"call_type"=>$call_type,"limit"=>$limit, "offset"=>$offset,"search_text"=>$search_text);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $call->getMyCallHistoryDetails($data); 
+}
+if($action == "getMyContactDetails"){
+    $data= array("login"=>$login, "order_by_name"=>$order_by_name, "order_by_type"=>$order_by_type,"limit"=>$limit, "offset"=>$offset,"search_text"=>$search_text);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $call->getMyContactDetails($data);
+}
+if($action == "getMyAgentDetails"){
+    $data= array("login"=>$login, "order_by_name"=>$order_by_name, "order_by_type"=>$order_by_type,"limit"=>$limit, "offset"=>$offset,"search_text"=>$search_text);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $call->getMyAgentDetails($data);
+}

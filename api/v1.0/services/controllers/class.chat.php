@@ -6000,4 +6000,84 @@ public function copy_chat_question($data){
 		}
 	    return $insert_data;    
 }	
+
+function chatMessagePanel($login,$queue_id,$search_text,$limit,$offset){
+		
+  $encryption = $login;
+  $ciphering = "AES-128-CTR"; 
+  $iv_length = openssl_cipher_iv_length($ciphering); 
+  $options = 0; 
+  $decryption_iv = '1234567891011121'; 
+  $decryption_key = "GeeksforGeeks"; 
+  $decryption=openssl_decrypt ($encryption, $ciphering, $decryption_key, $options, $decryption_iv); 
+  $decryption =  $array = json_decode($decryption, true);
+  extract($decryption);
+  $hash_val = md5($password);
+  $get_agent_qry = "select * from user where company_name='$company' and user_name='$username' and user_pwd='$hash_val'";
+  $user_details = $this->fetchData($get_agent_qry,array());
+  $user_id = $user_details['user_id'];
+  $admin_id = $user_details['user_type'] == '2' ? $user_details['user_id'] : $user_details['admin_id'];
+  
+
+$search_qry ="";
+if($search_text != ""){
+  $search_qry .= "and customer.customer_name like '%".$search_text."%'";
+}
+
+
+if($queue_id == null || $queue_id==""){
+
+  $queue_condtion = "select queue.queue_id from queue inner join queue_users q_user on q_user.queue_id = queue.queue_id  inner join user on user.user_id = q_user.user_id where q_user.user_id = '$user_id' and  FIND_IN_SET('1', q_user.queue_feature) and q_user.queue_user_status = '1' and queue.queue_status = '1'";
+
+
+}
+else{
+  $queue_condtion = $queue_id;
+}
+
+// $queue_chat_qry = "select chat.chat_id, chat.chat_code,chat.chat_user,chat.chat_type,chat.chat_queue,chat.assigned_user, chat.chat_status, customer.customer_name, DATE_FORMAT(chat.created_dt, '%d-%m-%Y %H:%i') as chat_dt from chat left join customer on customer.customer_id = chat.chat_user where chat.chat_queue in ($queue_condtion) and chat.chat_type in (1,2) ".$search_qry." order by chat.chat_id desc";
+
+$qry = "select * from user where user_id='$user_id'";
+$result = $this->fetchData($qry, array());
+
+if($result['user_type'] == '2')
+{
+    
+  $admin_id = $user_id;		 
+  $queue_chat_qry = "select chat.chat_id, chat.chat_code,chat.chat_user,chat.chat_type,chat.chat_queue,chat.assigned_user, chat.chat_status, customer.customer_name, DATE_FORMAT(chat.created_dt, '%d-%m-%Y %H:%i') as chat_dt from chat left join customer on customer.customer_id = chat.chat_user where  chat.admin_id='$admin_id' and chat.chat_type in (1,2) ".$search_qry." order by chat.chat_id desc limit $limit Offset $offset";
+  $result = $this->dataFetchAll($queue_chat_qry,array());
+}
+else
+{		
+  $admin_id = $result['admin_id'];
+  $test = array(); 
+  $department_qry = "SELECT dept_id FROM `departments` WHERE department_users LIKE '%$user_id%'";
+  $department_user = $this->fetchData($department_qry, array());
+  $department_user_count = $this->dataRowCount($department_qry, array());
+  if($department_user_count>0){
+    $dep = $department_user['dept_id'];
+    $queue_chat_qry = "select chat.chat_id, chat.chat_code,chat.chat_user,chat.chat_type,chat.chat_queue,chat.assigned_user,chat.chat_status,chat.rating_value, customer.customer_name, DATE_FORMAT(chat.created_dt, '%d-%m-%Y %H:%i') as chat_dt from chat left join customer on customer.customer_id = chat.chat_user where chat.department = '$dep' and chat.admin_id='$admin_id'  and chat.chat_type in (1,2)".$search_qry." order by chat.chat_id desc limit $limit Offset $offset";	
+  
+  }else{
+    $queue_chat_qry = "select chat.chat_id, chat.chat_code,chat.chat_user,chat.chat_type,chat.chat_queue,chat.assigned_user,chat.chat_status,chat.rating_value, customer.customer_name, DATE_FORMAT(chat.created_dt, '%d-%m-%Y %H:%i') as chat_dt from chat left join customer on customer.customer_id = chat.chat_user where chat.admin_id='$admin_id' and (find_in_set('$user_id', chat.agents)) and chat.chat_type in (1,2)".$search_qry." order by chat.chat_id desc limit $limit Offset $offset";
+  }
+
+  
+  $result = $this->dataFetchAll($queue_chat_qry,array());
+}
+$results['chatHEads'] = $result;
+$results['userData'] = $user_id;
+return $results;        
+}
+
+ function chatMessagePanelDetail($chat_id){        
+    
+    $chat_detail_qry = "select chat.chat_id, chat.chat_user, chat.chat_type, chat.chat_status, chat.rating_value, chat.widget_name, chat_msg.chat_msg_id, chat_msg.msg_user_id, chat_msg.msg_user_type, chat_msg.msg_type, chat_msg.chat_msg, chat_msg.msg_status, customer.customer_name,customer_email,customer.city,customer.country,customer.created_ip, TIME_FORMAT(chat_msg.created_dt, '%H:%i') as chat_time, date_format(chat_msg.created_dt, '%d/%m/%Y') as chat_dt, user.user_name,user.chat_aviator,user.profile_image from chat inner join chat_msg on chat_msg.chat_id=chat.chat_id left join customer on chat.chat_user = customer.customer_id left join user on chat_msg.msg_user_id = user.user_id where chat.chat_id = '$chat_id' order by chat_msg.chat_msg_id asc";
+
+   $parms = array();
+   $result = $this->dataFetchAll($chat_detail_qry,array());
+    return $result;
+    
+    
+}
 }

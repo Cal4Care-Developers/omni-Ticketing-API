@@ -448,3 +448,13 @@ elseif($action == "copy_chat_question"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $chat->copy_chat_question($chat_data);
 }
+elseif($action == "chatMessagePanel" ){
+    $chat_detail_list == "";
+    if($chat_id != "all" && $chat_id != "" && $chat_id != 0){
+        $chat_detail_list = $chat->chatMessagePanelDetail($chat_id);
+		 $result_data["result"]["data"]["chat_detail_list"] = $chat_detail_list;
+    } else {
+		$result_data["result"]["data"]["chat_list"] = $chat->chatMessagePanel($login,"","",$limit,$offset);
+	}
+    $result_data["result"]["status"] = true;
+}

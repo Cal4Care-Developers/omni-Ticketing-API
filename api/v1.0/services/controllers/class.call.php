@@ -279,6 +279,20 @@ function callHistoryListWidget($data){
 function callEntry($data){
 
                 extract($data);
+		$encryption = $user_id;
+		$ciphering = "AES-128-CTR"; 
+		$iv_length = openssl_cipher_iv_length($ciphering); 
+		$options = 0; 
+		$decryption_iv = '1234567891011121'; 
+		$decryption_key = "GeeksforGeeks"; 
+		$decryption=openssl_decrypt ($encryption, $ciphering, $decryption_key, $options, $decryption_iv); 
+		$decryption =  $array = json_decode($decryption, true);
+		extract($decryption);
+		$hash_val = md5($password);
+		$get_agent_qry = "select * from user where company_name='$company' and user_name='$username' and user_pwd='$hash_val'";
+		$user_details = $this->fetchData($get_agent_qry,array());
+		$user_id = $user_details['user_id'];
+		$admin_id = $user_details['user_type'] == '2' ? $user_details['user_id'] : $user_details['admin_id'];	
                 //$dt = date('Y-m-d H:i:s');
                 $admin_id_qry = "SELECT admin_id FROM user WHERE user_id='$user_id'";
                 $adminid = $this->fetchmydata($admin_id_qry,array());
@@ -304,7 +318,7 @@ function callEntry($data){
  				$callid = $this->db_insert($qry, array());
 				if($callid != "" && $callid != 0){
 					$dt = date('Y-m-d H:i:s');					
-					$this->db_query("Insert into mc_event (user_id,admin_id,mc_event_key,mc_event_data,mc_event_type,event_status, created_dt) values('$user_id','$aid','$callid','$call_data','3','7','$dt')", array());
+			$this->db_query("Insert into mc_event (admin_id,mc_event_key,mc_event_data,mc_event_type,event_status, created_dt) values('$aid','$callid','$call_data','3','7','$dt')", array());
 				}			
 		        $this->call_notification_curl($admintoken,$call_data,$call_data);
 
@@ -877,5 +891,112 @@ function list_webrtc_servers(){
 			$res=$this->db_query("Update call_history set auxcode_name='$wrap_up',user_id='$admin_id' where callid='$call_id'", array());
 		//$callid=	    $this->db_query("Insert into call_history (user_id,call_data,phone,call_type,call_status, call_view_status, auxcode_name, call_start_dt, call_end_dt,caller_id_external) values('$admin_id','$call_data','$caller_no','incoming','open','1','$wrap_up','$call_start','$call_end','$call_id')", array());
 			return $res;
+		}
+
+	
+		function getMyCallHistoryDetails($data){
+			extract($data);
+			//print_r($data); exit;
+			$encryption = $login;
+			$ciphering = "AES-128-CTR"; 
+			$iv_length = openssl_cipher_iv_length($ciphering); 
+			$options = 0; 
+			$decryption_iv = '1234567891011121'; 
+			$decryption_key = "GeeksforGeeks"; 
+			$decryption=openssl_decrypt ($encryption, $ciphering, $decryption_key, $options, $decryption_iv); 
+			$decryption =  $array = json_decode($decryption, true);
+			extract($decryption);
+			$hash_val = md5($password);
+			$get_agent_qry = "select * from user where company_name='$company' and user_name='$username' and user_pwd='$hash_val'";
+			$user_details = $this->fetchData($get_agent_qry,array());
+			$user_id = $user_details['user_id'];
+			$admin_id = $user_details['user_type'] == '2' ? $user_details['user_id'] : $user_details['admin_id'];
+			$qry_limit_data  = $this->qryData($limit,$order_by_type,$offset);
+			extract($qry_limit_data);
+			$search_qry = "";
+			if($search_text != ""){
+				$search_qry = " and (history.phone like '%".$search_text."%' or call_type like '%".$search_text."%')";
+			}
+			if($call_type == 'All'){
+				$call_type_qry = "";
+			} else {
+				$call_type_qry = " and history.call_type like '%".$call_type."%'";
+			}
+			$qry = "select history.callid, history.customer_id, history.call_data, history.phone, history.call_type, history.duration, history.call_status, history.call_view_status, history.auxcode_name, history.call_start_dt, history.call_end_dt, user.agent_name from call_history history left join user on user.user_id = history.customer_id where history.user_id = '$user_id'".$search_qry.' '.$call_type_qry;
+			$detail_qry = $qry." order by ".$order_by_name."  ".$order_by_type." limit ".$limit." Offset ".$offset;
+			//print_r(  $detail_qry); exit;
+			$parms = array();
+			$result["list_data"] = $this->dataFetchAll($detail_qry,$parms);
+			$result["list_info"]["total"] = $this->dataRowCount($qry,$parms);
+			$result["list_info"]["offset"] = $offset;
+			return $result;
+		}
+		function getMyContactDetails($data){
+			extract($data);
+			$encryption = $login;
+			$ciphering = "AES-128-CTR"; 
+			$iv_length = openssl_cipher_iv_length($ciphering); 
+			$options = 0; 
+			$decryption_iv = '1234567891011121'; 
+			$decryption_key = "GeeksforGeeks"; 
+			$decryption=openssl_decrypt ($encryption, $ciphering, $decryption_key, $options, $decryption_iv); 
+			$decryption =  $array = json_decode($decryption, true);
+			extract($decryption);
+			$hash_val = md5($password);
+			$get_agent_qry = "select * from user where company_name='$company' and user_name='$username' and user_pwd='$hash_val'";
+			$user_details = $this->fetchData($get_agent_qry,array());
+			$user_id = $user_details['user_id'];
+			$admin_id = $user_details['user_type'] == '2' ? $user_details['user_id'] : $user_details['admin_id'];
+			$qry_limit_data  = $this->qryData($limit,$order_by_type,$offset);
+			extract($qry_limit_data);
+			$search_qry = "";
+			if($search_text != ""){
+				$search_qry = " and (history.phone like '%".$search_text."%' or call_type like '%".$search_text."%')";
+			}
+			$qry = "select history.callid, history.customer_id, history.call_data, history.phone, history.call_type, history.duration, history.call_status, history.call_view_status, history.auxcode_name, history.call_start_dt, history.call_end_dt, user.agent_name from call_history history left join user on user.user_id = history.customer_id where history.user_id = '$user_id'".$search_qry;
+			$detail_qry = $qry." order by ".$order_by_name." ".$order_by_type." limit ".$limit." Offset ".$offset;
+	
+	
+			if($search_text != ""){
+				$search_qry = " and (contact.first_name like '%".$search_text."%' or contact.skype like '%".$search_text."%' or contact.email like '%".$search_text."%' or contact.phone like '%".$search_text."%' or contact.last_name like '%".$search_text."%')";
+			}
+			$qry = "SELECT `contact_id`, `first_name`,`phone`,`mobile` from contacts as contact where admin_id='$admin_id' ".$search_qry; 
+			$detail_qry = $qry." order by ".$order_by_name." ".$order_by_type." limit ".$limit." Offset ".$offset;	
+			//print_r($detail_qry); exit;
+			$parms = array();
+			$result["list_data"] = $this->dataFetchAll($detail_qry,$parms);
+			$result["list_info"]["total"] = $this->dataRowCount($detail_qry,$parms);
+			$result["list_info"]["offset"] = $offset;
+			return $result;
+		}
+
+		function getMyAgentDetails($data){
+			extract($data);
+			//print_r($data); exit;
+			$encryption = $login;
+			$ciphering = "AES-128-CTR"; 
+			$iv_length = openssl_cipher_iv_length($ciphering); 
+			$options = 0; 
+			$decryption_iv = '1234567891011121'; 
+			$decryption_key = "GeeksforGeeks"; 
+			$decryption=openssl_decrypt ($encryption, $ciphering, $decryption_key, $options, $decryption_iv); 
+			$decryption =  $array = json_decode($decryption, true);
+			extract($decryption);
+			$hash_val = md5($password);
+			$get_agent_qry = "select * from user where company_name='$company' and user_name='$username' and user_pwd='$hash_val'";
+			$user_details = $this->fetchData($get_agent_qry,array());
+			$user_id = $user_details['user_id']; 
+			$admin_id = $user_details['user_type'] == '2' ? $user_details['user_id'] : $user_details['admin_id'];
+	
+			$search_qry = "";
+			if($search_text != ""){
+				$search_qry = " AND (agent_name like '%".$search_text."%' OR sip_login like '%".$search_text."%')";
+			}
+	
+			$detail_qry = "SELECT user_id, agent_name, sip_login FROM user WHERE admin_id = '$admin_id' AND user_type != 1 $search_qry ORDER BY user_id DESC LIMIT 50";
+	
+			$parms = array();
+			$result["list_data"] = $this->dataFetchAll($detail_qry,$parms);
+			return $result;
 		}
     }
