@@ -6812,8 +6812,13 @@ public function composeInternalMail($data){
 		$description = base64_decode($description);
 		$html = $description;
 		$dom = new DOMDocument();
-		$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+		// $dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+		// $images = $dom->getElementsByTagName('img');
+
+		// SK code test
 		$images = $dom->getElementsByTagName('img');
+		$dom->loadHTML($html);
+		// END
 		foreach ($images as $image) {        	
 		    $withoutSrc = $image->getAttribute('src');
 			$img_Src = str_ireplace('src="', '', $withoutSrc);
