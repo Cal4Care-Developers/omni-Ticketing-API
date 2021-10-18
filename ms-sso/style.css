@@ -1544,8 +1544,13 @@ div#userList{height: 255px;overflow-y: scroll;}
 .contact-panel .tab-content{overflow-y: auto;height: auto;}
 div#recentCalls{height: 310px;overflow-y: scroll;}
 .contact-panel .tab-content h5{color: #fff;}
-.call-duration{color: #ddd;}
 
+.call-duration{color: #ddd;}
+.contact-list.agents-list .btn-circle{transition: .5s ease;position: absolute;right:18px;top:22px;width: 40px;height: 40px;border-radius:50%;display: flex;justify-content: center;align-items: center;font-size: 14px;}
+.contact-list.agents-list .user-img img{width: 40px;height: 40px;margin-right: 6px;}
+.contact-list.agents-list .btn-circle:hover{transform: rotate(90deg);transition: .5s ease;}
+.dialpad-tab {overflow-y: scroll;height: 135px;}
+.dialpad-tab::-webkit-scrollbar-thumb{background-color: #000000;}
 
 @media screen and (min-width: 1300px) {
   .contact-round-holder { margin-right: 15px; }
@@ -1742,7 +1747,7 @@ div#recentCalls{height: 310px;overflow-y: scroll;}
   form.queuedetail select.w-full{width: 45%}
   div#recentCalls{height: 998px;overflow-y: scroll;}
 }
-@media screen and (max-width: 970px) {
+@media screen and (max-width: 600px) {
   table.call-table {
     border: 0;
   }
@@ -1790,10 +1795,49 @@ div#recentCalls{height: 310px;overflow-y: scroll;}
     border-bottom: 0;
   }
 }
-
+.discussion.search {margin: 20px 0px;}
+.discussion.search span.fa.fa-search.form-control-feedback{
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 40px;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+.discussion.search input#contactSearch, .discussion.search input#agentsSearch{
+  width: 50%;
+  padding: 0px 15px 0px 35px;
+  border-radius: 20px;
+  height: 40px;
+  line-height: 40;
+  border: 1px solid #ddd;
+}
 
 @media screen and (min-width: 992px) and (max-width: 1299px) {
   .app-logo img { margin: 0 auto; height: 30px; }
   .login-dialer .digit, .login-dialer .dig { padding: 10px 22px; }
 }
-
+.menu{
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s;
+}
+.open{
+  overflow: visible;
+}
+ul.dialpad-list-group.nav.nav-tabs i{padding-right: 5px;width: 25px;}
+ul.dialpad-list-group.nav.nav-tabs .hamburger {position: relative;}
+ul.dialpad-list-group.nav.nav-tabs .hamburger span:after {
+    content: "";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    transform: translate(0, -50%);
+    font-size: 14px;
+}
+.dialpad-list-group li a{border-bottom: 1px solid #ddd;}

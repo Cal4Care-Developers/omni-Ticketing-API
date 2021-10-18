@@ -46,14 +46,17 @@ if($element_data){
 		//$u = "https://omnitickets.mconnectapps.com/mconnectDialer/?email=$emial&url=$url&login=$login";
 		// $u = "https://omnitickets.mconnectapps.com/mconnectDialer/?login=$login";
 		$u = "https://omnitickets.mconnectapps.com/ms-sso/call-details.php?email=$emial&url=$url&login=$login";
-		ob_start();
-		header('Location: '.$u);
-		ob_end_flush();
-		die();
-	}
-	
-	
-	
+		// ob_start();
+		// header('Location:'.$u);
+		$u = str_replace("\n", '', $u);
 
+		echo "<script>window.location.href='$u';</script>";
+
+         exit;
+		
+
+		// ob_end_flush();
+		// die();
+	}	
 	exit();
 }

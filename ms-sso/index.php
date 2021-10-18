@@ -257,8 +257,8 @@
 		
         if(login && email){
             document.getElementsByTagName("html")[0].style.visibility = "visible";
-           //  var u = "https://omnitickets.mconnectapps.com/mconnectDialer/?login="+login;
-			var u = "https://omnitickets.mconnectapps.com/ms-sso/call-details.php?login="+login;
+           //  var u = "https://" + window.location.hostname + "/mconnectDialer/?login="+login;
+			var u = "https://" + window.location.hostname + "/ms-sso/call-details.php?login="+login;
 			if(login !='Not an Valid User'){
 				window.location = u;
 			}
@@ -267,7 +267,7 @@
 
     function redirect(){
         microsoftTeams.authentication.authenticate({
-            url: "https://omnitickets.mconnectapps.com/ms-sso/simplesamlphp/",
+            url: "https://" + window.location.hostname + "/ms-sso/simplesamlphp/",
             width: 800,
             height: 800,
             successCallback: (data) => {
@@ -275,8 +275,8 @@
                 var email = localStorage.getItem('email');
                 if(login && email){
                 document.getElementsByTagName("html")[0].style.visibility = "visible";
-                //var u = "https://omnitickets.mconnectapps.com/mconnectDialer/?login="+login;
-					var u = "https://omnitickets.mconnectapps.com/ms-sso/call-details.php?login="+login;
+                //var u = "https://" + window.location.hostname + "/mconnectDialer/?login="+login;
+					var u = "https://" + window.location.hostname + "/ms-sso/call-details.php?login="+login;
                 window.location = u;
                 }
             },

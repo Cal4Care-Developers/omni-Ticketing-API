@@ -141,7 +141,7 @@ $(document).ready(function() {
                                         });
                                 },
                                 error: function(error) {
-                                    alert("  -- Error attaching plugin...");
+                                    //alert("  -- Error attaching plugin...");
                                     //bootbox.alert("  -- Error attaching plugin... " + error);
                                    // console.log("  -- Error attaching plugin... " + error);
                                 },
@@ -199,7 +199,7 @@ $(document).ready(function() {
                                                 .removeClass("btn-danger").addClass("btn-success")
                                                 .unbind('click').click(doCall);
                                         }
-                                        // bootbox.alert(error);
+                                       // alert(error);
                                         console.log(error);
                                         return;
                                     }
@@ -216,6 +216,7 @@ $(document).ready(function() {
                                         }
                                         if(event === 'registration_failed') {
                                             Janus.warn("Registration failed: " + result["code"] + " " + result["reason"]);
+										//	alert(result["code"]);
                                             $('#server').removeAttr('disabled');
                                             $('#username').removeAttr('disabled');
                                             $('#authuser').removeAttr('disabled');
@@ -355,7 +356,7 @@ $(document).ready(function() {
                                                 $.ajax({
                                                 
                                                     type: "POST",
-                                                    url: "https://omnitickets.mconnectapps.com/api/v1.0/index.php",
+                                                    url: "https://" + window.location.hostname + "/api/v1.0/index.php",
                                                     data: JSON.stringify(api_req),
                                                     contentType: "application/json; charset=utf-8",
                                                     dataType: "json",
@@ -890,7 +891,7 @@ function initCallService(){
 
     $.ajax({
         type: "POST",
-        url: "https://omnitickets.mconnectapps.com/api/v1.0/index.php",
+        url: "https://" + window.location.hostname + "/api/v1.0/index.php",
         data: JSON.stringify( query ),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -2120,7 +2121,7 @@ function dialPadDetailView(view_type, detail_id) {
     $.ajax({
     
         type: "POST",
-        url: "https://omnitickets.mconnectapps.com/api/v1.0/index.php",
+        url: "https://" + window.location.hostname + "/api/v1.0/index.php",
         data: JSON.stringify(api_req),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -2416,7 +2417,7 @@ function viewtransfercontact() {
 		 $.ajax({
 	 
 			 type: "POST",
-			 url: "https://omnitickets.mconnectapps.com/api/v1.0/index.php",
+			 url: "https://" + window.location.hostname + "/api/v1.0/index.php",
 			 data: JSON.stringify(api_req),
 			 contentType: "application/json; charset=utf-8",
 			 dataType: "json",
@@ -2435,7 +2436,7 @@ function viewtransfercontact() {
 								 d = "'"+user_list.sip_login+"'";
 								 contentStr += '<div class="contact-list-item" phone-attr="phone" onclick="transfercontact('+d+')"><div class="contact-number-details"><span class="user-img"><img src="assets/images/user.jpg"></span><h5>'+ user_list.user_name +' ('+ user_list.agent_name +')</h5></div></div>';
 							 });
-							 var rCal = '<ul class="nav nav-tabs contact-back-arrow" id="myTab" role="tablist"><li class="nav-item"><a class="nav-link" id="trans_contact-tab" data-toggle="tab" onclick="transfercontact('+dummy+')" role="tab" aria-controls="trans_contact" aria-selected="false">  <div class="dig list_details"><i class="fa fa-arrow-left" aria-hidden="true"></i></div></a></li><li class="nav-item"></li></ul><div class="contact-panel"><div class="search-field"><input id="dialpad_number_contscts" onkeyup="searchTransContacts()" class="form-control" type="text" name="searchfield" placeholder="Search User Contacts" ></div><div class="tab-pane" id="transList">'+contentStr+'</div></div><div class="botrow"></div></div></div><div class="row noMargin" id="call-action-btn-group"></div>';
+							 var rCal = '<ul class="nav nav-tabs contact-back-arrow" id="myTab" role="tablist"><li class="nav-item"><a class="nav-link" id="trans_contact-tab" data-toggle="tab" onclick="transfercontact('+dummy+')" role="tab" aria-controls="trans_contact" aria-selected="false">  <div class="dig list_details"><i class="fa fa-arrow-left" aria-hidden="true"></i></div></a></li><li class="nav-item"></li></ul><div class="contact-panel"><div class="tab-pane" id="transList">'+contentStr+'</div></div><div class="botrow"></div></div></div><div class="row noMargin" id="call-action-btn-group"></div>';
 							//  var rCal = '<div class="contact-panel"><div class="search-field"><input id="dialpad_number_contscts" onkeyup="searchDialerContacts()" class="form-control" type="text" name="searchfield" placeholder="Search User Contacts"></div>'+contentStr+'</div><div class="botrow"><div class="dig list_details" onclick="dialPadview('+user_lists+')"><i class="fa fa-user-circle" aria-hidden="true"></i><span class="btn-icon-name">Contacts</span></div><div class="dig list_details" onclick="dialPadview('+number_dialer+')"><i class="fa fa-th" aria-hidden="true"></i><span class="btn-icon-name">Keypad</span></div><div class="dig list_details" onclick="dialPadview('+recent_lists+')"><i style="font-size: 22px;" class="fas fa-clock"></i><span class="btn-icon-name">Recents</span></div></div></div></div><div class="row noMargin" id="call-action-btn-group"><ul class="nav nav-tabs" id="myTab" role="tablist"><li class="nav-item"><a class="nav-link" id="trans_contact-tab" data-toggle="tab" onclick="viewtransfercontact()" role="tab" aria-controls="trans_contact" aria-selected="false">  <div class="dig list_details"><i class="fa fa-user-circle" aria-hidden="true"></i></div></a></li><li class="nav-item"></li></ul></div>';
 							 $('#trans_contact').html(rCal); 
 				 }
@@ -2492,7 +2493,7 @@ function dialPadview(view_type) {
          $.ajax({
      
              type: "POST",
-             url: "https://omnitickets.mconnectapps.com/api/v1.0/index.php",
+             url: "https://" + window.location.hostname + "/api/v1.0/index.php",
              data: JSON.stringify(api_req),
              contentType: "application/json; charset=utf-8",
              dataType: "json",
@@ -2551,7 +2552,7 @@ function dialPadview(view_type) {
          var recent_lists = "'recent_list_widget'";
          var hash = "'#'";
          var star = "'*'";
-         var number_dialerC = '<div id="number_dialer" ><div class="search-field"><input id="dialpad_number" class="form-control" type="text" name="searchfield" placeholder="Enter the number..."></div><div class="dial-panel"><div class="row"><div class="digit" id="one" onclick="keyPad(1)" onkeypress="keyPad(1)">1</div><div class="digit" id="two" onclick="keyPad(2)">2 <div class="sub">ABC</div></div><div class="digit" id="three" onclick="keyPad(3)">3 <div class="sub">DEF</div></div></div><div class="row"><div class="digit" id="four" onclick="keyPad(4)">4 <div class="sub">GHI</div></div><div class="digit" id="five" onclick="keyPad(5)">5 <div class="sub">JKL</div></div><div class="digit" id="six" onclick="keyPad(6)">6 <div class="sub">MNO</div></div></div><div class="row"><div class="digit" id="seven" onclick="keyPad(7)">7 <div class="sub">PQRS</div></div><div class="digit" id="eight" onclick="keyPad(8)">8 <div class="sub">TUV</div></div><div class="digit" id="nine" onclick="keyPad(9)">9 <div class="sub">WXYZ</div></div></div><div class="row"><div class="digit" id="star" onclick="keyPad('+star+')">*</div><div class="digit" id="zero" onclick="keyPad(0)">0</div><div class="digit" id="hash" onclick="keyPad('+hash+')">#</div></div><div class="row" id="call-action-btn-group"><div class="digit has-img" onclick="dialPadview('+user_lists+')"><img src="assets/images/dialpad-search-icon.png" height="28"></div><div class="dig on list_details call-green-btn" id="call" onclick="doCall()"><span class="call-btn-icon"><i class="fa rotate-full fa-phone" aria-hidden="true"></i></span></div><div class="digit has-img" id="" onclick="dialPadbackSpace()"><img src="assets/images/dialpad-clear-icon.png" height="20"></div></div><div class="botrow"><div class="dig list_details" onclick="dialPadview('+number_dialer+')"><i class="fa fa-th" aria-hidden="true"></i><span class="btn-icon-name">Keypad</span></div></div></div></div>';
+         var number_dialerC = '<div id="number_dialer" ><div class="search-field"><input id="dialpad_number" class="form-control" type="text" name="searchfield" placeholder="Enter the number..."></div><div class="dial-panel"><div class="row"><div class="digit" id="one" onclick="keyPad(1)" onkeypress="keyPad(1)">1</div><div class="digit" id="two" onclick="keyPad(2)">2 <div class="sub">ABC</div></div><div class="digit" id="three" onclick="keyPad(3)">3 <div class="sub">DEF</div></div></div><div class="row"><div class="digit" id="four" onclick="keyPad(4)">4 <div class="sub">GHI</div></div><div class="digit" id="five" onclick="keyPad(5)">5 <div class="sub">JKL</div></div><div class="digit" id="six" onclick="keyPad(6)">6 <div class="sub">MNO</div></div></div><div class="row"><div class="digit" id="seven" onclick="keyPad(7)">7 <div class="sub">PQRS</div></div><div class="digit" id="eight" onclick="keyPad(8)">8 <div class="sub">TUV</div></div><div class="digit" id="nine" onclick="keyPad(9)">9 <div class="sub">WXYZ</div></div></div><div class="row"><div class="digit" id="star" onclick="keyPad('+star+')">*</div><div class="digit" id="zero" onclick="keyPad(0)">0</div><div class="digit" id="hash" onclick="keyPad('+hash+')">#</div></div><div class="row" id="call-action-btn-group"><div class="digit has-img"></div><div class="dig on list_details call-green-btn" id="call" onclick="doCall()"><span class="call-btn-icon"><i class="fa rotate-full fa-phone" aria-hidden="true"></i></span></div><div class="digit has-img" id="" onclick="dialPadbackSpace()"><img src="assets/images/dialpad-clear-icon.png" height="20"></div></div><div class="botrow"><div class="dig list_details" onclick="dialPadview('+number_dialer+')"><i class="fa fa-th" aria-hidden="true"></i><span class="btn-icon-name">Keypad</span></div></div></div></div>';
          $('#dialpad_layout').html(number_dialerC); 
      }
  
@@ -2559,7 +2560,7 @@ function dialPadview(view_type) {
  
 
  function qLogout(){
- var number_dialerC = '<div id="number_dialer" ><div class="search-field"><input id="dialpad_number" class="form-control" type="text" name="searchfield" placeholder="Enter the number..."></div><div class="dial-panel"><div class="row"><div class="digit" id="one" onclick="keyPad(1)" onkeypress="keyPad(1)">1</div><div class="digit" id="two" onclick="keyPad(2)">2 <div class="sub">ABC</div></div><div class="digit" id="three" onclick="keyPad(3)">3 <div class="sub">DEF</div></div></div><div class="row"><div class="digit" id="four" onclick="keyPad(4)">4 <div class="sub">GHI</div></div><div class="digit" id="five" onclick="keyPad(5)">5 <div class="sub">JKL</div></div><div class="digit" id="six" onclick="keyPad(6)">6 <div class="sub">MNO</div></div></div><div class="row"><div class="digit" id="seven" onclick="keyPad(7)">7 <div class="sub">PQRS</div></div><div class="digit" id="eight" onclick="keyPad(8)">8 <div class="sub">TUV</div></div><div class="digit" id="nine" onclick="keyPad(9)">9 <div class="sub">WXYZ</div></div></div><div class="row"><div class="digit" id="star" onclick="keyPad('+star+')">*</div><div class="digit" id="zero" onclick="keyPad(0)">0</div><div class="digit" id="hash" onclick="keyPad('+hash+')">#</div></div><div class="row" id="call-action-btn-group"><div class="digit has-img" onclick="dialPadview('+user_lists+')"><img src="assets/images/dialpad-search-icon.png" height="28"></div><div class="dig on list_details call-green-btn" id="call" onclick="doCall()"><span class="call-btn-icon"><i class="fa rotate-full fa-phone" aria-hidden="true"></i></span></div><div class="digit has-img" id="" onclick="dialPadbackSpace()"><img src="assets/images/dialpad-clear-icon.png" height="20"></div></div><div class="botrow"><div class="dig list_details" onclick="dialPadview('+user_lists+')"><i class="fa fa-user-circle" aria-hidden="true"></i><span class="btn-icon-name">Contacts</span></div><div class="dig list_details" onclick="dialPadview('+number_dialer+')"><i class="fa fa-th" aria-hidden="true"></i><span class="btn-icon-name">Keypad</span></div><div class="dig list_details" onclick="dialPadview('+recent_lists+')"><i style="font-size: 22px;" class="fas fa-clock"></i><span class="btn-icon-name">Recents</span></div></div></div></div>';
+ var number_dialerC = '<div id="number_dialer" ><div class="search-field"><input id="dialpad_number" class="form-control" type="text" name="searchfield" placeholder="Enter the number..."></div><div class="dial-panel"><div class="row"><div class="digit" id="one" onclick="keyPad(1)" onkeypress="keyPad(1)">1</div><div class="digit" id="two" onclick="keyPad(2)">2 <div class="sub">ABC</div></div><div class="digit" id="three" onclick="keyPad(3)">3 <div class="sub">DEF</div></div></div><div class="row"><div class="digit" id="four" onclick="keyPad(4)">4 <div class="sub">GHI</div></div><div class="digit" id="five" onclick="keyPad(5)">5 <div class="sub">JKL</div></div><div class="digit" id="six" onclick="keyPad(6)">6 <div class="sub">MNO</div></div></div><div class="row"><div class="digit" id="seven" onclick="keyPad(7)">7 <div class="sub">PQRS</div></div><div class="digit" id="eight" onclick="keyPad(8)">8 <div class="sub">TUV</div></div><div class="digit" id="nine" onclick="keyPad(9)">9 <div class="sub">WXYZ</div></div></div><div class="row"><div class="digit" id="star" onclick="keyPad('+star+')">*</div><div class="digit" id="zero" onclick="keyPad(0)">0</div><div class="digit" id="hash" onclick="keyPad('+hash+')">#</div></div><div class="row" id="call-action-btn-group"><div class="digit has-img"></div><div class="dig on list_details call-green-btn" id="call" onclick="doCall()"><span class="call-btn-icon"><i class="fa rotate-full fa-phone" aria-hidden="true"></i></span></div><div class="digit has-img" id="" onclick="dialPadbackSpace()"><img src="assets/images/dialpad-clear-icon.png" height="20"></div></div><div class="botrow"><div class="dig list_details" onclick="dialPadview('+user_lists+')"><i class="fa fa-user-circle" aria-hidden="true"></i><span class="btn-icon-name">Contacts</span></div><div class="dig list_details" onclick="dialPadview('+number_dialer+')"><i class="fa fa-th" aria-hidden="true"></i><span class="btn-icon-name">Keypad</span></div><div class="dig list_details" onclick="dialPadview('+recent_lists+')"><i style="font-size: 22px;" class="fas fa-clock"></i><span class="btn-icon-name">Recents</span></div></div></div></div>';
          $('#dialpad_layout').html(number_dialerC); 
  }
 
@@ -2571,12 +2572,15 @@ websocket.onopen = function (event) {
 
     console.log('dialpad open');
     //myQueues();
+	//alert("wss://myscoket.mconnectapps.com:4004/");
+	
     
 }
 
 
 websocket.onmessage = function (event) {
-
+	var d = JSON.stringify( event );
+	//alert(d);
 console.log(event.data);
 
 var result_message = JSON.parse(event.data);
@@ -2604,9 +2608,13 @@ var result_message = JSON.parse(event.data);
 
 websocket.onerror = function (event) {
     console.log('error');
+	var d = JSON.stringify( event );
+	//alert(d);
 };
 websocket.onclose = function (event) {
     console.log('close');
+		var d = JSON.stringify( event );
+	//alert(d);
 };
 
 
@@ -2639,7 +2647,7 @@ function myQueues(){
 
   $.ajax({
       type: "POST",
-      url: "https://omnitickets.mconnectapps.com/api/v1.0/index.php",
+      url: "https://" + window.location.hostname + "/api/v1.0/index.php",
       data: JSON.stringify( query ),
       contentType: "application/json; charset=utf-8",
       dataType: "json",
@@ -2661,7 +2669,7 @@ function myQueues(){
          }
          
     //  var queues = '<div class="dialpad-body dialpad_layout" id="dialpad_layout"><div class="contact-panel"><div class="tab-content-data queuedetail"><div class="tab-pane" id="queuedetail"><h3 class="title-section">Queue Details</h3><div class="flex py-2"><h4>Aux Code</h4><div class="relative w-full border-gray-400"> <select class="block p-2 w-full appearance-none focus:outline-none"><option>Select Aux Code</option><option>lunch</option><option>new aux code generated</option> </select></div></div><div class="row has-row-space"><div class="col-md-12"><div class="addAgent"><div class="table-responsive"><table class="table table-bordered table-striped table-md"><tr><th style="width: 20px;"><div class="pretty p-default"> <input type="checkbox" id="getallmyqueue"></div></th><th>Queue Name</th></tr><tbody><tr><td style="width: 20px;"><div class="pretty p-default"> <input type="checkbox" class="getallmyqueues" value="802"></div></td><td>CRC Work 123</td></tr><tr><td style="width: 20px;"><div class="pretty p-default"> <input type="checkbox" class="getallmyqueues" value="803"></div></td><td>Queue2</td></tr></tbody></table></div></div></div><div class="col-md-12"><div class="buttons"> <input type="button" value="Cancel" class="btn btn-outline-secondary"> <input type="submit" value="Logout" class="btn btn-primary update_agent"></div></div></div></div><div class="botrow"><div class="dig list_details"> <i class="fa fa-user-circle" aria-hidden="true"></i> <span class="btn-icon-name">Contacts</span></div><div class="dig list_details"><i class="fa fa-th" aria-hidden="true"></i> <span class="btn-icon-name">Keypad</span></div><div class="dig list_details"> <i style="font-size: 22px;" class="fas fa-clock"></i> <span class="btn-icon-name">Recents</span></div></div></div></div></div>';
-    var selectBoxAux = '<select id="auxCode" class="block p-2 w-full appearance-none focus:outline-none" name="auxCode">'+options+'</select>';
+    var selectBoxAux = '<select id="auxCode"  class="block p-2 w-full appearance-none focus:outline-none" name="auxCode">'+options+'</select>';
     
 
     myAllQueues = [];
@@ -2714,7 +2722,7 @@ function QueueLogin (){
  
   $.ajax({
       type: "POST",
-      url: "https://omnitickets.mconnectapps.com/api/v1.0/index.php",
+      url: "https://" + window.location.hostname + "/api/v1.0/index.php",
       data: JSON.stringify( query ),
       contentType: "application/json; charset=utf-8",
       dataType: "json",
@@ -2758,7 +2766,7 @@ function notifyMe(data,title) {
   Notification.requestPermission();
  else {
   var notification = new Notification(title, {
-   icon: 'https://omnitickets.mconnectapps.com/ms-sso/assets/images/omni-logo-noti.png',
+   icon: 'https://'+ window.location.hostname +'/ms-sso/assets/images/omni-logo-noti.png',
    body: data,
   });
  // notification.onclick = function() {

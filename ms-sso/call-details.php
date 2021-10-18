@@ -4,8 +4,11 @@
 <head>
 	<title>Dialpad</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-4.5.0.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
 	<link rel="stylesheet" type="text/css" href="css/all.css">
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="chat-style.css">
+	<link rel="stylesheet" type="text/css" href="style.css"> 
+
 	<style>
 		/*change on Feb 15
 .dialpad-container {height: 465px;}*/
@@ -64,6 +67,8 @@
 	<input type="hidden" autocomplete="off" id="sipExtension">
 	<input type="hidden" autocomplete="off" id="sipHardwareId">
 	<input type="hidden" autocomplete="off" id="has_mrvoip">
+	<input type="hidden" autocomplete="off" id="custoInfo">
+	<inpu type="hidden" autocomplete="off" id="custoInfchatId">
 	<div class="theme-white">
 
 		<div class="page-header">
@@ -117,7 +122,7 @@ Custom Code End
 ------------------------------------------------>
 
 		<div class="common-logout">
-			<a href="https://omnitickets.mconnectapps.com/ms-sso/simplesamlphp/www/module.php/core/as_logout.php?AuthId=default-sp&ReturnTo=https%3A%2F%2Fomnitickets.mconnectapps.com%2Fms-sso%2Fsimplesamlphp%2F" onclick="logoutMain()">
+			<a  onclick="logoutMain()" style="cursor:pointer">
 				<span class="badge badge-danger"><i class="fas fa-sign-out-alt"></i> Logout</span>
 			</a>
 		</div>
@@ -130,10 +135,17 @@ Custom Code End
 			</div>
 
 			<div class="dialpad-tab">
-				<ul class="dialpad-list-group nav nav-tabs">
-				
-					<li><a id="contactsTab" data-toggle="tab" href="#contacts" onclick="getMyContacts()">Contacts</a></li>
-					<li><a data-toggle="tab" href="#history" onclick="getMyCallHistoryDetails('All')">Call History</a></li>
+			    <ul class="dialpad-list-group nav nav-tabs">
+					<li><a id="contactsTab" data-toggle="tab" href="#contacts" onclick="getMyContacts()"><i class="fa fa-user-circle" aria-hidden="true"></i>Contacts</a></li>
+					<li><a data-toggle="tab" href="#history" onclick="getMyCallHistoryDetails('All')"><i class="fa  fa-phone" aria-hidden="true"></i>Call History</a></li>
+					<li><a data-toggle="tab" href="#agents"  onclick="getMyAgents()" ><i class="fas fa-users" aria-hidden="true"></i>Agents List</a></li>
+					<li class="hamburger"><a data-toggle="tab" href="#chat" onclick="getMyChatLists()"  ><i class="far fa-comment-alt" aria-hidden="true"></i>Chat<span></span></a>
+                       <!-- <ul class="menu">
+                       	 <li><a data-toggle="tab" href="#chat"><i class="fas fa-comment-dots" aria-hidden="true"></i>Chat</a></li>
+                       	 <li><a href="javascript:;"><i class="fab fa-whatsapp" aria-hidden="true"></i>Whatsapp</a></li>
+                       	 <li><a href="javascript:;"><i class="fab fa-facebook-messenger" aria-hidden="true"></i>Facebook</a></li>
+                       </ul> -->
+					</li>
 				</ul>
 			</div>
 
@@ -256,8 +268,8 @@ Custom Code End
 
 							
 
-							<div class="add-wrap-icon" data-toggle="modal" data-target="#addWrapCodeModal"
-								style="display:none;">
+							<div class="add-wrap-icon" onclick="initCallService()"
+style="display:none"								>
 								<i class="fas fa-cog"></i>
 							</div>
 
@@ -392,7 +404,7 @@ Right Column
 		<div class="tab-content">
 			<div id="contacts" class="tab-pane fade in active">
 				<h4 class="mb-4">Contacts</h4>
-
+				<div class="discussion search"><span class="fa fa-search form-control-feedback"></span><input type="text" id="contactSearch" placeholder="Search Contacts..."/></div>
 				<div class="contact-list">
 					<div class="row" id="mycontcts">
 
@@ -477,6 +489,98 @@ Right Column
 				<!-- ./Tabs -->
 
 			</div>
+            <div id="agents" class="tab-pane fade">
+				<h4 class="mb-4">Agents List</h4>
+				<div class="discussion search"><span class="fa fa-search form-control-feedback"></span><input type="text" id="agentsSearch" placeholder="Search Agents..."/></div>
+				<div class="contact-list agents-list">
+					<div class="row" id="myagentsDiv">
+
+						
+						
+					</div>
+				</div>
+
+			</div>
+			<div id="chat" class="tab-pane fade">
+				<h4 class="mb-4">Chat</h4>
+
+				<div class="contact-list">
+				    <div class="chat-section-panel">
+						<div class="container-block">
+							<div class="row">
+					            <div class="col-sm-12 col-lg-3 col-md-3">
+								    <div class="discussions">
+									    <div class="discussion search">
+									      <div class="searchbar"><i class="fa fa-search"></i>
+									        <input type="text" placeholder="Search..."/>
+									      </div>
+									    </div>
+									    <ul class="chat-tabs">
+											<li class="tab tabs-active">Active</li>
+											<li class="tab">Closed</li>
+											
+										</ul>
+										<div class="container--content">
+											<div class="content content-active" id="chatHEads">
+									       
+											    <div class="contacts message-active">
+											      <div class="photo" style="background-image:url(assets/images/user.jpg)">
+											        <div class="status"></div>
+											      </div>
+											      <div class="message">
+											        <div class="name_Profile">Chat Lists</div>
+											        <div class="text_message"></div>
+											      </div>
+											    </div>
+											</div>
+											<div class="content"  id="chatHeadsClosed">
+									          
+											</div>
+											<div class="content">
+											    <div class="contacts">
+											      <div class="photo" style="background-image:url(assets/images/user.jpg)">
+											        <div class="status"></div>
+											      </div>
+											      <div class="message">
+											        <div class="name_Profile">Test4</div>
+											        <div class="text_message">The uniform policy of Melton Christian School in Melbourne prohibits non-Christian head coverings for boys.</div>
+											      </div>
+											    </div>
+											</div>
+										</div>
+								    </div>
+								</div>
+								<div class="col-sm-12 col-lg-9 col-md-9" id="chatMessagesMainB">
+									<div class="chat">
+									    <div class="chat-header-section">
+										    <div class="header-chat"><i class="icon fa fa-user-o"></i>
+										    	<div class="profile-photo" style="background-image:url(assets/images/user.jpg)"></div>
+										    	<div class="chat-header-profile">
+										            <div class="contact-profle" id="chatUserNAme"></div>
+												    <div class="contact-profle" id="chatWidgetNAme"></div>
+												</div>    
+										      
+										    </div>
+										</div>
+									    <div class="messages-chat" id="chatMessages">
+										  
+
+									    </div>
+										
+									    <div class="footer-chat">
+											
+									        <input class="write-message" id="chatMessageSend" type="text" placeholder="Type your message here"/><a id="sendChatIcons" onclick="sendChatMessage()" class="icon send fa fa-paper-plane clickable"></a>
+									    </div>
+									</div>
+								</div>
+						    </div>
+						</div>    
+					</div>
+				</div>
+
+			</div>
+
+
 		</div>
 
 	</div>
@@ -769,13 +873,14 @@ Call Forward End
 		<script src="https://statics.teams.microsoft.com/sdk/v1.5.2/js/MicrosoftTeams.min.js" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="js/popper-umd-1.16.0.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap-4.5.0.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap-select.min.js"></script>
 	<script type="text/javascript" src="js/mconnect-webrtc.js"></script>
 	<script type="text/javascript" src="js/webConnect.js"></script>
 	<script type="text/javascript" src="js/dialpad.js"></script>
-
+	<script type="text/javascript" src="js/chat.js"></script>
 	<script type="text/javascript">
-		microsoftTeams.initialize();
-		getMyContacts();
+	microsoftTeams.initialize();
+
 		$(".dialpad-container .dialpad-close-icon").click(function () {
 			$(".dialpad-container").slideToggle("slow");
 		});
@@ -787,7 +892,6 @@ Call Forward End
 		// $(".forwardDialpadPanel ").slideToggle("slow");
 		// });
 $(document).ready(function(){
-	alert();
 document.addEventListener('DOMContentLoaded', function() {
  if (!Notification) {
   alert('Desktop notifications not available in your browser. Try Chromium.');
@@ -847,6 +951,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 function logoutMain(){
 window.localStorage.clear(); 
+	window.location.href ="https://" + window.location.hostname + "/ms-sso/simplesamlphp/www/module.php/core/as_logout.php?AuthId=default-sp&ReturnTo=https%3A%2F%2F" + window.location.hostname + "%2Fms-sso%2Fsimplesamlphp%2F";
 }	
 		
 function getUrlVars() {
@@ -855,6 +960,8 @@ function getUrlVars() {
     function(m,key,value) {
       vars[key] = value;
     });
+	// vars = str_replace(' ', '', vars);
+
     return vars;
   }
 			
@@ -887,7 +994,7 @@ function getDialer(){
     completionBotId: null,
 };
 
-taskInfo.url = "https://omnitickets.mconnectapps.com/mconnectDialer/?login="+login;
+taskInfo.url = "https://" + window.location.hostname + "/mconnectDialer/?login="+login;
 taskInfo.title = "Custom Form";
 taskInfo.height = 510;
 taskInfo.width = 430;
@@ -905,7 +1012,7 @@ microsoftTeams.tasks.startTask(taskInfo, submitHandler);
 microsoftTeams.authentication.notifySuccess();	
 		
 function getMyCallHistoryDetails(callT){
-  $('#loaders').show();
+  //$('#loaders').show();
   var login = localStorage.getItem('login');
   var dt = new Date();
   //var query = { operation: "queue", moduleType: "queue", api_type: "web", element_data: { action: "getContact",login:login,reason: "-","status":"1" } };
@@ -926,7 +1033,7 @@ function getMyCallHistoryDetails(callT){
  
   $.ajax({
       type: "POST",
-	  url: "https://omnitickets.mconnectapps.com/api/v1.0/index.php",
+	  url: "https://" + window.location.hostname + "/api/v1.0/index.php",
 	  data: JSON.stringify(api_req),
 	  contentType: "application/json; charset=utf-8",
 	  dataType: "json",
@@ -950,7 +1057,7 @@ function getMyCallHistoryDetails(callT){
 				var call = "assets/images/incoming-call.svg";
 				 callTpe = "badge badge-success";
 			}
-         contacts.push( '<tr><td class="text-center"><img class="call-type-icon" src="'+call+'"></td><td class="text-center"><span class="'+callTpe+'">'+data.call_data+'</span></td> <td class="text-left">'+data.phone+'<div class="call-timespan">'+data.call_start_dt+'</div></td></tr>');
+         contacts.push( '<tr><td class="text-center"><img class="call-type-icon" src="'+call+'"></td><td class="text-center"><span class="'+callTpe+'">'+data.call_data+'</span></td> <td class="text-left">'+data.phone+' <a data-toggle="tooltip" title="Click to call '+data.phone+'" href="javascript:;" class="btn" onclick="clickTocall('+data.phone+')"><i class="fas fa-phone"></i></a><div class="call-timespan">'+data.call_start_dt+'</div></td></tr>');
          }
 		  
 		  if(callT == 'All'){
@@ -968,14 +1075,17 @@ function getMyCallHistoryDetails(callT){
 	});     
   }
 
-function getMyContacts(){
-  $('#loaders').show();
+function getMyContacts(search){
+	if(!search){
+		// $('#loaders').show();
+	} 
+ 
   var login = localStorage.getItem('login');
   var dt = new Date();
   //var query = { operation: "queue", moduleType: "queue", api_type: "web", element_data: { action: "getContact",login:login,reason: "-","status":"1" } };
 	let api_req = new Object();
     let dialpad_req = new Object();
-	dialpad_req.search_text = "";
+	dialpad_req.search_text = search;
 	dialpad_req.login = login;
 	dialpad_req.limit = 50;
 	dialpad_req.action = "getMyContactDetails";
@@ -989,7 +1099,7 @@ function getMyContacts(){
  
   $.ajax({
       type: "POST",
-	  url: "https://omnitickets.mconnectapps.com/api/v1.0/index.php",
+	  url: "https://" + window.location.hostname + "/api/v1.0/index.php",
 	  data: JSON.stringify(api_req),
 	  contentType: "application/json; charset=utf-8",
 	  dataType: "json",
@@ -1005,8 +1115,11 @@ function getMyContacts(){
         for (let index = 0; index < list_datas.length; index++) {
          var data = list_datas[index];
 			var str =  data.first_name;
+			if(str == ''){
+				str = 'UNKNOWN';
+			}
 			var twoLeterStr = str.substring(0, 2);
-         contacts.push( '<div class="col-xl-3 col-lg-4 col-md-6 card-holder"><div class="card mb-3"><div class="card-body"><ul class="contact-details-list"><li><div class="contact-round-holder">' + twoLeterStr + '</div></li><li class="contact-card-info"><h6 class="mb-1">' + data.first_name + '</h6><p class="mb-1 mt-2">' + data.phone + '</p></li><a href="javascript:;" class="btn contact-call btn-circle btn-success m-b-xs" onclick="clickTocall('+data.phone+')"><i class="fas fa-phone"></i></a></ul></div></div></div>');
+         contacts.push( '<div class="col-xl-3 col-lg-4 col-md-6 card-holder"><div class="card mb-3"><div class="card-body"><ul class="contact-details-list"><li><div class="contact-round-holder">' + twoLeterStr + '</div></li><li class="contact-card-info"><h6 class="mb-1">' + str + '</h6><p class="mb-1 mt-2">' + data.phone + '</p></li><a href="javascript:;" data-toggle="tooltip" title="Click to call '+data.phone+'" class="btn contact-call btn-circle btn-success m-b-xs" onclick="clickTocall('+data.phone+')"><i class="fas fa-phone"></i></a></ul></div></div></div>');
          }
 
 		  $('#mycontcts').html(contacts);
@@ -1015,14 +1128,113 @@ function getMyContacts(){
   }		
 
 $('#contactsTab').click();
+
+		
+													  
+													  
+													  
+function getMyAgents(search){
+	if(!search){
+		 //$('#loaders').show();
+	} 
+  var login = localStorage.getItem('login');
+  var dt = new Date();
+  //var query = { operation: "queue", moduleType: "queue", api_type: "web", element_data: { action: "getContact",login:login,reason: "-","status":"1" } };
+	let api_req = new Object();
+    let dialpad_req = new Object();
+	dialpad_req.search_text = search;
+	dialpad_req.login = login;
+	dialpad_req.limit = 50;
+	dialpad_req.action = "getMyAgentDetails";
+	dialpad_req.order_by_name ="contact_id" ;
+	dialpad_req.offset = 0;
+	api_req.operation = "call";
+	api_req.moduleType = "call";
+	api_req.api_type = "web";
+	api_req.element_data = dialpad_req;
+
+ 
+  $.ajax({
+      type: "POST",
+	  url: "https://" + window.location.hostname + "/api/v1.0/index.php",
+	  data: JSON.stringify(api_req),
+	  contentType: "application/json; charset=utf-8",
+	  dataType: "json",
+	  success: function(response){
+		$('#loaders').hide();
+		  
+    	var list_datas = response.result.data.list_data;
+
+        //console.log(list_datas); return false;
+
+        agents = [];
+
+        for (let index = 0; index < list_datas.length; index++) {
+         var data = list_datas[index];      
+			agents.push('<div class="col-xl-3 col-lg-4 col-md-6 card-holder"><div class="card mb-3"><div class="card-body"><ul class="contact-details-list"><li><span class="user-img"><img src="assets/images/user.jpg"></span></li><li class="contact-card-info"><h6 class="mb-1">'+data.agent_name+'</h6><p class="mb-1 mt-2">'+data.sip_login+'</p></li><a href="javascript:;" class="btn contact-call btn-circle btn-success m-b-xs" data-toggle="tooltip" title="Click to call '+data.sip_login+'"  onclick="clickTocall('+data.sip_login+')"><i class="fas fa-phone"></i></a></ul></div></div></div>');
+         }
+
+		 $('#myagentsDiv').html(agents);
+    	}
+	});     
+  }														  
+													  
+													  
+	</script>
+		<script type="text/javascript">
+$('.hamburger').on('click', function () {
+$('.menu').toggleClass('open');
+});
+$('.dialpad-list-group li a').on('click', function () {
+$('.menu li a').removeClass('active');
+});
+	</script>
+	<script type="text/javascript">
+const tabs = document.querySelectorAll(".tab");
+const contents = document.querySelectorAll(".content");
+
+for (let i = 0; i < tabs.length; i++) {
+	tabs[i].addEventListener("click", () => {
+		for (let j = 0; j < contents.length; j++) {
+			contents[j].classList.remove("content-active");
+		}
+		for (let jj = 0; jj < tabs.length; jj++) {
+			tabs[jj].classList.remove("tabs-active");
+		}
+		contents[i].classList.add("content-active");
+		tabs[i].classList.add("tabs-active");
+	});
+}
+
+		
 		
 
+$("#dialpad_number").on("keyup",function(event) {
+	str= $("#dialpad_number").val();
+    str = str.replace(/\s/g, '');
+	$("#dialpad_number").val(str);
+	 if (event.keyCode === 13) {
+        $("#call").click();
+    }
+});
+		
+		
+$("#contactSearch").on("keyup",function(event) {
+  str= $("#contactSearch").val();
+	getMyContacts(str);
+});	
+		
+$("#agentsSearch").on("keyup",function(event) {
+  str= $("#agentsSearch").val();
+	getMyAgents(str);
+});	
 
+		getMyContacts();
+		getMyChatLists();
 
-	
-		
-		
-		
+var input = document.getElementById('dialpad_number');
+input.focus();
+input.select();
 	</script>
 </body>
 

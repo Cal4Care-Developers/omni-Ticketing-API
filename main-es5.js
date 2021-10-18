@@ -29777,9 +29777,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           if (this.filter_agents != 'All') {
             this.user_type = '3';
             this.user_id = this.filter_agents;
-          }
+          } //	let api_req2: any = '{"operation":"getmyExternalTicket", "moduleType":"ticket", "api_type": "web", "access_token":"' + this.access_token + '", "element_data":{"action":"my_externaltickets","user_type":"' + this.user_type + '","user_id":"' + this.user_id + '","admin_id":"' + admin_id + '","ticket_status":"' + this.filter_status + '","is_spam":"0","limit":"' + this.pageLimit + '","offset":"' + this.offset_count + '","ticket_department":"' + this.filter_depart + '","ticket_user":"' + this.user_id +'"}}';
 
-          var api_req = '{"operation":"getmyExternalTicket", "moduleType":"ticket", "api_type": "web", "access_token":"' + this.access_token + '", "element_data":{"action":"my_externaltickets","user_type":"' + this.user_type + '","user_id":"' + this.user_id + '","admin_id":"' + admin_id + '","ticket_status":"' + this.filter_status + '","is_spam":"0","limit":"' + this.pageLimit + '","offset":"' + this.offset_count + '","ticket_department":"' + this.filter_depart + '","ticket_user":"' + this.user_id + '"}}';
+
+          var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + this.access_token + '", "element_data":{"action":"my_internalMail","user_id":"' + this.user_id + '","admin_id":"' + admin_id + '","agent_email":"' + this.my_email_id + '","limit":"' + this.pageLimit + '", "is_spam":"0" ,"offset":"' + this.offset_count + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             _this306.search_ticket = false; // Search option Readmore button
 
@@ -29838,8 +29839,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             showConfirmButton: false,
             focusConfirm: false,
             background: 'transparent'
-          });
-          var api_req = '{"operation":"getmyExternalTicket", "moduleType":"ticket", "api_type": "web", "access_token":"' + this.access_token + '", "element_data":{"action":"my_externaltickets","user_type":"' + this.user_type + '","user_id":"' + this.user_id + '","admin_id":"' + admin_id + '","ticket_status":"' + this.filter_status + '","is_spam":"0" ,"limit":"' + this.pageLimit + '","offset":"' + this.filter_offset + '","ticket_department":"' + this.filter_depart + '","ticket_user":"' + this.user_id + '"}}';
+          }); //let api_req: any = '{"operation":"getmyExternalTicket", "moduleType":"ticket", "api_type": "web", "access_token":"' + this.access_token + '", "element_data":{"action":"my_externaltickets","user_type":"' + this.user_type + '","user_id":"' + this.user_id + '","admin_id":"' + admin_id + '","ticket_status":"' + this.filter_status + '","is_spam":"0" ,"limit":"' + this.pageLimit + '","offset":"' + this.filter_offset + '","ticket_department":"' + this.filter_depart + '","ticket_user":"' + this.user_id + '"}}';
+
+          var api_req = '{"operation":"ticket", "moduleType":"ticket", "api_type": "web", "access_token":"' + this.access_token + '", "element_data":{"action":"my_internalMail","user_id":"' + this.user_id + '","admin_id":"' + admin_id + '","agent_email":"' + this.my_email_id + '","limit":"' + this.pageLimit + '", "is_spam":"0" ,"offset":"' + this.filter_offset + '"}}';
           this.serverService.sendServer(api_req).subscribe(function (response) {
             sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.close();
             _this307.search_ticket = false; // Search option Readmore button
@@ -37526,8 +37528,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           agent_req.email_id = this.editAgent.value.email_id;
           agent_req.agent_name = this.editAgent.value.agent_name;
           agent_req.sip_login = this.editAgent.value.sip_login;
-          agent_req.sip_username = $('#sip_username').val();
-          agent_req.sip_password = $('#sip_password').val();
+
+          if (this.admin_id == user_id) {
+            agent_req.sip_username = $('#sip_username').val();
+            agent_req.sip_password = $('#sip_password').val();
+          } else {
+            // Users dont has Sip update permission..So
+            agent_req.sip_username = this.editAgent.value.sip_username;
+            agent_req.sip_password = this.editAgent.value.sip_password;
+          }
+
           agent_req.phone_number = this.editAgent.value.phone_number;
           agent_req.user_id = this.editAgent.value.user_id;
           agent_req.has_contact = this.editAgent.value.has_contact;
