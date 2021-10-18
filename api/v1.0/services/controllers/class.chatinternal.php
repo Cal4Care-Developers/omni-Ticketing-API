@@ -14,16 +14,43 @@ function insertInternalChatMessage($chat_data){
       $created_dt = date("Y-m-d H:i:s");
       $updated_dt = date("Y-m-d H:i:s");  
       $results_check_qry = "select * from chat_internal where chat_sender_id='$chat_sender_id' and chat_receiver_id='$chat_receiver_id' and admin_id='$aid'";
-      $results_check = $this->fetchData($results_check_qry, array());      
+      $results_check = $this->fetchData($results_check_qry, array());
+
       if($results_check > 0){
 		  //echo '123';exit;
         $chat_id=$results_check['chat_id'];
         $chat_data = array("user_id"=>$chat_sender_id,"agent_id"=>$chat_receiver_id,"admin_id"=>$admin_id);  
-        $chat_msg_id = $this->db_insert("INSERT INTO chat_internal_msg(chat_id,msg_sender_id,msg_receiver_id,msg_user_type,msg_type,chat_msg,msg_status,created_ip,created_dt,updated_dt) VALUES ('$chat_id','$chat_sender_id','$chat_receiver_id','4','text','$chat_msg','1','','$created_dt','$updated_dt')", array()); 
-      
+		
+		  //============= UPDATE THE TIME TO GET THE ORDER BY AGENT LIST =============
+          $update_order_qry = "UPDATE chat_internal
+          SET order_by_time ='$updated_dt' where chat_sender_id='$chat_sender_id' and chat_receiver_id='$chat_receiver_id' and admin_id='$aid'";
+		  
+         $updated_order = $this->db_query($update_order_qry, array());
+		  
+		  // ============= FILE UPLOADING =================
+		  	$type = $_FILES["image_file"]["type"];
+			 $ext = explode('/',$type);
+			$exten=$ext[1];
+			//print_r($exten);exit;
+		  if($type != '' && $type != 'undefined'){
+			$newfilename= $admin_id.str_replace(" ", "", basename($_FILES["image_file"]["name"]));	     
+		      $destination_path = getcwd().DIRECTORY_SEPARATOR;      
+		      $img_upload_path = "https://".$_SERVER['SERVER_NAME']."/api/v1.0/chat_internal/". $newfilename;  
+		      $img_target_path = $destination_path."chat_internal/". $newfilename;
+		      move_uploaded_file($_FILES['image_file']['tmp_name'], $img_target_path); 
+		  }else{
+			  $img_upload_path = '';
+		  }
+		  		//print_r($img_upload_path);exit;
+		  
+        $chat_msg_id = $this->db_insert("INSERT INTO chat_internal_msg(chat_id,msg_sender_id,msg_receiver_id,msg_user_type,msg_type,chat_msg,img_url,img_type,msg_status,created_ip,created_dt,updated_dt,read_status) VALUES ('$chat_id','$chat_sender_id','$chat_receiver_id','4','text','$chat_msg','$img_upload_path','$exten','1','','$created_dt','$updated_dt','1')", array()); 
+ 
         $agent_name_qry = "select agent_name from user where user_id='$chat_receiver_id'";   
         $agent_name = $this->fetchOne($agent_name_qry, array());  
         $mc_event_data = "INT Chat to ".$agent_name;
+
+        //============== ERP NOTIFICATION ========================
+		$this->appNotification($chat_receiver_id,$chat_sender_id);
 		  
 		$agent_name_qry_fm = "select agent_name from user where user_id='$chat_sender_id'";   
         $agent_name_fm = $this->fetchOne($agent_name_qry_fm, array());  
@@ -42,19 +69,51 @@ function insertInternalChatMessage($chat_data){
 		 // $x=$result;
 		$this->ch_notification_curl($token,$chat_id,$chat_msg);
 		   $result = $this->internal_chat_detail($chat_data);
-		  //print_r($result);exit;
-        return $result;      
+		 
+           $tresult['result']['status']="true";
+           $tresult['result']['data']=$result;
+           
+            $tarray = json_encode($tresult);
+           print_r($tarray);exit;
+        // return $result;     
       }else { 
 		 //echo '1233';exit;
         $results_check_qry1 = "select * from chat_internal where chat_sender_id='$chat_receiver_id' and chat_receiver_id='$chat_sender_id' and admin_id='$aid'";
       $results_check1 = $this->fetchData($results_check_qry1, array());
+
       if($results_check1 > 0){
 		 // echo'22';exit;
         $chat_id=$results_check1['chat_id'];
         $chat_data = array("user_id"=>$chat_receiver_id,"agent_id"=>$chat_sender_id,"admin_id"=>$admin_id);  
-        $chat_msg_id = $this->db_insert("INSERT INTO chat_internal_msg(chat_id,msg_sender_id,msg_receiver_id,msg_user_type,msg_type,chat_msg,msg_status,created_ip,created_dt,updated_dt) VALUES ('$chat_id','$chat_sender_id','$chat_receiver_id','4','text','$chat_msg','1','','$created_dt','$updated_dt')", array()); 
+		  
+		  	  //============= UPDATE THE TIME TO GET THE ORDER BY AGENT LIST =============
+		            $update_order_qry2 = "UPDATE chat_internal
+          SET order_by_time ='$updated_dt' where chat_sender_id='$chat_receiver_id' and chat_receiver_id='$chat_sender_id' and admin_id='$aid'";
+         //	print_r($update_order_qry2);exit;
+		  $updated_order = $this->db_query($update_order_qry2, array());
+		  
+  
+		  // ============= FILE UPLOADING =================
+		  	$type = $_FILES["image_file"]["type"];
+			 $ext = explode('/',$type);
+			$exten=$ext[1];
+			//print_r($exten);exit;
+		  if($type != '' && $type != 'undefined'){
+			$newfilename= $admin_id.str_replace(" ", "", basename($_FILES["image_file"]["name"]));	     
+		      $destination_path = getcwd().DIRECTORY_SEPARATOR;      
+		      $img_upload_path = "https://".$_SERVER['SERVER_NAME']."/api/v1.0/chat_internal/". $newfilename;  
+		      $img_target_path = $destination_path."chat_internal/". $newfilename;
+		      move_uploaded_file($_FILES['image_file']['tmp_name'], $img_target_path); 
+		  }else{
+			  $img_upload_path = '';
+		  }
+		  
+        $chat_msg_id = $this->db_insert("INSERT INTO chat_internal_msg(chat_id,msg_sender_id,msg_receiver_id,msg_user_type,msg_type,chat_msg,img_url,img_type,msg_status,created_ip,created_dt,updated_dt,read_status) VALUES ('$chat_id','$chat_sender_id','$chat_receiver_id','4','text','$chat_msg','$img_upload_path','$exten','1','','$created_dt','$updated_dt','1')", array());
         $result = $this->internal_chat_detail($chat_data);
-       
+
+         //============== ERP NOTIFICATION ========================
+			$this->appNotification($chat_receiver_id,$chat_sender_id);
+				
 		  $agent_name_qry = "select agent_name from user where user_id='$chat_receiver_id'";   
         $agent_name = $this->fetchOne($agent_name_qry, array());  
         $mc_event_data = "INT Chat to ".$agent_name;
@@ -74,9 +133,30 @@ function insertInternalChatMessage($chat_data){
         return $result;      
       }else{
         $chat_data = array("user_id"=>$chat_sender_id,"agent_id"=>$chat_receiver_id,"admin_id"=>$admin_id);  
-        $chat_id = $this->db_insert("INSERT INTO `chat_internal` (`chat_id`, `chat_type`,`chat_cat`,`chat_status`,`admin_id`,`created_ip`,`created_dt`,`updated_dt`,`chat_sender_id`,`chat_receiver_id`) VALUES ('$chat_id','3', '1','1','$admin_id','','$created_dt','$updated_dt','$chat_sender_id', '$chat_receiver_id')", array());     
-        $chat_msg_id = $this->db_insert("INSERT INTO chat_internal_msg(chat_id,msg_sender_id,msg_receiver_id,msg_user_type,msg_type,chat_msg,msg_status,created_ip,created_dt,updated_dt) VALUES ('$chat_id','$chat_sender_id','$chat_receiver_id','4','text','$chat_msg','1','','$created_dt','$updated_dt')", array());
+		  
+		   
+		  // ============= FILE UPLOADING =================
+          $type = $_FILES["image_file"]["type"];
+          $ext = explode('/',$type);
+         $exten=$ext[1];
+         //print_r($exten);exit;
+       if($type != '' && $type != 'undefined'){
+         $newfilename= $admin_id.str_replace(" ", "", basename($_FILES["image_file"]["name"]));	     
+           $destination_path = getcwd().DIRECTORY_SEPARATOR;      
+           $img_upload_path = "https://".$_SERVER['SERVER_NAME']."/api/v1.0/chat_internal/". $newfilename;  
+           $img_target_path = $destination_path."chat_internal/". $newfilename;
+           move_uploaded_file($_FILES['image_file']['tmp_name'], $img_target_path); 
+       }else{
+           $img_upload_path = '';
+       } 
+       
+     $chat_id = $this->db_insert("INSERT INTO `chat_internal` (`chat_id`, `chat_type`,`chat_cat`,`chat_status`,`admin_id`,`created_ip`,`created_dt`,`updated_dt`,`chat_sender_id`,`chat_receiver_id`,`order_by_time`) VALUES ('$chat_id','3', '1','1','$admin_id','','$created_dt','$updated_dt','$chat_sender_id', '$chat_receiver_id','$updated_dt')", array());     
+     $chat_msg_id = $this->db_insert("INSERT INTO chat_internal_msg(chat_id,msg_sender_id,msg_receiver_id,msg_user_type,msg_type,chat_msg,img_url,img_type,msg_status,created_ip,created_dt,updated_dt,read_status) VALUES ('$chat_id','$chat_sender_id','$chat_receiver_id','4','text','$chat_msg','$img_upload_path','$exten','1','','$created_dt','$updated_dt','1')", array());
         $result = $this->internal_chat_detail($chat_data);
+        		  		  
+		 //============== ERP NOTIFICATION ========================
+			$this->appNotification($chat_receiver_id,$chat_sender_id);
+		  
         $agent_name_qry = "select agent_name from user where user_id='$chat_receiver_id'";   
         $agent_name = $this->fetchOne($agent_name_qry, array());  
         $mc_event_data = "INT Chat to ".$agent_name;
@@ -93,14 +173,15 @@ function insertInternalChatMessage($chat_data){
 	    $agentresult = $this->fetchData($agentqry, array());
 		$token = $agentresult['notification_code'];
 		//$profile_image = $agentresult[$i]['profile_image'];	
-		$this->ch_notification_curl($token,$chat_id,$chat_msg);
+        $this->ch_notification_curl($token,$chat_id,$chat_msg);
+        
         return $result;          
       }           
     }
 }
 	function internal_chat_detail($chat_data){
       extract($chat_data);//print_r($chat_data);exit;		
-       $chat_detail_qry = "select chat_internal.chat_id, chat_internal.chat_sender_id, chat_internal.chat_receiver_id, chat_internal.chat_status, chat_internal.chat_type, chat_internal.chat_status, chat_internal_msg.chat_msg_id, chat_internal_msg.msg_sender_id, chat_internal_msg.msg_receiver_id, chat_internal_msg.msg_user_type, chat_internal_msg.msg_type, chat_internal_msg.chat_msg, chat_internal_msg.msg_status,  TIME_FORMAT(chat_internal_msg.created_dt, '%H:%i') as chat_time, date_format(chat_internal_msg.created_dt, '%d/%m/%Y') as chat_dt, user.user_name,user.profile_image from chat_internal inner join chat_internal_msg on chat_internal_msg.chat_id=chat_internal.chat_id left join user on chat_internal_msg.msg_sender_id = user.user_id where chat_internal.chat_sender_id = '$user_id' and chat_internal.chat_receiver_id = '$agent_id' and chat_internal.admin_id = '$admin_id' order by chat_internal_msg.chat_msg_id DESC LIMIT 1";
+      $chat_detail_qry = "select chat_internal.chat_id, chat_internal.chat_sender_id, chat_internal.chat_receiver_id, chat_internal.chat_status, chat_internal.chat_type, chat_internal.chat_status, chat_internal_msg.chat_msg_id, chat_internal_msg.msg_sender_id, chat_internal_msg.msg_receiver_id, chat_internal_msg.msg_user_type,chat_internal_msg.img_url,chat_internal_msg.img_type, chat_internal_msg.msg_type, chat_internal_msg.chat_msg, chat_internal_msg.msg_status,  TIME_FORMAT(chat_internal_msg.created_dt, '%H:%i') as chat_time, date_format(chat_internal_msg.created_dt, '%d/%m/%Y') as chat_dt, user.user_name,user.profile_image from chat_internal inner join chat_internal_msg on chat_internal_msg.chat_id=chat_internal.chat_id left join user on chat_internal_msg.msg_sender_id = user.user_id where chat_internal.chat_sender_id = '$user_id' and chat_internal.chat_receiver_id = '$agent_id' and chat_internal.admin_id = '$admin_id' order by chat_internal_msg.chat_msg_id DESC LIMIT 1";
         $parms = array();
         $result = $this->fetchData($chat_detail_qry,array());
         return $result;       
@@ -108,7 +189,7 @@ function insertInternalChatMessage($chat_data){
     	
 	function internal_chat_detail_list($chat_data){
       extract($chat_data);//print_r($chat_data);exit;		
-       $chat_detail_qry = "select chat_internal.chat_id, chat_internal.chat_type, chat_internal.chat_status, chat_internal_msg.chat_msg_id, chat_internal_msg.msg_sender_id, chat_internal_msg.msg_receiver_id, chat_internal_msg.msg_user_type, chat_internal_msg.msg_type, chat_internal_msg.chat_msg, chat_internal_msg.msg_status,  TIME_FORMAT(chat_internal_msg.created_dt, '%H:%i') as chat_time, date_format(chat_internal_msg.created_dt, '%d/%m/%Y') as chat_dt, user.user_name,user.profile_image from chat_internal inner join chat_internal_msg on chat_internal_msg.chat_id=chat_internal.chat_id left join user on chat_internal_msg.msg_sender_id = user.user_id where chat_internal.chat_sender_id = '$user_id' and chat_internal.chat_receiver_id = '$agent_id' and chat_internal.admin_id = '$admin_id' order by chat_internal_msg.chat_msg_id asc";
+      $chat_detail_qry = "select chat_internal.chat_id, chat_internal.chat_type, chat_internal.chat_status, chat_internal_msg.chat_msg_id, chat_internal_msg.msg_sender_id, chat_internal_msg.msg_receiver_id,chat_internal_msg.img_type,chat_internal_msg.img_url, chat_internal_msg.msg_user_type, chat_internal_msg.msg_type, chat_internal_msg.chat_msg,chat_internal_msg.read_status, chat_internal_msg.msg_status,  TIME_FORMAT(chat_internal_msg.created_dt, '%H:%i') as chat_time, date_format(chat_internal_msg.created_dt, '%d/%m/%Y') as chat_dt, user.user_name,user.profile_image from chat_internal inner join chat_internal_msg on chat_internal_msg.chat_id=chat_internal.chat_id left join user on chat_internal_msg.msg_sender_id = user.user_id where chat_internal.chat_sender_id = '$user_id' and chat_internal.chat_receiver_id = '$agent_id' and chat_internal.admin_id = '$admin_id' order by chat_internal_msg.chat_msg_id asc";
         $parms = array();
         $result = $this->dataFetchAll($chat_detail_qry,array());
         return $result;       
@@ -133,9 +214,46 @@ public function dept_agent_list($chat_data){
       }
       return $result;    
    } 
-	
+
+   public function dept_agent_list_app($chat_data){ 
+    extract($chat_data);//print_r($chat_data);exit;
+       $aid = $admin_id;
+   $get_present_list = "(SELECT chat_sender_id AS chat_list,order_by_time FROM chat_internal WHERE '$user_id' IN (chat_sender_id,chat_receiver_id) UNION DISTINCT SELECT chat_receiver_id,order_by_time FROM chat_internal WHERE '$user_id' IN (chat_sender_id,chat_receiver_id)) ORDER BY order_by_time DESC";	
+       $chatted_list = $this->dataFetchAll($get_present_list,array());
+       
+       $filterBy = $user_id; // Remove user ID
+
+       $new = array_filter($chatted_list, function ($var) use ($filterBy) {
+       return ($var['chat_list'] != $filterBy);
+       });
+       
+       //print_r($new);exit;
+       $isbnList = [];
+       foreach ($new as $item) {
+       if (isset($item['chat_list'])) {
+           $isbnList[] = $item['chat_list'];
+           }
+       }
+       $value_id = implode(",", $isbnList);
+       //print_r($value_id);exit;
+       $get_first_msg = "SELECT user_id,agent_name,profile_image,login_status FROM user WHERE admin_id='$aid' AND user_id NOT IN ($value_id) AND user_id !='$user_id' AND delete_status=0";
+       $get_agent_qry = "SELECT user_id,agent_name,profile_image,login_status FROM user WHERE user_id IN ($value_id) AND delete_status=0 ORDER BY FIELD(user_id,$value_id);";
+       $result['receiver_list'] = $this->dataFetchAll($get_first_msg,array());
+       $result['agent_list'] = $this->dataFetchAll($get_agent_qry,array());
+       
+       return $result; 
+       
+  
+  }  
+   
 	public function get_by_id($chat_data){ 
      extract($chat_data);//print_r($chat_data);exit;
+     		
+	// ======================= UPDATE THE READED STATUS ==========================
+		$update_read = "UPDATE chat_internal SET read_status ='0' WHERE chat_sender_id='$agent_id' AND chat_receiver_id = '$user_id' AND admin_id = '$admin_id'";
+        $updated_status = $this->db_query($update_read, array());
+          
+          
      $get_qry_one = "SELECT chat_id FROM chat_internal WHERE chat_sender_id='$user_id' AND chat_receiver_id = '$agent_id'";
      $results_one = $this->fetchData($get_qry_one,array());
      if($results_one > 0){           
@@ -262,7 +380,20 @@ public function dept_agent_list($chat_data){
          return $result;      
       }             
    }	
-	
+
+   public function appNotification($receiver_id,$sender_id){
+		
+    $app_name = "select sip_login from user where user_id='$receiver_id'"; 
+    $receiver_app = $this->fetchOne($app_name, array()); 
+    $send_app_name = "select sip_login from user where user_id='$sender_id'"; 
+    $sender_app = $this->fetchOne($send_app_name, array()); 
+     $app_element_data = array("action"=>"internal_chat_notification","receiver"=>$receiver_app,"sender"=>$sender_app);
+
+//"access_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0aWNrZXRpbmcubWNvbm5lY3RhcHBzLmNvbSIsImF1ZCI6InRpY2tldGluZy5tY29ubmVjdGFwcHMuY29tIiwiaWF0IjoxNjMwOTMyMTE5LCJuYmYiOjE2MzA5MzIxMTksImV4cCI6MTYzMDk1MDExOSwiYWNjZXNzX2RhdGEiOnsidG9rZW5fYWNjZXNzSWQiOiI2NCIsInRva2VuX2FjY2Vzc05hbWUiOiJTYWxlc0FkbWluIiwidG9rZW5fYWNjZXNzVHlwZSI6IjIifX0.YzdTs9NxXf-KVffqXCNz8cyff-vMwcH8YI9eC8Ji8Fc",
+    $send_app_result = array("operation" => "agents","moduleType"=>"agents","api_type"=>"web","access_token"=>"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0aWNrZXRpbmcubWNvbm5lY3RhcHBzLmNvbSIsImF1ZCI6InRpY2tldGluZy5tY29ubmVjdGFwcHMuY29tIiwiaWF0IjoxNjMwOTMyMTE5LCJuYmYiOjE2MzA5MzIxMTksImV4cCI6MTYzMDk1MDExOSwiYWNjZXNzX2RhdGEiOnsidG9rZW5fYWNjZXNzSWQiOiI2NCIsInRva2VuX2FjY2Vzc05hbWUiOiJTYWxlc0FkbWluIiwidG9rZW5fYWNjZXNzVHlwZSI6IjIifX0.YzdTs9NxXf-KVffqXCNz8cyff-vMwcH8YI9eC8Ji8Fc","element_data"=>$app_element_data);
+    $this->erp_app($send_app_result);	
+}
+
 	public function deptAgentLisst($chat_data){ 
      extract($chat_data);//print_r($chat_data);exit;
 		$encryption = $login;
