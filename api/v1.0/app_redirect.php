@@ -486,6 +486,10 @@ elseif($_REQUEST['operation'] == 'zohocrm') {
 			  include_once CONTROLLER_PATH.'class.zohocrm.php';
 			  $access_page = APPLICATION_PATH."zohocrm.php"; 
 }
+elseif($_REQUEST['action'] == 'send_internal_chat_message') {
+	include_once CONTROLLER_PATH.'class.chatinternal.php';
+    $access_page = APPLICATION_PATH."chat_internal.php";
+}
 
 require_once($access_page);	
 

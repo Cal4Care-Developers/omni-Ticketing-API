@@ -2083,7 +2083,12 @@ else{
 				    }				    			
 				    $ticket_bcc = array_merge($agentArr, $groupArr);
 				    $senderid_qry = "SELECT senderID FROM `department_emails` WHERE `aliseEmail` LIKE '%$to_original%' and status = '1'";
-			        $senderid_qry_value = $this->fetchOne($senderid_qry,array());			
+			        $senderid_qry_value = $this->fetchOne($senderid_qry,array());
+			        $toAdd_qry = "SELECT ticket_from FROM `external_tickets` WHERE `ticket_no` = '$ticket_no'";
+			        $toAdd = $this->fetchOne($toAdd_qry,array());
+					if($replied_from==''){
+					  $replied_from = $toAdd;
+					}			
 				    $uss = array("ticket_to"=>$replied_from,"ticket_cc"=>$ccs,"ticket_bcc"=>$ticket_bcc,"from"=>$senderid_qry_value,"message"=>$messagetoSend,"subject"=>$subject, "ticket_id"=>$ticket_no);									
 				    $autoRespns = $this->autoResponseEmail($uss);
 					if($agent_assign!=''){
