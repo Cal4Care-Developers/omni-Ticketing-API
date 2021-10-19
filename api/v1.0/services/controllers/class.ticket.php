@@ -1763,7 +1763,8 @@ if($override==0){
 			exit;
 		}		
 		$attachments = json_decode($data['attachments']);
-		$attachments = implode(',',$attachments);		
+		$attachments = implode(',',$attachments);
+		$fattachments = implode(',',$fattachments);		
 		$to = str_replace('[','(',$to_mail);
 		$to = str_replace(']',')',$to);
 		//print_r($to); 
@@ -1813,29 +1814,31 @@ if($override==0){
      	    $created_at = date("Y-m-d H:i:s");$updated_at = date("Y-m-d H:i:s");
 			if(strpos($subject, 'Re: Fw:') !== false || strpos($subject, 'Re: FW:') !== false){
 			   $sub = substr($subject, 4);
-			   $expfrom = explode('<',$from);
-               $strfm = str_replace('>', '', $expfrom[1]);
-			   //$te = 'if';
-			   //file_put_contents('dat.txt', $strfm.$te.PHP_EOL , FILE_APPEND | LOCK_EX);exit;	
+			   //$expfrom = explode('<',$from);
+               //$strfm = str_replace('>', '', $expfrom[1]);
+			   preg_match_all("/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i", $from, $expfrom);
+			   $strfm = $expfrom[0][0];	
 			}
 			/*elseif(strpos($subject, 'Re:') !== false){
 				$sub = substr($subject, 4);
 			}*/
-			else{			   	
-			   /*if(strpos($subject, 'Re:') !== false || strpos($subject, 'RE:') !== false){
+			else{
+			   if(strpos($subject, 'Re:') !== false || strpos($subject, 'RE:') !== false){
 				   $sub = substr($subject, 4);
 			   }else{
 			       $sub = $subject;
-			   }*/
-			   $sub = $subject;	
+			   }
+			   preg_match_all("/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i", $from, $expfrom);
+			   $strfm = $expfrom[0][0];			   
+			   /*$sub = $subject;	
 			   $expfrom = explode('<',$from);
 			   if(empty($expfrom)){	
 			    $strfm = $from;	
 			   }else{
 				$strfm = str_replace('>', '', $expfrom[1]);   
-			   }			   
+			   }*/			   
             }
-		    //file_put_contents('dat.txt', $strfm.$subject.PHP_EOL , FILE_APPEND | LOCK_EX);exit;		
+		    //file_put_contents('dat.txt', $strfm.$subject.PHP_EOL , FILE_APPEND | LOCK_EX);exit;	
 			$qry = "SELECT ticket_id FROM external_tickets_data WHERE ticket_subject = '$sub'";
        		$ticket_no = $this->fetchOne($qry,array());
 			//file_put_contents('dat.txt', $ticket_no.$qry.PHP_EOL , FILE_APPEND | LOCK_EX);exit;
@@ -1855,7 +1858,10 @@ if($override==0){
 				$qryss = "UPDATE `external_tickets` SET status_del = '1',ticket_status = '1',updated_at='$updated_at'  WHERE ticket_no = '$ticket_no'";             
                 $resultss = $this->db_query($qryss, $params);			
 				$qryss = "UPDATE `external_tickets_data` SET ticket_reply_id ='$ticket_reply_id' WHERE ticket_id = '$ticket_no'";             
-                $resultss = $this->db_query($qryss, $params);			
+                $resultss = $this->db_query($qryss, $params);
+                if($attachments==''){
+					  $attachments = $fattachments;
+				}			
 				$qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,ticket_reply_id,created_dt) VALUES ( '$ticket_no','$message','$subject','$strfm','$to_original','$cc','$attachments','$ticket_reply_id','$created_at')", array());
 				// $dt = date('Y-m-d H:i:s');
 				// $this->db_query("Insert into mc_event (admin_id,mc_event_key,mc_event_data,mc_event_type,event_status, created_dt) values('$admin_id','$ticket_no','Reply From $from  ($subject)','11','7','$dt')", array());
@@ -1994,9 +2000,15 @@ else{
 					preg_match_all("/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i", $forward_cc, $forward_cc_array);
 					$ccArr = array_merge($forward_to_array[0], $forward_cc_array[0]);
 					$cc = implode(',',$ccArr);
+					if($attachments==''){
+					  $attachments = $fattachments;
+					}
 					$qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,ticket_reply_id,created_dt) VALUES ( '$ticket_no','$message','$subject','$str_fm','$to_original','$cc','$attachments','$ticket_reply_id','$created_at')", array());
 				}
-				else{					
+				else{
+				    if($attachments==''){
+					  $attachments = $fattachments;
+					}					
 					$qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,ticket_reply_id,created_dt) VALUES ( '$ticket_no','$message','$subject','$from','$to_original','$cc','$attachments','$ticket_reply_id','$created_at')", array());
 				}
 				if($spam_status > 0){
