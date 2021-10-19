@@ -2670,7 +2670,7 @@ if($next_assign!=''){
 
 		$destination_path = getcwd().DIRECTORY_SEPARATOR;            
 				$upload_location = $destination_path."ext-ticket-image/";
-		$qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.ticket_no ='$ticket_id'";
+		$qry = "SELECT a.*, b.*,a.ticket_subject as subj FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.ticket_no ='$ticket_id'";
 		$detail_qry=$qry." ORDER BY b.ticket_message_id DESC LIMIT $limit offset $offset";
 	//echo $detail_qry;exit;
 			
@@ -2696,7 +2696,7 @@ if($next_assign!=''){
 		  $ticket_medias = $result[$i]['ticket_media'];
 		  $ticket_media = explode(',', $ticket_medias );
 		  $ticket_media = $ticket_media;
-          $ticket_subject = $result[$i]['ticket_subject'];
+          $ticket_subject = $result[$i]['subj'];
 		  $replied_from_db = $result[$i]['replied_from'];
 		  $replied_by = $result[$i]['repliesd_by'];
 		  $ticket_to = $result[$i]['replied_to'];
