@@ -1843,6 +1843,8 @@ if($override==0){
        		$ticket_no = $this->fetchOne($qry,array());
 			//file_put_contents('dat.txt', $ticket_no.$qry.PHP_EOL , FILE_APPEND | LOCK_EX);exit;
 			if($ticket_no!=''){
+				$depqry = "SELECT ticket_department FROM external_tickets WHERE ticket_not = '$ticket_no'";
+       		    $depqry_val = $this->fetchOne($depqry,array());
 			//if(substr( $subject, 0, 3 ) === "Re:" || substr( $subject, 0, 3 ) === "RE:"){
 				preg_match_all("/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i", $forward_to, $forward_to_array);
 				preg_match_all("/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i", $forward_cc, $forward_cc_array);
@@ -1871,9 +1873,13 @@ if($override==0){
 					$us = array("user_id"=>$user,"ticket_for"=>"Reply Ticket","ticket_from"=>$from,"ticket_subject"=>$subject, "ticket_id"=>$ticket_no);
 					$u[] = $this->send_notification($us);
 				}
-				$qry = "SELECT sig_content FROM email_signatures WHERE is_default='1' and admin_id='$admin_id' and user_id='$admin_id' ";
-				$mailSignature = $this->fetchOne($qry,array());
-				if($mailSignature){	
+				$qry = "SELECT sig_content FROM email_signatures WHERE admin_id='$admin_id' and dept_id='$depqry_val'";
+				$mailSignature = $this->fetchOne($qry,array());				
+				if($mailSignature != ''){	
+					$repM =  $mailSignature;
+				}else{
+					$qry = "SELECT sig_content FROM email_signatures WHERE is_default='1' and admin_id='$admin_id' and user_id='$admin_id' ";
+					$mailSignature = $this->fetchOne($qry,array());
 					$repM =  $mailSignature;
 				} 	
 				$repM = '<div style="font-family: verdana !important;">'.$repM.'</div>';
@@ -2038,11 +2044,17 @@ else{
 				if($repM !=''){
 					$tickNo = '[##'.$ticket_no.']';
 					$repM = str_replace('{%Cticket_id%}',$tickNo,$repM);
-				    $qry = "SELECT sig_content FROM email_signatures WHERE is_default='1' and admin_id='$admin_id' and user_id='$admin_id' ";
+				    //$qry = "SELECT sig_content FROM email_signatures WHERE is_default='1' and admin_id='$admin_id' and user_id='$admin_id' ";
+				    //$mailSignature = $this->fetchOne($qry,array());
+				    $qry = "SELECT sig_content FROM email_signatures WHERE admin_id='$admin_id' and dept_id='$dept'";			
 				    $mailSignature = $this->fetchOne($qry,array());
-				    if($mailSignature){	
+				    if($mailSignature != ''){	
 					  $repM =  $repM.$mailSignature;
-				    } 	
+				    }else{
+						$qry = "SELECT sig_content FROM email_signatures WHERE is_default='1' and admin_id='$admin_id' and user_id='$admin_id'";
+				        $mailSignature = $this->fetchOne($qry,array());
+						$repM =  $repM.$mailSignature;
+					} 	
 				    $repM = '<div style="font-family: verdana !important;">'.$repM.'</div>';
 				    $messages = $this->getTicketThread($ticket_no);
 				    foreach($messages as $m){
