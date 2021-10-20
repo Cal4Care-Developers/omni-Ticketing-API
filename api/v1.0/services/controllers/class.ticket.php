@@ -3143,16 +3143,72 @@ $autoRespns = $this->autoResponseEmail($uss);
 	   }
 	}
 public function createExternalTicket($data){
-		extract($data);//file_put_contents('vaithee.txt', print_r($data,true).PHP_EOL , FILE_APPEND | LOCK_EX); exit;
+		extract($data);
 		//print_r($data); exit;
-		//$from_address = 'nzassaabloycc@pipe.mconnectapps.com';
-	
-
 		$tos = explode(',',$to);
-		$mail_ccs = explode(",",$mail_cc);
-	
-	    $qry = "SELECT support_email FROM admin_details WHERE admin_id=$admin_id";
-	
+// adding customer details	
+	    $cusmail = $tos[0];
+	    $get_domain = explode('@',$cusmail);	
+	    if($get_domain[1] != 'gmail.com' && $get_domain[1] != 'yahoo.com' && $get_domain[1] != 'hotmail.com'){	
+	      $customer_domain = $get_domain[1];
+	    }else{
+	      $customer_domain = '  ';	  
+	    }
+		$get_ticketcustomer_bymail = "SELECT customer_id,customer_name FROM ticket_customer WHERE customer_email LIKE '%$cusmail%'";
+		$get_ticketcustomer_bymail_values =  $this->fetchData($get_ticketcustomer_bymail, array());
+		if($get_ticketcustomer_bymail_values > 0){
+		  $ticket_customer_id = $get_ticketcustomer_bymail_values['customer_id'];
+		  $ticket_customer_name = $get_ticketcustomer_bymail_values['customer_name'];
+		}
+		else{
+		  $get_ticketcustomer_bydomain = "SELECT customer_id,customer_name FROM ticket_customer WHERE customer_email LIKE '%$customer_domain%'";
+		  $get_ticketcustomer_bydomain_values =  $this->fetchData($get_ticketcustomer_bydomain, array());
+		  if($get_ticketcustomer_bymail_values > 0){
+			$ticket_customer_id = $get_ticketcustomer_bymail_values['customer_id'];
+			$ticket_customer_name = $get_ticketcustomer_bymail_values['customer_name'];
+		  }else
+		  {
+			$curl = curl_init();
+			curl_setopt_array($curl, array(
+			  CURLOPT_URL => 'https://erp.cal4care.com/erp/apps/index.php',
+			  CURLOPT_RETURNTRANSFER => true,
+			  CURLOPT_ENCODING => '',
+			  CURLOPT_MAXREDIRS => 10,
+			  CURLOPT_TIMEOUT => 0,
+			  CURLOPT_FOLLOWLOCATION => true,
+			  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			  CURLOPT_CUSTOMREQUEST => 'POST',
+			  CURLOPT_POSTFIELDS =>'{
+				"operation": "agents",
+				"moduleType": "agents",
+				"api_type": "web",
+				"access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0aWNrZXRpbmcubWNvbm5lY3RhcHBzLmNvbSIsImF1ZCI6InRpY2tldGluZy5tY29ubmVjdGFwcHMuY29tIiwiaWF0IjoxNjMwOTMyMTE5LCJuYmYiOjE2MzA5MzIxMTksImV4cCI6MTYzMDk1MDExOSwiYWNjZXNzX2RhdGEiOnsidG9rZW5fYWNjZXNzSWQiOiI2NCIsInRva2VuX2FjY2Vzc05hbWUiOiJTYWxlc0FkbWluIiwidG9rZW5fYWNjZXNzVHlwZSI6IjIifX0.YzdTs9NxXf-KVffqXCNz8cyff-vMwcH8YI9eC8Ji8Fc",
+				"element_data": {
+					"action": "get_customerdetails",
+					"customer_domain":"'.$customer_domain.'"
+				}
+			  }',
+			  CURLOPT_HTTPHEADER => array(
+				'Content-Type: application/json'
+			  ),
+			));
+			$response = curl_exec($curl);
+			curl_close($curl);
+			$explode_customer_details = explode('||',$response);
+			$ticket_customer_id = $explode_customer_details[0];
+			$ticket_customer_name = $explode_customer_details[1];
+			$ticket_customer_code = $explode_customer_details[2];
+			$ticket_customer_email = $explode_customer_details[3];
+			$ticket_customer_country = $explode_customer_details[4];
+			$ticket_customer_phone = $explode_customer_details[5];
+			if($ticket_customer_id != ''){
+			 $insertQry = $this->db_insert("INSERT INTO ticket_customer(admin_id,customer_id,customer_code,customer_name,customer_email,phone_number,country) VALUES ('$admin_id','$ticket_customer_id','$ticket_customer_code','$ticket_customer_name','$ticket_customer_email','$ticket_customer_phone','$ticket_customer_country')", array());
+			}
+		  }
+		}
+// adding customer details		
+		$mail_ccs = explode(",",$mail_cc);	
+	    $qry = "SELECT support_email FROM admin_details WHERE admin_id=$admin_id";	
 		$from = $this->fetchOne($qry,array());
 		//echo $from;exit;
 		$from = $from_address;
@@ -3161,24 +3217,18 @@ public function createExternalTicket($data){
 		$dom = new DOMDocument();		
 	// $test=mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
 	// $content = htmlentities($html);
-	// 	// $dom->loadHTML();
-	
+	// 	// $dom->loadHTML();	
 	// 	$images = $content->getElementsByTagName('img');
-	// echo "1222244";exit;
-//	echo '124';exit;
 $images = $dom->getElementsByTagName('img');
 $dom->loadHTML($html);
-// echo 'Ima122ge';exit;
 // $dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
 		foreach ($images as $image) {
         /*$src = $image->getAttribute('src');
         $type = pathinfo($src, PATHINFO_EXTENSION);
         $data = file_get_contents($src);
-        $base64 = '0'; */
-	
+        $base64 = '0'; */	
 		$withoutSrc = $image->getAttribute('src');
-			$img_Src = str_ireplace('src="', '', $withoutSrc);
-		
+			$img_Src = str_ireplace('src="', '', $withoutSrc);		
 		if (strpos($img_Src, ";base64,"))
             {
 				$time = str_pad(mt_rand(1,99999999),8,'0',STR_PAD_LEFT);
@@ -3198,13 +3248,11 @@ $dom->loadHTML($html);
 				$image->setAttribute("src", $whatsapp_media_target_path); 
 					//$whatsapp_media_target_path = $tempFolder.$image_name; 
 				}
-
 		} 	
 		$countfiles = count($_FILES['up_files']['name']); 		
 		$destination_path = getcwd().DIRECTORY_SEPARATOR;            
 		$upload_location = $destination_path."ext-ticket-image/";
-		$files_arr = array();  
-	
+		$files_arr = array();  	
 		for($index = 0; $index < $countfiles; $index++){
 			$filename = $_FILES['up_files']['name'][$index];
 			$rand = rand(0000,9999).time();
@@ -3215,28 +3263,19 @@ $dom->loadHTML($html);
 					$files_arr[] =  "https://".$_SERVER['SERVER_NAME']."/api/v1.0/ext-ticket-image/".$filename;
 				}
 
-		}
-
-									  
+		}									  
 		$files_array = $files_arr;
 		$ticketMedia = implode(",",$files_arr);	
-		$files_arr = implode(",",$files_arr);	
-
-
-		$html = $dom->saveHTML();
-	
-		
+		$files_arr = implode(",",$files_arr);
+		$html = $dom->saveHTML();		
 		$qry = "SELECT sig_content FROM email_signatures WHERE is_default='1' and admin_id='$admin_id'";
 			$mailSignature = $this->fetchOne($qry,array());
 			/*if($mailSignature){
 				$mailSignature = str_replace('</div>', '</div></body></html>', $mailSignature);
 				$html = str_replace('</body></html>', $mailSignature, $html);
 			}*/ 
-	//$htm = $html.$mailSignature;
-	//file_put_contents('vaithee.txt', $qry.PHP_EOL , FILE_APPEND | LOCK_EX);
-
-
-				$qry = "SELECT ticket_no FROM external_tickets ORDER BY ticket_no DESC LIMIT 1";
+	        //$htm = $html.$mailSignature;
+	 			$qry = "SELECT ticket_no FROM external_tickets ORDER BY ticket_no DESC LIMIT 1";
 				$oldTickNo = $this->fetchOne($qry,array());
 				$oldTickNo = $oldTickNo + 1;	
 				$subject = $subject.' [##'.$oldTickNo.']';
@@ -3261,8 +3300,7 @@ $dom->loadHTML($html);
                     $mail->Subject = $subject;
 					$mail->MsgHTML($body);
 					$mail->IsHTML(true);
-					$mail->AddReplyTo($from);
-	
+					$mail->AddReplyTo($from);	
 					if(count($files_array) > 0){
 						foreach($files_array as $file){
 							$name = basename($file);
@@ -3275,8 +3313,7 @@ $dom->loadHTML($html);
 						}
 					} else {
 					$mail->AddAddress($to);
-					}
-	
+					}	
 			if(count($mail_ccs) > 1){
 				foreach($mail_ccs as $contact){
 					$mail->addCC($contact);
@@ -3284,14 +3321,11 @@ $dom->loadHTML($html);
 			} else {
 				$mail->addCC($mail_cc);
 			}
-
-
             if(!$mail->send()) {
 				
 				$res = "Mailer Error: " . $mail->ErrorInfo;
 			} 
-			 else {
-				 	
+			 else {				 	
 				if($agent_id == '' || $agent_id == undefined || empty($agent_id)){  
 					$get_dep=$this->fetchOne("SELECT department_users FROM `departments` where dept_id='$department'",array());
 					$dept_users = explode(',',$get_dep);
@@ -3301,46 +3335,30 @@ $dom->loadHTML($html);
 				} else {
 					$dept_users = explode(',',$agent_id);
 					$dept_users[] = $admin_id; 
-				}
-				 
-				$agt_name=$this->fetchOne("select agent_name from user where user_id='$user_id'", array());
-					
-				 
-
-				
+				}				 
+				$agt_name=$this->fetchOne("select agent_name from user where user_id='$user_id'", array());				
 				$res = "Message has been sent successfully";				 				
-				$from=$this->fetchOne("select support_email from admin_details where admin_id='$admin_id'", array());
-				
+				$from=$this->fetchOne("select support_email from admin_details where admin_id='$admin_id'", array());				
 				$from ='("'.$from.'")';
 				$user_qry_value=$this->fetchOne("SELECT timezone_id FROM user WHERE user_id='$admin_id'", array());		
      			$user_timezone=$this->fetchOne("SELECT name FROM timezone WHERE id='$user_qry_value'", array());
      			date_default_timezone_set($user_timezone);  
      			$created_dt = date("Y-m-d H:i:s"); 
-				$ticket_no = $this->db_insert("INSERT INTO external_tickets(ticket_from,admin_id,ticket_status,priority,ticket_subject,ticket_to,ticket_department,ticket_created_by,ticket_assigned_to,ticket_email,unassign,created_dt,updated_at) VALUES ( 'user','$admin_id','$status','$priority','$subject','$to','$department','$user_id','$agent_id','$from_address','1','$created_dt','$created_dt')", array());			 
+				$ticket_no = $this->db_insert("INSERT INTO external_tickets(ticket_from,admin_id,ticket_status,priority,ticket_subject,ticket_to,ticket_department,ticket_created_by,ticket_assigned_to,ticket_email,unassign,created_dt,updated_at,customer_id,customer_name) VALUES ( 'user','$admin_id','$status','$priority','$subject','$to','$department','$user_id','$agent_id','$from_address','1','$created_dt','$created_dt','$ticket_customer_id','$ticket_customer_name')", array());			 
 			    $description = $html;
 				$qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,repliesd_by,ticket_media,created_dt,only_message,only_signature) VALUES ( '$ticket_no','$description','$subject','$from','$to','$mail_cc','Agent','$ticketMedia','$created_dt','$description','$mailSignature')", array());
-
 				 foreach($dept_users as $user){
 					 $tt = $agt_name.' Created New Ticket ('.$subject.')'; 
 					 $this->db_query("Insert into mc_event (user_id,admin_id,mc_event_key,mc_event_data,mc_event_type,event_status, created_dt) values('$user','$admin_id','$ticket_no','$tt','11','7','$dt')", array());
-
 					 $us = array("user_id"=>$user,"ticket_for"=>"Created Ticket","ticket_from"=>$tt,"ticket_subject"=>$subject, "ticket_id"=>$ticket_no);
 					 $u[] = $this->send_notification($us);
 				 } 
-
-
 	}
-	
-	
         $status = array('status' => 'true');
 		$response_array = array('data' => $res);	
-        $merge_result = array_merge($status, $response_array);     
-       
+        $merge_result = array_merge($status, $response_array);       
         $tarray = json_encode($merge_result);           
-        print_r($tarray);exit;
-	
-	//print_r($res);exit;
-	
+        print_r($tarray);exit;	
 	}
 	
 	
