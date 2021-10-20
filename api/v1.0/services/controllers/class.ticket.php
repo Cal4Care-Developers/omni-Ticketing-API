@@ -2879,37 +2879,23 @@ if($explode1[0]=='Best regards'){
        	$tic_details = $this->fetchData($qry,array());
 		$subject = $tic_details['ticket_subject'];		
 		$ticket_from = $tic_details['ticket_to'];
-		$tic_from =  $tic_details['ticket_from'];
-		
+		$tic_from =  $tic_details['ticket_from'];		
 		if($tic_from == 'user'){
 			$main_tick_from = $tic_details['ticket_email'];
 		} else {
 			$main_tick_from = str_replace('("','',$ticket_from);
 			$main_tick_from = str_replace('")','',$main_tick_from);
-		}
-		
-		
-		//$main_tick_from = $this->fetchmydata("SELECT support_email FROM admin_details where admin_id=$user_id", array());
-		
-				//echo $main_tick_from; exit;
-	
-		//$qry = "SELECT support_email FROM admin_details WHERE support_email IN $ticket_from";
-		//echo $qry;exit;
-		//$from = $this->fetchOne($qry,array());
-		//echo $from;exit;
+		}	
 		$qry = "select senderID from department_emails where emailAddr = '$ticket_from'";
         $from =  $this->fetchOne($qry, array());
 		if($from == ''){
 			$qry = "select aliseEmail from department_emails where aliseEmail = '$ticket_from'";
 			$from =  $this->fetchOne($qry, array());
-		}
-		//echo $from;exit;
+		}		
 		$countfiles = count($_FILES['up_files']['name']);
 		$destination_path = getcwd().DIRECTORY_SEPARATOR;            
 		$upload_location = $destination_path."ext-ticket-image/";
 		$files_arr = array();
-			//	print_r($countfiles); exit;
-
 		for($index = 0;$index < $countfiles;$index++){
 			$filename = pathinfo($_FILES['up_files']['name'][$index], PATHINFO_FILENAME);
 			$rand = rand(0000,9999).time();
@@ -2921,65 +2907,33 @@ if($explode1[0]=='Best regards'){
 				if(move_uploaded_file($_FILES['up_files']['tmp_name'][$index],$path)){
 					$files_arr[] =  "https://".$_SERVER['SERVER_NAME']."/api/v1.0/ext-ticket-image/".$filename;
 				}
-		}
-	
+		}	
 		$files_array = $files_arr;
-		
-		//print_r($files_array); exit;
-
-		$files_arr = implode(",",$files_arr);
-		
+		$files_arr = implode(",",$files_arr);		
 		$mail_ccs = explode(",",$mail_cc);
-		//print_r($mail_ccs); exit;
-		
-		//$qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,ticket_media,repliesd_by) VALUES ( '$ticket_id','$message','$subject','$from','$to','$files_arr','Agent')", array()); 
-		//$result = $qry_result == 1 ? 'mailed' : 'Error';
-		
-			//echo $message;exit;
-		
-	
-		   $only_msg = '<div  style="border: 1px solid #d1d1d1;font-family: verdana !important; border-radius: 8px; padding: 12px; margin-bottom: 25px;">'.$message.'</div>';
-		
+		$only_msg = '<div  style="border: 1px solid #d1d1d1;font-family: verdana !important; border-radius: 8px; padding: 12px; margin-bottom: 25px;">'.$message.'</div>';
+		$countqry = "SELECT COUNT(ticket_message_id) FROM `external_tickets_data` WHERE ticket_id='$ticket_id' AND repliesd_by='Agent';";
+		$replycount = $this->fetchOne($countqry,array());
+		if($replycount==0){
 			$qry = "SELECT sig_content FROM email_signatures WHERE sig_id='$signature_id'";
-			$mailSignature = $this->fetchOne($qry,array());
-		
+			$mailSignature = $this->fetchOne($qry,array());		
 			if($mailSignature){
-				//$mailSignature = str_replace('</div>', '</div></body></html>', $mailSignature);
 				$message =  $message.$mailSignature;
-			} 
-		
+			}
+		}else{
+			$message = $message;
+		}	
 		$messages = $this->getTicketThread($ticket_id);
-		
-		
-
-foreach($messages as $m) {
-        $mess[] = '<div  style="border: 1px solid #d1d1d1;font-family: verdana !important; border-radius: 8px; padding: 12px; margin-bottom: 25px;">'.$m.'</div>';
-    }
-
-
-
-		//print_r($messages); exit;
+		foreach($messages as $m) {
+		        $mess[] = '<div  style="border: 1px solid #d1d1d1;font-family: verdana !important; border-radius: 8px; padding: 12px; margin-bottom: 25px;">'.$m.'</div>';
+		}		
 		$mess = implode('<br>',$mess);
-		//print_r($messagetoSend); exit;
 		$message =  '<div style="font-family: verdana !important;">'.$message.'</div>';
 		$messagetoSend = $message.'<br> <br>'.$mess;
-		//$message = $message[0]['ticket_message'];
-		//$messagetoSend = '<p>tetettt</p>';
-	//print_r($messagetoSend); exit;
-		
-		//$subject = $subject.' [##'.$ticket_id.']';
-		
-			//echo $subject; exit;
-			if( strpos($to, ',') !== false ) { $tos = explode(',',$to); }
-//echo $to; exit;
-				
+		if( strpos($to, ',') !== false ) { $tos = explode(',',$to); }
 					$message_id = $this->fetchOne("SELECT ticket_reply_id FROM external_tickets_data WHERE ticket_id = '$ticket_id' and ticket_reply_id !=''",array());
-		
-//echo $to_id;exit;
-		//print_r($tos);exit;
-		
 					if($tic_from == 'user'){
-			            $from = $tic_details['ticket_email'];
+					            $from = $tic_details['ticket_email'];
 		            }		            
 		            $smtp_qry = "SELECT * FROM smtp_details WHERE status=1";
 				    $smtp_qry_value = $this->fetchData($smtp_qry,array());
@@ -3030,14 +2984,11 @@ foreach($messages as $m) {
 					} else {
 							$mail->addCC($mail_cc);
 					}
-				// print_r($mail); exit;
-                   // $mail->send();
 		if(!$mail->send()) {				
 			print_r($mail->ErrorInfo);exit ;
-				$res = "Mailer Error: " . $mail->ErrorInfo;
-							
-			} 
-			 else {
+			$res = "Mailer Error: " . $mail->ErrorInfo;							
+		} 
+		else {
 		$user_qry = "SELECT timezone_id FROM user WHERE user_id='$user_id'";
         $user_qry_value = $this->fetchmydata($user_qry,array());
 	    $user_timezone_qry = "SELECT name FROM timezone WHERE id='$user_qry_value'";
