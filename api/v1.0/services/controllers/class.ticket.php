@@ -423,12 +423,12 @@ $user_qry = "SELECT timezone_id FROM user WHERE user_id='$user_id'";
 		//echo $unassign;exit;
 		$uassign = 1;	
 			if($ticket_status == 'All' && $ticket_department == 'All'){
-					$qry = "SELECT * FROM external_tickets WHERE admin_id = $user_id and is_spam = '$is_spam' and ticket_status!=9 and unassign=$uassign and delete_status=0 and ticket_assigned_to!=''";
+					$qry = "SELECT * FROM external_tickets WHERE admin_id = $user_id and is_spam = '$is_spam' and ticket_status!=9 and ticket_status!=8 and unassign=$uassign and delete_status=0 and ticket_assigned_to!=''";
 					$detail_qry = $qry." ORDER BY updated_at DESC LIMIT $limit offset $offset";
 				$detail_qry2 = $qry." ORDER BY updated_at DESC";
 					//echo $detail_qry;exit;
 			} else if($ticket_status == 'All' && $ticket_department != 'All'){
-				 	$qry = "SELECT * FROM external_tickets WHERE admin_id = $user_id and ticket_department = '$ticket_department' and is_spam = '$is_spam' and ticket_status!=9 and unassign=$uassign and delete_status=0 and ticket_assigned_to!=''";				
+				 	$qry = "SELECT * FROM external_tickets WHERE admin_id = $user_id and ticket_department = '$ticket_department' and is_spam = '$is_spam' and ticket_status!=9 and ticket_status!=8 and unassign=$uassign and delete_status=0 and ticket_assigned_to!=''";				
 					$detail_qry = $qry." ORDER BY updated_at DESC LIMIT $limit offset $offset";
 					//echo $detail_qry;exit;
 				$detail_qry2 = $qry." ORDER BY updated_at DESC";
@@ -509,7 +509,7 @@ $result = $this->dataFetchAll($detail_qry, array());
 else {
 			
 			if($ticket_status == 'All' && $ticket_department == 'All' && $ticket_user==$user_id){
-				 $qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE FIND_IN_SET('$ticket_user',a.ticket_assigned_to ) AND a.is_spam = '$is_spam' AND a.unassign=1 AND a.delete_status=0 AND a.ticket_status!=9 OR a.ticket_created_by = $ticket_user AND a.is_spam = '$is_spam' AND a.ticket_status!=9 AND a.unassign=1 AND a.delete_status=0";
+				 $qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE FIND_IN_SET('$ticket_user',a.ticket_assigned_to ) AND a.is_spam = '$is_spam' AND a.unassign=1 AND a.delete_status=0 AND a.ticket_status!=9 AND a.ticket_status!=8 OR a.ticket_created_by = $ticket_user AND a.is_spam = '$is_spam' AND a.ticket_status!=9 AND a.ticket_status!=8 AND a.unassign=1 AND a.delete_status=0";
 				 $detail_qry = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC LIMIT $limit offset $offset";
 				 $detail_qry2 = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC";
 				//echo $detail_qry;exit;
@@ -555,7 +555,7 @@ else {
 				} // ticket for loop
 			}
 			else if($ticket_status == 'All' && $ticket_department != 'All' && $ticket_user==$user_id){
-                $qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE FIND_IN_SET('$ticket_user',a.ticket_assigned_to ) and a.ticket_department LIKE '%$ticket_department%' and a.is_spam = '$is_spam' AND a.ticket_status!=9 AND a.unassign=1 AND a.delete_status=0 OR a.ticket_created_by = $ticket_user and a.ticket_department LIKE '%$ticket_department%' and a.is_spam = '$is_spam' AND a.ticket_status!=9 AND a.unassign=1 AND a.delete_status=0";
+                $qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE FIND_IN_SET('$ticket_user',a.ticket_assigned_to ) and a.ticket_department LIKE '%$ticket_department%' and a.is_spam = '$is_spam' AND a.ticket_status!=9 AND a.ticket_status!=8 AND a.unassign=1 AND a.delete_status=0 OR a.ticket_created_by = $ticket_user and a.ticket_department LIKE '%$ticket_department%' and a.is_spam = '$is_spam' AND a.ticket_status!=9 AND a.ticket_status!=8 AND a.unassign=1 AND a.delete_status=0";
 				 $detail_qry = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC LIMIT $limit offset $offset";
 				 $detail_qry2 = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC";
 				 $result = $this->dataFetchAll($detail_qry,array());
@@ -644,7 +644,7 @@ else {
 					$ticket_options_array[] = $ticket_options;
 				 } // ticket for loop
 			}else if($ticket_status == 'All' && $ticket_department == 'All' && $ticket_user != $user_id){
-				 $qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.ticket_assigned_to LIKE '%$ticket_user%' AND a.is_spam = '$is_spam' AND a.unassign=1 AND a.delete_status=0 AND a.ticket_status!=9 OR a.ticket_created_by LIKE '%$ticket_user%' AND a.is_spam = '$is_spam' AND a.ticket_status!=9 AND a.unassign=1 AND delete_status=0";
+				 $qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.ticket_assigned_to LIKE '%$ticket_user%' AND a.is_spam = '$is_spam' AND a.unassign=1 AND a.delete_status=0 AND a.ticket_status!=9 AND a.ticket_status!=8 OR a.ticket_created_by LIKE '%$ticket_user%' AND a.is_spam = '$is_spam' AND a.ticket_status!=9 AND a.ticket_status!=8 AND a.unassign=1 AND delete_status=0";
 				 $detail_qry = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC LIMIT $limit offset $offset";
 				 $detail_qry2 = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC";
 				 $result = $this->dataFetchAll($detail_qry,array());
@@ -689,7 +689,7 @@ else {
 				} // ticket for loop
 			}  
 			else {
-			      $qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.ticket_assigned_to LIKE '%$ticket_user%' and a.ticket_status IN ($ticket_status) and a.ticket_department LIKE '%$ticket_department%' and a.is_spam = '$is_spam' AND a.unassign=1 AND a.delete_status=0 AND a.ticket_status!=9 OR a.ticket_created_by = $user_id and a.ticket_status IN ($ticket_status) and a.ticket_department LIKE '%$ticket_department%' and is_spam = '$is_spam' AND a.unassign=1 AND a.delete_status=0 AND a.ticket_status!=9";
+			      $qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.ticket_assigned_to LIKE '%$ticket_user%' and a.ticket_status IN ($ticket_status) and a.ticket_department LIKE '%$ticket_department%' and a.is_spam = '$is_spam' AND a.unassign=1 AND a.delete_status=0 AND a.ticket_status!=9 AND a.ticket_status!=8 OR a.ticket_created_by = $user_id and a.ticket_status IN ($ticket_status) and a.ticket_department LIKE '%$ticket_department%' and is_spam = '$is_spam' AND a.unassign=1 AND a.delete_status=0 AND a.ticket_status!=9 AND a.ticket_status!=8";
 				 $detail_qry = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC LIMIT $limit offset $offset";
 				 $detail_qry2 = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC";
 				 $result = $this->dataFetchAll($detail_qry,array());
@@ -5228,12 +5228,12 @@ function get_unassign_tickets($data){
 	//print_r($data);exit;
 		if($user_type == 2){	
 		  if($ticket_department=='All'){	
-		  $qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.admin_id ='$admin_id' AND a.unassign=0 AND a.is_spam=0 AND b.repliesd_by='Customer' AND a.delete_status=0";
+		  $qry = "SELECT a.*,a.ticket_subject as subject, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.admin_id ='$admin_id' AND a.unassign=0 AND a.is_spam=0 AND b.repliesd_by='Customer' AND a.delete_status=0 AND a.ticket_status!=9 AND a.ticket_status!=8";
 		  $detail_qry = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC LIMIT $limit offset $offset";
 		  $detail_qry2 = $qry." ORDER BY updated_at DESC";
 		  }
 		  else{	
-			  $qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.admin_id ='$admin_id' AND a.ticket_department='$ticket_department' AND a.is_spam=0 AND a.unassign=0 AND b.repliesd_by='Customer' AND a.delete_status=0";
+			  $qry = "SELECT a.*,a.ticket_subject as subject, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.admin_id ='$admin_id' AND a.ticket_department='$ticket_department' AND a.is_spam=0 AND a.unassign=0 AND b.repliesd_by='Customer' AND a.delete_status=0 AND a.ticket_status!=9 AND a.ticket_status!=8";
 			  $detail_qry = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC LIMIT $limit offset $offset";
 			  $detail_qry2 = $qry." ORDER BY updated_at DESC";
 		  }	
@@ -5243,11 +5243,11 @@ function get_unassign_tickets($data){
 		    $department_options = $this->dataFetchAll($department_array_qry, array());
 			//print_r($department_options);exit;
 		  if($ticket_department=='All'){		
-			  $qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.admin_id ='$admin_id' AND FIND_IN_SET('$user_id',a.ticket_assigned_to ) AND a.unassign=0 AND b.repliesd_by='Customer'AND a.delete_status=0";
+			  $qry = "SELECT a.*,a.ticket_subject as subject, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.admin_id ='$admin_id' AND FIND_IN_SET('$user_id',a.ticket_assigned_to ) AND a.unassign=0 AND b.repliesd_by='Customer' AND a.delete_status=0 AND a.is_spam=0 AND a.ticket_status!=9 AND a.ticket_status!=8";
 			  $detail_qry = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC LIMIT $limit offset $offset";
 			  $detail_qry2 = $qry." ORDER BY updated_at DESC";
 		  }else{	
-			  $qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.admin_id ='$admin_id' AND a.ticket_department='$ticket_department' AND FIND_IN_SET('$user_id',a.ticket_assigned_to ) AND a.unassign=0 AND b.repliesd_by='Customer' AND a.delete_status=0";
+			  $qry = "SELECT a.*,a.ticket_subject as subject, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.admin_id ='$admin_id' AND a.ticket_department='$ticket_department' AND FIND_IN_SET('$user_id',a.ticket_assigned_to ) AND a.unassign=0 AND b.repliesd_by='Customer' AND a.delete_status=0 AND a.is_spam=0 AND a.ticket_status!=9 AND a.ticket_status!=8";
 			  $detail_qry = $qry." Group by a.ticket_no ORDER BY a.updated_at DESC LIMIT $limit offset $offset";
 			  $detail_qry2 = $qry." ORDER BY updated_at DESC";
 		  }
@@ -5269,7 +5269,7 @@ function get_unassign_tickets($data){
           $priority = $result[$i]['priority'];
 		  $ticket_created_at = $result[$i]['created_dt'];
           $ticket_message = $result[$i]['ticket_message'];
-          $ticket_subject = $result[$i]['ticket_subject'];
+          $ticket_subject = $result[$i]['subject'];
 		  $spammed = $result[$i]['spammed'];
 		  $unassign_value = $result[$i]['unassign'];	
           $createdby_qry = "SELECT agent_name FROM user WHERE user_id='$ticket_created_by'";              
