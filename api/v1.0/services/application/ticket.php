@@ -632,4 +632,8 @@ elseif($action == "view_bridge_users"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->view_bridge_users($admin_id);
 }
+elseif($action == "geterpCustomerDetasils"){    
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->geterpCustomerDetasils($admin_id);
+}
 ?>
