@@ -25638,7 +25638,7 @@ let DialpadComponent = class DialpadComponent {
             dialpad_req.call_status = "open";
             dialpad_req.call_note = "";
             $('#outcall_number').val(detail_id);
-            this.incomingNotification(detail_id);
+            // this.incomingNotification(detail_id);
         }
         else if (view_type == "incoming_call_inprogess") {
             iziToast.destroy();
@@ -25676,7 +25676,7 @@ let DialpadComponent = class DialpadComponent {
                     if (predective_dialer_behave == '0') {
                         var has_external_contact = localStorage.getItem('has_external_contact');
                         if (has_external_contact == '0') {
-                            this.router.navigate(['/edit-contacts'], { queryParams: { phone: detail_id, call_rec_id: this.call_history_id } });
+                            //this.router.navigate(['/edit-contacts'], { queryParams: { phone: detail_id , call_rec_id: this.call_history_id} });
                         }
                         else {
                             var crm_type = localStorage.getItem('crm_type');
@@ -25685,7 +25685,7 @@ let DialpadComponent = class DialpadComponent {
                                 let searchParams = new URLSearchParams(ext_url);
                                 let h_authkey = searchParams.get('hapikey');
                                 var decodedString = atob(detail_id);
-                                this.router.navigate(['/edit-contacts'], { queryParams: { q: decodedString, hapikey: h_authkey } });
+                                // this.router.navigate(['/edit-contacts'], { queryParams: { q: decodedString , hapikey: h_authkey} });                   
                             }
                             else if (crm_type == 'ZohoDesk') {
                                 var ad = localStorage.getItem('admin_id');
@@ -25694,10 +25694,10 @@ let DialpadComponent = class DialpadComponent {
                                 let Z_orgId = searchParams.get('orgId');
                                 let z_authkey = searchParams.get('authkey');
                                 var decodedString = atob(detail_id);
-                                this.router.navigate(['/edit-contacts'], { queryParams: { q: decodedString, authkey: z_authkey, orgId: Z_orgId } });
+                                //this.router.navigate(['/edit-contacts'], { queryParams: { q: decodedString ,authkey: z_authkey,orgId: Z_orgId } });                
                             }
                             else if (crm_type == 'SalesForce') {
-                                this.router.navigate(['/edit-contacts'], { queryParams: { q: 'locale=in' } });
+                                //this.router.navigate(['/edit-contacts'], { queryParams: { q: 'locale=in' } });                   
                             }
                             else {
                             }
@@ -34803,6 +34803,10 @@ let TicketCreateNewComponent = class TicketCreateNewComponent {
             images_upload_url: 'upload.php',
             automatic_uploads: false,
             textcolor_rows: "4",
+            default_link_target: "_blank",
+            extended_valid_elements: "a[href|target=_blank]",
+            link_assume_external_targets: true,
+            // link_context_toolbar: true,
             images_upload_handler: function (blobInfo, success, failure) {
                 var xhr, formData;
                 xhr = new XMLHttpRequest();
@@ -35356,6 +35360,10 @@ let TicketSignatureComponent = class TicketSignatureComponent {
             images_upload_url: 'upload.php',
             automatic_uploads: false,
             textcolor_rows: "4",
+            default_link_target: "_blank",
+            extended_valid_elements: "a[href|target=_blank]",
+            link_assume_external_targets: true,
+            // link_context_toolbar: true,
             images_upload_handler: function (blobInfo, success, failure) {
                 var xhr, formData;
                 xhr = new XMLHttpRequest();
@@ -35827,6 +35835,10 @@ let TicketTemplateComponent = class TicketTemplateComponent {
             paste_data_images: true,
             images_upload_url: 'upload.php',
             automatic_uploads: false,
+            default_link_target: "_blank",
+            extended_valid_elements: "a[href|target=_blank]",
+            link_assume_external_targets: true,
+            // link_context_toolbar: true,
             images_upload_handler: function (blobInfo, success, failure) {
                 var xhr, formData;
                 xhr = new XMLHttpRequest();
@@ -36469,6 +36481,10 @@ let TicketViewThreadComponent = class TicketViewThreadComponent {
             paste_data_images: true,
             images_upload_url: 'upload.php',
             automatic_uploads: false,
+            default_link_target: "_blank",
+            extended_valid_elements: "a[href|target=_blank]",
+            link_assume_external_targets: true,
+            //  link_context_toolbar: true,
             images_upload_handler: function (blobInfo, success, failure) {
                 var xhr, formData;
                 xhr = new XMLHttpRequest();
