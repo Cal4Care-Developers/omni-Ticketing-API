@@ -1631,7 +1631,8 @@ $rep1 = str_replace('[','',$to);
 $rep2 = str_replace(']','',$rep1);
 $rep3 = str_replace('"','',$rep2);	
 $rep4 = str_replace(',', '|', $rep3);
-$Toarr = explode('|',$rep4);	
+$Toarr = explode('|',$rep4);
+$Toarr = array_map('strtolower', $Toarr);	
 //file_put_contents('dat.txt', print_r($Toarr,true).PHP_EOL , FILE_APPEND | LOCK_EX);exit;
 $aliasArr = array();
 $alias_qry = "SELECT aliseEmail FROM department_emails WHERE status=1";
@@ -1640,6 +1641,7 @@ for($a=0;$a<count($alias_values);$a++){
  $aval = $alias_values[$a]['aliseEmail'];
  array_push($aliasArr,$aval);
 }
+$aliasArr = array_map('strtolower', $aliasArr);
 $resultArr = array_intersect($Toarr, $aliasArr);
 $get_pipe_alias = implode(' ',$resultArr);	
 //$from_email_explode = explode('<',$from);
@@ -1796,6 +1798,9 @@ if($override==0){
 				    $to2=$to_original;
 			}
 			$to3 = $to2;
+		}
+		if($to3==''){
+		 $to3 = 'omni@pipe.mconnectapps.com';
 		}			
 		$qry = "SELECT * FROM `admin_details` WHERE `support_email` LIKE '%$to3%'";
         $qry_value = $this->fetchData($qry,array());		
@@ -1824,7 +1829,13 @@ if($override==0){
 			}*/
 			else{
 			   if(strpos($subject, 'Re:') !== false || strpos($subject, 'RE:') !== false){
-				   $sub = substr($subject, 4);
+				   $subcut = substr($subject, 4);				   
+				   $tno = $this->fetchOne("SELECT ticket_no FROM external_tickets WHERE ticket_subject = '$subcut'",array());
+				   if($tno==''){
+				     $sub = $subject;
+				   }else{
+				     $sub = substr($subject, 4);
+				   }
 			   }else{
 			       $sub = $subject;
 			   }
@@ -7264,7 +7275,7 @@ public function get_department_signature($admin_id){
 }
 public function update_signature_strategy($data){
         extract($data);//print_r($data);exit;     
-        $qry = "UPDATE user SET signature_strategy='$value' WHERE user_id='$user_id'";        
+        $qry = "UPDATE user SET signature_strategy='$value' WHERE admin_id='$user_id'";        
         $qry_result = $this->db_query($qry, array());
         $result = $qry_result == 1 ? 1 : 0;
         return $result;
