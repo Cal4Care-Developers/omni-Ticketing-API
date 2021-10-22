@@ -636,4 +636,14 @@ elseif($action == "geterpCustomerDetasils"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->geterpCustomerDetasils($admin_id);
 }
+elseif($action == "editCustomer"){
+    $data= array("admin_id"=>$admin_id,"customer_id"=>$customer_id);    
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->editCustomer($data);
+}
+elseif($action == "changeCustomer"){    
+    $data= array("from_mail"=>$from_mail,"admin_id"=>$admin_id,"customer_id"=>$customer_id,"customer_email"=>$customer_email,"customer_name"=>$customer_name,"customer_code"=>$customer_code,"customer_country"=>$customer_country,"customer_phone"=>$customer_phone);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->changeCustomer($data);
+}
 ?>

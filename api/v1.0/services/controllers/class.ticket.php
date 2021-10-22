@@ -7338,6 +7338,80 @@ public function geterpCustomerDetasils($admin_id){
     $response = curl_exec($curl);
     curl_close($curl);
     print_r($response);exit;
+}
+public function editCustomer($data){ 
+	extract($data);//print_r($data);exit;
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => 'https://erp.cal4care.com/erp/apps/index.php',
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'POST',
+      CURLOPT_POSTFIELDS =>'{
+        "operation": "agents",
+        "moduleType": "agents",
+        "api_type": "web",
+        "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0aWNrZXRpbmcubWNvbm5lY3RhcHBzLmNvbSIsImF1ZCI6InRpY2tldGluZy5tY29ubmVjdGFwcHMuY29tIiwiaWF0IjoxNjMwOTMyMTE5LCJuYmYiOjE2MzA5MzIxMTksImV4cCI6MTYzMDk1MDExOSwiYWNjZXNzX2RhdGEiOnsidG9rZW5fYWNjZXNzSWQiOiI2NCIsInRva2VuX2FjY2Vzc05hbWUiOiJTYWxlc0FkbWluIiwidG9rZW5fYWNjZXNzVHlwZSI6IjIifX0.YzdTs9NxXf-KVffqXCNz8cyff-vMwcH8YI9eC8Ji8Fc",
+        "element_data": {
+            "action": "get_individual_customer",
+            "customer_id":"'.$customer_id.'"            
+        }
+      }',
+      CURLOPT_HTTPHEADER => array(
+        'Content-Type: application/json'
+      ),
+    ));
+    $response = curl_exec($curl);
+    curl_close($curl);
+    print_r($response);exit;
+}
+public function changeCustomer($data){ 
+	extract($data);
+	$params = array();
+    $cdata= $this->fetchData("SELECT customer_id,customer_email FROM ticket_customer WHERE admin_id='$admin_id' and customer_id ='$customer_id'", $params);
+    $cid = $cdata['customer_id'];
+    $cemail = $cdata['customer_email'];
+    if($cid==''){
+    	$insertQry = $this->db_insert("INSERT INTO ticket_customer(admin_id,customer_id,customer_code,customer_name,customer_email,phone_number,country) VALUES ('$admin_id','$customer_id','$customer_code','$customer_name','$customer_email','$customer_phone','$customer_country')", $params);
+    }else{
+    	$implode_newmail = $cemail.','.$from_mail;
+    	$updateqry_ticket_customer = "UPDATE ticket_customer SET customer_email='$implode_newmail' WHERE customer_id='$customer_id' AND admin_id='$admin_id'";
+	    $update_data1 = $this->db_query($updateqry_ticket_customer, $params);    	
+    }    
+    $updateqry_ticket = "UPDATE external_tickets SET customer_id='$customer_id',customer_name='$customer_name' WHERE admin_id='$admin_id' AND ticket_from='$from_mail'";
+    $update_data2 = $this->db_query($updateqry_ticket, $params);
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => 'https://erp.cal4care.com/erp/apps/index.php',
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'POST',
+      CURLOPT_POSTFIELDS =>'{
+        "operation": "agents",
+        "moduleType": "agents",
+        "api_type": "web",
+        "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0aWNrZXRpbmcubWNvbm5lY3RhcHBzLmNvbSIsImF1ZCI6InRpY2tldGluZy5tY29ubmVjdGFwcHMuY29tIiwiaWF0IjoxNjMwOTMyMTE5LCJuYmYiOjE2MzA5MzIxMTksImV4cCI6MTYzMDk1MDExOSwiYWNjZXNzX2RhdGEiOnsidG9rZW5fYWNjZXNzSWQiOiI2NCIsInRva2VuX2FjY2Vzc05hbWUiOiJTYWxlc0FkbWluIiwidG9rZW5fYWNjZXNzVHlwZSI6IjIifX0.YzdTs9NxXf-KVffqXCNz8cyff-vMwcH8YI9eC8Ji8Fc",
+        "element_data": {
+            "action": "update_individual_customer",
+            "customer_id":"'.$customer_id.'",
+            "customer_email":"'.$from_email.'"            
+        }
+      }',
+      CURLOPT_HTTPHEADER => array(
+        'Content-Type: application/json'
+      ),
+    ));
+    $response = curl_exec($curl);
+    curl_close($curl);
+    print_r($response);exit;
 }	
 }
 ?>
