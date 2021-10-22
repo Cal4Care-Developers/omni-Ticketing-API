@@ -504,7 +504,10 @@ green #28c76f -> Byzantine #BD33A4
 .chat-box .chat-content .chat-item>img {
     float: left;
     width: 40px;
-    border-radius: 50%}
+    border-radius: 50%;
+    height: 40px;
+    object-fit: cover;
+}
 .chat-box .chat-content .chat-item .chat-details {
     margin-left: 70px;
 }
