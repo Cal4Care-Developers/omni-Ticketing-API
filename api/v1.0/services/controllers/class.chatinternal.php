@@ -47,7 +47,8 @@ function insertInternalChatMessage($chat_data){
 			  $img_upload_path = '';
 		  }
 		  		//print_r($img_upload_path);exit;
-		  
+		  echo "1";
+		  echo "INSERT INTO chat_internal_msg(chat_id,msg_sender_id,msg_receiver_id,msg_user_type,msg_type,chat_msg,img_url,img_type,msg_status,created_ip,created_dt,updated_dt,read_status) VALUES ('$chat_id','$chat_sender_id','$chat_receiver_id','4','text','$chat_msg','$img_upload_path','$exten','1','','$created_dt','$updated_dt','1')";exit;
         $chat_msg_id = $this->db_insert("INSERT INTO chat_internal_msg(chat_id,msg_sender_id,msg_receiver_id,msg_user_type,msg_type,chat_msg,img_url,img_type,msg_status,created_ip,created_dt,updated_dt,read_status) VALUES ('$chat_id','$chat_sender_id','$chat_receiver_id','4','text','$chat_msg','$img_upload_path','$exten','1','','$created_dt','$updated_dt','1')", array()); 
       
         $agent_name_qry = "select agent_name from user where user_id='$chat_receiver_id'";   
@@ -116,7 +117,8 @@ function insertInternalChatMessage($chat_data){
 		  }else{
 			  $img_upload_path = '';
 		  }
-		  
+		  echo "2";
+		  echo "INSERT INTO chat_internal_msg(chat_id,msg_sender_id,msg_receiver_id,msg_user_type,msg_type,chat_msg,img_url,img_type,msg_status,created_ip,created_dt,updated_dt,read_status) VALUES ('$chat_id','$chat_sender_id','$chat_receiver_id','4','text','$chat_msg','$img_upload_path','$exten','1','','$created_dt','$updated_dt','1')";exit;
         $chat_msg_id = $this->db_insert("INSERT INTO chat_internal_msg(chat_id,msg_sender_id,msg_receiver_id,msg_user_type,msg_type,chat_msg,img_url,img_type,msg_status,created_ip,created_dt,updated_dt,read_status) VALUES ('$chat_id','$chat_sender_id','$chat_receiver_id','4','text','$chat_msg','$img_upload_path','$exten','1','','$created_dt','$updated_dt','1')", array()); 
         $result = $this->internal_chat_detail($chat_data);
        			  
@@ -162,7 +164,8 @@ function insertInternalChatMessage($chat_data){
 		  }else{
 			  $img_upload_path = '';
 		  } 
-		  
+		  echo '3';
+		  echo "INSERT INTO chat_internal_msg(chat_id,msg_sender_id,msg_receiver_id,msg_user_type,msg_type,chat_msg,img_url,img_type,msg_status,created_ip,created_dt,updated_dt,read_status) VALUES ('$chat_id','$chat_sender_id','$chat_receiver_id','4','text','$chat_msg','$img_upload_path','$exten','1','','$created_dt','$updated_dt','1')";exit;
         $chat_id = $this->db_insert("INSERT INTO `chat_internal` (`chat_id`, `chat_type`,`chat_cat`,`chat_status`,`admin_id`,`created_ip`,`created_dt`,`updated_dt`,`chat_sender_id`,`chat_receiver_id`,`order_by_time`) VALUES ('$chat_id','3', '1','1','$admin_id','','$created_dt','$updated_dt','$chat_sender_id', '$chat_receiver_id','$updated_dt')", array());     
         $chat_msg_id = $this->db_insert("INSERT INTO chat_internal_msg(chat_id,msg_sender_id,msg_receiver_id,msg_user_type,msg_type,chat_msg,img_url,img_type,msg_status,created_ip,created_dt,updated_dt,read_status) VALUES ('$chat_id','$chat_sender_id','$chat_receiver_id','4','text','$chat_msg','$img_upload_path','$exten','1','','$created_dt','$updated_dt','1')", array());
         $result = $this->internal_chat_detail($chat_data);		  
