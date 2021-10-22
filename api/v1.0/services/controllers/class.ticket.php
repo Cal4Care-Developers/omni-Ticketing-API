@@ -974,7 +974,7 @@ else {
 		}
 		$from = $main_tick_from;		
 		$ticket_no = $ticket_id;
-		$e = "SELECT response_content FROM email_autoresponses WHERE status='1' and admin_id='$admin_id' and response_for='close_ticket' and dept_id='$dept'";
+		$e = "SELECT response_content FROM email_autoresponses WHERE admin_id='$admin_id' and response_for='close_ticket' and dept_id='$dept'";
 		$repM = $this->fetchOne($e, array());	
 				if($repM !=''){
 					$tickNo = '[##'.$ticket_no.']';
@@ -2472,7 +2472,7 @@ if($next_assign!=''){
 				    for($k = 0; $k < count($agent_alert_email); $k++){
 				     $agent_emails = $agent_alert_email[$k]['email_id'];
 				     array_push($agentArr, $agent_emails);
-				    }
+				    }				    
 				    $group_alert_qry = "SELECT email FROM email_group WHERE new_email_alert=1 AND admin_id='$admin_id'";
 			        $group_alert_email = $this->dataFetchAll($group_alert_qry,array());
 			        //print_r($agent_alert_email);	  	
