@@ -7378,8 +7378,8 @@ public function changeCustomer($data){
     if($cid==''){
     	$insertQry = $this->db_insert("INSERT INTO ticket_customer(admin_id,customer_id,customer_code,customer_name,customer_email,phone_number,country) VALUES ('$admin_id','$customer_id','$customer_code','$customer_name','$customer_email','$customer_phone','$customer_country')", $params);
     }else{
-    	$implode_newmail = $cemail.','.$from_mail;
-    	$updateqry_ticket_customer = "UPDATE ticket_customer SET customer_email='$implode_newmail' WHERE customer_id='$customer_id' AND admin_id='$admin_id'";
+    	//$implode_newmail = $cemail.','.$from_mail;
+    	$updateqry_ticket_customer = "UPDATE ticket_customer SET customer_email='$customer_email' WHERE customer_id='$customer_id' AND admin_id='$admin_id'";
 	    $update_data1 = $this->db_query($updateqry_ticket_customer, $params);    	
     }    
     $updateqry_ticket = "UPDATE external_tickets SET customer_id='$customer_id',customer_name='$customer_name' WHERE admin_id='$admin_id' AND ticket_from='$from_mail'";
@@ -7402,7 +7402,7 @@ public function changeCustomer($data){
         "element_data": {
             "action": "update_individual_customer",
             "customer_id":"'.$customer_id.'",
-            "customer_email":"'.$from_email.'"            
+            "customer_email":"'.$customer_email.'"            
         }
       }',
       CURLOPT_HTTPHEADER => array(
