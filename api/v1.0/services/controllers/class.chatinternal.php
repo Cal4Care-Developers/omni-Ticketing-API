@@ -141,7 +141,12 @@ function insertInternalChatMessage($chat_data){
 		$token = $agentresult['notification_code'];
 		//$profile_image = $agentresult[$i]['profile_image'];	
 		$this->ch_notification_curl($token,$chat_id,$chat_msg);  
-        return $result;      
+        //return $result;      
+		$tresult['result']['status']="true";
+		  $tresult['result']['data']=$result;
+		  
+		   $tarray = json_encode($tresult);
+		  print_r($tarray);exit;
       }else{
         $chat_data = array("user_id"=>$chat_sender_id,"agent_id"=>$chat_receiver_id,"admin_id"=>$admin_id);  
 		  
@@ -189,7 +194,12 @@ function insertInternalChatMessage($chat_data){
 		//$profile_image = $agentresult[$i]['profile_image'];	
 		$this->ch_notification_curl($token,$chat_id,$chat_msg);
 		  
-        return $result;          
+        //return $result;          
+		$tresult['result']['status']="true";
+		  $tresult['result']['data']=$result;
+		  
+		   $tarray = json_encode($tresult);
+		  print_r($tarray);exit;
       }           
     }
 }
