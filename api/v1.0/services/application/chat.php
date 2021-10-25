@@ -68,6 +68,16 @@ elseif($action == "send_chat_message" ){
     $result_data["result"]["data"] = $chat->insertChatMessageWc($chat_data);
     
 }
+elseif($action == "claimed_by" ){
+
+	extract($_REQUEST);
+	
+    $chat_data = array("chat_id"=>$chat_id,"msg_user_id"=>$user_id,"extension"=>$ext_no,"msg_user_type"=>2,"msg_type"=>"text","msg_status"=>1);
+             
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $chat->ClaimedBy($chat_data);
+    
+}
 	
 	
 } 
