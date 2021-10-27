@@ -1084,7 +1084,7 @@ $res_out=substr($response,0,3);
 		  } else {
 		  $status = '';
 		  }		  
-	     $queue_chat_qry = "select chat.chat_id, chat.chat_code,chat.chat_user,chat.chat_type,chat.chatUrl,chat.chat_queue,chat.assigned_user, chat.chat_status, chat.read_status,customer.customer_name, DATE_FORMAT(chat.created_dt, '%d-%m-%Y %H:%i') as chat_dt from chat left join customer on customer.customer_id = chat.chat_user where  chat.admin_id='$admin_id' ".$status." and chat.chat_type in (1,2) ".$search_qry." order by chat.chat_id desc";
+	     $queue_chat_qry = "select chat.chat_id,chat.claim_status,chat.chat_code,chat.chat_user,chat.chat_type,chat.chatUrl,chat.chat_queue,chat.assigned_user, chat.chat_status, chat.read_status,customer.customer_name, DATE_FORMAT(chat.created_dt, '%d-%m-%Y %H:%i') as chat_dt from chat left join customer on customer.customer_id = chat.chat_user where  chat.admin_id='$admin_id' ".$status." and chat.chat_type in (1,2) ".$search_qry." order by chat.chat_id desc";
 		  //echo $queue_chat_qry;exit;
 		 
 		  $result = $this->dataFetchAll($queue_chat_qry,array());
@@ -1109,7 +1109,7 @@ $res_out=substr($response,0,3);
 		  } else {
 		  $status = '';
 		  }			
-			$queue_chat_qry = "SELECT chat.chat_id, chat.rating_value,departments.department_name,chat.chat_code,chat.chat_user,chat.chat_type,chat.chat_queue,chat.assigned_user,chat.chat_status,chat.read_status,chat.chatUrl,chat.rating_value,dept_id,customer.customer_name,DATE_FORMAT(chat.created_dt, '%d-%m-%Y %H:%i') as chat_dt FROM `departments` INNER JOIN chat on FIND_IN_SET(departments.dept_id,chat.department) and departments.admin_id=chat.admin_id left join customer on customer.customer_id = chat.chat_user WHERE department_users LIKE '%$user_id%' and chat.admin_id='$admin_id' ".$status." and chat.chat_type in (1,2)".$search_qry." group by chat.chat_id order by chat.chat_id desc";	
+			$queue_chat_qry = "SELECT chat.chat_id,chat.claim_status, chat.rating_value,departments.department_name,chat.chat_code,chat.chat_user,chat.chat_type,chat.chat_queue,chat.assigned_user,chat.chat_status,chat.read_status,chat.chatUrl,chat.rating_value,dept_id,customer.customer_name,DATE_FORMAT(chat.created_dt, '%d-%m-%Y %H:%i') as chat_dt FROM `departments` INNER JOIN chat on FIND_IN_SET(departments.dept_id,chat.department) and departments.admin_id=chat.admin_id left join customer on customer.customer_id = chat.chat_user WHERE department_users LIKE '%$user_id%' and chat.admin_id='$admin_id' ".$status." and chat.chat_type in (1,2)".$search_qry." group by chat.chat_id order by chat.chat_id desc";	
 			//echo $queue_chat_qry;exit; //NB
 		}
 	  }
@@ -1129,7 +1129,7 @@ $res_out=substr($response,0,3);
 		//print_r($update); exit;
 		$qry_result = $this->db_query($update, array());
 			
-        $chat_detail_qry = "select chat.chat_id,chat.online_status,chat.assigned_user, chat.chat_user,departments.department_name, chat.chat_type, chat.chat_status,chat.chatUrl, chat.rating_value, chat.widget_name, chat_msg.chat_msg_id, chat_msg.msg_user_id, chat_msg.msg_user_type, chat_msg.msg_type, chat_msg.chat_msg,chat_msg.chat_images, chat_msg.msg_status,chat_msg.extension, customer.customer_name,customer_email,customer.city,customer.country,customer.created_ip, TIME_FORMAT(chat_msg.created_dt, '%H:%i') as chat_time, date_format(chat_msg.created_dt, '%d/%m/%Y') as chat_dt,user.agent_name as names, user.user_name,substring(user.agent_name,1,instr(user.agent_name,' ')-1) as agent_name,user.chat_aviator,user.profile_image from chat inner join chat_msg on chat_msg.chat_id=chat.chat_id left join customer on chat.chat_user = customer.customer_id left join user on chat_msg.msg_user_id = user.user_id left join departments on chat.department = departments.dept_id where chat.chat_id = '$chat_id' order by chat_msg.chat_msg_id asc";
+        $chat_detail_qry = "select chat.chat_id,chat.claim_status,chat.online_status,chat.assigned_user, chat.chat_user,departments.department_name, chat.chat_type, chat.chat_status,chat.chatUrl, chat.rating_value, chat.widget_name, chat_msg.chat_msg_id, chat_msg.msg_user_id, chat_msg.msg_user_type, chat_msg.msg_type, chat_msg.chat_msg,chat_msg.chat_images, chat_msg.msg_status,chat_msg.extension, customer.customer_name,customer_email,customer.city,customer.country,customer.created_ip, TIME_FORMAT(chat_msg.created_dt, '%H:%i') as chat_time, date_format(chat_msg.created_dt, '%d/%m/%Y') as chat_dt,user.agent_name as names, user.user_name,substring(user.agent_name,1,instr(user.agent_name,' ')-1) as agent_name,user.chat_aviator,user.profile_image from chat inner join chat_msg on chat_msg.chat_id=chat.chat_id left join customer on chat.chat_user = customer.customer_id left join user on chat_msg.msg_user_id = user.user_id left join departments on chat.department = departments.dept_id where chat.chat_id = '$chat_id' order by chat_msg.chat_msg_id asc";
      // echo $chat_detail_qry;exit;
        
             $this->errorLog("demo",$chat_detail_qry);
@@ -1200,7 +1200,7 @@ function insertChatMessageWc($chat_data){
 	
 	//MOBILE APP NOTIFICATION 
 	
-	$chat_user_type = "SELECT * FROM chat_msg WHERE chat_id='$chat_id' and msg_user_type='$msg_user_type'";
+/*	$chat_user_type = "SELECT * FROM chat_msg WHERE chat_id='$chat_id' and msg_user_type='$msg_user_type'";
 	$chat_counts = $this->dataRowCount($chat_user_type, array());
 
 	if($chat_counts == 0){
@@ -1264,7 +1264,7 @@ curl_close($curl);
 
 	//echo $response;exit;
 
-	}	
+	}	*/
 
 		$files_array = $files_arr;
 	    $extension_arr = $ext_arr;
@@ -1277,7 +1277,7 @@ curl_close($curl);
         
 	
 				
-		$chat_detail_qry = "select chat.chat_id, chat.chat_user, chat.chat_type, chat_msg.chat_msg_id, chat_msg.msg_user_id, chat_msg.msg_user_type, chat_msg.msg_type, chat_msg.chat_msg,chat_msg.chat_images, chat_msg.msg_status, customer.customer_name, TIME_FORMAT(chat_msg.created_dt, '%H:%i') as chat_time, date_format(chat_msg.created_dt, '%d/%m/%Y') as chat_dt,chat_msg.extension, user.user_name,user.agent_name,user.profile_image from chat inner join chat_msg on chat_msg.chat_id=chat.chat_id left join customer on chat.chat_user = customer.customer_id left join user on chat_msg.msg_user_id = user.user_id where chat_msg.chat_msg_id = '$chat_msg_id' order by chat_msg.chat_msg_id asc limit 1";
+		$chat_detail_qry = "select chat.chat_id,chat.claim_status, chat.chat_user, chat.chat_type, chat_msg.chat_msg_id, chat_msg.msg_user_id, chat_msg.msg_user_type, chat_msg.msg_type, chat_msg.chat_msg,chat_msg.chat_images, chat_msg.msg_status, customer.customer_name, TIME_FORMAT(chat_msg.created_dt, '%H:%i') as chat_time, date_format(chat_msg.created_dt, '%d/%m/%Y') as chat_dt,chat_msg.extension, user.user_name,user.agent_name,user.profile_image from chat inner join chat_msg on chat_msg.chat_id=chat.chat_id left join customer on chat.chat_user = customer.customer_id left join user on chat_msg.msg_user_id = user.user_id where chat_msg.chat_msg_id = '$chat_msg_id' order by chat_msg.chat_msg_id asc limit 1";
     
     
      $parms = array();
@@ -6080,4 +6080,112 @@ return $results;
     
     
 }
+
+public function ClaimedBy($data){
+	extract($data);	 
+	if($extension != "" && $extension != "null" && $extension != "undefined"){  //MOBILE APPS
+	$qry = "select user_id from user where sip_login='$extension'";
+      $msg_user_id = $this->fetchOne($qry, array());
+	}	
+
+		//MOBILE APP NOTIFICATION 
+
+	$chat_user_type = "SELECT * FROM chat_msg WHERE chat_id='$chat_id' and msg_user_type='$msg_user_type'";
+	$chat_counts = $this->dataRowCount($chat_user_type, array());
+	//print_r($chat_counts);exit;
+	//if($chat_counts == 0){
+		
+		$qrys = "UPDATE chat SET claim_status='$msg_user_id' WHERE chat_id='$chat_id'";
+		$qry_results = $this->db_query($qrys, array());
+		$usrname  = $this->fetchOne("SELECT agent_name FROM user WHERE user_id='$msg_user_id' ",array());
+
+		$chat_msg_user_type = '7';
+		$msg_type='text';
+		$chat_msg_one='Chat claimed by '.$usrname;
+	 $chat_msg_ides = $this->db_insert("INSERT INTO chat_msg(chat_id, msg_user_id, msg_user_type, msg_type, chat_msg, msg_status,chat_images,extension) VALUES ('$chat_id', '$msg_user_id', '$chat_msg_user_type', '$msg_type', '$chat_msg_one', '1','','')", array());
+
+
+		
+		$chat_detail_qry = "select chat.chat_id, chat.chat_user,chat.claim_status,chat.chat_type, chat_msg.chat_msg_id, chat_msg.msg_user_id, chat_msg.msg_user_type, chat_msg.msg_type, chat_msg.chat_msg,chat_msg.chat_images, chat_msg.msg_status, customer.customer_name, TIME_FORMAT(chat_msg.created_dt, '%H:%i') as chat_time, date_format(chat_msg.created_dt, '%d/%m/%Y') as chat_dt,chat_msg.extension, user.user_name,user.agent_name,user.profile_image from chat inner join chat_msg on chat_msg.chat_id=chat.chat_id left join customer on chat.chat_user = customer.customer_id left join user on chat_msg.msg_user_id = user.user_id where chat_msg.chat_msg_id = '$chat_msg_ides' order by chat_msg.chat_msg_id asc limit 1";
+    
+    
+     $parms = array();
+        $result = $this->fetchData($chat_detail_qry,array());			
+	
+	//print_r($chat_detail_qry);exit;
+
+				
+		$get_omni_name ="SELECT agent_name FROM user WHERE user_id = $msg_user_id";
+		 $omni_name = $this->fetchOne($get_omni_name, array());
+		$dept_id_req = "SELECT department FROM chat WHERE chat_id='$chat_id'";
+		 $dept_value = $this->fetchOne($dept_id_req, array());
+		$send_dept_id =$dept_value;
+		$dept_user_ids = "SELECT department_users FROM departments WHERE dept_id='$send_dept_id'";
+		 $usrs_ids = $this->fetchOne($dept_user_ids, array());
+		$get_ext_no = "SELECT sip_login FROM user WHERE user_id IN ($usrs_ids)";
+		 $user_ext_no = $this->dataFetchAll($get_ext_no, array());
+		foreach ($user_ext_no as $key => $value) {
+			$chat_values[] = $value['sip_login'];
+        } 
+		
+		$result_values = implode(",", $chat_values);
+		
+$element_values = array("action"=>"claimed_notification","extension_no"=>$result_values,"omni_agent_name"=>$omni_name,"cust_name"=>$customer_name);		
+
+	$adm = array("operation"=>"agents","moduleType"=>"agents","api_type"=>"web","access_token"=>"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0aWNrZXRpbmcubWNvbm5lY3RhcHBzLmNvbSIsImF1ZCI6InRpY2tldGluZy5tY29ubmVjdGFwcHMuY29tIiwiaWF0IjoxNjMwOTMyMTE5LCJuYmYiOjE2MzA5MzIxMTksImV4cCI6MTYzMDk1MDExOSwiYWNjZXNzX2RhdGEiOnsidG9rZW5fYWNjZXNzSWQiOiI2NCIsInRva2VuX2FjY2Vzc05hbWUiOiJTYWxlc0FkbWluIiwidG9rZW5fYWNjZXNzVHlwZSI6IjIifX0.YzdTs9NxXf-KVffqXCNz8cyff-vMwcH8YI9eC8Ji8Fc","element_data"=>$element_values);
+		
+	$notify = $this->erp_app($adm);
+
+
+/*		$curl = curl_init();
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://erp.cal4care.com/cms/apps/index.php',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS =>'{
+    "operation": "agents",
+    "moduleType": "agents",
+    "api_type": "web",
+    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0aWNrZXRpbmcubWNvbm5lY3RhcHBzLmNvbSIsImF1ZCI6InRpY2tldGluZy5tY29ubmVjdGFwcHMuY29tIiwiaWF0IjoxNjMwOTMyMTE5LCJuYmYiOjE2MzA5MzIxMTksImV4cCI6MTYzMDk1MDExOSwiYWNjZXNzX2RhdGEiOnsidG9rZW5fYWNjZXNzSWQiOiI2NCIsInRva2VuX2FjY2Vzc05hbWUiOiJTYWxlc0FkbWluIiwidG9rZW5fYWNjZXNzVHlwZSI6IjIifX0.YzdTs9NxXf-KVffqXCNz8cyff-vMwcH8YI9eC8Ji8Fc",
+    "element_data": {
+        "action": "claimed_notification",
+        "extension_no":"'.$result_values.'",
+		"omni_agent_name":"'.$omni_name.'",
+		"cust_name":"'.$customer_name.'"
+
+    }
+}',
+  CURLOPT_HTTPHEADER => array(
+    'Content-Type: application/json'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl); */
+
+	
+
+
+  	$status = array('status' => 'true');
+		$response_array = array('data' => $result);	
+        $merge_result = array_merge($status, $response_array);     
+       
+        $tarray = json_encode($merge_result);   
+   			print_r($tarray); exit;
+
+
+	//echo $response;exit;
+
+//	}
+
+}
+
+
+
 }
