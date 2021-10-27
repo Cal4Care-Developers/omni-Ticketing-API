@@ -6367,7 +6367,7 @@ public function add_priority_filter($data){
 	  }else{
 		$admin_id = $result['admin_id']; 
 	  }
-	  $qry = "select * from priority_words_filtering where filter_word LIKE '%$keyword%' and priority='$priority' and admin_id = '$admin_id'";
+	  $qry = "select * from priority_words_filtering where filter_word LIKE '%$keyword%' and admin_id = '$admin_id'";
 	  $result = $this->fetchData($qry, array("admin_id"=>$admin_id));   
 	  if($result > 0){
 		$result = 2;
@@ -6404,11 +6404,28 @@ public function edit_priority_filter($key_id){
 	}	
    function update_priority_filter($data){
 	  extract($data);	
-      $qry = "UPDATE priority_words_filtering SET key_word='$key_word' where id='$key_id'";		
+      /*$qry = "UPDATE priority_words_filtering SET key_word='$key_word' where id='$key_id'";		
       $parms = array();
       $results = $this->db_query($qry,$parms);      
       $output = $results == 1 ? 1 : 0;    
-      return  $output;
+      return  $output;*/
+      $qry = "select * from priority_words_filtering where key_word LIKE '%$key_word%'";
+	  $result = $this->fetchData($qry, array());   
+	  if($result > 0){
+		$result = 2;
+		return $result;
+	  }else{
+		$qry = "UPDATE priority_words_filtering SET key_word='$key_word' where id='$key_id'";
+		  //echo $qry;exit;
+        $qry_result = $this->db_query($qry, array());           
+		if($qry_result == 1){
+		  $result = 1;              
+		}
+		else{                
+		  $result = 0;
+		}            
+		return $result;
+	  }
     }			  
 public function delete_priority_filter($key_id){     
      $qry = "Delete FROM priority_words_filtering WHERE id='$key_id'";
