@@ -646,4 +646,37 @@ elseif($action == "changeCustomer"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->changeCustomer($data);
 }
+elseif($action == "update_thread_strategy"){
+    $data= array("user_id"=>$user_id,"value"=>$value);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->update_thread_strategy($data);
+}
+elseif($action == "change_thread_order"){    
+    $data= array("ticket_id"=>$ticket_id, "admin_id"=>$admin_id, "uid"=>$uid, "limit"=>$limit, "offset"=>$offset);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->change_thread_order($data);
+}
+elseif($action == "add_department_keyword"){
+    $data = array("type"=>$type, "type_id"=>$type_id, "user_id"=>$user_id, "keyword"=>$keyword);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->add_department_keyword($data);
+}
+elseif($action == "list_department_keyword"){
+    $data = array("user_id"=>$user_id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->list_department_keyword($data);
+}
+elseif($action == "edit_department_keyword"){ 
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->edit_department_keyword($key_id);
+}
+elseif($action == "update_department_keyword"){
+    $data= array("key_id"=>$key_id, "type"=>$type, "type_id"=>$type_id, "filter_word"=>$filter_word);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->update_department_keyword($data);
+}
+elseif($action == "delete_department_keyword"){
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->delete_department_keyword($key_id);
+}
 ?>

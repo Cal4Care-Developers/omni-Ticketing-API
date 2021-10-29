@@ -7430,6 +7430,367 @@ public function changeCustomer($data){
     $response = curl_exec($curl);
     curl_close($curl);
     print_r($response);exit;
+}
+public function update_thread_strategy($data){
+        extract($data);//print_r($data);exit;     
+        $qry = "UPDATE user SET thread_order='$value' WHERE user_id='$user_id'";        
+        $qry_result = $this->db_query($qry, array());
+        $result = $qry_result == 1 ? 1 : 0;
+        return $result;
+}	
+public function change_thread_order($data){
+		extract($data);
+	    //$update_data = $this->db_query("UPDATE user SET thread_order='$value' WHERE admin_id='$admin_id' AND user_id='$uid'", array());
+		$ticket_id = base64_decode($ticket_id);		
+		$qry = "SELECT * FROM external_tickets WHERE ticket_no = '$ticket_id'";
+       	$tic_details = $this->fetchData($qry,array());//echo $qry;exit;		
+		$ticket_user = $tic_details['ticket_from'];
+		if($ticket_user!='user'){
+		 $explode_from = explode('<',$ticket_user);
+		 $exp1 = explode('>',$explode_from[1]);
+		 $rep_fm = $exp1[0];
+		}else{		   
+			$rep_fm = $tic_details['ticket_to'];
+		}
+		$ticket_created_by = $tic_details['ticket_created_by'];
+		$admin_id = $tic_details['admin_id'];
+		if($ticket_user=='user'){
+		  $qry = "SELECT support_email,admin_id FROM admin_details WHERE admin_id='$ticket_created_by'";
+		  $get_det=$this->fetchData("SELECT agent_name,profile_image FROM user where user_id='$ticket_created_by'",array());
+		  $user_name=$get_det['agent_name'];
+		  $own_img=$get_det['profile_image'];
+		  $ticket_from = $tic_details['ticket_email'];			
+		}else{
+			$ticket_from = $tic_details['ticket_to'];
+			$ticket_from = str_replace('")','',$ticket_from);
+			$ticket_from = str_replace('("','',$ticket_from);		
+			$qry = "SELECT support_email,admin_id  FROM admin_details WHERE support_email LIKE '%$ticket_from%'";
+		 	$user_name='';			
+		}		
+		$from=$ticket_from;		
+        $res_val= $this->fetchData($qry,array());		
+		//print_r($from); exit;
+		if($user_name==''){
+		    $own_img= $this->fetchOne("SELECT profile_image FROM user where user_id='$admin_id'",array());
+		}else{
+			$own_img=$own_img;
+		}	
+		$to = str_replace("(","",$to);
+		$to = str_replace(")","",$to);
+		$to = str_replace('"',"",$to);
+		$to = explode(',',$to);	
+		unset($to[array_search( $from, $to )]);
+		$destination_path = getcwd().DIRECTORY_SEPARATOR;            
+		$upload_location = $destination_path."ext-ticket-image/";
+		$qry = "SELECT a.*, b.*,a.ticket_subject as subj FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.ticket_no ='$ticket_id'";
+		$detail_qry=$qry."ORDER BY b.ticket_message_id DESC LIMIT $limit offset $offset";	
+        $result =  $this->dataFetchAll($detail_qry, array());		
+		for($i = 0; count($result) > $i; $i++){ 
+		  $ticket_customer_id = $result[$i]['customer_id'];
+		  $ticket_customer_name = $result[$i]['customer_name'];	 
+          $ticket_no = $result[$i]['ticket_no'];
+		  $ticket_message_ids = $result[$i]['ticket_message_id'];
+          $ticket_created_by = $result[$i]['ticket_from'];
+		  $ticket_from = $result[$i]['ticket_from'];
+          $ticket_assigned_to = $result[$i]['ticket_assigned_to'];
+          $ticket_department = $result[$i]['ticket_department'];
+          $ticket_status = $result[$i]['ticket_status'];
+          $priority = $result[$i]['priority'];
+		  $ticket_notes =  $result[$i]['ticket_notes'];
+		  $ticket_notes_by =  $result[$i]['ticket_notes_by'];
+		  $ticket_created_at = $result[$i]['created_dt'];
+          $ticket_message = $result[$i]['ticket_message'];
+		  $ticket_only_message = $result[$i]['only_message'];
+		  $ticket_only_signature = $result[$i]['only_signature'];	 
+		  $ticket_medias = $result[$i]['ticket_media'];
+		  $ticket_media = explode(',', $ticket_medias );
+		  $ticket_media = $ticket_media;
+          $ticket_subject = $result[$i]['subj'];
+		  $replied_from_db = $result[$i]['replied_from'];
+		  $replied_by = $result[$i]['repliesd_by'];
+		  $ticket_to = $result[$i]['replied_to'];
+		  //$ticket_to = $result[$i]['ticket_to'];	 
+		  $ticket_user = $result[$i]['user_id'];
+		  $ccMails = $result[$i]['replied_cc'];
+		  if($ccMails==''){
+		    $ccMails = $this->fetchOne("SELECT replied_cc FROM external_tickets_data WHERE ticket_id='$ticket_no' ORDER BY ticket_id ASC LIMIT 1",array());
+		  }	 
+		  $is_spam = $result[$i]['is_spam'];
+		  $closedby = $result[$i]['ticket_closed_by']; 
+		  $ticket_delete_status = $result[$i]['delete_status'];
+		  $ticket_profile_image = $result[$i]['profile_image'];	 
+		  if($ticket_user!='') {				
+				$rep= $this->fetchData("SELECT profile_image,user_name,agent_name,profile_picture_permission FROM user where user_id='$ticket_user' ",array());
+			    $permission = $rep['profile_picture_permission'];			    
+				$rep_img=$rep['profile_image'];
+				$rep_name=$rep['agent_name'];
+		  }else{
+				$rep_img='';$rep_name='';
+		  }			 
+		  $ccMails = str_replace("(","",$ccMails);
+		  $ccMails = str_replace(")","",$ccMails);
+		  $ccMails = str_replace('"',"",$ccMails);
+		  $pos = array_search( $from, $to);
+		  if(count($to) > 1){
+		    $key = array_search($from, $to);
+			if($key != '' || $key === 0){
+			 	unset($to[array_search( $from, $to )]);
+			    array_push($to, $replied_from);
+			}
+			$to = implode(',',$to);
+			$ticket_to = $to; 
+		  }
+		  else {
+		    $to = str_replace("(","",$ticket_to);
+		    $to = str_replace(")","",$to);
+			$to = str_replace('"',"",$to);
+			$ticket_to = $to;
+		  }		
+		  $ticket_message_id = $result[$i]['ticket_message_id']; 
+          $createdby_qry = "SELECT agent_name FROM user WHERE user_id='$ticket_created_by'";              
+          $createdby = $this->fetchmydata($createdby_qry,array()); 
+		  $ticket_notes_by =  $this->dataFetchAll("SELECT a.*,b.profile_image FROM external_ticket_notes a LEFT JOIN user b ON a.created_by=b.user_id WHERE ticket_reply_id='$ticket_message_id'",array());
+		  $ticket_forward_by =  $this->dataFetchAll("SELECT a.*,b.profile_image FROM external_ticket_forward a LEFT JOIN user b ON a.created_by=b.user_id WHERE ticket_reply_id='$ticket_message_id'",array());	 
+		  $ticket_assigned_dp="'" . str_replace(",", "','", $ticket_assigned_to) . "'";			 
+          $assignedto_qry = "SELECT GROUP_CONCAT(agent_name) FROM user WHERE user_id IN ($ticket_assigned_dp)";    
+          $assignedto = $this->fetchmydata($assignedto_qry,array());
+          $deptment_qry = "SELECT department_name FROM departments WHERE dept_id='$ticket_department'";       
+          $department = $this->fetchmydata($deptment_qry,array());
+          $status_qry = "SELECT status_desc FROM status WHERE status_id='$ticket_status'";              
+          $ticketstatus = $this->fetchmydata($status_qry,array());
+		  $priority_qry = "SELECT priority FROM priority WHERE id='$priority'";              
+          $priority_value = $this->fetchmydata($priority_qry,array());		  
+		  $created_time = $this->get_timeago($ticket_created_at);
+		  $created_time = $ticket_created_at;
+		  $ticket_assigned_to = explode(',',$ticket_assigned_to); 
+		  if(count($ticket_assigned_to) == 1){
+			 $ticket_assigned_t = $ticket_assigned_to[0];
+			 $ticket_assigned = "SELECT agent_name,user_id FROM user WHERE user_id='$ticket_assigned_t'";       
+          	 $ticket_assigned = $this->fetchData($ticket_assigned,array());
+			 $ticket_assigned_to=$ticket_assigned['agent_name'];
+			 $ticket_assigned_to_id=$ticket_assigned['user_id'];	 
+		  } else {
+		     $ticket_assigned_to = '';
+			 $ticket_assigned_to_id = '';
+		  }      		
+          $ticket_options = array('ticket_no' => $ticket_no,'is_spam'=>$is_spam,'ticket_media'=>$ticket_media, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $ticket_assigned_to,'ticket_assigned_to_id'=>$ticket_assigned_to_id,'department' => $department,'depart_id'=>$ticket_department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus,'ticket_status_id'=>$ticket_status,'ticket_message'=>$ticket_message,'ticket_signature'=>$ticket_signature,'ticket_notes'=>$ticket_notes_by,'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'ticket_from'=>$ticket_from,'ticket_to'=>$ticket_to,'replied_from'=>$replied_from_db,'ticket_message_id'=>$ticket_message_id,'replied_by'=>$replied_by, 'own_mail' =>$from, 'own_img' =>$own_img, 'rep_img' =>$rep_img, 'rep_name' =>$rep_name, 'user_name'=>$user_name,'mail_cc'=>$ccMails, 'first_letter_r' => strtoupper($replied_from[0]),'ticket_closed_by'=>$tic_closed_by,'ticket_delete_status' => $ticket_delete_status,'ticket_profile_image'=>$ticket_profile_image,'ticket_only_message'=>$ticket_only_message,'ticket_only_signature'=>$ticket_only_signature,'ticket_forward_by'=>$ticket_forward_by,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name);
+          $ticket_options_array[] = $ticket_options;
+        }	
+		$first_res_time = "SELECT created_at FROM `external_tickets_data` WHERE repliesd_by = 'Agent' and ticket_id='$ticket_id' LIMIT 1";              
+        $first_res_time = $this->fetchmydata($first_res_time,array());
+		$closed_at = $this->fetchmydata("SELECT closed_at FROM `external_tickets` WHERE ticket_no='$ticket_id'",array());
+		$ticket_closed_by = $this->fetchmydata("SELECT ticket_closed_by FROM `external_tickets` WHERE ticket_no='$ticket_id'",array());
+		if($ticket_closed_by != '0'){
+			$ticket_closed_byqry = "SELECT agent_name FROM `user` WHERE `user_id` = '$ticket_closed_by'";
+        	$tic_closed_by = $this->fetchOne($ticket_closed_byqry,array());
+		}
+		$department_array_qry = "SELECT dept_id as department_id,department_name FROM departments where admin_id='$admin_id' and delete_status='0' and has_email='1'";
+		$department_options_array = $this->dataFetchAll($department_array_qry, array());		
+		$status_array_qry = "SELECT status_id,status_desc FROM status";
+		$status_options_array = $this->dataFetchAll($status_array_qry, array());	
+		$priority_array_qry = "SELECT id,priority FROM priority";
+		$priority_options_array = $this->dataFetchAll($priority_array_qry, array());		
+		$agents_array_qry = "SELECT user_id,agent_name FROM user where admin_id=$admin_id";
+		$agents_options_array = $this->dataFetchAll($agents_array_qry, array());		
+		$status = array('status' => 'true');
+		$status_options_array = array('status_options' => $status_options_array);
+		$department_options_array = array('departments' => $department_options_array);
+		$priority_options_array = array('priority' => $priority_options_array);
+		$agents_options_array = array('agents' => $agents_options_array);
+		$ticket_options_array = array('tick_options' => $ticket_options_array);
+		$side_menu = array('first_res_time' => $first_res_time, "closed_at"=>$closed_at, "ticket_closed_by"=>$tic_closed_by);
+		$total_count = $this->dataRowCount($qry,array());
+	    $total = array('total' => $total_count);
+// first thread code
+$qry1 = "SELECT a.*, b.*,a.ticket_subject as subj FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.ticket_no ='$ticket_id'";
+$detail_qry1=$qry1."ORDER BY b.ticket_message_id ASC LIMIT 1";	
+$results =  $this->fetchData($detail_qry1, array());		
+$first_ticket_customer_id = $results['customer_id'];
+$first_icket_customer_name = $results['customer_name'];	 
+$first_ticket_no = $results['ticket_no'];
+$first_ticket_message_ids = $results['ticket_message_id'];
+$first_ticket_created_by = $results['ticket_from'];
+$first_ticket_from = $results['ticket_from'];
+$first_ticket_assigned_to = $results['ticket_assigned_to'];
+$first_ticket_department = $results['ticket_department'];
+$first_ticket_status = $results['ticket_status'];
+$first_priority = $results['priority'];
+$first_ticket_notes =  $results['ticket_notes'];
+$first_ticket_notes_by =  $results['ticket_notes_by'];
+$first_ticket_created_at = $results['created_dt'];
+$first_ticket_message = $results['ticket_message'];
+$first_ticket_only_message = $results['only_message'];
+$first_ticket_only_signature = $results['only_signature'];	 
+$first_ticket_medias = $results['ticket_media'];
+$first_ticket_media = explode(',', $first_ticket_medias );
+$first_ticket_media = $first_ticket_media;
+$first_ticket_subject = $results['subj'];
+$first_replied_from_db = $results['replied_from'];
+$first_replied_by = $results['repliesd_by'];
+$first_ticket_to = $results['replied_to'];
+//$first_ticket_to = $results['ticket_to'];	 
+$first_ticket_user = $results['user_id'];
+$first_ccMails = $results['replied_cc'];
+if($first_ccMails==''){
+    $first_ccMails = $this->fetchOne("SELECT replied_cc FROM external_tickets_data WHERE ticket_id='$first_ticket_no' ORDER BY ticket_id ASC LIMIT 1",array());
+}	 
+$first_is_spam = $results['is_spam'];
+$first_closedby = $results['ticket_closed_by']; 
+$first_ticket_delete_status = $results['delete_status'];
+$first_ticket_profile_image = $results['profile_image'];	 
+if($first_ticket_user!=''){				
+	$first_rep= $this->fetchData("SELECT profile_image,user_name,agent_name,profile_picture_permission FROM user where user_id='$first_ticket_user' ",array());
+    $first_permission = $first_rep['profile_picture_permission'];			    
+	$first_rep_img=$first_rep['profile_image'];
+	$first_rep_name=$first_rep['agent_name'];
+}else{
+	$first_rep_img='';$first_rep_name='';
+}			 
+$first_ccMails = str_replace("(","",$first_ccMails);
+$first_ccMails = str_replace(")","",$first_ccMails);
+$first_ccMails = str_replace('"',"",$first_ccMails);
+$first_pos = array_search( $from, $to);
+if(count($to) > 1){
+	$keys = array_search($from, $to);
+	if($keys != '' || $keys === 0){
+	 	unset($to[array_search( $from, $to )]);
+	    array_push($to, $first_replied_from_db);
+	}
+	$to = implode(',',$to);
+	$first_ticket_to = $to; 
+}
+else {
+    $to = str_replace("(","",$first_ticket_to);
+    $to = str_replace(")","",$to);
+	$to = str_replace('"',"",$to);
+	$first_ticket_to = $to;
+}		
+$first_ticket_message_id = $results['ticket_message_id']; 
+$first_createdby_qry = "SELECT agent_name FROM user WHERE user_id='$first_ticket_created_by'";              
+$first_createdby = $this->fetchmydata($first_createdby_qry,array()); 
+	 
+$first_ticket_assigned_dp="'" . str_replace(",", "','", $first_ticket_assigned_to) . "'";			 
+$first_assignedto_qry = "SELECT GROUP_CONCAT(agent_name) FROM user WHERE user_id IN ($first_ticket_assigned_dp)";    
+$first_assignedto = $this->fetchmydata($first_assignedto_qry,array());
+$first_deptment_qry = "SELECT department_name FROM departments WHERE dept_id='$first_ticket_department'";       
+$first_department = $this->fetchmydata($first_deptment_qry,array());
+$first_status_qry = "SELECT status_desc FROM status WHERE status_id='$first_ticket_status'";              
+$first_ticketstatus = $this->fetchmydata($first_status_qry,array());
+$first_priority_qry = "SELECT priority FROM priority WHERE id='$first_priority'";              
+$first_priority_value = $this->fetchmydata($first_priority_qry,array());		  
+$first_created_time = $this->get_timeago($first_ticket_created_at);
+$first_created_time = $first_ticket_created_at;
+$first_ticket_assigned_to = explode(',',$first_ticket_assigned_to); 
+if(count($first_ticket_assigned_to) == 1){
+    $first_ticket_assigned_t = $first_ticket_assigned_to[0];
+	$first_ticket_assigned = "SELECT agent_name,user_id FROM user WHERE user_id='$first_ticket_assigned_t'";       
+    $first_ticket_assigned = $this->fetchData($first_ticket_assigned,array());
+	$first_ticket_assigned_to=$first_ticket_assigned['agent_name'];
+	$first_ticket_assigned_to_id=$first_ticket_assigned['user_id'];	 
+} else {
+    $first_ticket_assigned_to = '';
+    $first_ticket_assigned_to_id = '';
+}      		
+$first_ticket_options = array('ticket_no' => $first_ticket_no,'is_spam'=>$first_is_spam,'ticket_media'=>$first_ticket_media, 'ticket_created_by' => $first_ticket_from, 'ticket_assigned_to' => $first_ticket_assigned_to,'ticket_assigned_to_id'=>$first_ticket_assigned_to_id,'department' => $first_department,'depart_id'=>$first_ticket_department, 'subject'=> $first_ticket_subject, 'ticket_status' => $first_ticketstatus,'ticket_status_id'=>$first_ticket_status,'ticket_message'=>$first_ticket_message,'ticket_signature'=>$first_ticket_signature,'priority' => $first_priority_value, 'first_letter' => strtoupper($first_ticket_from[0]), 'ticket_created_at' => $first_created_time,'ticket_from'=>$first_ticket_from,'ticket_to'=>$first_ticket_to,'replied_from'=>$first_replied_from_db,'ticket_message_id'=>$first_ticket_message_id,'replied_by'=>$first_replied_by, 'own_mail' =>$from, 'own_img' =>$own_img, 'rep_img' =>$first_rep_img, 'rep_name' =>$first_rep_name, 'user_name'=>$user_name,'mail_cc'=>$first_ccMails, 'first_letter_r' => strtoupper($first_replied_from[0]),'ticket_closed_by'=>$first_tic_closed_by,'ticket_delete_status' => $first_ticket_delete_status,'ticket_profile_image'=>$first_ticket_profile_image,'ticket_only_message'=>$first_ticket_only_message,'ticket_only_signature'=>$first_ticket_only_signature,'ticket_forward_by'=>$first_ticket_forward_by,'customer_id'=>$first_ticket_customer_id,'customer_name'=>$first_ticket_customer_name);
+$first_ticket_options_array[] = $first_ticket_options;
+// first thread code
+	    $first_ticket_options_array = array('first_tick_options' => $first_ticket_options_array);
+        $merge_result = array_merge($first_ticket_options_array, $total, $status, $status_options_array, $ticket_options_array, $side_menu, $priority_options_array, $department_options_array, $agents_options_array);     
+		//$merge_result = array_merge($total, $status, $status_options_array, $ticket_options_array, $side_menu, $priority_options_array, $department_options_array, $agents_options_array);     
+	    $tarray = json_encode($merge_result);         
+		//print_r($ticket_options_array);exit;
+        print_r($tarray);exit;
+		//return $tarray;		
+}
+function add_department_keyword($data){
+	  extract($data);	
+		//print_r($data); exit;
+	  $qry = "select * from user where user_id='$user_id'";//echo $qry;exit;
+	  $result = $this->fetchData($qry, array());
+	  //print_r($result);exit;	
+	  if($result['user_type'] == '2')
+	  { 
+		$admin_id = $user_id;
+	  }else{
+		$admin_id = $result['admin_id']; 
+	  }
+	  $qry = "select * from department_words_filtering where filter_word LIKE '%$keyword%' and admin_id = '$admin_id'";
+	  $result = $this->fetchData($qry, array("admin_id"=>$admin_id,"dept_id"=>$dept_id));   
+	  if($result > 0){
+		$result = 2;
+		return $result;
+	  }else{
+		$qry = "select * from department_words_filtering where type_id = '$type_id'";
+	    $result = $this->fetchData($qry, array("type_id"=>$type_id));
+	    if($result > 0){
+	      $implode_comma = $result['filter_word'].','.$filter_word;
+	      $key_id = $result['id'];	
+		  $qry = "UPDATE department_words_filtering SET filter_word='$implode_comma' where id='$key_id'";
+          $parms = array();
+          $result = $this->db_query($qry,$parms);
+          $result == 1 ? 1 : 0;
+          return $result;
+	    }else{
+		  	if($type=='department'){
+		  		$name= $this->fetchOne("Select department_name from departments where dept_id='$type_id'", array());
+		  	}else{
+		  		$name= $this->fetchOne("Select agent_name from user where user_id='$type_id'", array());
+		  	}
+			$qry = "INSERT INTO department_words_filtering(type,type_id,name,filter_word,user_id,admin_id) VALUES ('$type','$type_id','$name','$keyword','$user_id','$admin_id')";
+			  //echo $qry;exit;
+	        $qry_result = $this->db_query($qry, array());           
+			if($qry_result == 1){
+			  $result = 1;              
+			}
+			else{                
+			  $result = 0;
+			}            
+			return $result;
+	    }
+	  }
+}
+public function list_department_keyword($data){
+	  extract($data);
+	  $qry = "select user_type,admin_id from user where user_id='$user_id'";
+	  $res = $this->fetchsingledata($qry, array());	
+	  if($res['user_type'] == '2')
+	  { 
+		$admin_id = $user_id;
+	  }else{
+		$admin_id = $res['admin_id']; 
+	  }
+	  $qry = "select * from department_words_filtering where admin_id ='$admin_id'";
+	  return $this->dataFetchAll($qry, array("admin_id"=>$admin_id));
+}
+public function edit_department_keyword($key_id){	
+	  $qry = "select * from department_words_filtering where id ='$key_id'";
+	  return $this->dataFetchAll($qry, array());
+}
+function update_department_keyword($data){	  
+      extract($data);//print_r($data);exit;			  
+	  $qry = "select * from department_words_filtering where filter_word LIKE '%$filter_word%'";
+	echo $qry;exit;
+	  $result = $this->fetchData($qry, array("admin_id"=>$admin_id));   
+	  if($result > 0){
+		$output = 2;
+		return $output;
+	  }else{
+		$qry = "UPDATE department_words_filtering SET type='$type',type_id='$type_id',filter_word='$filter_word' where id='$key_id'";
+        $parms = array();
+        $results = $this->db_query($qry,$parms);
+        $output = $results == 1 ? 1 : 0;    
+        return  $output;
+	  }
+}
+public function delete_department_keyword($key_id){     
+     $qry = "Delete FROM department_words_filtering WHERE id='$key_id'";	 
+     $qry_result = $this->db_query($qry, array());
+     if($qry_result == 1){
+      $result = 1;
+     }else{
+      $result = 0;
+    }
+    return $result;
 }	
 }
 ?>
