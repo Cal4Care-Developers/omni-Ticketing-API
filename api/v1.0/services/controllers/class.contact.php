@@ -388,7 +388,7 @@ if($callid != '' || $callid != 'null'){
 	
 				//$qry = "select * from admin_details where admin_id='$user_id'";
 				//$qry="select admin_details.*,user.sip_login from admin_details INNER JOIN user on user.user_id=admin_details.admin_id where admin_details.admin_id='$user_id'";
-					$qry="select admin_details.*,user.sip_login,user.agent_name,user.signature_strategy,user.switch_signature,timezone.name as timezone_name from admin_details INNER JOIN user on user.user_id=admin_details.admin_id LEFT JOIN timezone on timezone.id=user.timezone_id  where admin_details.admin_id='$user_id'";
+					$qry="select admin_details.*,user.sip_login,user.agent_name,user.signature_strategy,user.switch_signature,user.thread_order,timezone.name as timezone_name from admin_details INNER JOIN user on user.user_id=admin_details.admin_id LEFT JOIN timezone on timezone.id=user.timezone_id  where admin_details.admin_id='$user_id'";
 			$results = $this->fetchData($qry, array());
 			//print_r($qry);exit;
 
