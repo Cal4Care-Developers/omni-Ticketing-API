@@ -2835,7 +2835,7 @@ if($explode1[0]=='Best regards'){
 }
 }*/
 
-	      		
+	      $ticket_only_message = base64_decode($ticket_only_message);		
           $ticket_options = array('ticket_no' => $ticket_no,'is_spam'=>$is_spam,'ticket_media'=>$ticket_media, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $ticket_assigned_to,'ticket_assigned_to_id'=>$ticket_assigned_to_id,'department' => $department,'depart_id'=>$ticket_department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus,'ticket_status_id'=>$ticket_status,'ticket_message'=>$ticket_message,'ticket_signature'=>$ticket_signature,'ticket_notes'=>$ticket_notes_by,'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'ticket_from'=>$ticket_from,'ticket_to'=>$ticket_to,'replied_from'=>$replied_from_db,'ticket_message_id'=>$ticket_message_id,'replied_by'=>$replied_by, 'own_mail' =>$from, 'own_img' =>$own_img, 'rep_img' =>$rep_img, 'rep_name' =>$rep_name, 'user_name'=>$user_name,'mail_cc'=>$ccMails, 'first_letter_r' => strtoupper($replied_from[0]),'ticket_closed_by'=>$tic_closed_by,'ticket_delete_status' => $ticket_delete_status,'ticket_profile_image'=>$ticket_profile_image,'ticket_only_message'=>$ticket_only_message,'ticket_only_signature'=>$ticket_only_signature,'ticket_forward_by'=>$ticket_forward_by,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name);
           $ticket_options_array[] = $ticket_options;
         }
@@ -2922,8 +2922,7 @@ if($explode1[0]=='Best regards'){
 		$files_array = $files_arr;
 		$files_arr = implode(",",$files_arr);		
 		$mail_ccs = explode(",",$mail_cc);
-		$only_msg = '<div  style="border: 1px solid #d1d1d1;font-family: verdana !important; border-radius: 8px; padding: 12px; margin-bottom: 25px;">'.$message.'</div>';
-		$only_msg = str_replace("'","",$only_msg);
+		$only_msg = '<div  style="border: 1px solid #d1d1d1;font-family: verdana !important; border-radius: 8px; padding: 12px; margin-bottom: 25px;">'.$message.'</div>';		
 		$countqry = "SELECT COUNT(ticket_message_id) FROM `external_tickets_data` WHERE ticket_id='$ticket_id' AND repliesd_by='Agent';";
 		$replycount = $this->fetchOne($countqry,array());
 		if($replycount==0){
@@ -3032,7 +3031,8 @@ if($explode1[0]=='Best regards'){
 		$resultss = $this->db_query($qryss, $params);
 				$message = str_replace("'","\n",$message);
 				//$qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,repliesd_by,created_dt,user_id) VALUES ( '$ticket_id','$message','$subject','$from','$to','$mail_cc','$files_arr','Agent','$created_at','$user_id')", array()); 
-				
+				 $message = base64_encode($message);
+				 $only_msg = base64_encode($only_msg);
 				 $qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,repliesd_by,created_dt,user_id,only_message,only_signature) VALUES ( '$ticket_id','$message','$subject','$from','$to','$mail_cc','$files_arr','Agent','$created_at','$user_id','$only_msg','$mailSignature')", array());
 				  
 				// echo "INSERT INTO echo external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,repliesd_by,user_id) VALUES ( '$ticket_id','$message','$subject','$from','$to','$mail_cc','$files_arr','Agent','$user_id')";exit;
@@ -7572,7 +7572,8 @@ public function change_thread_order($data){
 		  } else {
 		     $ticket_assigned_to = '';
 			 $ticket_assigned_to_id = '';
-		  }      		
+		  }
+		  $ticket_only_message = base64_decode($ticket_only_message);      		
           $ticket_options = array('ticket_no' => $ticket_no,'is_spam'=>$is_spam,'ticket_media'=>$ticket_media, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $ticket_assigned_to,'ticket_assigned_to_id'=>$ticket_assigned_to_id,'department' => $department,'depart_id'=>$ticket_department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus,'ticket_status_id'=>$ticket_status,'ticket_message'=>$ticket_message,'ticket_signature'=>$ticket_signature,'ticket_notes'=>$ticket_notes_by,'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'ticket_from'=>$ticket_from,'ticket_to'=>$ticket_to,'replied_from'=>$replied_from_db,'ticket_message_id'=>$ticket_message_id,'replied_by'=>$replied_by, 'own_mail' =>$from, 'own_img' =>$own_img, 'rep_img' =>$rep_img, 'rep_name' =>$rep_name, 'user_name'=>$user_name,'mail_cc'=>$ccMails, 'first_letter_r' => strtoupper($replied_from[0]),'ticket_closed_by'=>$tic_closed_by,'ticket_delete_status' => $ticket_delete_status,'ticket_profile_image'=>$ticket_profile_image,'ticket_only_message'=>$ticket_only_message,'ticket_only_signature'=>$ticket_only_signature,'ticket_forward_by'=>$ticket_forward_by,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name);
           $ticket_options_array[] = $ticket_options;
         }	
@@ -7690,7 +7691,8 @@ if(count($first_ticket_assigned_to) == 1){
 } else {
     $first_ticket_assigned_to = '';
     $first_ticket_assigned_to_id = '';
-}      		
+}
+$first_ticket_only_message = base64_decode($first_ticket_only_message);      		
 $first_ticket_options = array('ticket_no' => $first_ticket_no,'is_spam'=>$first_is_spam,'ticket_media'=>$first_ticket_media, 'ticket_created_by' => $first_ticket_from, 'ticket_assigned_to' => $first_ticket_assigned_to,'ticket_assigned_to_id'=>$first_ticket_assigned_to_id,'department' => $first_department,'depart_id'=>$first_ticket_department, 'subject'=> $first_ticket_subject, 'ticket_status' => $first_ticketstatus,'ticket_status_id'=>$first_ticket_status,'ticket_message'=>$first_ticket_message,'ticket_signature'=>$first_ticket_signature,'priority' => $first_priority_value, 'first_letter' => strtoupper($first_ticket_from[0]), 'ticket_created_at' => $first_created_time,'ticket_from'=>$first_ticket_from,'ticket_to'=>$first_ticket_to,'replied_from'=>$first_replied_from_db,'ticket_message_id'=>$first_ticket_message_id,'replied_by'=>$first_replied_by, 'own_mail' =>$from, 'own_img' =>$own_img, 'rep_img' =>$first_rep_img, 'rep_name' =>$first_rep_name, 'user_name'=>$user_name,'mail_cc'=>$first_ccMails, 'first_letter_r' => strtoupper($first_replied_from[0]),'ticket_closed_by'=>$first_tic_closed_by,'ticket_delete_status' => $first_ticket_delete_status,'ticket_profile_image'=>$first_ticket_profile_image,'ticket_only_message'=>$first_ticket_only_message,'ticket_only_signature'=>$first_ticket_only_signature,'ticket_forward_by'=>$first_ticket_forward_by,'customer_id'=>$first_ticket_customer_id,'customer_name'=>$first_ticket_customer_name);
 $first_ticket_options_array[] = $first_ticket_options;
 // first thread code
