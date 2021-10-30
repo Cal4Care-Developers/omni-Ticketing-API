@@ -32214,8 +32214,8 @@ let ServerService = class ServerService {
                             else if (Edata.notification_for == 'internal_email') {
                                 //   var url = 'https://' + window.location.hostname + '/#/wp-unoff?c=' + unique_id ;
                                 var url = 'https://' + window.location.hostname + '/#/internal-email-view?ticket_id=' + unique_id;
-                                let Edatas = '{"pagefor":"internal_email","id":"' + unique_id + '"}';
-                                self.EmailNotify.next(Edatas);
+                                // let Edatas: any = '{"pagefor":"internal_email","id":"'+unique_id+'"}';
+                                // self.EmailNotify.next(Edatas);
                             }
                             else if (Edata.notification_for == 'whatsapp_unoff') {
                                 //   var url = 'https://' + window.location.hostname + '/#/wp-unoff?c=' + unique_id ;
@@ -37354,7 +37354,7 @@ let TicketViewThreadComponent = class TicketViewThreadComponent {
             this.router.navigate(['/spam-list']);
         }
         else {
-            if ((this.ticket_agent == '' || this.ticket_agent == 'null' || this.ticket_agent == null) && this.has_robin == 0) {
+            if ((this.ticket_agent == '' || this.ticket_agent == 'null' || this.ticket_agent == null) && (this.user_type == 'Admin' || this.admin_permission == 1)) {
                 this.router.navigate(['/unassinged-tickets']);
             }
             else {
