@@ -7793,6 +7793,39 @@ public function delete_department_keyword($key_id){
       $result = 0;
     }
     return $result;
+}
+public function internalmail_blockEmailIds($data){       
+    extract($data); 
+	$qry = "select * from internalmail_spam_mail_ids where email LIKE '%$email_id%'";
+    $result =  $this->fetchData($qry, array());		
+	if($result > 0){
+		 $id = $result['id'];
+	 	 $qry = "UPDATE internalmail_spam_mail_ids SET spam_status='$spam_status',blacklist_status='$blacklist_status',user_id='$user_id' where id='$id'";
+		 $update_data = $this->db_query($qry, $params);
+	} else {
+	 	$qry = "INSERT INTO internalmail_spam_mail_ids(email,spam_status,blacklist_status,admin_id,user_id) VALUES ( '$email_id','$spam_status','$blacklist_status','$admin_id','$user_id')";  
+        $insert_data = $this->db_query($qry, $params);
+	}
+    $nstatus = 0;		
+    if($spam_status == 0){
+	 $nstatus = 1;
+    }
+    $qry = "UPDATE outlook_mail SET is_spam='$spam_status',status_del='$nstatus' where ticket_from LIKE '%$email_id%'";    	
+	$update_data = $this->db_query($qry, $params);
+    $qry = "select * from internalmail_spam_mail_ids where admin_id='$admin_id' and user_id='$user_id'";
+    $result =  $this->dataFetchAll($qry, array());
+    return $result;
+}
+function internalmail_delSpamEmail($email){
+    $qry = "DELETE FROM internalmail_spam_mail_ids where email LIKE '%$email%'";
+    $result =  $this->db_query($qry, array());
+    return $result;
+}
+function internalmail_spamLists($data){
+	extract($data);
+    $qry = "select * from internalmail_spam_mail_ids where admin_id='$admin_id' and user_id='$user_id'";
+    $result =  $this->dataFetchAll($qry, array());
+    return $result;
 }	
 }
 ?>

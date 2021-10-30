@@ -679,4 +679,18 @@ elseif($action == "delete_department_keyword"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->delete_department_keyword($key_id);
 }
+elseif($action == "internalmail_spamLists"){
+    $data= array("admin_id"=>$admin_id,"user_id"=>$user_id);
+    $result_data["result"]["status"] = true;    
+    $result_data["result"]["spamLists"] = $ticket->internalmail_spamLists($data);
+}
+elseif($action == "internalmail_blockEmailIds"){
+    $data= array("email_id"=>$email_id,"admin_id"=>$admin_id,"spam_status"=>$spam_status,"blacklist_status"=>$blacklist_status,"user_id"=>$user_id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->internalmail_blockEmailIds($data);
+}
+elseif($action == "internalmail_delSpamEmail"){
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->internalmail_delSpamEmail($email);
+}
 ?>
