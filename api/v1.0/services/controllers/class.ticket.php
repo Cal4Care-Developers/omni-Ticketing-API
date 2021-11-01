@@ -7771,7 +7771,6 @@ public function edit_department_keyword($key_id){
 function update_department_keyword($data){	  
       extract($data);//print_r($data);exit;			  
 	  $qry = "select * from department_words_filtering where filter_word LIKE '%$filter_word%'";
-	echo $qry;exit;
 	  $result = $this->fetchData($qry, array("admin_id"=>$admin_id));   
 	  if($result > 0){
 		$output = 2;
