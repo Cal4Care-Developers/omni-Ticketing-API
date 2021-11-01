@@ -2002,7 +2002,13 @@ else{
     }
   }
 }
-// adding customer details				
+// adding customer details
+if(strpos($subject, 'Fwd:') !== false){
+  $subject = substr($subject, 4);
+  $subject = ltrim($subject);	
+}else{
+  $subject = $subject;
+}				
 			    $ticket_no = $this->db_insert("INSERT INTO external_tickets(ticket_from,admin_id,ticket_status,priority,ticket_subject,ticket_to,ticket_assigned_to,next_assign_for,ticket_department,created_dt,updated_at,status_del,is_spam,unassign,customer_id,customer_name) VALUES ( '$from','$admin_id','$ticket_status','$priorityid','$subject','$to_original','$get_dep','','$dept','$created_at','$updated_at',1,'$spam_status','$unassign','$ticket_customer_id','$ticket_customer_name')", array());						
 				$subject = $subject.' [##'.$ticket_no.']';
 				$qry = "UPDATE `external_tickets` SET  `ticket_subject` = '$subject' WHERE `ticket_no` = '$ticket_no'";
