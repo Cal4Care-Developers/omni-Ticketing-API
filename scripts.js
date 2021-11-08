@@ -7217,7 +7217,19 @@ if ($(window).scrollTop() >= distance) {
   //set default dark or light sidebar(1=light, 2=dark)
   //$(".select-sidebar[value|='1']").prop("checked", true);
 });
+// For ManuBar Scroll
+  
+    // $(".dropdown").hover(function () {
+    //   $(this).addClass("menu-hover");
+    // });
 
+
+    // $('.dropdown').on('mouseleave', function() {
+    //   var $el = $(this).addClass('hover-over');
+    //   setTimeout(function() {
+    //     $el.removeClass('hover-over');
+    //   }, 1500);
+    // })
 ;
 
 let log = console.log.bind(console),

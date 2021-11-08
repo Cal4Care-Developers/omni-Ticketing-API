@@ -1,5 +1,6 @@
 <?php 
-//echo '13';exit;/print_r($_REQUEST); exit;
+//echo '13';exit;
+//print_r($_REQUEST); exit;
 //if($_FILES != '' || $_REQUEST['element_data']['action'] == 'generate_incoming_sms' || $_REQUEST['element_data']['action'] == 'generate_incoming_wp' || $_REQUEST['element_data']['action'] == 'generate_incoming_fb' || $_REQUEST['element_data']['action'] == 'change_wp_status' || $_REQUEST['element_data']['action'] == 'change_wp_status_unoff' || $_REQUEST['element_data']['action'] == 'send_chat_message_media_unoff' || $_REQUEST['element_data']['action'] == 'send_chat_message_unoffs' || $_REQUEST['element_data']['action'] == 'generate_incoming_wp_unoff'){  include_once 'app_redirect.php'; exit; } else { echo 'error'; exit; }
 
 header('Access-Control-Allow-Origin: *');
@@ -12,6 +13,7 @@ if($_FILES != '' || $_REQUEST['element_data']['action'] == 'createExternalTicket
 
 
 
+require_once 'main.controller.php';
 $admin = new adminData();
 $server_data = $_SERVER;
 $api_req = file_get_contents('php://input');

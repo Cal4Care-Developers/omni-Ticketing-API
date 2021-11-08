@@ -40223,7 +40223,10 @@ let TicketingSystemNewComponent = class TicketingSystemNewComponent {
         $('#drop_down2').click();
         this.pageLimit = val;
         // this.offset_count=0;
-        this.my_externaltickets();
+        if (this.admin_type == 'Admin')
+            this.my_externaltickets();
+        else
+            this.my_externalticketsfor_rowcount();
         this.RowfilterON = true;
     }
     check_robin_queue(id) {
@@ -40238,7 +40241,16 @@ let TicketingSystemNewComponent = class TicketingSystemNewComponent {
     resetRowCount() {
         this.RowfilterON = false;
         this.pageLimit = 10;
+        //  RESETING all Filters
+        this.filter_status = 'All';
+        this.filter_depart = 'All';
+        this.filter_agents = 'All';
+        this.select_status = "Select Status";
+        this.select_depart = "Select Department";
+        this.select_agent = "Select Agent";
+        $(".AgentCheckDefault").prop("checked", false);
         this.my_externaltickets();
+        //this.my_externalticketsfor_rowcount();
     }
     filterByAgentshowmore() {
         sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.fire({
@@ -40442,6 +40454,88 @@ let TicketingSystemNewComponent = class TicketingSystemNewComponent {
             background: 'transparent',
         });
         let api_req = '{"operation":"getmyExternalTicket", "moduleType":"ticket", "api_type": "web", "access_token":"' + this.access_token + '", "element_data":{"action":"my_externaltickets","user_type":"3","user_id":"' + id + '","admin_id":"' + admin_id + '","ticket_status":"' + this.filter_status + '","limit":"' + this.pageLimit + '", "is_spam":"0" ,"offset":"' + this.offset_count + '","ticket_department":"' + this.filter_depart + '","ticket_user":"' + id + '"}}';
+        this.serverService.sendServer(api_req).subscribe((response) => {
+            sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.close();
+            this.search_ticket = false; // Search option Readmore button
+            this.global_search = false; //This will enable for the global search
+            if (response.status == "true") {
+                this.queue_list = response.ticket_options;
+                this.queue_list_all = response.ticket_options;
+                // this.offset_count=response.ticket_options.length>=10?response.ticket_options.length-10:response.ticket_options.length;
+                if (this.queue_list == null) {
+                    this.emptyticket = true;
+                    this.showtickets = false;
+                }
+                else {
+                    this.emptyticket = false;
+                    this.showtickets = true;
+                }
+                this.priority = response.priority_options;
+                this.department = response.department_options;
+                this.status = response.status_options.filter(t => t.status_id != '9' && t.status_id != '3');
+                // this.status = this.status.filter(t => t.status_id != '3');
+                this.filterlist_status = response.status_options;
+                this.status_all = response.count_options;
+                this.total_offet = response.total;
+                // this.offset_count=response.ticket_options.length>=10?response.ticket_options.length-10:response.ticket_options.length;
+                // localStorage.setItem('ticket_status',this.status);
+                // localStorage.setItem('priority_options',this.priority);
+                // localStorage.setItem('department_options',this.department);
+                if (response.status_option == 'closed') {
+                    $("#dropdown-toggle").prop("disabled", true);
+                    this.closed = true;
+                }
+                console.log(this.priority);
+                this.total_offset_filter = response.total;
+                if (response.total > this.pageLimit) {
+                    // alert(this.queue_list_all.length)
+                    this.showmore_button = true;
+                }
+                else {
+                    this.showmore_button = false;
+                }
+            }
+        }, (error) => {
+            console.log(error);
+        });
+    }
+    my_externalticketsfor_rowcount() {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.fire({
+            html: '<div style="display: flex;justify-content: center;"><div class="pong-loader"></div></div>',
+            showCloseButton: false,
+            showCancelButton: false,
+            showConfirmButton: false,
+            focusConfirm: false,
+            background: 'transparent',
+        });
+        // 	if(this.filter_offset >= this.total_offet){
+        // 		this.filter_offset = this.total_offet;
+        this.showmore_filter = false;
+        // 	//   return false;
+        //    }
+        // alert(this.filter_offset)
+        //This is BF 17-08-2021 BF shareMYticket	// let api_req: any = '{"operation":"getmyExternalTicket", "moduleType":"ticket", "api_type": "web", "access_token":"' + this.access_token + '", "element_data":{"action":"my_externaltickets","user_type":"3", "is_spam":"0" ,"user_id":"' + this.filter_agents + '","admin_id":"' + admin_id + '","ticket_department":"' + this.filter_depart + '","limit":"' + this.pageLimit + '","offset":"' + this.filter_offset + '","ticket_status":"' + this.filter_status + '"}}';
+        let api_req = '{"operation":"filter_getmyExternalTicket", "moduleType":"ticket", "api_type": "web", "access_token":"' + this.access_token + '", "element_data":{"action":"filter_getmyExternalTicket","user_type":"3", "is_spam":"0" ,"user_id":"' + this.filter_agents + '","admin_id":"' + this.admin_id + '","ticket_department":"' + this.filter_depart + '","limit":"' + this.pageLimit + '","offset":"' + this.filter_offset + '","ticket_status":"' + this.filter_status + '","ticket_user":"' + this.filter_agents + '"}}';
+        // this.serverService.sendServer(api_req).subscribe((response: any) => {	
+        // 	Swal.close();
+        // 	this.search_ticket=false;// Search option Readmore button
+        // 	this.global_search=false;//This will enable for the global search
+        // 	if (response.status == "true") {
+        // 		// this.queue_list = response.ticket_options;
+        // 		// this.queue_list_all = response.ticket_options;
+        // 		var mydatas = [];
+        // 		mydatas = response.ticket_options;
+        // 		// alert(mydatas.length);		
+        // 		// this.queue_list = this.queue_list_all.push(mydatas); 
+        // 		for (let index = 0; index < mydatas.length; index++) {
+        // 			var data = mydatas[index];
+        // 			this.queue_list.push(data);
+        // 		}
+        // 	}
+        // },
+        // 	(error) => {
+        // 		console.log(error);
+        // 	});
         this.serverService.sendServer(api_req).subscribe((response) => {
             sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.close();
             this.search_ticket = false; // Search option Readmore button
@@ -44386,7 +44480,19 @@ if ($(window).scrollTop() >= distance) {
   //set default dark or light sidebar(1=light, 2=dark)
   //$(".select-sidebar[value|='1']").prop("checked", true);
 });
+// For ManuBar Scroll
+  
+    // $(".dropdown").hover(function () {
+    //   $(this).addClass("menu-hover");
+    // });
 
+
+    // $('.dropdown').on('mouseleave', function() {
+    //   var $el = $(this).addClass('hover-over');
+    //   setTimeout(function() {
+    //     $el.removeClass('hover-over');
+    //   }, 1500);
+    // })
 
 /***/ }),
 
