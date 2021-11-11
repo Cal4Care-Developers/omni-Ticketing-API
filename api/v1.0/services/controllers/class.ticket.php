@@ -2896,13 +2896,19 @@ if($explode1[0]=='Best regards'){
        	$tic_details = $this->fetchData($qry,array());
 		$subject = $tic_details['ticket_subject'];		
 		$ticket_from = $tic_details['ticket_to'];
-		$tic_from =  $tic_details['ticket_from'];		
+		$tic_from =  $tic_details['ticket_from'];
+		$ticket_dept=  $tic_details['ticket_department'];
+		
 		if($tic_from == 'user'){
 			$main_tick_from = $tic_details['ticket_email'];
 		} else {
 			$main_tick_from = str_replace('("','',$ticket_from);
 			$main_tick_from = str_replace('")','',$main_tick_from);
 		}	
+		if($ticket_from == ''){
+			$qry = "select aliseEmail from department_emails where departments = '$ticket_dept'";			
+			$ticket_from =  $this->fetchOne($qry, array());
+		}
 		$qry = "select senderID from department_emails where emailAddr = '$ticket_from'";
         $from =  $this->fetchOne($qry, array());
 		if($from == ''){
