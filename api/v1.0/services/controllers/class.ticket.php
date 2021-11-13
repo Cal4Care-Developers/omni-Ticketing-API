@@ -1739,6 +1739,10 @@ if($check_user!=''){
 	   //$qry = "SELECT aliseEmail FROM `department_emails` WHERE aliseEmail REGEXP '$rep4'";  
 	   $qry = "SELECT aliseEmail FROM `department_emails` WHERE aliseEmail = '$Toarr[0]'";  
        $to_original = $this->fetchOne($qry,array());	     
+   }
+   if($to_original==''){
+      $qry = "SELECT aliseEmail FROM `department_emails` WHERE aliseEmail = '$get_pipe_alias'";    
+      $to_original = $this->fetchOne($qry,array());
    }	
 }else{		
 	$from = $from;
@@ -2949,7 +2953,59 @@ if($explode1[0]=='Best regards'){
 			}
 		}else{
 			$message = $message;
-		}	
+		}
+		// image in gmails	
+		$description = base64_decode($message);
+		$html = $message;
+		$dom = new DOMDocument();
+		$images = $dom->getElementsByTagName('img');
+		$dom->loadHTML($html);
+		foreach ($images as $image) {
+        /*$src = $image->getAttribute('src');
+        $type = pathinfo($src, PATHINFO_EXTENSION);
+        $data = file_get_contents($src);
+        $base64 = '0'; */	
+		$withoutSrc = $image->getAttribute('src');
+			$img_Src = str_ireplace('src="', '', $withoutSrc);		
+		if (strpos($img_Src, ";base64,"))
+            {
+				$time = str_pad(mt_rand(1,99999999),8,'0',STR_PAD_LEFT);
+				$f = explode(';', $img_Src);	
+				$img_type= str_replace("data:image/","",$f[0]);	
+				$image_name = $time.'.'.$img_type;
+				list($type, $img_Src) = explode(';', $img_Src);
+				list(, $img_Src)      = explode(',', $img_Src);
+				$img_Src = base64_decode($img_Src);
+				$destination_path = getcwd().DIRECTORY_SEPARATOR;            
+				$tempFolder = $destination_path."ext-ticket-image/".$image_name;
+				if(file_put_contents($tempFolder, $img_Src)){
+					$whatsapp_media_target_path = "https://".$_SERVER['SERVER_NAME']."/api/v1.0/ext-ticket-image/".$image_name;
+				} else {
+					$whatsapp_media_target_path = $whatsapp_media_target_path;
+				}
+				$image->setAttribute("src", $whatsapp_media_target_path); 
+					//$whatsapp_media_target_path = $tempFolder.$image_name; 
+				}
+		} 	
+		$countfiles = count($_FILES['up_files']['name']); 		
+		$destination_path = getcwd().DIRECTORY_SEPARATOR;            
+		$upload_location = $destination_path."ext-ticket-image/";
+		$files_arr = array();  	
+		for($index = 0; $index < $countfiles; $index++){
+			$filename = $_FILES['up_files']['name'][$index];
+			$rand = rand(0000,9999).time();
+			$ext = pathinfo($_FILES['up_files']['name'][$index], PATHINFO_EXTENSION);
+			$filename = $filename.$rand.'.'.$ext;		   
+			$path = $upload_location.$filename;
+				if(move_uploaded_file($_FILES['up_files']['tmp_name'][$index],$path)){
+					$files_arr[] =  "https://".$_SERVER['SERVER_NAME']."/api/v1.0/ext-ticket-image/".$filename;
+				}
+		}									  
+		$files_array = $files_arr;
+		$ticketMedia = implode(",",$files_arr);	
+		$files_arr = implode(",",$files_arr);
+		$message = $dom->saveHTML();		
+		// image in gmails	
 		$messages = $this->getTicketThread($ticket_id);
 		foreach($messages as $m) {
 		        $mess[] = '<div  style="border: 1px solid #d1d1d1;font-family: verdana !important; border-radius: 8px; padding: 12px; margin-bottom: 25px;">'.$m.'</div>';
