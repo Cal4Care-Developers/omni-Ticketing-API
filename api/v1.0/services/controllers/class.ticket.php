@@ -2716,7 +2716,7 @@ if($next_assign!=''){
 		  $ticket_notes_by =  $result[$i]['ticket_notes_by'];
 		  $ticket_created_at = $result[$i]['created_dt'];
           $ticket_message = $result[$i]['ticket_message'];
-		  $ticket_only_message = $result[$i]['only_message'];
+		  $ticket_only_message = stripslashes($result[$i]['only_message']);
 		  $ticket_only_signature = $result[$i]['only_signature'];	 
 		  $ticket_medias = $result[$i]['ticket_media'];
 		  $ticket_media = explode(',', $ticket_medias );
@@ -2998,7 +2998,8 @@ if($explode1[0]=='Best regards'){
 		$files_array = $files_arr;
 		$files_arr = implode(",",$files_arr);	*/	
 		$mail_ccs = explode(",",$mail_cc);
-		$only_msg = '<div  style="border: 1px solid #d1d1d1;font-family: verdana !important; border-radius: 8px; padding: 12px; margin-bottom: 25px;">'.$message.'</div>';		
+		$onlyMessage = addslashes($message);
+		$only_msg = '<div  style="border: 1px solid #d1d1d1;font-family: verdana !important; border-radius: 8px; padding: 12px; margin-bottom: 25px;">'.$onlyMessage.'</div>';		
 		$countqry = "SELECT COUNT(ticket_message_id) FROM `external_tickets_data` WHERE ticket_id='$ticket_id' AND repliesd_by='Agent';";
 		$replycount = $this->fetchOne($countqry,array());
 		if($replycount==0){
