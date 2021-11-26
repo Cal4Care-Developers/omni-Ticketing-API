@@ -3171,7 +3171,8 @@ if($explode1[0]=='Best regards'){
 				 //$message = base64_encode($message);
 				 //$only_msg = base64_encode($only_msg);
 				 $qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,repliesd_by,created_dt,user_id,only_message,only_signature) VALUES ( '$ticket_id','$message','$subject','$from','$to','$mail_cc','$files_arr','Agent','$created_at','$user_id','$only_msg','$mailSignature')", array());
-				 file_put_contents('msg.txt', $qry_result.PHP_EOL , FILE_APPEND | LOCK_EX); 
+				 $te = "INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,repliesd_by,created_dt,user_id,only_message,only_signature) VALUES ( '$ticket_id','$message','$subject','$from','$to','$mail_cc','$files_arr','Agent','$created_at','$user_id','$only_msg','$mailSignature')";
+				 file_put_contents('msg.txt', $te.PHP_EOL , FILE_APPEND | LOCK_EX); 
 				// echo "INSERT INTO echo external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,repliesd_by,user_id) VALUES ( '$ticket_id','$message','$subject','$from','$to','$mail_cc','$files_arr','Agent','$user_id')";exit;
 		$result = $qry_result == 1 ? 'mailed' : 'Error';
 				  $dt = date('Y-m-d H:i:s');
