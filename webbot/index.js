@@ -361,7 +361,6 @@ function addChat(input, product) {
           botText.innerHTML = `${product}`;
           //textToSpeech(product)
         const messagesContainer = document.getElementById("messages");
-
         messagesContainer.scrollTop = messagesContainer.scrollHeight - messagesContainer.clientHeight;
 
         }, 2000

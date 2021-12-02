@@ -242,9 +242,10 @@ margin-bottom: 10px;
 }
 
 a.hyperlink-text {
-    color: #35ebff;
+    color: #000;
     text-decoration: underline;
     font-style: italic;
+    font-weight: bold;
 }
 
 .hyper-right{
