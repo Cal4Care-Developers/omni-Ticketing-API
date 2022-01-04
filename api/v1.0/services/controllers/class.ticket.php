@@ -962,6 +962,7 @@ else {
         $explode_ticket_from1 = explode('>',$explode_ticket_from[1]);
         $explode_ticket_from_val = str_replace(' ', '',$explode_ticket_from1[0]);
 		$tic_from =  $tic_details['ticket_from'];
+		preg_match_all("/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i", $tic_from, $tic_from_value);
 		$dept =  $tic_details['ticket_department'];
 		if($tic_from == 'user'){
 			$main_tick_from = $tic_details['ticket_email'];
@@ -996,7 +997,8 @@ else {
 					$mess[] = '<div style="border: 1px solid #d1d1d1;font-family: verdana !important; border-radius: 8px; padding: 12px; margin-bottom: 25px;">'.$m.'</div>';
 				}
 				$mess = implode('<br>',$mess);
-				$messagetoSend = $repM.'<br> <br>'.$mess;			
+				//$messagetoSend = $repM.'<br> <br>'.$mess;
+				$messagetoSend = $repM;			
 				$message_id = $this->fetchOne("SELECT ticket_reply_id FROM external_tickets_data WHERE ticket_id = '$ticket_id' and ticket_reply_id !=''",array());
       $agent_alert_qry = "SELECT email_id FROM user WHERE close_email_alert=1 AND admin_id='$admin_id'";
       $agent_alert_email = $this->dataFetchAll($agent_alert_qry,array());
@@ -1020,7 +1022,7 @@ else {
 		  }		  
 	  }
 	  $ticket_bcc = array_merge($agentArr, $groupArr);         		
-				$uss = array("ticket_to"=>$explode_ticket_from_val,"ticket_cc"=>$ticket_cc,"ticket_bcc"=>$ticket_bcc,"from"=>$from,"message"=>$messagetoSend,"subject"=>$subject,"ticket_id"=>$ticket_no,"message_id"=>$message_id);	
+				$uss = array("ticket_to"=>$tic_from_value[0][0],"ticket_cc"=>$ticket_cc,"ticket_bcc"=>$ticket_bcc,"from"=>$from,"message"=>$messagetoSend,"subject"=>$subject,"ticket_id"=>$ticket_no,"message_id"=>$message_id);	
 		//print_r($uss);exit;
 				//$autoRespns = $this->autoResponseEmail($uss);
 		//print_r($autoRespns); exit;
@@ -1559,6 +1561,7 @@ $agent_alert_qry = "SELECT email_id FROM user WHERE new_email_alert=1 AND admin_
 	
 public function add_notAssigned_tickets($data){	
 extract($data);
+$fwd = $forward_cc;
 if($forward_from == ''){				  
   preg_match_all("/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i", $from, $from_array);
   $cusmail = $from_array[0][0];	
@@ -1579,9 +1582,14 @@ if($forward_from == ''){
    $customer_domain = '  ';	  
   }	
 }
-//file_put_contents('dat.txt', print_r($data,true).PHP_EOL , FILE_APPEND | LOCK_EX);	
+preg_match_all("/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i", $to_mail, $exp_to_mail);
+$tomailARR = array_unique($exp_to_mail[0]);
+preg_match_all("/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i", $cc_mail, $exp_cc_mail);
+$ccmailARR = array_unique($exp_cc_mail[0]);	
+//file_put_contents('dat1.txt', print_r($ccmailARR,true).PHP_EOL , FILE_APPEND | LOCK_EX);	
 $rrFrom	= $from;
-//$explode = str_replace(' ', '', $forward_from);
+$fwdto	= $forward_to;
+$fwdfrom	= $forward_from;
 $explode0 = strip_tags($forward_from);	
 $explode1 = str_replace('&lt;', '<', $explode0);
 $explode2 = str_replace('&gt;', '>', $explode1);
@@ -1644,10 +1652,8 @@ for($a=0;$a<count($alias_values);$a++){
 $aliasArr = array_map('strtolower', $aliasArr);
 $resultArr = array_intersect($Toarr, $aliasArr);
 $get_pipe_alias = implode(' ',$resultArr);	
-//$from_email_explode = explode('<',$from);
-//$from_email_exp = explode('>',$from_email_explode[1]);
-//$te1 = $from_email_exp[0][0];
-//$from_val = str_replace(' ','',$te1);	
+$ccArray = array_diff($Toarr,$aliasArr);
+$ccArray_implode = implode(',',$ccArray);	
 preg_match_all("/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i", $from, $from_email_exp);	
 $from_val = $from_email_exp[0][0];
 //$te = "SELECT user_id FROM `user` WHERE email_id='$from_val' AND admin_id=64";	
@@ -1745,11 +1751,9 @@ if($check_user!=''){
       $to_original = $this->fetchOne($qry,array());
    }	
 }else{		
-	$from = $from;
-	$cc = str_replace('[','(',$cc_mail);
-	$cc = str_replace(']',')',$cc);
-//	$qry = "SELECT aliseEmail FROM `department_emails` WHERE aliseEmail REGEXP '$rep4'";
-$qry = "SELECT aliseEmail FROM `department_emails` WHERE aliseEmail = '$Toarr[0]'";    
+	$from = $from;	
+	$cc = $ccArray_implode;
+    $qry = "SELECT aliseEmail FROM `department_emails` WHERE aliseEmail = '$Toarr[0]'";    
     $to_original = $this->fetchOne($qry,array());		
 }
 //file_put_contents('dat.txt', $from.PHP_EOL , FILE_APPEND | LOCK_EX);
@@ -1862,6 +1866,7 @@ if($override==0){
        		$ticket_no = $this->fetchOne($qry,array());
 			//file_put_contents('dat.txt', $ticket_no.$qry.PHP_EOL , FILE_APPEND | LOCK_EX);exit;
 			if($ticket_no!=''){
+				$replyCount=$this->fetchOne("SELECT COUNT(ticket_message_id) FROM `external_tickets_data` WHERE ticket_id='$ticket_no' AND repliesd_by='Agent'",array());
 				$depqry = "SELECT ticket_department FROM external_tickets WHERE ticket_not = '$ticket_no'";
        		    $depqry_val = $this->fetchOne($depqry,array());
 			//if(substr( $subject, 0, 3 ) === "Re:" || substr( $subject, 0, 3 ) === "RE:"){
@@ -1882,8 +1887,66 @@ if($override==0){
                 $resultss = $this->db_query($qryss, $params);
                 if($attachments==''){
 					  $attachments = $fattachments;
-				}			
-				$qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,ticket_reply_id,created_dt) VALUES ( '$ticket_no','$message','$subject','$strfm','$to_original','$cc','$attachments','$ticket_reply_id','$created_at')", array());
+				}
+				if($replyCount==0){                	
+					$get_all_replied_to=$this->fetchData("SELECT all_replied_to,all_replied_cc FROM `external_tickets_data` WHERE ticket_id='$ticket_no' ORDER BY ticket_message_id ASC LIMIT 1",array());
+					$existing_all_replied_to = $get_all_replied_to['all_replied_to'];
+					$explode3 = explode(',',$existing_all_replied_to);			
+					$existing_all_replied_cc = $get_all_replied_to['all_replied_cc'];
+					if($existing_all_replied_cc!=''){
+					 $explode4 = explode(',',$existing_all_replied_cc);
+					}else{
+					 $explode4 = array();
+					}
+					$expresult1 = array_diff($tomailARR,$explode3);
+					//$expresult11 = array_map('strtolower', $expresult1);
+					$expresult2 = array_diff($ccmailARR,$explode4);//print_r($expresult2);exit;
+					if(count($expresult1)==0){
+					  $all_replied_to = $existing_all_replied_to;
+					}else{
+					  $fetchqry = "SELECT ticket_to FROM external_tickets WHERE ticket_no = '$ticket_no'";
+       			      $tto = $this->fetchOne($fetchqry,array());					  
+					  $mergeArray1 = array_merge($explode3,$expresult1);					  	
+					  $pos = array_search(strtolower($tto), $mergeArray1);					  
+					  unset($mergeArray1[$pos]);	
+					  $all_replied_to = implode(',',$mergeArray1);
+					  //file_put_contents('vai.txt', $all_replied_to.PHP_EOL , FILE_APPEND | LOCK_EX);	
+					}
+					if(count($expresult2)==0){
+					  $all_replied_cc = $existing_all_replied_cc;
+					}else{
+					  $mergeArray2 = array_merge($explode4,$expresult2);
+					  $all_replied_cc = implode(',',$mergeArray2);	
+					}
+					//file_put_contents('dat.txt', $all_replied_to.'||'.$all_replied_cc.PHP_EOL , FILE_APPEND | LOCK_EX);
+				}else{					
+					$get_all_replied_to=$this->fetchData("SELECT all_replied_to,all_replied_cc FROM `external_tickets_data` WHERE ticket_id='$ticket_no' ORDER BY ticket_message_id DESC LIMIT 1",array());
+					$existing_all_replied_to = $get_all_replied_to['all_replied_to'];
+					$explode3 = explode(',',$existing_all_replied_to);			
+					$existing_all_replied_cc = $get_all_replied_to['all_replied_cc'];
+					$explode4 = explode(',',$existing_all_replied_cc);
+					$expresult1 = array_diff($tomailARR,$explode3);
+					$expresult2 = array_diff($ccmailARR,$explode4);//print_r($expresult2);exit;
+					if(count($expresult1)==0){
+					  $all_replied_to = $existing_all_replied_to;
+					}else{
+					  $fetchqry = "SELECT ticket_to FROM external_tickets WHERE ticket_no = '$ticket_no'";
+       			      $tto = $this->fetchOne($fetchqry,array());	
+					  $mergeArray1 = array_merge($explode3,$expresult1);
+					  $pos = array_search(strtolower($tto), $mergeArray1);					  
+					  unset($mergeArray1[$pos]);	
+					  $all_replied_to = implode(',',$mergeArray1);	
+					}
+					if(count($expresult2)==0){
+					  $all_replied_cc = $existing_all_replied_cc;
+					}else{
+					  $mergeArray2 = array_merge($explode4,$expresult2);
+					  $all_replied_cc = implode(',',$mergeArray2);	
+					}
+					//file_put_contents('dat1.txt', $all_replied_to.'||'.$all_replied_cc.PHP_EOL , FILE_APPEND | LOCK_EX);
+				}
+				$maillcc = implode(',',$ccmailARR);			
+				$qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,ticket_reply_id,created_dt,all_replied_to,all_replied_cc) VALUES ( '$ticket_no','$mssg','$subject','$strfm','$to_original','$maillcc','$attachments','$ticket_reply_id','$created_at','$all_replied_to','$all_replied_cc')", array());
 				// $dt = date('Y-m-d H:i:s');
 				// $this->db_query("Insert into mc_event (admin_id,mc_event_key,mc_event_data,mc_event_type,event_status, created_dt) values('$admin_id','$ticket_no','Reply From $from  ($subject)','11','7','$dt')", array());
 				foreach($dept_users as $user){
@@ -1931,7 +1994,7 @@ if($override==0){
 	  			}
 	  			$ticket_bcc = array_merge($agentArr, $groupArr);
 				// $senderid_qry = "SELECT senderID FROM `department_emails` WHERE `emailAddr` LIKE '%$to3%'";
-				$senderid_qry = "SELECT senderID FROM `department_emails` WHERE `aliseEmail` LIKE '%$to2%' and status = '1'";
+				$senderid_qry = "SELECT senderID FROM `department_emails` WHERE `aliseEmail` = '$to2' and status = '1'";
                 $senderid_qry_value = $this->fetchOne($senderid_qry,array());		        
 				$uss = array("ticket_to"=>$replied_from,"ticket_cc"=>$ccs,"ticket_bcc"=>$ticket_bcc,"from"=>$senderid_qry_value,"message"=>$messagetoSend,"subject"=>$subject, "ticket_id"=>$ticket_no);				//print_r($uss); exit;
       			$autoRespns = $this->autoResponseEmail($uss);
@@ -2011,11 +2074,26 @@ else{
   }
 }
 // adding customer details
-if(strpos($subject, 'Fwd:') !== false){
+if(strpos($subject, 'Fwd:') !== false || strpos($subject, 'Fw:') || strpos($subject, 'FW:')){
   $subject = substr($subject, 4);
   $subject = ltrim($subject);	
 }else{
   $subject = $subject;
+}
+if(substr( $subject, 0, 3 ) === "Fw:" || substr( $subject, 0, 3 ) === "FW:" || substr( $subject, 0, 3 ) === "Fwd:"){
+ preg_match_all("/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i", $rrFrom, $check_value1);
+ $check_from1 = $check_value1[0][0];
+ preg_match_all("/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i", $fwdto, $check_value2);
+ $check_from2 = $check_value2[0][0];
+ preg_match_all("/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i", $fwdfrom, $check_value3);
+ $check_from3 = $check_value3[0][0];	
+ if($check_from1==$check_from2){
+   $from = $check_from3;
+ }else{
+   $from = $check_from2;
+ }	
+ preg_match_all("/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i", $fwd, $forward_to_value);	
+ $fwdcc = $forward_to_value[0][0];
 }				
 			    $ticket_no = $this->db_insert("INSERT INTO external_tickets(ticket_from,admin_id,ticket_status,priority,ticket_subject,ticket_to,ticket_assigned_to,next_assign_for,ticket_department,created_dt,updated_at,status_del,is_spam,unassign,customer_id,customer_name) VALUES ( '$from','$admin_id','$ticket_status','$priorityid','$subject','$to_original','$get_dep','','$dept','$created_at','$updated_at',1,'$spam_status','$unassign','$ticket_customer_id','$ticket_customer_name')", array());						
 				$subject = $subject.' [##'.$ticket_no.']';
@@ -2023,24 +2101,26 @@ if(strpos($subject, 'Fwd:') !== false){
                 $resultss = $this->db_query($qry, $params);	
 				$get_alise=$this->fetchOne("SELECT aliseEmail FROM `department_emails` where emailAddr='$to2'",array());
 				if(substr( $subject, 0, 3 ) === "Re:" || substr( $subject, 0, 3 ) === "RE:"){
-				$qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,ticket_reply_id,created_dt) VALUES ( '$ticket_no','$message','$subject','$Toarr[0]','$to_original','$cc','$attachments','$ticket_reply_id','$created_at')", array());
+					$maillcc = implode(',',$ccmailARR);
+				$qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,ticket_reply_id,created_dt,all_replied_to,all_replied_cc) VALUES ( '$ticket_no','$message','$subject','$Toarr[0]','$to_original','$maillcc','$attachments','$ticket_reply_id','$created_at','$Toarr[0]','$cc')", array());
 				}elseif(substr( $subject, 0, 3 ) === "Fw:" || substr( $subject, 0, 3 ) === "FW:"){
 					$expfrom = explode('<',$from);
                     $str_fm = str_replace('>', '', $expfrom[1]);
 					preg_match_all("/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i", $forward_to, $forward_to_array);
 					preg_match_all("/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i", $forward_cc, $forward_cc_array);
-					$ccArr = array_merge($forward_to_array[0], $forward_cc_array[0]);
-					$cc = implode(',',$ccArr);
+					//$ccArr = array_merge($forward_to_array[0], $forward_cc_array[0]);
+					//$cc = implode(',',$ccArr);
 					if($attachments==''){
 					  $attachments = $fattachments;
 					}
-					$qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,ticket_reply_id,created_dt) VALUES ( '$ticket_no','$message','$subject','$str_fm','$to_original','$cc','$attachments','$ticket_reply_id','$created_at')", array());
+					$qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,ticket_reply_id,created_dt,all_replied_to,all_replied_cc) VALUES ( '$ticket_no','$message','$subject','$from','$to_original','$check_from1','$attachments','$ticket_reply_id','$created_at','$from','$check_from1')", array());
 				}
 				else{
+					$maillcc = implode(',',$ccmailARR);
 				    if($attachments==''){
 					  $attachments = $fattachments;
 					}					
-					$qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,ticket_reply_id,created_dt) VALUES ( '$ticket_no','$message','$subject','$from','$to_original','$cc','$attachments','$ticket_reply_id','$created_at')", array());
+					$qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,ticket_reply_id,created_dt,all_replied_to,all_replied_cc) VALUES ( '$ticket_no','$message','$subject','$from','$to_original','$maillcc','$attachments','$ticket_reply_id','$created_at','$from','$cc')", array());
 				}
 				if($spam_status > 0){
 					echo 'SpamListed';
@@ -2086,7 +2166,8 @@ if(strpos($subject, 'Fwd:') !== false){
 					 $mess[] = '<div style="border: 1px solid #d1d1d1;font-family: verdana !important; border-radius: 8px; padding: 12px; margin-bottom: 25px;">'.$m.'</div>';
 				    }
 				    $mess = implode('<br>',$mess);
-				    $messagetoSend = $repM.'<br> <br>'.$mess;
+				    //$messagetoSend = $repM.'<br> <br>'.$mess;
+				    $messagetoSend = $repM;
                     $agent_alert_qry = "SELECT email_id FROM user WHERE new_email_alert=1 AND admin_id='$admin_id'";
 			        $agent_alert_email = $this->dataFetchAll($agent_alert_qry,array());			      	  		
 				    $agentArr = array();
@@ -2107,14 +2188,30 @@ if(strpos($subject, 'Fwd:') !== false){
 					  }		  
 				    }				    			
 				    $ticket_bcc = array_merge($agentArr, $groupArr);
-				    $senderid_qry = "SELECT senderID FROM `department_emails` WHERE `aliseEmail` LIKE '%$to_original%' and status = '1'";
+				    $senderid_qry = "SELECT senderID FROM `department_emails` WHERE `aliseEmail` = '$to_original' and status = '1'";
 			        $senderid_qry_value = $this->fetchOne($senderid_qry,array());
 			        $toAdd_qry = "SELECT ticket_from FROM `external_tickets` WHERE `ticket_no` = '$ticket_no'";
 			        $toAdd = $this->fetchOne($toAdd_qry,array());
+			        preg_match_all("/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i", $toAdd, $toAdd_pregmatch);
+			        $dept_qry = "SELECT customer_name,ticket_department FROM `external_tickets` WHERE `ticket_no` = '$ticket_no'";
+			        $dept_res = $this->fetchData($dept_qry,array());					
+					$customer_name=$dept_res['customer_name'];
+					$ticket_department=$dept_res['ticket_department'];					
+					$department_name_qry = "SELECT department_name FROM `departments` WHERE `dept_id` = '$ticket_department'";
+			        $department_name = $this->fetchOne($department_name_qry,array());
 					if($replied_from==''){
 					  $replied_from = $toAdd;
+					}
+					if(substr( $subject, 0, 3 ) === "Re:" || substr( $subject, 0, 3 ) === "RE:"){
+                      $ticket_cc = $ccs;
+					}
+					elseif(substr( $subject, 0, 3 ) === "Fw:" || substr( $subject, 0, 3 ) === "FW:" || substr( $subject, 0, 3 ) === "Fwd:"){
+                      $ticket_cc = $this->fetchOne("SELECT replied_cc FROM `external_tickets_data` WHERE ticket_id='$ticket_no' ",array());
+					}
+					else{
+                      $ticket_cc = $ccArray_implode;
 					}			
-				    $uss = array("ticket_to"=>$replied_from,"ticket_cc"=>$ccs,"ticket_bcc"=>$ticket_bcc,"from"=>$senderid_qry_value,"message"=>$messagetoSend,"subject"=>$subject, "ticket_id"=>$ticket_no);									
+				    $uss = array("ticket_to"=>$replied_from,"ticket_cc"=>$ticket_cc,"ticket_bcc"=>"","from"=>$senderid_qry_value,"message"=>$messagetoSend,"subject"=>$subject, "ticket_id"=>$ticket_no);									
 				    $autoRespns = $this->autoResponseEmail($uss);
 					if($agent_assign!=''){
 					  $e = "SELECT response_content FROM email_autoresponses WHERE status='1' and admin_id='$admin_id' and response_for='agent_template' and dept_id='$dept'";
@@ -2897,7 +2994,103 @@ if($explode1[0]=='Best regards'){
 
 	public function replyMessage($data){
 		extract($data); 
-		
+		$replyCount=$this->fetchOne("SELECT COUNT(ticket_message_id) FROM `external_tickets_data` WHERE ticket_id='$ticket_id' AND repliesd_by='Agent'",array());
+		$replyCount=$this->fetchOne("SELECT COUNT(ticket_message_id) FROM `external_tickets_data` WHERE ticket_id='$ticket_id' AND repliesd_by='Agent'",array());
+		//echo $replyCount;exit;
+		//file_put_contents('msg.txt', $replyCount.PHP_EOL , FILE_APPEND | LOCK_EX);
+		if($replyCount==0){	
+			$Arr1 = array();$Arr2 = array();
+			$explode1 = explode(',',$to);
+			$explode2 = explode(',',$mail_cc);
+			$get_all_replied_to=$this->fetchData("SELECT all_replied_to,all_replied_cc FROM `external_tickets_data` WHERE ticket_id='$ticket_id' ORDER BY ticket_message_id ASC LIMIT 1",array());
+			$existing_all_replied_to = $get_all_replied_to['all_replied_to'];
+			$explode3 = explode(',',$existing_all_replied_to);			
+			$existing_all_replied_cc = $get_all_replied_to['all_replied_cc'];
+			if($existing_all_replied_cc!=''){
+			 $explode4 = explode(',',$existing_all_replied_cc);
+			}else{
+			 $explode4 = array();
+			}
+			$cnt1 = count($explode1);
+			for($i=0;$i<$cnt1;$i++){				
+			  $vals = $explode1[$i];
+			  if(in_array($vals,$explode3)){			   
+			  }else{
+			    array_push($Arr1,$vals);
+			  }	
+			}
+			//print_r($get_all_replied_to);exit;
+			if(empty($Arr1)){			  
+			  $all_replied_to = $existing_all_replied_to;
+			}else{			  
+			  $all_replied_to_merge = array_merge($explode3,$Arr1);
+			  $all_replied_to = implode(',',$all_replied_to_merge);	
+			}
+			//print_r($explode2);exit;
+			$cnt2 = count($explode2);
+			//echo $all_replied_to;exit;
+			for($j=0;$j<$cnt2;$j++){				
+			  $vals1 = $explode2[$j];
+			  if(in_array($vals1,$explode4)){
+				  //echo $vals1.'if';
+			  }else{
+				  //echo $vals1.'el';
+			    array_push($Arr2,$vals1);
+			  }	
+			}
+			//print_r($Arr2);exit;
+			if(empty($Arr2)){			  
+			  $all_replied_cc = $existing_all_replied_cc;
+			}else{			  
+			  $all_replied_cc_merge = array_merge($explode4,$Arr2);
+			  $all_replied_cc = implode(',',$all_replied_cc_merge);
+			  $all_replied_cc = ltrim($all_replied_cc,',');	
+			}
+			//echo $all_replied_to;exit;
+		}else{
+			$Arr1 = array();$Arr2 = array();
+			$explode1 = explode(',',$to);			
+			$explode2 = explode(',',$mail_cc);
+			//print_r($explode2);exit;
+			$get_all_replied_to=$this->fetchData("SELECT all_replied_to,all_replied_cc FROM `external_tickets_data` WHERE ticket_id='$ticket_id' ORDER BY ticket_message_id DESC LIMIT 1",array());
+			$existing_all_replied_to = $get_all_replied_to['all_replied_to'];			
+			$explode3 = explode(',',$existing_all_replied_to);			
+			$existing_all_replied_cc = $get_all_replied_to['all_replied_cc'];			
+			$explode4 = explode(',',$existing_all_replied_cc);
+			$cnt1 = count($explode1);
+			for($i=0;$i<$cnt1;$i++){				
+			  $vals = $explode1[$i];
+			  if(in_array($vals,$explode3)){			   
+			  }else{
+			    array_push($Arr1,$vals);
+			  }	
+			}
+			//print_r($Arr1);exit;
+			if(empty($Arr1)){			  
+			  $all_replied_to = $existing_all_replied_to;
+			}else{			  
+			  $all_replied_to_merge = array_merge($explode3,$Arr1);
+			  $all_replied_to = implode(',',$all_replied_to_merge);	
+			}
+			//print_r($all_replied_to);exit;
+			$cnt2 = count($explode2);
+			for($j=0;$j<$cnt2;$j++){				
+			  $vals1 = $explode2[$j];
+			  if(in_array($vals1,$explode4)){			   
+			  }else{
+			    array_push($Arr2,$vals1);
+			  }	
+			}
+			//print_r($Arr1);exit;
+			if(empty($Arr2)){			  
+			  $all_replied_cc = $existing_all_replied_cc;
+			}else{			  
+			  $all_replied_cc_merge = array_merge($explode4,$Arr2);
+			  $all_replied_cc = implode(',',$all_replied_cc_merge);
+			  $all_replied_cc = ltrim($all_replied_cc,',');	
+			}
+			//print_r($all_replied_cc);exit;			
+		}
 		$qry = "SELECT * FROM external_tickets WHERE ticket_no = '$ticket_id'";
 		//echo $qry;exit;
        	$tic_details = $this->fetchData($qry,array());
@@ -3076,7 +3269,8 @@ if($explode1[0]=='Best regards'){
 		}		
 		$mess = implode('<br>',$mess);
 		$message =  '<div style="font-family: verdana !important;">'.$message.'</div>';
-		$messagetoSend = $message.'<br> <br>'.$mess;
+		//$messagetoSend = $message.'<br> <br>'.$mess;
+		$messagetoSend = $message;
 		if( strpos($to, ',') !== false ) { $tos = explode(',',$to); }
 					$message_id = $this->fetchOne("SELECT ticket_reply_id FROM external_tickets_data WHERE ticket_id = '$ticket_id' and ticket_reply_id !=''",array());
 					if($tic_from == 'user'){
@@ -3166,12 +3360,8 @@ if($explode1[0]=='Best regards'){
 		//echo $qryss;exit;	
 		//file_put_contents('vaithee.txt', $qryss.PHP_EOL , FILE_APPEND | LOCK_EX);
 		$resultss = $this->db_query($qryss, $params);
-				$message = str_replace("'","\n",$message);
-				//$qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,repliesd_by,created_dt,user_id) VALUES ( '$ticket_id','$message','$subject','$from','$to','$mail_cc','$files_arr','Agent','$created_at','$user_id')", array()); 
-				 //$message = base64_encode($message);
-				 //$only_msg = base64_encode($only_msg);
-				 $qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,repliesd_by,created_dt,user_id,only_message,only_signature) VALUES ( '$ticket_id','$message','$subject','$from','$to','$mail_cc','$files_arr','Agent','$created_at','$user_id','$only_msg','$mailSignature')", array());				  
-				// echo "INSERT INTO echo external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,repliesd_by,user_id) VALUES ( '$ticket_id','$message','$subject','$from','$to','$mail_cc','$files_arr','Agent','$user_id')";exit;
+		$message = str_replace("'","\n",$message);				
+		$qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,repliesd_by,created_dt,user_id,only_message,only_signature,all_replied_to,all_replied_cc) VALUES ( '$ticket_id','$message','$subject','$from','$to','$mail_cc','$files_arr','Agent','$created_at','$user_id','$only_msg','$mailSignature','$all_replied_to','$all_replied_cc')", array());				
 		$result = $qry_result == 1 ? 'mailed' : 'Error';
 				  $dt = date('Y-m-d H:i:s');
 				 $get=$this->fetchData("select user_name, IF(admin_id = 1, user_id, admin_id) as admin_id from user where user_id='$user_id'", array()); 
