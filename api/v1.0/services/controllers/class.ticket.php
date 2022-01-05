@@ -2826,7 +2826,7 @@ if($next_assign!=''){
 		  $ticket_user = $result[$i]['user_id'];
 		  $ccMails = $result[$i]['replied_cc'];
 		  $all_replied_to = $result[$i]['all_replied_to'];
-		  $all_replied_cc = $result[$i]['all_replied_cc'];
+		  $all_replied_cc = ltrim($result[$i]['all_replied_cc']);
 		  if($ccMails==''){
 		    $ccMails = $this->fetchOne("SELECT replied_cc FROM external_tickets_data WHERE ticket_id='$ticket_no' ORDER BY ticket_id ASC LIMIT 1",array());
 		  }	 
@@ -7846,7 +7846,7 @@ public function change_thread_order($data){
 		  $ticket_user = $result[$i]['user_id'];
 		  $ccMails = $result[$i]['replied_cc'];
 		  $all_replied_to = $result[$i]['all_replied_to'];
-		  $all_replied_cc = $result[$i]['all_replied_cc'];
+		  $all_replied_cc = ltrim($result[$i]['all_replied_cc']);
 		  if($ccMails==''){
 		    $ccMails = $this->fetchOne("SELECT replied_cc FROM external_tickets_data WHERE ticket_id='$ticket_no' ORDER BY ticket_id ASC LIMIT 1",array());
 		  }	 
