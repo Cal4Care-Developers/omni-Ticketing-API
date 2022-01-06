@@ -8187,7 +8187,7 @@ public function share_external_ticket($data){
        $agent_name = $this->fetchOne("SELECT agent_name FROM user WHERE user_id='$user'", array());
        $subject = 'Ticket [#'.$ticket_id.'] has been shared to - '.$agent_name;				
 	   $us = array("user_id"=>$user,"ticket_for"=>"Share Ticket","ticket_subject"=>$subject, "ticket_id"=>$ticket_id);
-	   $u[] = $this->send_notification($us);
+	   $this->send_notification($us);
 	  }
 	  return  $output;
 }	
