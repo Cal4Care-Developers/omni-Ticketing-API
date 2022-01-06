@@ -8182,7 +8182,7 @@ public function share_external_ticket($data){
        $results = $this->db_query($qry,$parms);      
        $output = $results == 1 ? 1 : 0;       	  
       }
-      $explode = (',',$agent_id);
+      $explode = explode(',',$agent_id);
       foreach($explode as $user){
        $agent_name = $this->fetchOne("SELECT agent_name FROM user WHERE user_id='$user'", array());
        $subject = 'Ticket [#'.$ticket_id.'] has been shared to - '.$agent_name;				
