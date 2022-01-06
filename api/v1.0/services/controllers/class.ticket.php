@@ -4508,6 +4508,9 @@ public function getTicketThread($ticket_id){
 
 	if($ticket_for == 'Created Ticket'){
 		$title = $ticket_from;
+	}
+	if($ticket_for == 'Share Ticket'){
+		$title = $ticket_subject;
 	} 		 
 
 
@@ -8163,6 +8166,30 @@ function internalmail_spamLists($data){
     $qry = "select * from internalmail_spam_mail_ids where admin_id='$admin_id' and user_id='$user_id'";
     $result =  $this->dataFetchAll($qry, array());
     return $result;
+}
+public function share_external_ticket($data){
+	  extract($data);//print_r($data);exit;
+	  $get_shared_id = $this->fetchOne("SELECT shared_id FROM external_tickets WHERE ticket_no='$ticket_id'", array());
+	  if($get_shared_id==''){
+       $qry = "UPDATE external_tickets SET shared_id='$agent_id' WHERE ticket_no='$ticket_id'";		
+       $parms = array();
+       $results = $this->db_query($qry,$parms);      
+       $output = $results == 1 ? 1 : 0;
+	  }else{
+	   $shared_id = $get_shared_id.','.$agent_id;
+	   $qry = "UPDATE external_tickets SET shared_id='$shared_id' WHERE ticket_no='$ticket_id'";
+       $parms = array();
+       $results = $this->db_query($qry,$parms);      
+       $output = $results == 1 ? 1 : 0;       	  
+      }
+      $explode = (',',$agent_id);
+      foreach($explode as $user){
+       $agent_name = $this->fetchOne("SELECT agent_name FROM user WHERE user_id='$user'", array());
+       $subject = 'Ticket [#'.$ticket_id.'] has been shared to - '.$agent_name;				
+	   $us = array("user_id"=>$user,"ticket_for"=>"Share Ticket","ticket_subject"=>$subject, "ticket_id"=>$ticket_id);
+	   $u[] = $this->send_notification($us);
+	  }
+	  return  $output;
 }	
 }
 ?>

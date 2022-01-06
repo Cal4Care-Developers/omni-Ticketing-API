@@ -693,4 +693,9 @@ elseif($action == "internalmail_delSpamEmail"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->internalmail_delSpamEmail($email);
 }
+elseif($action == "share_external_ticket"){
+    $data= array("ticket_id"=>$ticket_id, "admin_id"=>$admin_id, "agent_id"=>$agent_id, "user_id"=>$user_id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->share_external_ticket($data);
+}
 ?>
