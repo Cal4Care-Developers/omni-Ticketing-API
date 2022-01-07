@@ -2976,7 +2976,7 @@ if($explode1[0]=='Best regards'){
 		$agents_array_qry = "SELECT user_id,agent_name FROM user where admin_id=$admin_id";
 		$agents_options_array = $this->dataFetchAll($agents_array_qry, array());
 
-        $to_cc_qry = "SELECT all_replied_to,TRIM(BOTH ',' FROM all_replied_cc) FROM external_tickets_data WHERE ticket_id = '$ticket_id' ORDER BY ticket_message_id DESC LIMIT 1";
+        $to_cc_qry = "SELECT all_replied_to,TRIM(BOTH ',' FROM all_replied_cc) as all_replied_cc FROM external_tickets_data WHERE ticket_id = '$ticket_id' ORDER BY ticket_message_id DESC LIMIT 1";
        	$to_cc = $this->fetchData($to_cc_qry,array());
 
 		$status = array('status' => 'true');
@@ -7931,7 +7931,7 @@ public function change_thread_order($data){
 		$priority_options_array = $this->dataFetchAll($priority_array_qry, array());		
 		$agents_array_qry = "SELECT user_id,agent_name FROM user where admin_id=$admin_id";
 		$agents_options_array = $this->dataFetchAll($agents_array_qry, array());
-		$to_cc_qry = "SELECT all_replied_to,TRIM(BOTH ',' FROM all_replied_cc) FROM external_tickets_data WHERE ticket_id = '$ticket_id' ORDER BY ticket_message_id DESC LIMIT 1";
+		$to_cc_qry = "SELECT all_replied_to,TRIM(BOTH ',' FROM all_replied_cc) as all_replied_cc FROM external_tickets_data WHERE ticket_id = '$ticket_id' ORDER BY ticket_message_id DESC LIMIT 1";
        	$to_cc = $this->fetchData($to_cc_qry,array());		
 		$status = array('status' => 'true');
 		$status_options_array = array('status_options' => $status_options_array);
