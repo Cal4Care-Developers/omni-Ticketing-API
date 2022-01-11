@@ -8186,10 +8186,32 @@ public function share_external_ticket($data){
       foreach($explode as $user){
        $agent_name = $this->fetchOne("SELECT agent_name FROM user WHERE user_id='$user'", array());
        $subject = 'Ticket [#'.$ticket_id.'] has been shared to - '.$agent_name;				
-	   $us = array("user_id"=>$user,"ticket_for"=>"Share Ticket","ticket_subject"=>$subject, "ticket_id"=>$ticket_id);
+	   $us = array("user_id"=>$user,"ticket_for"=>"Share Ticket","ticket_subject"=>$subject, "ticket_id"=>$ticket_id);  
 	   $this->send_notification($us);
 	  }
 	  return  $output;
+}
+public function shared_agent_list($data){
+	  extract($data);//print_r($data);exit;
+	  $get_shared_id = $this->fetchOne("SELECT shared_id FROM external_tickets WHERE ticket_no='$ticket_id'", array());
+	  if($get_shared_id==''){             
+       $status = array('status' => 'false');
+       $result = array_merge($status);
+	   $tarray = json_encode($result);
+	   print_r($tarray);exit;
+	  }else{	   
+       $explode = explode(',',$get_shared_id);
+	   foreach($explode as $user){
+	    $agent_name = $this->fetchOne("SELECT agent_name FROM user WHERE user_id='$user'", array());
+	    $user_details = array("user_id"=>$user,"agent_name"=>$agent_name);
+	    $user_array[] = $user_details;		
+	   }
+	   $status = array('status' => 'true');
+	   $user_array = array('options' => $user_array);
+	   $result = array_merge($status, $user_array);
+	   $tarray = json_encode($result);
+	   print_r($tarray);exit;
+	  }
 }	
 }
 ?>

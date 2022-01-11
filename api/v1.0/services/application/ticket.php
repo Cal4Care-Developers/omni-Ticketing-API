@@ -698,4 +698,9 @@ elseif($action == "share_external_ticket"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->share_external_ticket($data);
 }
+elseif($action == "shared_agent_list"){
+    $data= array("ticket_id"=>$ticket_id, "admin_id"=>$admin_id, "user_id"=>$user_id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->shared_agent_list($data);
+}
 ?>
