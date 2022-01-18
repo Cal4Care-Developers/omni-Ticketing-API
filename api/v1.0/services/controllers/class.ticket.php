@@ -415,6 +415,61 @@ $user_qry = "SELECT timezone_id FROM user WHERE user_id='$user_id'";
     
         return  $results;
     }
+    public function advanceTicketReport($data){
+        extract($data);
+	  
+		  $qry = "SELECT ext.ticket_no,ext.created_dt,ext.ticket_from,ext.customer_name,ext.ticket_subject,pri.priority,dep.department_name,st.status_name,ext.updated_at,ext.closed_at,count(ed.ticket_id) as ticket_count FROM `external_tickets` as ext INNER JOIN external_tickets_data as ed ON(ext.ticket_no=ed.ticket_id) INNER JOIN departments as dep on(ext.ticket_department=dep.dept_id) INNER JOIN priority as pri on(ext.priority=pri.id) INNER JOIN status as st on(ext.ticket_status=st.status_id) WHERE 1 ";
+		  
+		 if($fromDate!='' and $toDate !=''){
+			  $fromDate_db = date("Y-m-d",strtotime($fromDate));
+			  $toDate_db = date("Y-m-d",strtotime($toDate));
+			  $qry.=" AND ext.created_dt>='$fromDate_db 00:00:01' and ext.created_dt<='$toDate_db 23:59:59'";
+		 }
+		 if($customer_name!=''){			 
+			  $qry.=" AND ext.customer_name ='$customer_name'";
+		 }
+		 if($search_text!=''){			 
+			  $qry.=" AND ext.ticket_subject LIKE '%$search_text%'";
+		 }
+	//	echo $qry;exit;
+         $Totalqry=$qry." group by ed.ticket_id ORDER BY `ext`.`ticket_no` DESC";
+		// echo $Totalqry;exit;
+		 $qry.=" group by ed.ticket_id ORDER BY `ext`.`ticket_no` DESC limit $limit offset $offset";
+		 
+        $results = $this->dataFetchAll($qry, array());
+    	$total_count = $this->dataRowCount($Totalqry,array());
+	    //$total = array('total' => $total_count);
+        $list_info = array('total' => $total_count, 'limit' => $limit, 'offset' => $offset);
+	    //$list_info_arr = array('list_info' => $list_info);    
+        $merge_result = array('data'=>$results,'list_info' => $list_info); 		
+       // $tarray = json_encode($merge_result);           
+         // print_r($tarray);exit;
+        
+
+		return  $merge_result;
+    }
+	
+	
+public function export_ticket_reports($data){
+        extract($data);
+		$qry = "SELECT ticket_no,ticket_from,customer_name,ticket_subject,(select department_name from departments where dept_id = ticket_department) as department_name,(select agent_name from user where user_id = ticket_assigned_to) as agent_name,(select priority from priority where id = priority) as priority_name,(select status_name from status where status_id = ticket_status) as status_name,(select priority from priority where id = priority) as priority_name,(select count(ticket_id) from external_tickets_data where ticket_id = ticket_no) as ticket_count,created_dt,closed_at FROM `external_tickets` WHERE 1 ";
+	//echo $qry;exit;
+	    if($fromDate!='' and $toDate !=''){
+			  $fromDate_db = date("Y-m-d",strtotime($fromDate));
+			  $toDate_db = date("Y-m-d",strtotime($toDate));
+			  $qry.=" AND created_dt>='$fromDate_db 00:00:01' and created_dt<='$toDate_db 23:59:59'";
+		 }
+		 if($customer_name!=''){			 
+			  $qry.=" AND customer_name ='$customer_name'";
+		 }
+		 if($search_text!=''){			 
+			  $qry.=" AND ticket_subject LIKE '%$search_text%'";
+		 }
+	//    $qry.=" ORDER BY ticket_no DESC limit $limit offset $offset";
+	 $qry.=" ORDER BY ticket_no DESC";
+        $results = $this->dataFetchAll($qry, array());
+		return  $results;
+    }
 	function getmyExternalTicket($data){
 		extract($data);//print_r($data);exit;
 		$dep = $ticket_department;
