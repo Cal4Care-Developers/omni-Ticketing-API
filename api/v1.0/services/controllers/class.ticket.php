@@ -452,7 +452,7 @@ $user_qry = "SELECT timezone_id FROM user WHERE user_id='$user_id'";
 	
 public function export_ticket_reports($data){
         extract($data);
-		$qry = "SELECT ticket_no,ticket_from,customer_name,ticket_subject,(select department_name from departments where dept_id = ticket_department) as department_name,(select agent_name from user where user_id = ticket_assigned_to) as agent_name,(select priority from priority where id = priority) as priority_name,(select status_name from status where status_id = ticket_status) as status_name,(select priority from priority where id = priority) as priority_name,(select count(ticket_id) from external_tickets_data where ticket_id = ticket_no) as ticket_count,created_dt,closed_at FROM `external_tickets` WHERE 1 ";
+		$qry = "SELECT ticket_no,ticket_from,customer_name,ticket_subject,(select department_name from departments where dept_id = ticket_department) as department_name,(select agent_name from user where user_id = ticket_assigned_to) as agent_name,(select status_name from status where status_id = ticket_status) as status_name,(select priority from priority where id = priority) as priority_name,(select count(ticket_id) from external_tickets_data where ticket_id = ticket_no) as ticket_count,created_dt,closed_at FROM `external_tickets` WHERE 1 ";
 	//echo $qry;exit;
 	    if($fromDate!='' and $toDate !=''){
 			  $fromDate_db = date("Y-m-d",strtotime($fromDate));
