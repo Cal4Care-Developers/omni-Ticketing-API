@@ -1652,16 +1652,21 @@ $explode3 = str_replace('<', '< ', $explode2);
 $explode4 = str_replace('>', ' >', $explode3);
 //file_put_contents('dat.txt', $explode4.PHP_EOL , FILE_APPEND | LOCK_EX);	
 // Word Filter
+if($from != 'ganesh.mahamuni@stationsatcom.com'){
 $qry = "select filter_word from email_words_filtering where user_id ='64'";
-$result =  $this->dataFetchAll($qry, array());	 
-
+$result =  $this->dataFetchAll($qry, array());
 	for($j = 0; $j < count($result); $j++){
 		$groupArr = $result[$j]['filter_word'];
 		if (strpos($message, $groupArr) !== false) {
 			echo 'Spam Word true'; 
 			exit;
 		}
-	} 
+		if (strpos($subject, $groupArr) !== false) {
+			echo 'Spam Word trued'; 
+			exit;
+		}
+	}
+}	 
 // Word Filter
 // priority filter
 $qry = "select priority,key_word from priority_words_filtering where admin_id ='64'";
