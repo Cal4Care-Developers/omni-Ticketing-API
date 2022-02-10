@@ -2228,8 +2228,10 @@ if(substr( $subject, 0, 3 ) === "Fw:" || substr( $subject, 0, 3 ) === "FW:" || s
 				    $mess = implode('<br>',$mess);
 				    //$messagetoSend = $repM.'<br> <br>'.$mess;
 				    $messagetoSend = $repM;
-                    $agent_alert_qry = "SELECT email_id FROM user WHERE new_email_alert=1 AND admin_id='$admin_id'";
-			        $agent_alert_email = $this->dataFetchAll($agent_alert_qry,array());			      	  		
+                    $ticket_dep_user = $this->fetchOne("SELECT department_users FROM `departments` WHERE dept_id='$dept' ",array());
+                    $uservals="'" . str_replace(",","','",$ticket_dep_user)."'";
+                    $agent_alert_qry = "SELECT email_id FROM user WHERE new_email_alert=1 AND admin_id='$admin_id' AND user_id IN ($uservals)";
+			        $agent_alert_email = $this->dataFetchAll($agent_alert_qry,array());  	  		
 				    $agentArr = array();
 				    for($k = 0; $k < count($agent_alert_email); $k++){
 				     $agent_emails = $agent_alert_email[$k]['email_id'];
