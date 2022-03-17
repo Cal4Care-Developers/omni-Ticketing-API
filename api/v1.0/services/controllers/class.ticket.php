@@ -429,7 +429,8 @@ $user_qry = "SELECT timezone_id FROM user WHERE user_id='$user_id'";
 			  $qry.=" AND ext.customer_name ='$customer_name'";
 		 }
 		 if($search_text!=''){			 
-			  $qry.=" AND ext.ticket_subject LIKE '%$search_text%'";
+			  //$qry.=" AND ext.ticket_subject LIKE '%$search_text%'";
+			  $qry.=" AND ext.ticket_from LIKE '%$search_text%'";
 		 }
 	//	echo $qry;exit;
          $Totalqry=$qry." group by ed.ticket_id ORDER BY `ext`.`ticket_no` DESC";
