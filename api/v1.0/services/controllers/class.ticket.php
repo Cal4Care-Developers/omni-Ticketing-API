@@ -436,8 +436,8 @@ $user_qry = "SELECT timezone_id FROM user WHERE user_id='$user_id'";
          $Totalqry=$qry." group by ed.ticket_id ORDER BY `ext`.`ticket_no` DESC";
 		// echo $Totalqry;exit;
 		 $qry.=" group by ed.ticket_id ORDER BY `ext`.`ticket_no` DESC limit $limit offset $offset";
-		 echo $qry;exit;
-		 file_put_contents('rep_qry.txt', $qry.PHP_EOL , FILE_APPEND | LOCK_EX);
+		 //echo $qry;exit;
+		 //file_put_contents('rep_qry.txt', $qry.PHP_EOL , FILE_APPEND | LOCK_EX);
         $results = $this->dataFetchAll($qry, array());
     	$total_count = $this->dataRowCount($Totalqry,array());
 	    //$total = array('total' => $total_count);
@@ -465,7 +465,8 @@ public function export_ticket_reports($data){
 			  $qry.=" AND customer_name ='$customer_name'";
 		 }
 		 if($search_text!=''){			 
-			  $qry.=" AND ticket_subject LIKE '%$search_text%'";
+			  //$qry.=" AND ticket_subject LIKE '%$search_text%'";
+			  $qry.=" AND ext.ticket_from LIKE '%$search_text%'";
 		 }
 	//    $qry.=" ORDER BY ticket_no DESC limit $limit offset $offset";
 	 $qry.=" ORDER BY ticket_no DESC";
