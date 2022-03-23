@@ -436,6 +436,7 @@ $user_qry = "SELECT timezone_id FROM user WHERE user_id='$user_id'";
          $Totalqry=$qry." group by ed.ticket_id ORDER BY `ext`.`ticket_no` DESC";
 		// echo $Totalqry;exit;
 		 $qry.=" group by ed.ticket_id ORDER BY `ext`.`ticket_no` DESC limit $limit offset $offset";
+		 echo $qry;exit;
 		 file_put_contents('rep_qry.txt', $qry.PHP_EOL , FILE_APPEND | LOCK_EX);
         $results = $this->dataFetchAll($qry, array());
     	$total_count = $this->dataRowCount($Totalqry,array());
