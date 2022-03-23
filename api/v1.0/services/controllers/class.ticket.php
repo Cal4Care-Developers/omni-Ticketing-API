@@ -466,7 +466,7 @@ public function export_ticket_reports($data){
 		 }
 		 if($search_text!=''){			 
 			  //$qry.=" AND ticket_subject LIKE '%$search_text%'";
-			  $qry.=" AND ext.ticket_from LIKE '%$search_text%'";
+			  $qry.=" AND ticket_from LIKE '%$search_text%'";
 		 }
 	//    $qry.=" ORDER BY ticket_no DESC limit $limit offset $offset";
 	 $qry.=" ORDER BY ticket_no DESC";
