@@ -1824,6 +1824,7 @@ if($to_original==''){
   $qry = "SELECT aliseEmail FROM `department_emails` WHERE aliseEmail = '$get_pipe_alias'";    
   $to_original = $this->fetchOne($qry,array());
 }	
+file_put_contents('dat.txt', print_r($data,true).PHP_EOL , FILE_APPEND | LOCK_EX);
 $override=$this->fetchOne("select override from admin_details where admin_id='64'",array());
 if($override==0){
 	    //file_put_contents('dat.txt', print_r($data,true).PHP_EOL , FILE_APPEND | LOCK_EX);exit;
