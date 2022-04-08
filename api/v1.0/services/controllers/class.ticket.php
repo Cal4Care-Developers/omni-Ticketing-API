@@ -3166,7 +3166,9 @@ if($explode1[0]=='Best regards'){
 		$qry = "SELECT * FROM external_tickets WHERE ticket_no = '$ticket_id'";
 		//echo $qry;exit;
        	$tic_details = $this->fetchData($qry,array());
-		$subject = $tic_details['ticket_subject'];		
+		$subject = $tic_details['ticket_subject'];
+		$te = 'subjectlog';
+		file_put_contents('vai.txt', $subject.$te.PHP_EOL , FILE_APPEND | LOCK_EX);		
 		$ticket_from = $tic_details['ticket_to'];
 		$tic_from =  $tic_details['ticket_from'];
 		$ticket_dept=  $tic_details['ticket_department'];
@@ -3355,7 +3357,9 @@ if($explode1[0]=='Best regards'){
 				    $username = $smtp_qry_value['username'];
 				    $password = $smtp_qry_value['password'];
                     require_once('class.phpmailer.php'); 
-					$subject = $subject; 
+					$subject = $subject;
+					$te = 'subjectlogs';
+		             file_put_contents('vai.txt', $subject.$te.PHP_EOL , FILE_APPEND | LOCK_EX); 
                     $body = $messagetoSend;   
 		//print_r($body); exit;
                     $mail = new PHPMailer();
