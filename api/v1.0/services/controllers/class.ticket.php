@@ -1187,9 +1187,9 @@ public function onchangeDepartment($data){
         extract($data);//print_r($data);exit;
 		$override=$this->fetchOne("SELECT override FROM `admin_details` where admin_id='$admin_id'",array());
 		$ticket_limit=$this->fetchOne("SELECT ticket_limit FROM `admin_details` where admin_id='$admin_id'",array());
-		$customer_id=$this->fetchOne("SELECT customer_id FROM `external_tickets` where ticket_id='$ticket_id'",array());
+		$customer_id=$this->fetchOne("SELECT customer_id FROM `external_tickets` where ticket_no='$ticket_id'",array());
 		$department_name=$this->fetchOne("SELECT department_name FROM `departments` where department_id='$department_id'",array());
-		$ticket_type=$this->fetchOne("SELECT type FROM `external_tickets` where ticket_id='$ticket_id'",array());
+		$ticket_type=$this->fetchOne("SELECT type FROM `external_tickets` where ticket_no='$ticket_id'",array());
         if($override==0){
 			$get_dep=$this->fetchOne("SELECT department_users FROM `departments` where dept_id='$department_id'",array());		
 	        $qry = "UPDATE external_tickets SET ticket_department='$department_id',ticket_assigned_to='$get_dep',unassign='0' where ticket_no='$ticket_id'";
