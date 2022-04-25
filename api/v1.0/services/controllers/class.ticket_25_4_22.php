@@ -1187,9 +1187,6 @@ public function onchangeDepartment($data){
         extract($data);//print_r($data);exit;
 		$override=$this->fetchOne("SELECT override FROM `admin_details` where admin_id='$admin_id'",array());
 		$ticket_limit=$this->fetchOne("SELECT ticket_limit FROM `admin_details` where admin_id='$admin_id'",array());
-		$customer_id=$this->fetchOne("SELECT customer_id FROM `external_tickets` where ticket_id='$ticket_id'",array());
-		$department_name=$this->fetchOne("SELECT department_name FROM `departments` where department_id='$department_id'",array());
-		$ticket_type=$this->fetchOne("SELECT type FROM `external_tickets` where ticket_id='$ticket_id'",array());
         if($override==0){
 			$get_dep=$this->fetchOne("SELECT department_users FROM `departments` where dept_id='$department_id'",array());		
 	        $qry = "UPDATE external_tickets SET ticket_department='$department_id',ticket_assigned_to='$get_dep',unassign='0' where ticket_no='$ticket_id'";
@@ -1267,7 +1264,7 @@ public function onchangeDepartment($data){
 		    }else{
 			    $qry = "UPDATE external_tickets SET ticket_department='$department_id',ticket_assigned_to='$get_dep',next_assign_for='',unassign=0 WHERE ticket_no='$ticket_id'";
 			    $depName=$this->fetchOne("SELECT department_name FROM `departments` where dept_id='$department_id'",array());	
-			    $admin_name = "SELECT agent_name FROM user WHERE user_id='$admin_id'";            
+			    $admin_name = "SELECT agent_name FROM user WHERE user_id='$admin_id'";              
 	      		$admin_name = $this->fetchmydata($admin_name,array());		
 				$sub = $admin_name.' Assigned a ticket to '.$depName;
 				$adm = array("user_id"=>$admin_id,"ticket_for"=>"Assign Ticket","ticket_from"=>$ticket_from,"ticket_subject"=>$sub, "ticket_id"=>$ticket_id);
@@ -1276,37 +1273,7 @@ public function onchangeDepartment($data){
 	            $result = $update_data == 1 ? 1 : 0;  
 	            return $result;
 			}
-        } // override else
-        if($type=='cms'){
-			$curl = curl_init();
-			curl_setopt_array($curl, array(
-			CURLOPT_URL => 'https://erp.cal4care.com/erp/apps/index.php',
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_ENCODING => '',
-			CURLOPT_MAXREDIRS => 10,
-			CURLOPT_TIMEOUT => 0,
-			CURLOPT_FOLLOWLOCATION => true,
-			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-			CURLOPT_CUSTOMREQUEST => 'POST',
-			CURLOPT_POSTFIELDS =>'{
-			  "operation": "agents",
-			  "moduleType": "agents",
-			  "api_type": "web",
-			  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0aWNrZXRpbmcubWNvbm5lY3RhcHBzLmNvbSIsImF1ZCI6InRpY2tldGluZy5tY29ubmVjdGFwcHMuY29tIiwiaWF0IjoxNjMwOTMyMTE5LCJuYmYiOjE2MzA5MzIxMTksImV4cCI6MTYzMDk1MDExOSwiYWNjZXNzX2RhdGEiOnsidG9rZW5fYWNjZXNzSWQiOiI2NCIsInRva2VuX2FjY2Vzc05hbWUiOiJTYWxlc0FkbWluIiwidG9rZW5fYWNjZXNzVHlwZSI6IjIifX0.YzdTs9NxXf-KVffqXCNz8cyff-vMwcH8YI9eC8Ji8Fc",
-			  "element_data": {
-			    "action": "update_customerdetails",
-			    "customer_id":"'.$customer_id.'",
-			    "department_id":"'.$department_id.'",
-			    "department_name":"'.$department_name.'"
-			  }
-			}',
-			CURLOPT_HTTPHEADER => array(
-			  'Content-Type: application/json'
-			),
-			));
-			$response = curl_exec($curl);
-			curl_close($curl);
-		}
+        }
     }	
 
 

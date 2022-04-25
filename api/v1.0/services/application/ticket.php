@@ -151,7 +151,7 @@ elseif($action == "oncloseTocket"){
 
 
 elseif($action == "onchange_department"){
-    $data = array("department_id"=>$department_id,"ticket_id"=>$ticket_id,"admin_id"=>$admin_id);   
+    $data = array("department_id"=>$department_id,"ticket_id"=>$ticket_id,"admin_id"=>$admin_id);  
     $result_data["result"]["data"] = $ticket->onchangeDepartment($data);
 }
 elseif($action == "viewExternalTicket"){
