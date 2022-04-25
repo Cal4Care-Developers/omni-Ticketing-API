@@ -1277,7 +1277,7 @@ public function onchangeDepartment($data){
 	            return $result;
 			}
         } // override else
-        if($type=='cms'){
+        if($ticket_type=='cms'){
 			$curl = curl_init();
 			curl_setopt_array($curl, array(
 			CURLOPT_URL => 'https://erp.cal4care.com/erp/apps/index.php',
