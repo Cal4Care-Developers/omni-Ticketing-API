@@ -1278,6 +1278,7 @@ public function onchangeDepartment($data){
 			}
         } // override else
         if($ticket_type=='cms'){
+        	file_put_contents('check.txt', $ticket_type.PHP_EOL , FILE_APPEND | LOCK_EX);
 			$curl = curl_init();
 			curl_setopt_array($curl, array(
 			CURLOPT_URL => 'https://erp.cal4care.com/erp/apps/index.php',
@@ -1305,6 +1306,10 @@ public function onchangeDepartment($data){
 			),
 			));
 			$response = curl_exec($curl);
+			if (curl_errno($curl)) {
+                  $te = 'Error:' . curl_error($curl);
+                  file_put_contents('check.txt', $te.PHP_EOL , FILE_APPEND | LOCK_EX);
+            }
 			curl_close($curl);
 		}
     }	
