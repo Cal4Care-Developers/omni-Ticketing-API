@@ -3861,7 +3861,7 @@ public function updateTicketStatus($data){
 		$ticket_type=$this->fetchOne("SELECT type FROM `external_tickets` where ticket_no='$ticket_id'",array());
         if($department!=''){
 			if($ticket_type=='cms'){
-			   	file_put_contents('check.txt', $ticket_type.'view'.PHP_EOL , FILE_APPEND | LOCK_EX);
+			   	file_put_contents('check.txt', $ticket_type.'||'.$customer_id.'||'.$department.'||'.$department_name.'||'.'view'.PHP_EOL , FILE_APPEND | LOCK_EX);
 				$curl = curl_init();
 			    curl_setopt_array($curl, array(
 				CURLOPT_URL => 'https://erp.cal4care.com/erp/apps/index.php',
