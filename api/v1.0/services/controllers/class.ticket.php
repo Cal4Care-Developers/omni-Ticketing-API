@@ -3855,6 +3855,9 @@ public function updateTicketStatus($data){
 		extract($data); //print_r($data);exit;
 		$ticket_id = base64_decode($ticket_id);
 		$override=$this->fetchOne("SELECT override FROM `admin_details` where admin_id='$admin_id'",array());
+		$customer_id=$this->fetchOne("SELECT customer_id FROM `external_tickets` where ticket_no='$ticket_id'",array());
+		$department_name=$this->fetchOne("SELECT department_name FROM `departments` where dept_id='$department'",array());
+		$ticket_type=$this->fetchOne("SELECT type FROM `external_tickets` where ticket_no='$ticket_id'",array());
 	    $oldqry = "SELECT * FROM `external_tickets` where ticket_no='$ticket_id'";
         $oldDetails = $this->fetchData($oldqry, array());
         $oldDepartment = $oldDetails['ticket_department'];
@@ -4044,7 +4047,42 @@ public function updateTicketStatus($data){
 	            } // if condition for agent not equal to empty
 				
 	            // updating new dept/agent
-				if($department!=''){					
+				if($department!=''){
+				        if($ticket_type=='cms'){
+				        	file_put_contents('check.txt', $ticket_type.'view'.PHP_EOL , FILE_APPEND | LOCK_EX);
+							$curl = curl_init();
+							curl_setopt_array($curl, array(
+							CURLOPT_URL => 'https://erp.cal4care.com/erp/apps/index.php',
+							CURLOPT_RETURNTRANSFER => true,
+							CURLOPT_ENCODING => '',
+							CURLOPT_MAXREDIRS => 10,
+							CURLOPT_TIMEOUT => 0,
+							CURLOPT_FOLLOWLOCATION => true,
+							CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+							CURLOPT_CUSTOMREQUEST => 'POST',
+							CURLOPT_POSTFIELDS =>'{
+							  "operation": "agents",
+							  "moduleType": "agents",
+							  "api_type": "web",
+							  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0aWNrZXRpbmcubWNvbm5lY3RhcHBzLmNvbSIsImF1ZCI6InRpY2tldGluZy5tY29ubmVjdGFwcHMuY29tIiwiaWF0IjoxNjMwOTMyMTE5LCJuYmYiOjE2MzA5MzIxMTksImV4cCI6MTYzMDk1MDExOSwiYWNjZXNzX2RhdGEiOnsidG9rZW5fYWNjZXNzSWQiOiI2NCIsInRva2VuX2FjY2Vzc05hbWUiOiJTYWxlc0FkbWluIiwidG9rZW5fYWNjZXNzVHlwZSI6IjIifX0.YzdTs9NxXf-KVffqXCNz8cyff-vMwcH8YI9eC8Ji8Fc",
+							  "element_data": {
+							    "action": "update_customerdetails",
+							    "customer_id":"'.$customer_id.'",
+							    "department_id":"'.$department.'",
+							    "department_name":"'.$department_name.'"
+							  }
+							}',
+							CURLOPT_HTTPHEADER => array(
+							  'Content-Type: application/json'
+							),
+							));
+							$response = curl_exec($curl);
+							if (curl_errno($curl)) {
+				                  $te = 'Error:' . curl_error($curl);
+				                  file_put_contents('check.txt', $te.PHP_EOL , FILE_APPEND | LOCK_EX);
+				            }
+							curl_close($curl);
+		                }					
 				        $get_dep = $this->fetchOne("SELECT department_users FROM `departments` where dept_id = '$department'",array());
 						$dept_users = explode(',',$get_dep);			
 					    //print_r($dept_users);exit;				    
