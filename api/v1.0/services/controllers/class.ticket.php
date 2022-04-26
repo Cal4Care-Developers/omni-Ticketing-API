@@ -1190,7 +1190,7 @@ public function onchangeDepartment($data){
 		$override=$this->fetchOne("SELECT override FROM `admin_details` where admin_id='$admin_id'",array());
 		$ticket_limit=$this->fetchOne("SELECT ticket_limit FROM `admin_details` where admin_id='$admin_id'",array());
 		$customer_id=$this->fetchOne("SELECT customer_id FROM `external_tickets` where ticket_no='$ticket_id'",array());
-		$department_name=$this->fetchOne("SELECT department_name FROM `departments` where department_id='$department_id'",array());
+		$department_name=$this->fetchOne("SELECT department_name FROM `departments` where dept_id='$department_id'",array());
 		$ticket_type=$this->fetchOne("SELECT type FROM `external_tickets` where ticket_no='$ticket_id'",array());
 		//file_put_contents('check.txt', $ticket_type.PHP_EOL , FILE_APPEND | LOCK_EX);
 		if($ticket_type=='cms'){
