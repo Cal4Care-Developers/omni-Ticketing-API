@@ -1185,6 +1185,7 @@ else {
 	
 public function onchangeDepartment($data){
         extract($data);//print_r($data);exit;
+        file_put_contents('check.txt', print_r($data,true).PHP_EOL , FILE_APPEND | LOCK_EX);
 		$override=$this->fetchOne("SELECT override FROM `admin_details` where admin_id='$admin_id'",array());
 		$ticket_limit=$this->fetchOne("SELECT ticket_limit FROM `admin_details` where admin_id='$admin_id'",array());
 		$customer_id=$this->fetchOne("SELECT customer_id FROM `external_tickets` where ticket_no='$ticket_id'",array());
