@@ -1,8 +1,8 @@
-
 <?php
+//echo '111';exit;
 require_once 'rest.controller.php';
 $access_page = "error.php";
-//echo 'asasas';exit;
+//echo 'dwfjasd';exit;
 if($api_request_data["element_data"] > 0){
 extract($api_request_data["element_data"]);
 }
@@ -12,7 +12,7 @@ extract($api_request_data["element_data"]);
 //print_r($_REQUEST['element_data']['action']); exit;
 //print_r($api_request_data["element_data"]);exit;
 //echo $_REQUEST['action'];exit;
-
+//echo $api_type;exit;
 if($api_type == "web"){
 	
      switch($moduleType) {
@@ -22,13 +22,26 @@ if($api_type == "web"){
 			include_once CONTROLLER_PATH.'class.authentication.php';
             $access_page = APPLICATION_PATH."login.php";
 		break;
-			 
+			case 'blog':	
+			include_once CONTROLLER_PATH.'class.blog.php';			 			
+            $access_page = APPLICATION_PATH."blog.php";		
+		break;
         case 'customers':   
             include_once CONTROLLER_PATH.'class.customer.php';
             $access_page = APPLICATION_PATH."customer.php";
              
 		break;
+			   case 'tags':   
+            include_once CONTROLLER_PATH.'class.tag.php';
+            $access_page = APPLICATION_PATH."tag.php";
+             
+		break;
 		
+		case 'category':   
+            include_once CONTROLLER_PATH.'class.category.php';
+            $access_page = APPLICATION_PATH."category.php";
+		break;
+			 
 		case 'contact':   
 	 		 
             include_once CONTROLLER_PATH.'class.contact.php';
@@ -82,9 +95,10 @@ if($api_type == "web"){
             $access_page = APPLICATION_PATH."chat_wp.php";
 		break;	 
 		case 'ticket':
-			
+			//file_put_contents('sr.txt', print_r($api_request_data["element_data"],true).PHP_EOL , FILE_APPEND | LOCK_EX);
 			include_once CONTROLLER_PATH.'class.ticket.php';
             $access_page = APPLICATION_PATH."ticket.php";
+			 
 		break;
 			 
 		case 'questionaire': 
@@ -447,6 +461,10 @@ elseif($_REQUEST['action'] == 'createExternalTicket') {
         include_once CONTROLLER_PATH.'class.ticket.php';
         $access_page = APPLICATION_PATH."ticket.php";
 }
+elseif($_REQUEST['action'] == 'kb_file_upload') {
+	include_once CONTROLLER_PATH.'class.category.php';
+	$access_page = APPLICATION_PATH."category.php";
+}
 elseif($_REQUEST['action'] == 'createTicketSignature') {
         include_once CONTROLLER_PATH.'class.ticket.php';
         $access_page = APPLICATION_PATH."ticket.php";
@@ -490,7 +508,16 @@ elseif($_REQUEST['action'] == 'send_internal_chat_message') {
 	include_once CONTROLLER_PATH.'class.chatinternal.php';
     $access_page = APPLICATION_PATH."chat_internal.php";
 }
-
+// cms
+elseif($_REQUEST['action'] == 'cms_create_ticket') {
+        include_once CONTROLLER_PATH.'class.ticket.php';
+        $access_page = APPLICATION_PATH."ticket.php";
+	
+}
+elseif($_REQUEST['action'] == 'cms_reply_ticket') {
+        include_once CONTROLLER_PATH.'class.ticket.php';
+        $access_page = APPLICATION_PATH."ticket.php";
+}
 require_once($access_page);	
 
 ?>
