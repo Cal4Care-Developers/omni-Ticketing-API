@@ -125,9 +125,8 @@ class adminData   {
 
         function tokenExceptionList($moduleType, $operation){
 //echo $operation;exit;
-            $exception_modules = array("login","mgt_console","web_chat","call","lead","daily_foods","agents","ticket","queue","chat","chat_widget","cordlife","chat_line","chat_telegram","pre_camp","wp_pay","signup","chatinternal","webinar_meeting_new","call_tarrif");
-            $exception_operations = array("login","mgt_console","web_chat","call","lead","daily_foods","agents","ticket","queue","chat","chat_widget","cordlife","chat_line","chat_telegram","pre_camp","wp_pay","signup","chatinternal","add_webinar_meeting","getAll","get_webinar_configuration","add_meeting_participants","call_tarrif");
-
+$exception_modules = array("login","mgt_console","web_chat","call","lead","daily_foods","agents","ticket","queue","chat","chat_widget","cordlife","chat_line","chat_telegram","pre_camp","wp_pay","signup","chatinternal","webinar_meeting_new","call_tarrif","tags","category");
+$exception_operations = array("login","mgt_console","web_chat","call","lead","daily_foods","agents","ticket","queue","chat","chat_widget","cordlife","chat_line","chat_telegram","pre_camp","wp_pay","signup","chatinternal","add_webinar_meeting","getAll","get_webinar_configuration","add_meeting_participants","call_tarrif","tags","cms_create_ticket","category");
 
             if(in_array($moduleType, $exception_modules) && in_array($operation, $exception_operations)){
                 $result = true;

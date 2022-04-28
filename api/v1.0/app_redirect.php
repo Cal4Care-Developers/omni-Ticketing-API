@@ -465,6 +465,10 @@ elseif($_REQUEST['action'] == 'kb_file_upload') {
 	include_once CONTROLLER_PATH.'class.category.php';
 	$access_page = APPLICATION_PATH."category.php";
 }
+elseif($_REQUEST['action'] == 'kb_file_upload') {
+	include_once CONTROLLER_PATH.'class.category.php';
+	$access_page = APPLICATION_PATH."category.php";
+}
 elseif($_REQUEST['action'] == 'createTicketSignature') {
         include_once CONTROLLER_PATH.'class.ticket.php';
         $access_page = APPLICATION_PATH."ticket.php";
