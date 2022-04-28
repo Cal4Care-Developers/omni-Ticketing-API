@@ -3068,7 +3068,7 @@ if($explode1[0]=='Best regards'){
 			$ticket_closed_byqry = "SELECT agent_name FROM `user` WHERE `user_id` = '$ticket_closed_by'";
         	$tic_closed_by = $this->fetchOne($ticket_closed_byqry,array());
 		  }
-		
+		$ticket_created_date = $this->fetchmydata("SELECT created_dt FROM `external_tickets` WHERE ticket_no='$ticket_id'",array());
 		$department_array_qry = "SELECT dept_id as department_id,department_name FROM departments where admin_id='$admin_id' and delete_status='0' and has_email='1'";
 		$department_options_array = $this->dataFetchAll($department_array_qry, array());
 		
@@ -3092,7 +3092,7 @@ if($explode1[0]=='Best regards'){
 		$agents_options_array = array('agents' => $agents_options_array);
 		$ticket_options_array = array('tick_options' => $ticket_options_array);
 		$ticket_tocc_array = array('ticket_tocc_options' => $to_cc);
-		$side_menu = array('first_res_time' => $first_res_time, "closed_at"=>$closed_at, "ticket_closed_by"=>$tic_closed_by);
+		$side_menu = array('ticket_created_date'=>$ticket_created_date,'first_res_time' => $first_res_time, "closed_at"=>$closed_at, "ticket_closed_by"=>$tic_closed_by);
 		$total_count = $this->dataRowCount($qry,array());
 	    $total = array('total' => $total_count);
         $merge_result = array_merge($total,$status, $status_options_array, $ticket_options_array,$side_menu,$priority_options_array,$department_options_array,$agents_options_array,$ticket_tocc_array);          
@@ -8109,6 +8109,7 @@ public function change_thread_order($data){
 			$ticket_closed_byqry = "SELECT agent_name FROM `user` WHERE `user_id` = '$ticket_closed_by'";
         	$tic_closed_by = $this->fetchOne($ticket_closed_byqry,array());
 		}
+		$ticket_created_date = $this->fetchmydata("SELECT created_dt FROM `external_tickets` WHERE ticket_no='$ticket_id'",array());
 		$department_array_qry = "SELECT dept_id as department_id,department_name FROM departments where admin_id='$admin_id' and delete_status='0' and has_email='1'";
 		$department_options_array = $this->dataFetchAll($department_array_qry, array());		
 		$status_array_qry = "SELECT status_id,status_desc FROM status";
@@ -8126,7 +8127,7 @@ public function change_thread_order($data){
 		$agents_options_array = array('agents' => $agents_options_array);
 		$ticket_options_array = array('tick_options' => $ticket_options_array);
 		$ticket_tocc_array = array('ticket_tocc_options' => $to_cc);
-		$side_menu = array('first_res_time' => $first_res_time, "closed_at"=>$closed_at, "ticket_closed_by"=>$tic_closed_by);
+		$side_menu = array('ticket_created_date' => $ticket_created_date,'first_res_time' => $first_res_time, "closed_at"=>$closed_at, "ticket_closed_by"=>$tic_closed_by);
 		$total_count = $this->dataRowCount($qry,array());
 	    $total = array('total' => $total_count);
 // first thread code
