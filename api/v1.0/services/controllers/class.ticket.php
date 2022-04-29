@@ -521,7 +521,8 @@ $result = $this->dataFetchAll($detail_qry, array());
 		  $ticket_created_at = $result[$i]['created_dt'];
           $ticket_message = $result[$i]['ticket_message'];
           $ticket_subject = $result[$i]['ticket_subject'];
-			 $spammed = $result[$i]['spammed'];
+		  $spammed = $result[$i]['spammed'];
+		  $ticket_type = $result[$i]['type'];
           $createdby_qry = "SELECT agent_name FROM user WHERE user_id='$ticket_created_by'";              
           $createdby = $this->fetchmydata($createdby_qry,array());			
 		  //$assignedto_qry = "SELECT agent_name FROM user WHERE user_id='$ticket_assigned_to'";              
@@ -550,7 +551,7 @@ $result = $this->dataFetchAll($detail_qry, array());
 			$created_time = date("Y-m-d H:i:s", $time_ago);			
 			//$created_time = $this->get_timeago($created_time2);			
 			//print_r($ticket_created_at); exit;			
-          $ticket_options = array('ticket_no' => $ticket_no, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $assignedto, 'department' => $department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus, 'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'created_time2'=>$created_time2 ,'ticket_from'=>$ticket_from,'ticket_new_status'=>$ticket_new_status,'closed_at'=>$closed_at,'spammed'=>$spammed,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name);
+          $ticket_options = array('ticket_no' => $ticket_no, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $assignedto, 'department' => $department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus, 'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'created_time2'=>$created_time2 ,'ticket_from'=>$ticket_from,'ticket_new_status'=>$ticket_new_status,'closed_at'=>$closed_at,'spammed'=>$spammed,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name,'ticket_type'=>$ticket_type);
           $ticket_options_array[] = $ticket_options;
         }
 		$department_array_qry = "SELECT dept_id as department_id,department_name FROM departments WHERE admin_id='$admin_id' AND delete_status='0' AND has_email='1'";
@@ -588,6 +589,7 @@ else {
 					$ticket_message = $result[$k]['ticket_message'];
 					$ticket_subject = $result[$k]['ticket_subject'];
 					$spammed = $result[$k]['spammed'];
+					$ticket_type = $result[$k]['type'];
 					$createdby_qry = "SELECT agent_name FROM user WHERE user_id='$ticket_created_by'";              
 					$createdby = $this->fetchmydata($createdby_qry,array());
 					$ticket_assigned_to = explode(',',$ticket_assigned_to); 
@@ -608,7 +610,7 @@ else {
 					$time_ago = strtotime($ticket_created_at); 
                     $created_time = $this->time_Ago($time_ago);
 					$created_time = date("Y-m-d H:i:s", $time_ago);
-					$ticket_options = array('ticket_no' => $ticket_no, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $assignedto, 'department' => $department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus, 'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'created_time2'=>$created_time2 ,'ticket_from'=>$ticket_from,'ticket_new_status'=>$ticket_new_status,'closed_at'=>$closed_at,'spammed'=>$spammed,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name);
+					$ticket_options = array('ticket_no' => $ticket_no, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $assignedto, 'department' => $department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus, 'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'created_time2'=>$created_time2 ,'ticket_from'=>$ticket_from,'ticket_new_status'=>$ticket_new_status,'closed_at'=>$closed_at,'spammed'=>$spammed,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name,'ticket_type'=>$ticket_type);
 					$ticket_options_array[] = $ticket_options;
 				} // ticket for loop
 			}
@@ -633,6 +635,7 @@ else {
 					$ticket_message = $result[$k]['ticket_message'];
 					$ticket_subject = $result[$k]['ticket_subject'];
 					$spammed = $result[$k]['spammed'];
+					$ticket_type = $result[$k]['type'];
 					$createdby_qry = "SELECT agent_name FROM user WHERE user_id='$ticket_created_by'";              
 					$createdby = $this->fetchmydata($createdby_qry,array());
 					$ticket_assigned_to = explode(',',$ticket_assigned_to); 
@@ -653,7 +656,7 @@ else {
 					$time_ago = strtotime($ticket_created_at); 
                     $created_time = $this->time_Ago($time_ago);
 					$created_time = date("Y-m-d H:i:s", $time_ago);
-					$ticket_options = array('ticket_no' => $ticket_no, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $assignedto, 'department' => $department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus, 'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'created_time2'=>$created_time2 ,'ticket_from'=>$ticket_from,'ticket_new_status'=>$ticket_new_status,'closed_at'=>$closed_at,'spammed'=>$spammed,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name);
+					$ticket_options = array('ticket_no' => $ticket_no, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $assignedto, 'department' => $department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus, 'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'created_time2'=>$created_time2 ,'ticket_from'=>$ticket_from,'ticket_new_status'=>$ticket_new_status,'closed_at'=>$closed_at,'spammed'=>$spammed,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name,'ticket_type'=>$ticket_type);
 					$ticket_options_array[] = $ticket_options;
 				 } // ticket for loop 				 	
 			} 
@@ -678,6 +681,7 @@ else {
 					$ticket_message = $result[$k]['ticket_message'];
 					$ticket_subject = $result[$k]['ticket_subject'];
 					$spammed = $result[$k]['spammed'];
+					$ticket_type = $result[$k]['type'];
 					$createdby_qry = "SELECT agent_name FROM user WHERE user_id='$ticket_created_by'";              
 					$createdby = $this->fetchmydata($createdby_qry,array());
 					$ticket_assigned_to = explode(',',$ticket_assigned_to); 
@@ -698,7 +702,7 @@ else {
 					$time_ago = strtotime($ticket_created_at); 
                     $created_time = $this->time_Ago($time_ago);
 					$created_time = date("Y-m-d H:i:s", $time_ago);
-					$ticket_options = array('ticket_no' => $ticket_no, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $assignedto, 'department' => $department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus, 'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'created_time2'=>$created_time2 ,'ticket_from'=>$ticket_from,'ticket_new_status'=>$ticket_new_status,'closed_at'=>$closed_at,'spammed'=>$spammed,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name);
+					$ticket_options = array('ticket_no' => $ticket_no, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $assignedto, 'department' => $department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus, 'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'created_time2'=>$created_time2 ,'ticket_from'=>$ticket_from,'ticket_new_status'=>$ticket_new_status,'closed_at'=>$closed_at,'spammed'=>$spammed,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name,'ticket_type'=>$ticket_type);
 					$ticket_options_array[] = $ticket_options;
 				 } // ticket for loop
 			}else if($ticket_status == 'All' && $ticket_department == 'All' && $ticket_user != $user_id){
@@ -722,6 +726,7 @@ else {
 					$ticket_message = $result[$k]['ticket_message'];
 					$ticket_subject = $result[$k]['ticket_subject'];
 					$spammed = $result[$k]['spammed'];
+					$ticket_type = $result[$k]['type'];
 					$createdby_qry = "SELECT agent_name FROM user WHERE user_id='$ticket_created_by'";              
 					$createdby = $this->fetchmydata($createdby_qry,array());
 					$ticket_assigned_to = explode(',',$ticket_assigned_to); 
@@ -742,7 +747,7 @@ else {
 					$time_ago = strtotime($ticket_created_at); 
                     $created_time = $this->time_Ago($time_ago);
 					$created_time = date("Y-m-d H:i:s", $time_ago);
-					$ticket_options = array('ticket_no' => $ticket_no, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $assignedto, 'department' => $department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus, 'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'created_time2'=>$created_time2 ,'ticket_from'=>$ticket_from,'ticket_new_status'=>$ticket_new_status,'closed_at'=>$closed_at,'spammed'=>$spammed,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name);
+					$ticket_options = array('ticket_no' => $ticket_no, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $assignedto, 'department' => $department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus, 'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'created_time2'=>$created_time2 ,'ticket_from'=>$ticket_from,'ticket_new_status'=>$ticket_new_status,'closed_at'=>$closed_at,'spammed'=>$spammed,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name,'ticket_type'=>$ticket_type);
 					$ticket_options_array[] = $ticket_options;
 				} // ticket for loop
 			}  
@@ -767,6 +772,7 @@ else {
 					$ticket_message = $result[$k]['ticket_message'];
 					$ticket_subject = $result[$k]['ticket_subject'];
 					$spammed = $result[$k]['spammed'];
+					$ticket_type = $result[$k]['type'];
 					$createdby_qry = "SELECT agent_name FROM user WHERE user_id='$ticket_created_by'";              
 					$createdby = $this->fetchmydata($createdby_qry,array());
 					$ticket_assigned_to = explode(',',$ticket_assigned_to); 
@@ -787,7 +793,7 @@ else {
 					$time_ago = strtotime($ticket_created_at); 
                     $created_time = $this->time_Ago($time_ago);
 					$created_time = date("Y-m-d H:i:s", $time_ago);
-					$ticket_options = array('ticket_no' => $ticket_no, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $assignedto, 'department' => $department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus, 'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'created_time2'=>$created_time2 ,'ticket_from'=>$ticket_from,'ticket_new_status'=>$ticket_new_status,'closed_at'=>$closed_at,'spammed'=>$spammed,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name);
+					$ticket_options = array('ticket_no' => $ticket_no, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $assignedto, 'department' => $department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus, 'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'created_time2'=>$created_time2 ,'ticket_from'=>$ticket_from,'ticket_new_status'=>$ticket_new_status,'closed_at'=>$closed_at,'spammed'=>$spammed,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name,'ticket_type'=>$ticket_type);
 					$ticket_options_array[] = $ticket_options;
 				} // ticket for loop				
 			}
@@ -5774,7 +5780,8 @@ function get_unassign_tickets($data){
           $ticket_message = $result[$i]['ticket_message'];
           $ticket_subject = $result[$i]['subject'];
 		  $spammed = $result[$i]['spammed'];
-		  $unassign_value = $result[$i]['unassign'];	
+		  $unassign_value = $result[$i]['unassign'];
+		  $ticket_type = $result[$i]['type'];	
           $createdby_qry = "SELECT agent_name FROM user WHERE user_id='$ticket_created_by'";              
           $createdby = $this->fetchmydata($createdby_qry,array());			
 		  //$assignedto_qry = "SELECT agent_name FROM user WHERE user_id='$ticket_assigned_to'";              
@@ -5803,7 +5810,7 @@ function get_unassign_tickets($data){
 		  $created_time = date("Y-m-d H:i:s", $time_ago);			
 		  //$created_time = $this->get_timeago($created_time2);
 		  //print_r($ticket_created_at); exit;			
-          $ticket_options = array('ticket_no' => $ticket_no, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $assignedto, 'department' => $department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus, 'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'created_time2'=>$created_time2 ,'ticket_from'=>$ticket_from,'ticket_new_status'=>$ticket_new_status,'closed_at'=>$closed_at,'spammed'=>$spammed,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name);
+          $ticket_options = array('ticket_no' => $ticket_no, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $assignedto, 'department' => $department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus, 'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'created_time2'=>$created_time2 ,'ticket_from'=>$ticket_from,'ticket_new_status'=>$ticket_new_status,'closed_at'=>$closed_at,'spammed'=>$spammed,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name,'ticket_type'=>$ticket_type);
           $ticket_options_array[] = $ticket_options;
         }
 		//$department_array_qry = "SELECT dept_id as department_id,department_name FROM departments where admin_id='$admin_id' and delete_status='0' and has_email='1'";
@@ -6169,7 +6176,8 @@ function filter_getmyExternalTicket($data){
 		  $ticket_created_at = $result[$i]['created_dt'];
           $ticket_message = $result[$i]['ticket_message'];
           $ticket_subject = $result[$i]['ticket_subject'];
-			 $spammed = $result[$i]['spammed'];
+		  $spammed = $result[$i]['spammed'];
+		  $ticket_type = $result[$i]['type'];
           $createdby_qry = "SELECT agent_name FROM user WHERE user_id='$ticket_created_by'";              
           $createdby = $this->fetchmydata($createdby_qry,array());			
 		  //$assignedto_qry = "SELECT agent_name FROM user WHERE user_id='$ticket_assigned_to'";              
@@ -6198,7 +6206,7 @@ function filter_getmyExternalTicket($data){
 			$created_time = date("Y-m-d H:i:s", $time_ago);			
 			//$created_time = $this->get_timeago($created_time2);			
 			//print_r($ticket_created_at); exit;			
-          $ticket_options = array('ticket_no' => $ticket_no, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $assignedto, 'department' => $department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus, 'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'created_time2'=>$created_time2 ,'ticket_from'=>$ticket_from,'ticket_new_status'=>$ticket_new_status,'closed_at'=>$closed_at,'spammed'=>$spammed,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name);
+          $ticket_options = array('ticket_no' => $ticket_no, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $assignedto, 'department' => $department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus, 'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'created_time2'=>$created_time2 ,'ticket_from'=>$ticket_from,'ticket_new_status'=>$ticket_new_status,'closed_at'=>$closed_at,'spammed'=>$spammed,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name,'ticket_type'=>$ticket_type);
           $ticket_options_array[] = $ticket_options;
         }
 		$department_array_qry = "SELECT dept_id as department_id,department_name FROM departments where admin_id='$admin_id' and delete_status='0' and has_email='1'";
@@ -6273,7 +6281,8 @@ $result = $this->dataFetchAll($detail_qry, array());
 		  $ticket_created_at = $result[$i]['created_dt'];
           $ticket_message = $result[$i]['ticket_message'];
           $ticket_subject = $result[$i]['ticket_subject'];
-			 $spammed = $result[$i]['spammed'];
+          $ticket_type = $result[$i]['type'];
+		  $spammed = $result[$i]['spammed'];
           $createdby_qry = "SELECT agent_name FROM user WHERE user_id='$ticket_created_by'";              
           $createdby = $this->fetchmydata($createdby_qry,array());			
 		  //$assignedto_qry = "SELECT agent_name FROM user WHERE user_id='$ticket_assigned_to'";              
@@ -6302,7 +6311,7 @@ $result = $this->dataFetchAll($detail_qry, array());
 			$created_time = date("Y-m-d H:i:s", $time_ago);			
 			//$created_time = $this->get_timeago($created_time2);			
 			//print_r($ticket_created_at); exit;			
-          $ticket_options = array('ticket_no' => $ticket_no, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $assignedto, 'department' => $department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus, 'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'created_time2'=>$created_time2 ,'ticket_from'=>$ticket_from,'ticket_new_status'=>$ticket_new_status,'closed_at'=>$closed_at,'spammed'=>$spammed,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name);
+          $ticket_options = array('ticket_no' => $ticket_no, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $assignedto, 'department' => $department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus, 'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'created_time2'=>$created_time2 ,'ticket_from'=>$ticket_from,'ticket_new_status'=>$ticket_new_status,'closed_at'=>$closed_at,'spammed'=>$spammed,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name,'ticket_type'=>$ticket_type);
           $ticket_options_array[] = $ticket_options;
         }		
 		}// admin side condition ends here 
@@ -6344,6 +6353,7 @@ $result = $this->dataFetchAll($detail_qry, array());
 							  $ticket_created_at = $result[$i]['created_dt'];
 							  $ticket_message = $result[$i]['ticket_message'];
 							  $ticket_subject = $result[$i]['ticket_subject'];
+							  $ticket_type = $result[$i]['type'];
 							  $spammed = $result[$i]['spammed'];
 							  $createdby_qry = "SELECT agent_name FROM user WHERE user_id='$ticket_created_by'";              
 							  $createdby = $this->fetchmydata($createdby_qry,array());
@@ -6373,7 +6383,7 @@ $result = $this->dataFetchAll($detail_qry, array());
 							  $created_time = date("Y-m-d H:i:s", $time_ago);
 							  //$created_time = $this->get_timeago($created_time2);
 							  //print_r($ticket_created_at); exit;
-							  $ticket_options = array('ticket_no' => $ticket_no, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $assignedto, 'department' => $department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus, 'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'created_time2'=>$created_time2 ,'ticket_from'=>$ticket_from,'ticket_new_status'=>$ticket_new_status,'closed_at'=>$closed_at,'spammed'=>$spammed,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name);
+							  $ticket_options = array('ticket_no' => $ticket_no, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $assignedto, 'department' => $department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus, 'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'created_time2'=>$created_time2 ,'ticket_from'=>$ticket_from,'ticket_new_status'=>$ticket_new_status,'closed_at'=>$closed_at,'spammed'=>$spammed,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name,'ticket_type'=>$ticket_type);
 							  $ticket_options_array[] = $ticket_options;
 						} // ticket for loop					  
 					} // dep user for loop	
@@ -6415,6 +6425,7 @@ $result = $this->dataFetchAll($detail_qry, array());
 							  $ticket_created_at = $result[$i]['created_dt'];
 							  $ticket_message = $result[$i]['ticket_message'];
 							  $ticket_subject = $result[$i]['ticket_subject'];
+							  $ticket_type = $result[$i]['type'];
 							  $spammed = $result[$i]['spammed'];
 							  $createdby_qry = "SELECT agent_name FROM user WHERE user_id='$ticket_created_by'";              
 							  $createdby = $this->fetchmydata($createdby_qry,array());
@@ -6444,7 +6455,7 @@ $result = $this->dataFetchAll($detail_qry, array());
 							  $created_time = date("Y-m-d H:i:s", $time_ago);
 							  //$created_time = $this->get_timeago($created_time2);
 							  //print_r($ticket_created_at); exit;
-							  $ticket_options = array('ticket_no' => $ticket_no, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $assignedto, 'department' => $department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus, 'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'created_time2'=>$created_time2 ,'ticket_from'=>$ticket_from,'ticket_new_status'=>$ticket_new_status,'closed_at'=>$closed_at,'spammed'=>$spammed,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name);
+							  $ticket_options = array('ticket_no' => $ticket_no, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $assignedto, 'department' => $department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus, 'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'created_time2'=>$created_time2 ,'ticket_from'=>$ticket_from,'ticket_new_status'=>$ticket_new_status,'closed_at'=>$closed_at,'spammed'=>$spammed,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name,'ticket_type'=>$ticket_type);
 							  $ticket_options_array[] = $ticket_options;
 						} // ticket for loop					  
 					} // dep user for loop	
