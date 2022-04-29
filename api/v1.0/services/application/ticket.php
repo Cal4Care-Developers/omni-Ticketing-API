@@ -715,4 +715,9 @@ elseif($action == "shared_agent_list"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->shared_agent_list($data);
 }
+elseif($action == "update_spamstatus_settings"){
+    $data = array("dept_id"=>$dept_id,"aliseEmail"=>$aliseEmail,"value"=>$value);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->update_spamstatus_settings($data);
+}
 ?>

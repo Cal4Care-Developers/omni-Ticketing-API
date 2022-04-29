@@ -8410,6 +8410,18 @@ public function shared_agent_list($data){
 	   $tarray = json_encode($result);
 	   print_r($tarray);exit;
 	  }
+}
+public function update_spamstatus_settings($data){
+	extract($data);
+	$qry = "UPDATE department_emails SET `spam_status`='$value' WHERE `aliseEmail` = '$aliseEmail'";	
+	$update_data = $this->db_query($qry, array());
+	if($update_data != 0){
+	 $result = 1;
+	}
+	else{
+	 $result = 0;
+	}
+	return $result;
 }	
 }
 ?>
