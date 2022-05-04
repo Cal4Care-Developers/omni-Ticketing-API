@@ -157,4 +157,13 @@ else if($action == "getYTList"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $category->getYTList($api_url);
 }
+else if($action == "get_list"){
+    $result_data["result"]["status"] = true;
+    $result_data["result"] = $category->get_list();
+}
+else if($action == "get_private_articles"){
+   $data = array("category_id"=>$category_id,"subcategory_id"=>$subcategory_id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"] = $category->get_private_articles($data);
+}
 ?>

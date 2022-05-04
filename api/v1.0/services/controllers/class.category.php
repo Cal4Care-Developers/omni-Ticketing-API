@@ -433,4 +433,19 @@ function getYTList($api_url = '') {
         //var_dump($arr_result); //this line gives you error info if you are not getting a video list.
     }
 }
+
+public function get_list (){
+  $query = "SELECT c.id as category_id,c.category_name,s.id as subcategory_id,s.sub_category_name FROM `category` c LEFT JOIN `subcat` s ON s.id = c.id WHERE c.status=1 ORDER BY c.id DESC";
+  $result = $this->dataFetchAll($query, array());
+  return $result;exit;
+}
+public function get_private_articles($data){
+   extract($data);
+   $dis_query = "SELECT * FROM editpage WHERE display_type=1 AND category_id='$category_id' AND subcat_id='$subcategory_id'";
+   //print_r($dis_query); exit;
+   $result = $this->dataFetchAll($dis_query, array());
+	 $result=array("data"=>$result);
+	 return $result;
+}
+
   }
