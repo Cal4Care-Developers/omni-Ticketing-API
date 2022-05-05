@@ -720,4 +720,29 @@ elseif($action == "update_spamstatus_settings"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->update_spamstatus_settings($data);
 }
+elseif($action == "add_domain_whitelist"){
+    $data = array("admin_id"=>$admin_id,"domain"=>$domain);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->add_domain_whitelist($data);
+}
+elseif($action == "list_domain_whitelist"){
+    $data = array("admin_id"=>$admin_id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->list_domain_whitelist($data);
+}
+elseif($action == "edit_domain_whitelist"){
+    $data = array("id"=>$id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->edit_domain_whitelist($data);
+}
+elseif($action == "update_domain_whitelist"){
+    $data = array("id"=>$id,"admin_id"=>$admin_id,"domain"=>$domain);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->update_domain_whitelist($data);
+}
+elseif($action == "delete_domain_whitelist"){
+    $data = array("id"=>$id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->delete_domain_whitelist($data);
+}
 ?>

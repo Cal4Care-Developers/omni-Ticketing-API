@@ -8422,6 +8422,55 @@ public function update_spamstatus_settings($data){
 	 $result = 0;
 	}
 	return $result;
+}
+public function add_domain_whitelist($data){
+    extract($data);
+    //print_r($data);exit;
+    $qry = "SELECT * FROM domain_whitelist WHERE domain = '$domain' AND admin_id = '$admin_id'";
+    $result = $this->fetchData($qry, array());
+    if($result > 0){
+      $result = 2;
+      return $result;
+    }else {
+	  $domain_concat = "@".$domain;	
+      $datas=array("domain"=>$domain_concat,"admin_id"=>$admin_id,"status"=>"1");
+      $qry = $this->generateCreateQry($datas, "domain_whitelist");
+      $insert_data = $this->db_insert($qry, $datas);           
+      if($insert_data != 0){
+        $result = 1;              
+      }
+      else{                
+        $result = 0;
+      }            
+      return $result;
+    }
+}
+public function list_domain_whitelist ($data){
+  extract($data);
+  $query = "SELECT * FROM `domain_whitelist` WHERE status=1 AND admin_id='$admin_id' ORDER BY id DESC";
+  $result = $this->dataFetchAll($query, array());
+  return $result;
+}
+public function edit_domain_whitelist ($data){
+  extract($data);
+  $query = "SELECT * FROM `domain_whitelist` WHERE id='$id'";
+  $result = $this->fetchData($query, array());
+  return $result;
+}
+public function update_domain_whitelist($data){
+  extract($data);//print_r($data);exit;	
+  $qry = "UPDATE domain_whitelist SET domain='$domain' WHERE id='$id' AND admin_id='$admin_id'";
+  $qry_result = $this->db_query($qry, array());
+  $result = $qry_result == 1 ? 1 : 0;
+  return $result;           
+}
+public function delete_domain_whitelist($data){
+  extract($data);
+  $qry = "DELETE FROM domain_whitelist WHERE id='$id'";
+  $parms = array();
+  $results = $this->db_query($qry,$parms);      
+  $output = $results == 1 ? 1 : 0;    
+  return  $output;
 }	
 }
 ?>
