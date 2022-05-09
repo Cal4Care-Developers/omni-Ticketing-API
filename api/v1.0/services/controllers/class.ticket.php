@@ -8471,6 +8471,56 @@ public function delete_domain_whitelist($data){
   $results = $this->db_query($qry,$parms);      
   $output = $results == 1 ? 1 : 0;    
   return  $output;
+}
+public function add_private_forwardmail($data){
+    extract($data);
+    //print_r($data);exit;
+    $qry = "SELECT * FROM private_forward_list WHERE email = '$email' AND admin_id = '$admin_id'";
+    $result = $this->fetchData($qry, array());
+    if($result > 0){
+      $result = 2;
+      return $result;
+    }else {
+      $datas=array("email"=>$email,"admin_id"=>$admin_id,"status"=>"1");
+	  //print_r($datas);exit;	
+      $qry = $this->generateCreateQry($datas, "private_forward_list");
+      $insert_data = $this->db_insert($qry, $datas); 
+	  //echo $insert_data;exit;	
+      if($insert_data != 0){
+        $result = 1;              
+      }
+      else{                
+        $result = 0;
+      }            
+      return $result;
+    }
+}
+public function list_private_forwardmail ($data){
+  extract($data);
+  $query = "SELECT * FROM `private_forward_list` WHERE status=1 AND admin_id='$admin_id' ORDER BY id DESC";
+  $result = $this->dataFetchAll($query, array());	
+  return $result;
+}
+public function edit_private_forwardmail ($data){
+  extract($data);
+  $query = "SELECT * FROM `private_forward_list` WHERE id='$id'";
+  $result = $this->fetchData($query, array());
+  return $result;
+}
+public function update_private_forwardmail($data){
+  extract($data);//print_r($data);exit;	
+  $qry = "UPDATE private_forward_list SET email='$email' WHERE id='$id' AND admin_id='$admin_id'";
+  $qry_result = $this->db_query($qry, array());
+  $result = $qry_result == 1 ? 1 : 0;
+  return $result;           
+}
+public function delete_private_forwardmail($data){
+  extract($data);
+  $qry = "DELETE FROM private_forward_list WHERE id='$id'";
+  $parms = array();
+  $results = $this->db_query($qry,$parms);      
+  $output = $results == 1 ? 1 : 0;    
+  return  $output;
 }	
 }
 ?>

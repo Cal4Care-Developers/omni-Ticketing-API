@@ -745,4 +745,29 @@ elseif($action == "delete_domain_whitelist"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->delete_domain_whitelist($data);
 }
+elseif($action == "add_private_forwardmail"){
+    $data = array("admin_id"=>$admin_id,"email"=>$email);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->add_private_forwardmail($data);
+}
+elseif($action == "list_private_forwardmail"){
+    $data = array("admin_id"=>$admin_id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->list_private_forwardmail($data);
+}
+elseif($action == "edit_private_forwardmail"){
+    $data = array("id"=>$id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->edit_private_forwardmail($data);
+}
+elseif($action == "update_private_forwardmail"){
+    $data = array("id"=>$id,"admin_id"=>$admin_id,"email"=>$email);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->update_private_forwardmail($data);
+}
+elseif($action == "delete_private_forwardmail"){
+    $data = array("id"=>$id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->delete_private_forwardmail($data);
+}
 ?>
