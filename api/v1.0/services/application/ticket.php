@@ -770,4 +770,29 @@ elseif($action == "delete_private_forwardmail"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->delete_private_forwardmail($data);
 }
+elseif($action == "add_subject_filter"){
+    $data = array("admin_id"=>$admin_id,"subject"=>$subject);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->add_subject_filter($data);
+}
+elseif($action == "list_subject_filter"){
+    $data = array("admin_id"=>$admin_id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->list_subject_filter($data);
+}
+elseif($action == "edit_subject_filter"){
+    $data = array("id"=>$id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->edit_subject_filter($data);
+}
+elseif($action == "update_subject_filter"){
+    $data = array("id"=>$id,"admin_id"=>$admin_id,"subject"=>$subject);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->update_subject_filter($data);
+}
+elseif($action == "delete_subject_filter"){
+    $data = array("id"=>$id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->delete_subject_filter($data);
+}
 ?>

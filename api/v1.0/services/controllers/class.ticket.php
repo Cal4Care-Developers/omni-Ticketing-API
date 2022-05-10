@@ -8521,6 +8521,54 @@ public function delete_private_forwardmail($data){
   $results = $this->db_query($qry,$parms);      
   $output = $results == 1 ? 1 : 0;    
   return  $output;
+}
+public function add_subject_filter($data){
+    extract($data);
+    //print_r($data);exit;
+    $qry = "SELECT * FROM subject_filter WHERE subject = '$subject' AND admin_id = '$admin_id'";
+    $result = $this->fetchData($qry, array());
+    if($result > 0){
+      $result = 2;
+      return $result;
+    }else {	  
+      $datas=array("subject"=>$subject,"admin_id"=>$admin_id);
+      $qry = $this->generateCreateQry($datas, "subject_filter");
+      $insert_data = $this->db_insert($qry, $datas);           
+      if($insert_data != 0){
+        $result = 1;              
+      }
+      else{                
+        $result = 0;
+      }            
+      return $result;
+    }
+}
+public function list_subject_filter ($data){
+  extract($data);
+  $query = "SELECT * FROM `subject_filter` WHERE admin_id='$admin_id' ORDER BY id DESC";
+  $result = $this->dataFetchAll($query, array());
+  return $result;
+}
+public function edit_subject_filter ($data){
+  extract($data);
+  $query = "SELECT * FROM `subject_filter` WHERE id='$id'";
+  $result = $this->fetchData($query, array());
+  return $result;
+}
+public function update_subject_filter($data){
+  extract($data);//print_r($data);exit;	
+  $qry = "UPDATE subject_filter SET subject='$subject' WHERE id='$id' AND admin_id='$admin_id'";
+  $qry_result = $this->db_query($qry, array());
+  $result = $qry_result == 1 ? 1 : 0;
+  return $result;           
+}
+public function delete_subject_filter($data){
+  extract($data);
+  $qry = "DELETE FROM subject_filter WHERE id='$id'";
+  $parms = array();
+  $results = $this->db_query($qry,$parms);      
+  $output = $results == 1 ? 1 : 0;    
+  return  $output;
 }	
 }
 ?>
