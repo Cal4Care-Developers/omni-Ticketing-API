@@ -3113,6 +3113,8 @@ if($explode1[0]=='Best regards'){
 	public function replyMessage($data){
 		extract($data); 
 		file_put_contents('too.txt', print_r($data, true).PHP_EOL , FILE_APPEND | LOCK_EX);
+		$exp_to = explode(',',$to);
+		//print_r($exp_to);exit;
 		$replyCount=$this->fetchOne("SELECT COUNT(ticket_message_id) FROM `external_tickets_data` WHERE ticket_id='$ticket_id' AND repliesd_by='Agent'",array());
 		$replyCount=$this->fetchOne("SELECT COUNT(ticket_message_id) FROM `external_tickets_data` WHERE ticket_id='$ticket_id' AND repliesd_by='Agent'",array());
 		//echo $replyCount;exit;
@@ -3524,7 +3526,14 @@ for($j = 0; $j < count($group_alert_email); $j++){
 $ticket_bcc = array_merge($agentArr, $groupArr);
 $uss = array("ticket_to"=>$replied_from,"ticket_cc"=>$ccs,"ticket_bcc"=>$ticket_bcc,"from"=>$from,"message"=>$messagetoSend,"subject"=>$subject, "ticket_id"=>$ticket_id);
 $autoRespns = $this->autoResponseEmail($uss);
-// reply email alert				 
+// reply email alert
+for($et=0;$t<count($exp_to);$et++){
+	$et_val = $exp_to[$i];
+	$customer_whitelist_qry=$this->fetchOne("SELECT id FROM `customer_whitelist` WHERE email='$et_val'",array());
+	if($customer_whitelist_qry==''){
+		$insertqry_result = $this->db_insert("INSERT INTO customer_whitelist(admin_id,email,status) VALUES ( '64','$et_val','1')", array());
+	}	    
+}				 
 				$status = array('status' => 'true');     
 		        $tarray = json_encode($status);           
                 print_r($tarray);exit;
