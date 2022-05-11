@@ -3528,7 +3528,7 @@ $uss = array("ticket_to"=>$replied_from,"ticket_cc"=>$ccs,"ticket_bcc"=>$ticket_
 $autoRespns = $this->autoResponseEmail($uss);
 // reply email alert
 for($et=0;$t<count($exp_to);$et++){
-	$et_val = $exp_to[$i];
+	$et_val = $exp_to[$et];
 	$customer_whitelist_qry=$this->fetchOne("SELECT id FROM `customer_whitelist` WHERE email='$et_val'",array());
 	if($customer_whitelist_qry==''){
 		$insertqry_result = $this->db_insert("INSERT INTO customer_whitelist(admin_id,email,status) VALUES ( '64','$et_val','1')", array());
