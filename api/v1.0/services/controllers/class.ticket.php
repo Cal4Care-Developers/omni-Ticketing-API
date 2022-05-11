@@ -3527,7 +3527,7 @@ $ticket_bcc = array_merge($agentArr, $groupArr);
 $uss = array("ticket_to"=>$replied_from,"ticket_cc"=>$ccs,"ticket_bcc"=>$ticket_bcc,"from"=>$from,"message"=>$messagetoSend,"subject"=>$subject, "ticket_id"=>$ticket_id);
 $autoRespns = $this->autoResponseEmail($uss);
 // reply email alert
-for($et=0;$t<count($exp_to);$et++){
+for($et=0;$et<count($exp_to);$et++){
 	$et_val = $exp_to[$et];
 	$customer_whitelist_qry=$this->fetchOne("SELECT id FROM `customer_whitelist` WHERE email='$et_val'",array());
 	if($customer_whitelist_qry==''){
