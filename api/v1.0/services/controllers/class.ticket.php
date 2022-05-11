@@ -3112,6 +3112,7 @@ if($explode1[0]=='Best regards'){
 
 	public function replyMessage($data){
 		extract($data); 
+		file_put_contents('too.txt', print_r($data, true).PHP_EOL , FILE_APPEND | LOCK_EX);
 		$replyCount=$this->fetchOne("SELECT COUNT(ticket_message_id) FROM `external_tickets_data` WHERE ticket_id='$ticket_id' AND repliesd_by='Agent'",array());
 		$replyCount=$this->fetchOne("SELECT COUNT(ticket_message_id) FROM `external_tickets_data` WHERE ticket_id='$ticket_id' AND repliesd_by='Agent'",array());
 		//echo $replyCount;exit;
