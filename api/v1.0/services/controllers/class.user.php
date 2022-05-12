@@ -3164,17 +3164,22 @@ if($has_sms==1){
 	</table>
 	<!--[if (IE)]></div><![endif]-->
 </body>
-
 </html>';
+      $smtp_qry = "SELECT * FROM smtp_details WHERE status=1";
+      $smtp_qry_value = $this->fetchData($smtp_qry,array());
+      $hostname = $smtp_qry_value['hostname'];
+      $port = $smtp_qry_value['port'];
+      $username = $smtp_qry_value['username'];
+      $password = $smtp_qry_value['password'];
       $body = $message;                
       $mail = new PHPMailer();
       $mail->IsSMTP();
       $mail->SMTPAuth = true; 
       $mail->SMTPSecure = 'tls';
-      $mail->Host = 'smtpcorp.com';
-      $mail->Port = '2525';
-      $mail->Username = 'erpdev2';
-      $mail->Password = 'dnZ0ZjlyZ3RydzAw';
+      $mail->Host = $hostname;
+      $mail->Port = $port;
+      $mail->Username = $username;
+      $mail->Password = $password;
       $mail->SetFrom($customer_email, $from);
       $mail->AddReplyTo($customer_email, $from);
       $mail->Subject = $subject;
