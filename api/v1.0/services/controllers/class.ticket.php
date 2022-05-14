@@ -3409,7 +3409,8 @@ if($explode1[0]=='Best regards'){
 					$subject = $subject;
 					$te = 'subjectlogs';
 		             file_put_contents('vai.txt', $subject.$te.PHP_EOL , FILE_APPEND | LOCK_EX); 
-                    $body = $messagetoSend;   
+                    $body = $messagetoSend; 
+                    file_put_contents('body.txt', $body.PHP_EOL , FILE_APPEND | LOCK_EX);  
 		//print_r($body); exit;
                     $mail = new PHPMailer();
                     $mail->IsSMTP();
