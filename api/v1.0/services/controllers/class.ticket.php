@@ -8580,6 +8580,19 @@ public function delete_subject_filter($data){
   $results = $this->db_query($qry,$parms);      
   $output = $results == 1 ? 1 : 0;    
   return  $output;
+}
+public function list_customer_whitelist ($data){
+  extract($data);
+  $total_query = "SELECT * FROM `customer_whitelist` WHERE admin_id='$admin_id' ORDER BY id DESC";
+  $query = "SELECT * FROM `customer_whitelist` WHERE admin_id='$admin_id' ORDER BY id DESC LIMIT $limit OFFSET $offset";
+  $result = $this->dataFetchAll($query, array());
+  $total_count = $this->dataRowCount($total_query,array());	
+  $list_info = array('total' => $total_count, 'limit' => $limit, 'offset' => $offset);
+  $merge_result = array('status' => 'true','data'=>$result,'list_info' => $list_info);
+  //$status = array('status' => 'true');	
+  $tarray = json_encode($merge_result);
+  print_r($tarray);exit;	
+  return $merge_result;
 }	
 }
 ?>

@@ -795,4 +795,9 @@ elseif($action == "delete_subject_filter"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->delete_subject_filter($data);
 }
+elseif($action == "list_customer_whitelist"){
+    $data = array("admin_id"=>$admin_id,"limit"=>$limit,"offset"=>$offset);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->list_customer_whitelist($data);
+}
 ?>
