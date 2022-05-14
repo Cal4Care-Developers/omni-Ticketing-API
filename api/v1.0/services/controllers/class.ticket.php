@@ -8594,6 +8594,56 @@ public function list_customer_whitelist ($data){
   $tarray = json_encode($merge_result);
   print_r($tarray);exit;	
   return $merge_result;
-}	
+}
+
+public function get_hasemail_department($admin_id){
+	$dep_query = "SELECT dept_id,department_name FROM `departments` WHERE admin_id='$admin_id' AND has_email=1";
+	$dep_row = $this->dataFetchAll($dep_query,array());
+	return $dep_row;
+  }
+	  
+  public function email_queue_report($data){
+	  extract($data);    
+	  $qry="SELECT * FROM email_queue_report WHERE admin_id='$admin_id' AND spam_status=0";
+	  if($search_text!= ""){
+		  $qry.= " and ticket_no = '$search_text'";       
+	  }
+	  if($from_dt!=''){
+		  $qry.=" and  date(created_time)>='$from_dt'";
+	  }if($to_dt!=''){
+		  $qry.=" and  date(created_time)<='$to_dt'";
+	  }if($dept_id!=''){        
+		  $qry.=" and dept_id = '$dept_id'";
+	  }if($agent_id!=''){
+		  $qry.=" and agent_id = '$agent_id'";
+	  }
+	  $detail_qry = $qry." ORDER BY id DESC LIMIT ".$limit." OFFSET ".$offset  ;
+	  //echo $detail_qry;exit;
+	  $parms = array();
+	  $result["list_data"] = $this->dataFetchAll($detail_qry,array());
+	  $result["list_info"]["total"] = $this->dataRowCount($qry,$parms);
+	  $result["list_info"]["offset"] = $offset;
+	  return $result;     
+  }	
+  public function email_queue_report_export($data){
+	  extract($data);//print_r($data);
+	  $qry="SELECT ticket_no,created_time,dept_name,agent_name,assigned_time,reassign_hit as queue_reassigned_hit,reassign_hit_agent as agent_reassigned_hit,closed_time as agent_close_time,first_response_time FROM email_queue_report WHERE admin_id='$admin_id' AND spam_status=0";
+	  if($from_dt!=''){
+		  $qry.=" and  date(created_time)>='$from_dt'";
+	  }if($to_dt!=''){
+		  $qry.=" and  date(created_time)<='$to_dt'";
+	  }if($dept_id!=''){        
+		  $qry.=" and dept_id = '$dept_id'";
+	  }if($agent_id!=''){
+		  $qry.=" and agent_id = '$agent_id'";
+	  }
+	  $detail_qry = $qry." ORDER BY id DESC";
+	  //echo $qry;exit;
+	  $parms = array();
+	  $result = $this->dataFetchAll($detail_qry,array());
+	  return $result;
+  }
+
+
 }
 ?>

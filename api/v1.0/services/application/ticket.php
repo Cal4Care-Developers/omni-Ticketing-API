@@ -800,4 +800,21 @@ elseif($action == "list_customer_whitelist"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->list_customer_whitelist($data);
 }
+
+elseif($action == "get_hasemail_department"){
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->get_hasemail_department($admin_id);
+}
+
+elseif($action == "email_queue_report"){
+    $data= array("admin_id"=>$admin_id,"limit"=>$limit, "offset"=>$offset,"from_dt"=>$from_dt,"to_dt"=>$to_dt,"agent_id"=>$agent_id,"dept_id"=>$dept_id,"search_text"=>$search_text);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->email_queue_report($data);    
+}
+elseif($action == "email_queue_report_export"){
+    $data= array("admin_id"=>$admin_id,"from_dt"=>$from_dt,"to_dt"=>$to_dt,"agent_id"=>$agent_id,"dept_id"=>$dept_id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->email_queue_report_export($data);
+}
+
 ?>
