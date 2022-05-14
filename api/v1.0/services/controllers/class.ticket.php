@@ -3531,6 +3531,7 @@ for($et=0;$et<count($exp_to);$et++){
 	$et_val = $exp_to[$et];
 	$customer_whitelist_qry=$this->fetchOne("SELECT id FROM `customer_whitelist` WHERE email='$et_val'",array());
 	if($customer_whitelist_qry==''){
+		$delqry_result = $this->db_query("DELETE from spam_mail_ids where email='$et_val'",  array());
 		$insertqry_result = $this->db_insert("INSERT INTO customer_whitelist(admin_id,email,status) VALUES ( '64','$et_val','1')", array());
 	}	    
 }				 
