@@ -5382,10 +5382,10 @@ public function addAgentMailSetting($data){
     $admin_id=$this->fetchOne("select admin_id from user where user_id='$user_id'",array());
     //echo $admin_id;exit;
     if($admin_id=='1'){ 
-        $qry = "select user_id,agent_name,new_email_alert,reply_email_alert,close_email_alert,send_fullthread,share_tickets, 	profile_picture_permission from user where admin_id = '$user_id'".$search_qry;
+        $qry = "select user_id,agent_name,new_email_alert,reply_email_alert,close_email_alert,send_fullthread,share_tickets,profile_picture_permission,short_code from user where admin_id = '$user_id'".$search_qry;
         $detail_qry = $qry." order by user_id DESC LIMIT ".$limit." Offset ".$offset;   
     }else{
-        $qry = "select user_id,agent_name,new_email_alert,reply_email_alert,close_email_alert,send_fullthread,share_tickets, 	profile_picture_permission from user where admin_id = '$admin_id'".$search_qry;
+        $qry = "select user_id,agent_name,new_email_alert,reply_email_alert,close_email_alert,send_fullthread,share_tickets,profile_picture_permission,short_code from user where admin_id = '$admin_id'".$search_qry;
         $detail_qry = $qry." order by user_id DESC LIMIT ".$limit." Offset ".$offset; 
     }
     //echo $detail_qry;exit;
