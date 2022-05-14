@@ -3392,8 +3392,8 @@ if($explode1[0]=='Best regards'){
 		}		
 		$mess = implode('<br>',$mess);
 		$message =  '<div style="font-family: verdana !important;">'.$message.'</div>';
-		//$messagetoSend = $message.'<br> <br>'.$mess;
-		$messagetoSend = $message;
+		$messagetoSend = $message.'<br> <br>'.$mess;
+		//$messagetoSend = $message;
 		if( strpos($to, ',') !== false ) { $tos = explode(',',$to); }
 					$message_id = $this->fetchOne("SELECT ticket_reply_id FROM external_tickets_data WHERE ticket_id = '$ticket_id' and ticket_reply_id !=''",array());
 					if($tic_from == 'user'){
