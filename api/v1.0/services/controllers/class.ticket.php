@@ -8595,7 +8595,50 @@ public function list_customer_whitelist ($data){
   print_r($tarray);exit;	
   return $merge_result;
 }
-
+public function add_customer_whitelist($data){
+    extract($data);
+    //print_r($data);exit;
+    $qry = "SELECT * FROM customer_whitelist WHERE email = '$email' AND admin_id = '$admin_id'";
+    $result = $this->fetchData($qry, array());
+    if($result > 0){
+      $result = 2;
+      return $result;
+    }else {
+      $datas=array("email"=>$email,"admin_id"=>$admin_id,"status"=>"1");
+	  //print_r($datas);exit;	
+      $qry = $this->generateCreateQry($datas, "customer_whitelist");
+      $insert_data = $this->db_insert($qry, $datas); 
+	  //echo $insert_data;exit;	
+      if($insert_data != 0){
+        $result = 1;              
+      }
+      else{                
+        $result = 0;
+      }            
+      return $result;
+    }
+}
+public function edit_customer_whitelist ($data){
+  extract($data);
+  $query = "SELECT * FROM `customer_whitelist` WHERE id='$id'";
+  $result = $this->fetchData($query, array());
+  return $result;
+}
+public function update_customer_whitelist($data){
+  extract($data);//print_r($data);exit;	
+  $qry = "UPDATE customer_whitelist SET email='$email' WHERE id='$id' AND admin_id='$admin_id'";
+  $qry_result = $this->db_query($qry, array());
+  $result = $qry_result == 1 ? 1 : 0;
+  return $result;           
+}
+public function delete_customer_whitelist($data){
+  extract($data);
+  $qry = "DELETE FROM customer_whitelist WHERE id='$id'";
+  $parms = array();
+  $results = $this->db_query($qry,$parms);      
+  $output = $results == 1 ? 1 : 0;    
+  return  $output;
+}
 public function get_hasemail_department($admin_id){
 	$dep_query = "SELECT dept_id,department_name FROM `departments` WHERE admin_id='$admin_id' AND has_email=1";
 	$dep_row = $this->dataFetchAll($dep_query,array());

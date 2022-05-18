@@ -800,7 +800,26 @@ elseif($action == "list_customer_whitelist"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->list_customer_whitelist($data);
 }
-
+elseif($action == "add_customer_whitelist"){
+    $data = array("admin_id"=>$admin_id,"email"=>$email);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->add_customer_whitelist($data);
+}
+elseif($action == "edit_customer_whitelist"){
+    $data = array("id"=>$id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->edit_customer_whitelist($data);
+}
+elseif($action == "update_customer_whitelist"){
+    $data = array("id"=>$id,"admin_id"=>$admin_id,"email"=>$email);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->update_customer_whitelist($data);
+}
+elseif($action == "delete_customer_whitelist"){
+    $data = array("id"=>$id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->delete_customer_whitelist($data);
+}
 elseif($action == "get_hasemail_department"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->get_hasemail_department($admin_id);
