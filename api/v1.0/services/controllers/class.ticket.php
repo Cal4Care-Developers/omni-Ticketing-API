@@ -5102,7 +5102,7 @@ $qry = "UPDATE external_tickets SET is_spam='$spam_status',status_del='$nstatus'
 		$department_array_qry = "SELECT dept_id as department_id,department_name FROM departments where admin_id='$admin_id' and delete_status='0'";
 		$department_options_array = $this->dataFetchAll($department_array_qry, array());
 			
-			//print_r($department_array_qry); print_r($department_options_array); exit;
+		//print_r($department_array_qry); print_r($department_options_array); exit;
 		//$status_options_array = $this->dataFetchAll($status_array_qry, array());
 		$status_options_array = $status_array_qry;
 		
@@ -8626,10 +8626,17 @@ public function edit_customer_whitelist ($data){
 }
 public function update_customer_whitelist($data){
   extract($data);//print_r($data);exit;	
-  $qry = "UPDATE customer_whitelist SET email='$email' WHERE id='$id' AND admin_id='$admin_id'";
-  $qry_result = $this->db_query($qry, array());
-  $result = $qry_result == 1 ? 1 : 0;
-  return $result;           
+  $select_qry = "SELECT * FROM customer_whitelist WHERE email = '$email' AND admin_id = '$admin_id'";
+  $result = $this->fetchData($select_qry, array());
+  if($result > 0){
+    $result = 2;
+    return $result;
+  }else{
+    $qry = "UPDATE customer_whitelist SET email='$email' WHERE id='$id' AND admin_id='$admin_id'";
+    $qry_result = $this->db_query($qry, array());
+    $result = $qry_result == 1 ? 1 : 0;
+    return $result;
+  }           
 }
 public function delete_customer_whitelist($data){
   extract($data);
