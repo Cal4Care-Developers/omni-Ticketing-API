@@ -8693,6 +8693,35 @@ public function get_hasemail_department($admin_id){
 	  $result = $this->dataFetchAll($detail_qry,array());
 	  return $result;
   }
+  public function add_custom_customer($data){
+    extract($data);
+    //print_r($data);exit;
+    $qry = "SELECT * FROM ticket_customer WHERE customer_name = '$customer_name' AND admin_id = '$admin_id' AND customer_email IN ('$customer_email')";
+	//echo $qry;exit;
+    $result = $this->fetchData($qry, array());
+    if($result > 0){
+      $result = 2;
+      return $result;
+    }else {
+      $datas=array("customer_name"=>$customer_name,"admin_id"=>$admin_id,"customer_email"=>$customer_email,"phone_number"=>$phone_number,"country"=>$country);
+	  //print_r($datas);exit;	
+      //$qry = $this->generateCreateQry($datas, "ticket_customer");
+      //$insert_data = $this->db_insert($qry, $datas); 
+	  //echo $insert_data;exit;
+	  $no = $this->db_insert("INSERT INTO ticket_customer(customer_name,admin_id,customer_email,phone_number,country) VALUES ( '$customer_name','$admin_id','$customer_email','$phone_number','$country')", array());	
+      if($no != 0){
+		$customer_id = $no.'_'.$admin_id;
+		$customer_code = "D".$customer_id;
+        $qry = "UPDATE `ticket_customer` SET  `customer_id` = '$customer_id',`customer_code` = '$customer_code' WHERE `id` = '$no'";
+        $resultss = $this->db_query($qry, $params);
+        $result = 1;              
+      }
+      else{                
+        $result = 0;
+      }            
+      return $result;
+    }
+}
 
 
 }

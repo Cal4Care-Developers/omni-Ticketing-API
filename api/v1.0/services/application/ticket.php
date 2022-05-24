@@ -835,5 +835,10 @@ elseif($action == "email_queue_report_export"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->email_queue_report_export($data);
 }
+elseif($action == "add_custom_customer"){
+    $data = array("admin_id"=>$admin_id,"customer_name"=>$customer_name,"customer_email"=>$customer_email,"phone_number"=>$phone_number,"country"=>$country);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->add_custom_customer($data);
+}
 
 ?>
