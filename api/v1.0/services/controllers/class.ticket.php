@@ -7875,7 +7875,7 @@ public function merge_ticket($data){
 }
 public function geterpCustomerDetasils($admin_id){ 
 	//echo $admin_id;exit;
-    $curl = curl_init();
+    /*$curl = curl_init();
     curl_setopt_array($curl, array(
       CURLOPT_URL => 'https://erp.cal4care.com/erp/apps/index.php',
       CURLOPT_RETURNTRANSFER => true,
@@ -7900,7 +7900,10 @@ public function geterpCustomerDetasils($admin_id){
     ));
     $response = curl_exec($curl);
     curl_close($curl);
-    print_r($response);exit;
+    print_r($response);exit;*/
+    $query = "SELECT customerId, customerName, customerCode, email, country, customerPhone FROM ticket_customer WHERE admin_id='$admin_id' GROUP BY customer_id ORDER BY id DESC";
+    $result = $this->dataFetchAll($query,array());
+    return $result;
 }
 public function editCustomer($data){ 
 	extract($data);//print_r($data);exit;
@@ -8722,7 +8725,6 @@ public function get_hasemail_department($admin_id){
       return $result;
     }
 }
-
 
 }
 ?>

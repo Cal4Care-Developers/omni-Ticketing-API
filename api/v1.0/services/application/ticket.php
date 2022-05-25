@@ -840,5 +840,4 @@ elseif($action == "add_custom_customer"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->add_custom_customer($data);
 }
-
 ?>
