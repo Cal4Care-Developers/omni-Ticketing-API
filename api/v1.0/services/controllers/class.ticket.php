@@ -8507,6 +8507,9 @@ public function add_private_forwardmail($data){
       $insert_data = $this->db_insert($qry, $datas); 
 	  //echo $insert_data;exit;	
       if($insert_data != 0){
+      	$datas1=array("email"=>$email,"admin_id"=>$admin_id,"status"=>"1");	
+        $qry1 = $this->generateCreateQry($datas1, "customer_whitelist");
+        $insert_data1 = $this->db_insert($qry1, $datas);
         $result = 1;              
       }
       else{                
