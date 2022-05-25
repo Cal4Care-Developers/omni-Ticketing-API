@@ -587,7 +587,8 @@ else {
 					$priority = $result[$k]['priority'];
 					$ticket_created_at = $result[$k]['created_dt'];
 					$ticket_message = $result[$k]['ticket_message'];
-					$ticket_subject = $result[$k]['ticket_subject'];
+					//$ticket_subject = $result[$k]['ticket_subject'];
+					$ticket_subject= $this->fetchOne("Select ticket_subject from external_tickets where ticket_no='$ticket_no'", array());
 					$spammed = $result[$k]['spammed'];
 					$ticket_type = $result[$k]['type'];
 					$createdby_qry = "SELECT agent_name FROM user WHERE user_id='$ticket_created_by'";              
@@ -633,7 +634,8 @@ else {
 					$priority = $result[$k]['priority'];
 					$ticket_created_at = $result[$k]['created_dt'];
 					$ticket_message = $result[$k]['ticket_message'];
-					$ticket_subject = $result[$k]['ticket_subject'];
+					//$ticket_subject = $result[$k]['ticket_subject'];
+					$ticket_subject= $this->fetchOne("Select ticket_subject from external_tickets where ticket_no='$ticket_no'", array());
 					$spammed = $result[$k]['spammed'];
 					$ticket_type = $result[$k]['type'];
 					$createdby_qry = "SELECT agent_name FROM user WHERE user_id='$ticket_created_by'";              
@@ -679,7 +681,8 @@ else {
 					$priority = $result[$k]['priority'];
 					$ticket_created_at = $result[$k]['created_dt'];
 					$ticket_message = $result[$k]['ticket_message'];
-					$ticket_subject = $result[$k]['ticket_subject'];
+					//$ticket_subject = $result[$k]['ticket_subject'];
+					$ticket_subject= $this->fetchOne("Select ticket_subject from external_tickets where ticket_no='$ticket_no'", array());
 					$spammed = $result[$k]['spammed'];
 					$ticket_type = $result[$k]['type'];
 					$createdby_qry = "SELECT agent_name FROM user WHERE user_id='$ticket_created_by'";              
@@ -724,7 +727,8 @@ else {
 					$priority = $result[$k]['priority'];
 					$ticket_created_at = $result[$k]['created_dt'];
 					$ticket_message = $result[$k]['ticket_message'];
-					$ticket_subject = $result[$k]['ticket_subject'];
+					//$ticket_subject = $result[$k]['ticket_subject'];
+					$ticket_subject= $this->fetchOne("Select ticket_subject from external_tickets where ticket_no='$ticket_no'", array());
 					$spammed = $result[$k]['spammed'];
 					$ticket_type = $result[$k]['type'];
 					$createdby_qry = "SELECT agent_name FROM user WHERE user_id='$ticket_created_by'";              
@@ -770,7 +774,8 @@ else {
 					$priority = $result[$k]['priority'];
 					$ticket_created_at = $result[$k]['created_dt'];
 					$ticket_message = $result[$k]['ticket_message'];
-					$ticket_subject = $result[$k]['ticket_subject'];
+					//$ticket_subject = $result[$k]['ticket_subject'];
+					$ticket_subject= $this->fetchOne("Select ticket_subject from external_tickets where ticket_no='$ticket_no'", array());
 					$spammed = $result[$k]['spammed'];
 					$ticket_type = $result[$k]['type'];
 					$createdby_qry = "SELECT agent_name FROM user WHERE user_id='$ticket_created_by'";              
