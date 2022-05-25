@@ -7906,7 +7906,7 @@ public function geterpCustomerDetasils($admin_id){
     $response = curl_exec($curl);
     curl_close($curl);
     print_r($response);exit;*/
-    $query = "SELECT customerId, customerName, customerCode, email, country, customerPhone FROM ticket_customer WHERE admin_id='$admin_id' GROUP BY customer_id ORDER BY id DESC";
+    $query = "SELECT customer_id, customer_name, customer_code, customer_email, country, phone_number FROM ticket_customer WHERE admin_id='$admin_id' GROUP BY customer_id ORDER BY id DESC;";
     $result = $this->dataFetchAll($query,array());
     return $result;
 }
