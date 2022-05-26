@@ -3284,14 +3284,16 @@ if($explode1[0]=='Best regards'){
 			//$filename = $_FILES['up_files']['name'][$index];
 			$filename = pathinfo($_FILES['up_files']['name'][$index], PATHINFO_FILENAME);
 			$rand = rand(0000,9999).time();
-			$ext = pathinfo($_FILES['up_files']['name'][$index], PATHINFO_EXTENSION);
+			//$ext = pathinfo($_FILES['up_files']['name'][$index], PATHINFO_EXTENSION);
+			$ext = mime_content_type($_FILES['up_files']['name'][$index]);
 			$filename = $filename.$rand.'.'.$ext;		   
 			$path = $upload_location.$filename;
 				if(move_uploaded_file($_FILES['up_files']['tmp_name'][$index],$path)){
 						$files_arr[] =  "https://".$_SERVER['SERVER_NAME']."/api/v1.0/ext-ticket-image/".$filename;
 				}
 
-		}									  
+		}
+		file_put_contents('ry.txt', print_r($files_arr,true).PHP_EOL , FILE_APPEND | LOCK_EX);								  
 		 $files_array = $files_arr;
 		//$ticketMedia = implode(",",$files_arr);	
 		$files_arr = implode(",",$files_arr);
@@ -3491,7 +3493,9 @@ if($explode1[0]=='Best regards'){
 		//echo $qryss;exit;	
 		//file_put_contents('vaithee.txt', $qryss.PHP_EOL , FILE_APPEND | LOCK_EX);
 		$resultss = $this->db_query($qryss, $params);
-		$message = str_replace("'","\n",$message);				
+		$message = str_replace("'","\n",$message);	
+		$ry = "INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,repliesd_by,created_dt,user_id,only_message,only_signature,all_replied_to,all_replied_cc) VALUES ( '$ticket_id','$message','$subject','$from','$to','$mail_cc','$files_arr','Agent','$created_at','$user_id','$only_msg','$mailSignature','$all_replied_to','$all_replied_cc')";
+		file_put_contents('ry.txt', $ry.PHP_EOL , FILE_APPEND | LOCK_EX);			
 		$qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,repliesd_by,created_dt,user_id,only_message,only_signature,all_replied_to,all_replied_cc) VALUES ( '$ticket_id','$message','$subject','$from','$to','$mail_cc','$files_arr','Agent','$created_at','$user_id','$only_msg','$mailSignature','$all_replied_to','$all_replied_cc')", array());				
 		$result = $qry_result == 1 ? 'mailed' : 'Error';
 				  $dt = date('Y-m-d H:i:s');
