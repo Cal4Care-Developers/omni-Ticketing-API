@@ -3973,8 +3973,8 @@ public function updateTicketStatus($data){
 							$rescontent = "SELECT response_content FROM email_autoresponses WHERE status='1' and admin_id='$admin_id' and response_for='agent_template_assignee'";
 		                    $rescontent_val = $this->fetchOne($rescontent, array());
 		                    $rescontent_val = str_replace('{%Cticket_id%}',$tickNo,$rescontent_val);
-							$rescontent_val = str_replace('{%Cassign_to%}',$user_name,$rescontent_val);
-							$rescontent_val = str_replace('{%Cassign_by%}',$createdby,$rescontent_val);
+							$rescontent_val = str_replace('{%Cassign_to%}',$createdby,$rescontent_val);
+							$rescontent_val = str_replace('{%Cassign_by%}',$user_name,$rescontent_val);
 				            $uss = array("ticket_to"=>$ticket_to_assignee,"ticket_cc"=>"","ticket_bcc"=>"","from"=>$from,"message"=>$rescontent_val,"subject"=>$subject,"ticket_id"=>$ticket_id,"message_id"=>"");
 							$autoRespns = $this->autoResponseEmail($uss);
 						}
