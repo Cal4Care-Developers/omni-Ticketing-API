@@ -4673,6 +4673,7 @@ public function getTicketThread($ticket_id){
 
 
     if($replied_by!='Agent') {
+    	 $replied_from = $this->fetchOne("SELECT replied_from FROM `external_tickets_data` WHERE `ticket_id`='$ticket_id'",array());
          $ticket_message = '<h1 style="font-size: 20px;font-family: verdana !important; text-align: right; background: #00a65a; color: #fff; padding: 10px;margin-top: 0; border-radius: 8px 8px 0 0;"> '.$replied_from.'</h1>'.$ticket_messages;
 	} else {
 		$reps= $this->fetchData("SELECT profile_image,user_name,agent_name,profile_picture_permission FROM user where user_id='$ticket_user' ",array());
