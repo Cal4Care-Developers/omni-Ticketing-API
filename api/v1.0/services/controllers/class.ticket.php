@@ -3956,7 +3956,8 @@ public function updateTicketStatus($data){
 							$repM = str_replace('{%Cassign_to%}',$createdby,$repM);
 							$repM = str_replace('{%Cassign_by%}',$user_name,$repM);	
 							$ticket_to = $this->fetchOne("SELECT email_id FROM `user` where user_id='$agent_id'",array());
-							$subject = "New Ticket Alert";$from = 'no-reply@cal4care.com';
+							$subject = "New Ticket Alert";
+							$from = 'no-reply@cal4care.com';
 				$uss = array("ticket_to"=>$ticket_to,"ticket_cc"=>"","ticket_bcc"=>"","from"=>$from,"message"=>$repM,"subject"=>$subject,"ticket_id"=>$ticket_id,"message_id"=>"");							
 							$autoRespns = $this->autoResponseEmail($uss);
 						}
