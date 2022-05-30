@@ -3955,16 +3955,11 @@ public function updateTicketStatus($data){
 							$repM = str_replace('{%Cticket_id%}',$tickNo,$repM);
 							$repM = str_replace('{%Cassign_to%}',$createdby,$repM);
 							$repM = str_replace('{%Cassign_by%}',$user_name,$repM);
-$messages = $this->getTicketThread($ticket_id);
-foreach($messages as $m){
-  $mess[] = '<div style="border: 1px solid #d1d1d1;font-family: verdana !important; border-radius: 8px; padding: 12px; margin-bottom: 25px;">'.$m.'</div>';
-}
-$mess = implode('<br>',$mess);
-$messagetoSend = $repM.'<br> <br>'.$mess;	
+								
 							$ticket_to = $this->fetchOne("SELECT email_id FROM `user` where user_id='$agent_id'",array());
 							$subject = "New Ticket Alert";
 							$from = 'no-reply@cal4care.com';
-				$uss = array("ticket_to"=>$ticket_to,"ticket_cc"=>"","ticket_bcc"=>"","from"=>$from,"message"=>$messagetoSend,"subject"=>$subject,"ticket_id"=>$ticket_id,"message_id"=>"");							
+				$uss = array("ticket_to"=>$ticket_to,"ticket_cc"=>"","ticket_bcc"=>"","from"=>$from,"message"=>$repM,"subject"=>$subject,"ticket_id"=>$ticket_id,"message_id"=>"");							
 							$autoRespns = $this->autoResponseEmail($uss);
 						}
 					}
