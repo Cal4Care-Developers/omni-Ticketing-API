@@ -3284,8 +3284,8 @@ if($explode1[0]=='Best regards'){
 			//$filename = $_FILES['up_files']['name'][$index];
 			$filename = pathinfo($_FILES['up_files']['name'][$index], PATHINFO_FILENAME);
 			$rand = rand(0000,9999).time();
-			//$ext = pathinfo($_FILES['up_files']['name'][$index], PATHINFO_EXTENSION);
-			$ext = mime_content_type($_FILES['up_files']['name'][$index]);
+			$ext = pathinfo($_FILES['up_files']['name'][$index], PATHINFO_EXTENSION);
+			//$ext = mime_content_type($_FILES['up_files']['name'][$index]);
 			$filename = $filename.$rand.'.'.$ext;		   
 			$path = $upload_location.$filename;
 				if(move_uploaded_file($_FILES['up_files']['tmp_name'][$index],$path)){
