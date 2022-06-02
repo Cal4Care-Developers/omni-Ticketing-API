@@ -8858,7 +8858,7 @@ public function change_from_function($data){
 	   }
    }else{
 	   $customer_name = $this->fetchOne("SELECT customer_name FROM `ticket_customer` WHERE customer_id = '$customer_id'",array());	
-	   $qry = "UPDATE `external_ticket` SET `customer_id` = '$customer_id',`customer_name` = '$customer_name',`ticket_from` = '$cusmail' WHERE `ticket_no` = '$ticket_no'";
+	   $qry = "UPDATE `external_tickets` SET `customer_id` = '$customer_id',`customer_name` = '$customer_name',`ticket_from` = '$cusmail' WHERE `ticket_no` = '$ticket_no'";
        $update_data = $this->db_query($qry, $params);
 	   $result = $update_data == 1 ? 1 : 0;
        return $result;	
