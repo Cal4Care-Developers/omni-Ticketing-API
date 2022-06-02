@@ -6344,7 +6344,7 @@ $result = $this->dataFetchAll($detail_qry, array());
           $ticketstatus = $this->fetchmydata($status_qry,array());
 		  $priority_qry = "SELECT priority FROM priority WHERE id='$priority'";              
           $priority_value = $this->fetchmydata($priority_qry,array());				
-			$time_ago = strtotime($ticket_created_at); 		
+		  $time_ago = strtotime($ticket_created_at); 		
 		 	 $created_time = $this->time_Ago($time_ago);			
 			//$ticket_created_at = Carbon::parse($ticket_created_at);
 			//$created_time =  $ticket_created_at->diffForHumans();			
@@ -7903,7 +7903,7 @@ public function merge_ticket($data){
 }
 public function geterpCustomerDetasils($admin_id){ 
 	//echo $admin_id;exit;
-    /*$curl = curl_init();
+    $curl = curl_init();
     curl_setopt_array($curl, array(
       CURLOPT_URL => 'https://erp.cal4care.com/erp/apps/index.php',
       CURLOPT_RETURNTRANSFER => true,
@@ -7928,10 +7928,10 @@ public function geterpCustomerDetasils($admin_id){
     ));
     $response = curl_exec($curl);
     curl_close($curl);
-    print_r($response);exit;*/
-    $query = "SELECT customer_id, customer_name, customer_code, customer_email, country, phone_number FROM ticket_customer WHERE admin_id='$admin_id' GROUP BY customer_id ORDER BY id DESC;";
-    $result = $this->dataFetchAll($query,array());
-    return $result;
+    print_r($response);exit;
+    //$query = "SELECT customer_id, customer_name, customer_code, customer_email, country, phone_number FROM ticket_customer WHERE admin_id='$admin_id' GROUP BY customer_id ORDER BY id DESC;";
+    //$result = $this->dataFetchAll($query,array());
+    //return $result;
 }
 public function editCustomer($data){ 
 	extract($data);//print_r($data);exit;
@@ -8755,6 +8755,114 @@ public function get_hasemail_department($admin_id){
       }            
       return $result;
     }
+}
+public function customer_search_function($data){
+    extract($data);//print_r($data);exit;
+	$emailArr = array();
+    $qry = "SELECT customer_email FROM `ticket_customer` WHERE customer_email LIKE '%$search_text%'";        
+    $qry_result = $this->dataFetchAll($qry,array());
+    $total_count = $this->dataRowCount($qry,array());
+	//echo $total_count;exit;
+	if($total_count!=0){
+		for($i = 0; $total_count > $i; $i++){
+		  $ticket_customer_email = $qry_result[$i]['customer_email'];
+		  $explode = explode(',', $ticket_customer_email);
+		  //print_r($explode);
+		  foreach($explode as $key => $value){	  
+		   array_push($emailArr,$value);	  
+		  }
+		  //print_r($emailArr);exit;
+		}	
+		$status = array('status' => 'true');	
+		$email_result = array('email' => array_values(array_unique($emailArr)));
+		$merge_result = array_merge($status, $email_result); 		
+		$tarray = json_encode($merge_result);
+		print_r($tarray);
+		exit;
+	}else{
+		$curl = curl_init();
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://erp.cal4care.com/erp/apps/index.php',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS =>'{
+         "operation": "agents",
+         "moduleType": "agents",
+         "api_type": "web",
+         "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0aWNrZXRpbmcubWNvbm5lY3RhcHBzLmNvbSIsImF1ZCI6InRpY2tldGluZy5tY29ubmVjdGFwcHMuY29tIiwiaWF0IjoxNjMwOTMyMTE5LCJuYmYiOjE2MzA5MzIxMTksImV4cCI6MTYzMDk1MDExOSwiYWNjZXNzX2RhdGEiOnsidG9rZW5fYWNjZXNzSWQiOiI2NCIsInRva2VuX2FjY2Vzc05hbWUiOiJTYWxlc0FkbWluIiwidG9rZW5fYWNjZXNzVHlwZSI6IjIifX0.YzdTs9NxXf-KVffqXCNz8cyff-vMwcH8YI9eC8Ji8Fc",
+         "element_data": {
+            "action": "get_customeremail",
+            "search_text": "'.$search_text.'"
+         }
+        }',
+        CURLOPT_HTTPHEADER => array(
+        'Content-Type: application/json'
+        ),
+       ));
+       $response = curl_exec($curl);
+       curl_close($curl);
+       print_r($response);exit;
+   }
+}	
+
+public function change_from_function($data){
+    extract($data);//print_r($data);exit;
+	$emailArr = array();
+	$customer_id = $this->fetchOne("SELECT customer_id FROM `ticket_customer` WHERE customer_email LIKE '%$cusmail%'",array());
+	//echo $customer_id;exit;
+	if($customer_id == ''){
+		$curl = curl_init();
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://erp.cal4care.com/erp/apps/index.php',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS =>'{
+         "operation": "agents",
+         "moduleType": "agents",
+         "api_type": "web",
+         "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0aWNrZXRpbmcubWNvbm5lY3RhcHBzLmNvbSIsImF1ZCI6InRpY2tldGluZy5tY29ubmVjdGFwcHMuY29tIiwiaWF0IjoxNjMwOTMyMTE5LCJuYmYiOjE2MzA5MzIxMTksImV4cCI6MTYzMDk1MDExOSwiYWNjZXNzX2RhdGEiOnsidG9rZW5fYWNjZXNzSWQiOiI2NCIsInRva2VuX2FjY2Vzc05hbWUiOiJTYWxlc0FkbWluIiwidG9rZW5fYWNjZXNzVHlwZSI6IjIifX0.YzdTs9NxXf-KVffqXCNz8cyff-vMwcH8YI9eC8Ji8Fc",
+         "element_data": {
+            "action": "get_customerdetails_byemail",
+            "customer_domain":"'.$cusmail.'"
+         }
+        }',
+        CURLOPT_HTTPHEADER => array(
+        'Content-Type: application/json'
+        ),
+       ));
+       $response = curl_exec($curl);
+       curl_close($curl);
+       $explode_customer_details = explode('||',$response);
+       $ticket_customer_id = $explode_customer_details[0];
+       $ticket_customer_name = $explode_customer_details[1];
+       $ticket_customer_code = $explode_customer_details[2];
+       $ticket_customer_email = $explode_customer_details[3];
+	   if($ticket_customer_id == ''){
+		   $result = 0;
+           return $result; 
+	   }else{		   	
+	       $qry = "UPDATE `external_tickets` SET  `customer_id` = '$ticket_customer_id',`customer_name` = '$ticket_customer_name',`ticket_from` = '$cusmail' WHERE `ticket_no` = '$ticket_no'";
+           $update_data = $this->db_query($qry, $params);
+	       $result = $update_data == 1 ? 1 : 0;
+           return $result;
+	   }
+   }else{
+	   $customer_name = $this->fetchOne("SELECT customer_name FROM `ticket_customer` WHERE customer_id = '$customer_id'",array());	
+	   $qry = "UPDATE `external_ticket` SET `customer_id` = '$customer_id',`customer_name` = '$customer_name',`ticket_from` = '$cusmail' WHERE `ticket_no` = '$ticket_no'";
+       $update_data = $this->db_query($qry, $params);
+	   $result = $update_data == 1 ? 1 : 0;
+       return $result;	
+   }
 }
 
 }

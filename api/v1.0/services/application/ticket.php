@@ -840,4 +840,14 @@ elseif($action == "add_custom_customer"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->add_custom_customer($data);
 }
+elseif($action == "customer_search_function"){
+    $data = array("admin_id"=>$admin_id,"search_text"=>$search_text);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->customer_search_function($data);
+}
+elseif($action == "change_from_function"){
+    $data = array("admin_id"=>$admin_id,"cusmail"=>$cusmail,"ticket_no"=>$ticket_no);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->change_from_function($data);
+}
 ?>
