@@ -2238,10 +2238,7 @@ if(substr( $subject, 0, 3 ) === "Fw:" || substr( $subject, 0, 3 ) === "FW:" || s
 					}					
 					$qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,ticket_reply_id,created_dt,all_replied_to,all_replied_cc) VALUES ( '$ticket_no','$message','$subject','$from','$to_original','$maillcc','$attachments','$ticket_reply_id','$created_at','$from','$cc')", array());
 				}
-				if($comments!=''){
-				    $notes_user_name=$this->fetchOne("SELECT agent_name FROM `user` WHERE user_id='$agent_short_code'",array());
-				    $this->db_insert("INSERT INTO external_ticket_notes(ticket_reply_id,ticket_notes,created_by,created_name,created_dt) VALUES ($ticket_message_id,'$ticket_notes',$agent_short_code,'$notes_user_name','$created_at')", array());
-				}
+				
 				if($spam_status > 0){
 					echo 'SpamListed';
 						exit;
@@ -3433,7 +3430,12 @@ if($explode1[0]=='Best regards'){
                     $mail->Port = $port;                    // set the SMTP port for the GMAIL server
                     $mail->Username = $username; // SMTP account username
                     $mail->Password = $password;        // SMTP account password 
-                    $mail->SetFrom($from);
+                    if($from=='globalsales@mconnectapps.com'){
+                    	$names = 'Global Sales Mconnect';
+                    	$mail->SetFrom($names,$from);
+                    }else{
+                        $mail->SetFrom($from);  
+                    }                    
                     $mail->Subject = $subject;
 					$mail->MsgHTML($body);
 					$mail->IsHTML(true);
