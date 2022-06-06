@@ -1056,7 +1056,7 @@ else {
 					exit;	
 				}				
 				//$qry = "SELECT sig_content FROM email_signatures WHERE is_default='1' and admin_id='$dmin_id' and user_id='$admin_id' ";
-				$qry = "SELECT sig_content FROM email_signatures WHERE admin_id='$dmin_id' and dept_id='$dept'";
+				$qry = "SELECT sig_content FROM email_signatures WHERE admin_id='$admin_id' and dept_id='$dept'";
 				$mailSignature = $this->fetchOne($qry,array());
 				if($mailSignature){	
 					$repM =  $repM.$mailSignature;
