@@ -2217,7 +2217,7 @@ if(substr( $subject, 0, 3 ) === "Fw:" || substr( $subject, 0, 3 ) === "FW:" || s
 				$get_alise=$this->fetchOne("SELECT aliseEmail FROM `department_emails` where emailAddr='$to2'",array());
 				if(substr( $subject, 0, 3 ) === "Re:" || substr( $subject, 0, 3 ) === "RE:"){
 					$maillcc = implode(',',$ccmailARR);
-				$qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,ticket_reply_id,created_dt,all_replied_to,all_replied_cc) VALUES ( '$ticket_no','$message','$subject','$Toarr[0]','$to_original','$maillcc','$attachments','$ticket_reply_id','$created_at','$Toarr[0]','$cc')", array());
+				    $qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,ticket_reply_id,created_dt,all_replied_to,all_replied_cc) VALUES ( '$ticket_no','$message','$subject','$Toarr[0]','$to_original','$maillcc','$attachments','$ticket_reply_id','$created_at','$Toarr[0]','$cc')", array());
 				}elseif(substr( $subject, 0, 3 ) === "Fw:" || substr( $subject, 0, 3 ) === "FW:"){
 					$expfrom = explode('<',$from);
                     $str_fm = str_replace('>', '', $expfrom[1]);
@@ -2236,6 +2236,10 @@ if(substr( $subject, 0, 3 ) === "Fw:" || substr( $subject, 0, 3 ) === "FW:" || s
 					  $attachments = $fattachments;
 					}					
 					$qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,ticket_reply_id,created_dt,all_replied_to,all_replied_cc) VALUES ( '$ticket_no','$message','$subject','$from','$to_original','$maillcc','$attachments','$ticket_reply_id','$created_at','$from','$cc')", array());
+				}
+				if($comments!=''){
+				    $notes_user_name=$this->fetchOne("SELECT agent_name FROM `user` WHERE user_id='$agent_short_code'",array());
+				    $this->db_insert("INSERT INTO external_ticket_notes(ticket_reply_id,ticket_notes,created_by,created_name,created_dt) VALUES ($ticket_message_id,'$ticket_notes',$agent_short_code,'$notes_user_name','$created_at')", array());
 				}
 				if($spam_status > 0){
 					echo 'SpamListed';
@@ -4686,6 +4690,11 @@ public function getTicketThread($ticket_id){
     if($replied_by!='Agent') {
     	 $replied_from = $this->fetchOne("SELECT replied_from FROM `external_tickets_data` WHERE `ticket_id`='$ticket_id'",array());
     	 $cus_com_name = $this->fetchOne("SELECT customer_name FROM `external_tickets` WHERE `ticket_no`='$ticket_id'",array());
+    	 if($cus_com_name=='Not a customer'){
+    	 	$cus_com_name = 'Prospect';
+    	 }else{
+    	 	$cus_com_name = $cus_com_name;
+    	 }
          $ticket_message = '<h1 style="font-size: 20px;font-family: verdana !important; text-align: right; background: #00a65a; color: #fff; padding: 10px;margin-top: 0; border-radius: 8px 8px 0 0;"> '.$cus_com_name.'</h1>'.$ticket_messages;
 	} else {
 		$reps= $this->fetchData("SELECT profile_image,user_name,agent_name,profile_picture_permission FROM user where user_id='$ticket_user' ",array());

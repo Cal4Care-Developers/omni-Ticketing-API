@@ -114,7 +114,7 @@ elseif($action == "export_ticket_reports"){
     $result_data["result"]["data"] = $ticket->export_ticket_reports($data);
 }
 elseif($action == "add_notAssigned_tickets"){ 
-    $data = array("from"=>$from, "to"=>$to,"subject"=>$subject,"message"=>$message,"attachments"=>$attachments,"ticket_reply_id"=>$ticket_reply_id,"to_mail"=>$to_mail,"cc_mail"=>$cc_mail,"agent_short_code"=>$agent_short_code,"forward_from"=>$forward_from,"forward_to"=>$forward_to,"forward_cc"=>$forward_cc,"fattachments"=>$fattachments);
+    $data = array("from"=>$from, "to"=>$to,"subject"=>$subject,"message"=>$message,"attachments"=>$attachments,"ticket_reply_id"=>$ticket_reply_id,"to_mail"=>$to_mail,"cc_mail"=>$cc_mail,"agent_short_code"=>$agent_short_code,"forward_from"=>$forward_from,"forward_to"=>$forward_to,"forward_cc"=>$forward_cc,"fattachments"=>$fattachments,"comments"=>$comments);
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->add_notAssigned_tickets($data);
 }
