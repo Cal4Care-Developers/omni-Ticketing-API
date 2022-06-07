@@ -3430,12 +3430,7 @@ if($explode1[0]=='Best regards'){
                     $mail->Port = $port;                    // set the SMTP port for the GMAIL server
                     $mail->Username = $username; // SMTP account username
                     $mail->Password = $password;        // SMTP account password 
-                    if($from=='globalsales@mconnectapps.com'){
-                    	$names = 'Global Sales Mconnect';
-                    	$mail->SetFrom($names,$from);
-                    }else{
-                        $mail->SetFrom($from);  
-                    }                    
+                    $mail->SetFrom($from);                   
                     $mail->Subject = $subject;
 					$mail->MsgHTML($body);
 					$mail->IsHTML(true);
