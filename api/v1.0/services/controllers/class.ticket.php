@@ -3123,7 +3123,6 @@ if($explode1[0]=='Best regards'){
 		$exp_to = explode(',',$to);
 		//print_r($exp_to);exit;
 		$replyCount=$this->fetchOne("SELECT COUNT(ticket_message_id) FROM `external_tickets_data` WHERE ticket_id='$ticket_id' AND repliesd_by='Agent'",array());
-		$replyCount=$this->fetchOne("SELECT COUNT(ticket_message_id) FROM `external_tickets_data` WHERE ticket_id='$ticket_id' AND repliesd_by='Agent'",array());
 		//echo $replyCount;exit;
 		//file_put_contents('msg.txt', $replyCount.PHP_EOL , FILE_APPEND | LOCK_EX);
 		if($replyCount==0){	
@@ -4700,7 +4699,7 @@ public function getTicketThread($ticket_id){
 		if($permissions==0){
 		if($rep_img ==''){ $rep_img='https://omni.mconnectapps.com/assets/images/user.jpg';}
 		 //$ticket_message = '<p style="font-size: 20px;background: #808080;font-family: verdana !important; color: #000000f7 !important; font-weight: 700;padding: 10px; margin-top: 0; border-radius: 8px 8px 0 0;"><img src="'.$rep_img.'"  width="40" height="40" style="background-color:transparent;border-radius: 15px;border:5px solid #d1d1d1">'.$rep_name.'</p>'.$ticket_messages;
-			$ticket_message = '<div style="font-size:20px;background:#808080;font-family:verdana!important;color:#000000f7!important;font-weight:700;padding:10px;margin-top:0;border-radius:8px 8px 0 0;float: left;width: 100%;"><img src="'.$rep_img.'"  width="26" height="26" style="float:left;background-color:transparent;border-radius:15px;border: 4px solid #d1d1d1;display: inline-block;margin-right: 15px;"><div>'.$rep_name.'</div></div>'.$ticket_messages;
+			$ticket_message = '<div style="font-size:20px;background:#808080;font-family:verdana!important;color:#000000f7!important;font-weight:700;padding:10px 0px;margin-top:0;border-radius:8px 8px 0 0;float: left;width: 100%;display;flex; align-items: center; "><img src="'.$rep_img.'" width="26" height="26" style="float:left;background-color:transparent;border-radius:15px;border: 4px solid #d1d1d1;display: inline-block;margin-right: 15px; margin-left: 10px;"><div>'.$rep_name.'</div></div>'.$ticket_messages;
 		}else{
 		 $ticket_message = '<p style="font-size: 20px;background: #808080;font-family: verdana !important; color: #000000f7 !important; font-weight: 700;padding: 10px; margin-top: 0; border-radius: 8px 8px 0 0;">'.$rep_name.'</p>'.$ticket_messages;
 		}
