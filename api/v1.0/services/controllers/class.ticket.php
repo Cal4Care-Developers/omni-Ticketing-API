@@ -1848,7 +1848,10 @@ if($check_user!=''){
 		 //file_put_contents('dat.txt', $te.PHP_EOL , FILE_APPEND | LOCK_EX);exit;
 	   $from = $from;
 	   $cc = str_replace('[','(',$cc_mail);
-	   $cc = str_replace(']',')',$cc);	 
+	   $cc = str_replace(']',')',$cc);
+	   $cc = str_replace('(','',$cc);
+       $cc = str_replace(')','',$cc);
+       $cc = str_replace('"','',$cc);	 
 	   //$qry = "SELECT aliseEmail FROM `department_emails` WHERE aliseEmail REGEXP '$rep4'"; 
 	   $qry = "SELECT aliseEmail FROM `department_emails` WHERE aliseEmail = '$Toarr[0]'";   
        $to_original = $this->fetchOne($qry,array());
@@ -1857,6 +1860,9 @@ if($check_user!=''){
 	   $from = $from;
 	   $cc = str_replace('[','(',$cc_mail);
 	   $cc = str_replace(']',')',$cc);
+	   $cc = str_replace('(','',$cc);
+       $cc = str_replace(')','',$cc);
+       $cc = str_replace('"','',$cc);
 	   //$qry = "SELECT aliseEmail FROM `department_emails` WHERE aliseEmail REGEXP '$rep4'";  
 	   $qry = "SELECT aliseEmail FROM `department_emails` WHERE aliseEmail = '$Toarr[0]'";  
        $to_original = $this->fetchOne($qry,array());	     
