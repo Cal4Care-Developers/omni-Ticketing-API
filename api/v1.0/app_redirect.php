@@ -42,6 +42,11 @@ if($api_type == "web"){
             $access_page = APPLICATION_PATH."category.php";
 		break;
 			 
+		case 'custcategory':   
+            include_once CONTROLLER_PATH.'class.cust_category.php';
+            $access_page = APPLICATION_PATH."cust_category.php";
+		break;
+			 
 		case 'contact':   
 	 		 
             include_once CONTROLLER_PATH.'class.contact.php';
@@ -465,9 +470,9 @@ elseif($_REQUEST['action'] == 'kb_file_upload') {
 	include_once CONTROLLER_PATH.'class.category.php';
 	$access_page = APPLICATION_PATH."category.php";
 }
-elseif($_REQUEST['action'] == 'kb_file_upload') {
-	include_once CONTROLLER_PATH.'class.category.php';
-	$access_page = APPLICATION_PATH."category.php";
+elseif($_REQUEST['action'] == 'cust_kb_file_upload') {
+	include_once CONTROLLER_PATH.'class.cust_category.php';
+	$access_page = APPLICATION_PATH."cust_category.php";
 }
 elseif($_REQUEST['action'] == 'createTicketSignature') {
         include_once CONTROLLER_PATH.'class.ticket.php';
