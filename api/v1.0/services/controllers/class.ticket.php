@@ -7472,7 +7472,7 @@ public function composeInternalMail($data){
 				}
 		}									  
 		$files_array = $files_arr;
-		$ticketMedia = implode(",",$files_arr);	
+		//$ticketMedia = implode(",",$files_arr);	
 		$files_arr = implode(",",$files_arr);
 		$html = $dom->saveHTML();		
 		$qry = "SELECT sig_content FROM email_signatures WHERE is_default='1' and admin_id='$admin_id'";
@@ -7535,7 +7535,9 @@ public function composeInternalMail($data){
      			$created_dt = date("Y-m-d H:i:s");			    
 				$ticket_no = $this->db_insert("INSERT INTO outlook_mail(ticket_from,ticket_to,ticket_subject,admin_id,created_dt,updated_at) VALUES ( '$from','$to','$subject','$admin_id','$created_dt','$created_dt')", array());			    
 			    $description = $html;
-				$qry_result = $this->db_insert("INSERT INTO outlook_mail_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,created_dt,repliesd_by,only_message,only_signature) VALUES ('$ticket_no','$description','$subject','$from','$to','$mail_cc','$attachments','$created_dt','Agent','$description','$mailSignature')", array()); 
+			    $te = "INSERT INTO outlook_mail_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,created_dt,repliesd_by,only_message,only_signature) VALUES ('$ticket_no','$description','$subject','$from','$to','$mail_cc','$files_arr','$created_dt','Agent','$description','$mailSignature')";
+			    file_put_contents('atc.txt', $te.PHP_EOL , FILE_APPEND | LOCK_EX);
+				$qry_result = $this->db_insert("INSERT INTO outlook_mail_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,created_dt,repliesd_by,only_message,only_signature) VALUES ('$ticket_no','$description','$subject','$from','$to','$mail_cc','$files_arr','$created_dt','Agent','$description','$mailSignature')", array()); 
 	    }	
         $status = array('status' => 'true');
 		$response_array = array('data' => $res);	
