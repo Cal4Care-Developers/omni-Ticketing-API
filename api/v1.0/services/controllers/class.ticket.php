@@ -8935,17 +8935,49 @@ public function change_from_function($data){
 }
 public function list_enquiry_tickets ($data){
   extract($data);
+  $agtArr=array();
   if($search_text!= ''){
         $search_qry= " and (e.enquiry_company like '%".$search_text."%')";
   }
   $qry = "SELECT e.ticket_no,e.enquiry_company,e.created_dt,e.enquiry_country,e.enquiry_comments,e.revisit_date,s.status_desc,ed.name as enquiry_status,d.department_name FROM external_tickets as e LEFT JOIN status as s ON s.status_id = e.ticket_status LEFT JOIN enquiry_dropdown as ed ON ed.id = e.enquiry_dropdown_id LEFT JOIN departments as d ON d.dept_id = e.ticket_department WHERE e.admin_id='$admin_id' AND e.type='enquiry'".$search_qry;
   $detail_qry = $qry." ORDER BY e.ticket_no DESC LIMIT ".$limit." Offset ".$offset;
-  //echo $detail_qry;exit;
+ // echo $detail_qry;exit;
   $result = $this->dataFetchAll($detail_qry, array());
+  for($i = 0; count($result) > $i; $i++){
+		  $enquiry_company = $result[$i]['enquiry_company'];	 
+          $ticket_no = $result[$i]['ticket_no'];
+		  $created_dt = $result[$i]['created_dt'];
+          $enquiry_country = $result[$i]['enquiry_country'];
+		  $enquiry_comments = $result[$i]['enquiry_comments'];
+          $revisit_date = $result[$i]['revisit_date'];
+          $status_desc = $result[$i]['status_desc'];
+          $enquiry_status = $result[$i]['enquiry_status'];
+          $department_name = $result[$i]['department_name'];
+	      $days_qry = $this->fetchone("SELECT datediff(date(ed.created_dt), date(e.created_dt)) FROM external_tickets e LEFT JOIN external_tickets_data ed ON ed.ticket_id = e.ticket_no WHERE e.ticket_no='$ticket_no' ORDER BY ed.ticket_message_id DESC LIMIT 1",array());
+	      if($days_qry > 1){
+		    $days_val = $days_qry." Days";
+          }else{
+			$days_val = $days_qry." Day";  
+		  }
+		  $agent_id_qry = "SELECT u.agent_name FROM `external_tickets_data` as e LEFT JOIN user as u ON u.user_id = e.user_id WHERE ticket_id='$ticket_no' AND repliesd_by='Agent'";
+          $agent_id_val = $this->dataFetchAll($agent_id_qry, array());
+		  for($k = 0; count($agent_id_val) > $k; $k++){
+			 $name = $agent_id_val[$k]['agent_name'];
+			 if (!in_array($name, $agtArr)){
+			  array_push($agtArr,$name);
+			 }
+		  }
+		  $commaList = implode(',', $agtArr);
+	      $ticket_options = array('ticket_no' => $ticket_no,'enquiry_company'=>$enquiry_company,'created_dt'=>$created_dt, 'enquiry_country' => $enquiry_country, 'enquiry_comments' => $enquiry_comments,'revisit_date'=>$revisit_date,'status_desc' => $status_desc,'enquiry_status'=>$enquiry_status, 'department_name'=> $department_name, 'last_update' => $days_val, 'agents' => $commaList);
+          $ticket_options_array[] = $ticket_options;
+          $agtArr = array();
+  }	
   $total_count = $this->dataRowCount($qry,array());	
   $list_info = array('total' => $total_count, 'limit' => $limit, 'offset' => $offset);
-  $merge_result = array('status' => 'true','data'=>$result,'list_info' => $list_info);
-  //$status = array('status' => 'true');	
+  $status = array('status' => 'true');	
+  $ticket_options_array = array('data' => $ticket_options_array);	
+  //$merge_result = array('status' => 'true','data'=>$result,'list_info' => $list_info);
+  $merge_result = array_merge($status, $ticket_options_array, $list_info);	
   $tarray = json_encode($merge_result);
   print_r($tarray);exit;
 }	
@@ -8957,7 +8989,8 @@ public function list_enquiry_dropdown (){
   print_r($tarray);exit;
 }
 public function enquiry_ticket_filter($data){
-	  extract($data); //print_r($data);exit;   
+	  extract($data); //print_r($data);exit; 
+	  $agtArr=array();  
 	  $qry="SELECT e.ticket_no,e.enquiry_company,e.created_dt,e.enquiry_country,e.enquiry_comments,e.revisit_date,s.status_desc,ed.name as enquiry_status,d.department_name FROM external_tickets as e LEFT JOIN status as s ON s.status_id = e.ticket_status LEFT JOIN enquiry_dropdown as ed ON ed.id = e.enquiry_dropdown_id LEFT JOIN departments as d ON d.dept_id = e.ticket_department WHERE e.admin_id='$admin_id' AND e.type='enquiry'";
 	  if($from_dt!=''){
 		  $qry.=" AND  date(e.created_dt)>='$from_dt'";
@@ -8971,9 +9004,40 @@ public function enquiry_ticket_filter($data){
 	  $detail_qry = $qry." ORDER BY e.ticket_no DESC LIMIT ".$limit." OFFSET ".$offset  ;
 	  //echo $detail_qry;exit;
 	  $result = $this->dataFetchAll($detail_qry, array());
+	  for($i = 0; count($result) > $i; $i++){
+		  $enquiry_company = $result[$i]['enquiry_company'];	 
+          $ticket_no = $result[$i]['ticket_no'];
+		  $created_dt = $result[$i]['created_dt'];
+          $enquiry_country = $result[$i]['enquiry_country'];
+		  $enquiry_comments = $result[$i]['enquiry_comments'];
+          $revisit_date = $result[$i]['revisit_date'];
+          $status_desc = $result[$i]['status_desc'];
+          $enquiry_status = $result[$i]['enquiry_status'];
+          $department_name = $result[$i]['department_name'];
+	      $days_qry = $this->fetchone("SELECT datediff(date(ed.created_dt), date(e.created_dt)) FROM external_tickets e LEFT JOIN external_tickets_data ed ON ed.ticket_id = e.ticket_no WHERE e.ticket_no='$ticket_no' ORDER BY ed.ticket_message_id DESC LIMIT 1",array());
+	      if($days_qry > 1){
+		    $days_val = $days_qry." Days";
+          }else{
+			$days_val = $days_qry." Day";  
+		  }
+		  $agent_id_qry = "SELECT u.agent_name FROM `external_tickets_data` as e LEFT JOIN user as u ON u.user_id = e.user_id WHERE ticket_id='$ticket_no' AND repliesd_by='Agent'";
+          $agent_id_val = $this->dataFetchAll($agent_id_qry, array());
+		  for($k = 0; count($agent_id_val) > $k; $k++){
+			 $name = $agent_id_val[$k]['agent_name'];
+			 if (!in_array($name, $agtArr)){
+			  array_push($agtArr,$name);
+			 }
+		  }
+		  $commaList = implode(',', $agtArr);
+	      $ticket_options = array('ticket_no' => $ticket_no,'enquiry_company'=>$enquiry_company,'created_dt'=>$created_dt, 'enquiry_country' => $enquiry_country, 'enquiry_comments' => $enquiry_comments,'revisit_date'=>$revisit_date,'status_desc' => $status_desc,'enquiry_status'=>$enquiry_status, 'department_name'=> $department_name, 'last_update' => $days_val, 'agents' => $commaList);
+          $ticket_options_array[] = $ticket_options;
+          $agtArr = array();
+      }
       $total_count = $this->dataRowCount($qry,array());	
       $list_info = array('total' => $total_count, 'limit' => $limit, 'offset' => $offset);
-      $merge_result = array('status' => 'true','data'=>$result,'list_info' => $list_info);
+      $status = array('status' => 'true');	
+      $ticket_options_array = array('data' => $ticket_options_array);
+      $merge_result = array_merge($status, $ticket_options_array, $list_info);
       $tarray = json_encode($merge_result);
       print_r($tarray);exit;
 }
