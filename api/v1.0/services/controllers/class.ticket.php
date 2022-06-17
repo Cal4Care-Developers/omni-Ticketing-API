@@ -1050,9 +1050,20 @@ else {
 					$tickNo = '[##'.$ticket_no.']';
 					$repM = str_replace('{%Cticket_id%}',$tickNo,$repM);
 				} else {
-					$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at', ticket_closed_by = '$user_id' WHERE ticket_no = '$ticket_id'";             
-		$result = $this->db_query($qry, $params);
-		return $result;
+					//$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at', ticket_closed_by = '$user_id' WHERE ticket_no = '$ticket_id'"; 
+					if($ticket_type=='enquiry'){
+						if($enquiry_dropdown_id != '' && $revisit != ''){
+							$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at',ticket_closed_by = '$user_id',enquiry_dropdown_id='$enquiry_dropdown_id',revisit='$revisit' WHERE ticket_no='$ticket_id'";
+						}elseif($enquiry_dropdown_id != '' && $revisit == ''){
+							$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at',ticket_closed_by = '$user_id',enquiry_dropdown_id='$enquiry_dropdown_id' WHERE ticket_no='$ticket_id'";
+						}else{
+							$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at', ticket_closed_by = '$user_id' WHERE ticket_no = '$ticket_id'";
+						}
+				   }else{
+					   $qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at', ticket_closed_by = '$user_id' WHERE ticket_no = '$ticket_id'";
+				   }            
+					$result = $this->db_query($qry, $params);
+					return $result;
 					exit;	
 				}				
 				//$qry = "SELECT sig_content FROM email_signatures WHERE is_default='1' and admin_id='$dmin_id' and user_id='$admin_id' ";
@@ -1099,7 +1110,18 @@ else {
 		if($alert_status==1){
 			$autoRespns = $this->autoResponseEmail($uss);
 		}
-		$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at', ticket_closed_by = '$user_id' WHERE ticket_no = '$ticket_id'";             
+		//$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at', ticket_closed_by = '$user_id' WHERE ticket_no = '$ticket_id'";
+		if($ticket_type=='enquiry'){
+			if($enquiry_dropdown_id != '' && $revisit != ''){
+				$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at',ticket_closed_by = '$user_id',enquiry_dropdown_id='$enquiry_dropdown_id',revisit='$revisit' WHERE ticket_no='$ticket_id'";
+			}elseif($enquiry_dropdown_id != '' && $revisit == ''){
+				$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at',ticket_closed_by = '$user_id',enquiry_dropdown_id='$enquiry_dropdown_id' WHERE ticket_no='$ticket_id'";
+			}else{
+				$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at', ticket_closed_by = '$user_id' WHERE ticket_no = '$ticket_id'";
+			}
+		}else{
+			   $qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at', ticket_closed_by = '$user_id' WHERE ticket_no = '$ticket_id'";
+		}             
 		$result = $this->db_query($qry, $params);
 		$sub = 'Ticket [#'.$ticket_no.'] has been closed by - '.$agent_name;
 		$adm = array("user_id"=>$admin_id,"ticket_for"=>"Close Ticket","ticket_from"=>$ticket_from,"ticket_subject"=>$sub, "ticket_id"=>$ticket_no);
@@ -3935,15 +3957,39 @@ public function updateTicketStatus($data){
         $oldDepartment = $oldDetails['ticket_department'];
         $oldAgent = $oldDetails['ticket_assigned_to'];
         if($override==0){
+        	/*if($ticket_type=='enquiry'){
+        		$enqid = $enquiry_dropdown_id;
+        		$revisit_date = $revisit;
+        	}*/
         	if($agent_id==''){
-				$get_dep=$this->fetchOne("SELECT department_users FROM `departments` where dept_id='$department'",array());	
-		        $qry = "UPDATE external_tickets SET ticket_department='$department',ticket_assigned_to='$get_dep',unassign='0' where ticket_no='$ticket_id'";
+				$get_dep=$this->fetchOne("SELECT department_users FROM `departments` where dept_id='$department'",array());
+				if($ticket_type=='enquiry'){
+					if($enquiry_dropdown_id != '' && $revisit != ''){
+                        $qry = "UPDATE external_tickets SET ticket_department='$department',ticket_assigned_to='$get_dep',unassign='0',enquiry_dropdown_id='$enquiry_dropdown_id',revisit='$revisit' WHERE ticket_no='$ticket_id'";
+                    }elseif($enquiry_dropdown_id != '' && $revisit == ''){
+                    	$qry = "UPDATE external_tickets SET ticket_department='$department',ticket_assigned_to='$get_dep',unassign='0',enquiry_dropdown_id='$enquiry_dropdown_id' WHERE ticket_no='$ticket_id'";
+                    }else{
+                    	$qry = "UPDATE external_tickets SET ticket_department='$department',ticket_assigned_to='$get_dep',unassign='0' WHERE ticket_no='$ticket_id'";
+                    }
+				}else{
+					$qry = "UPDATE external_tickets SET ticket_department='$department',ticket_assigned_to='$get_dep',unassign='0' where ticket_no='$ticket_id'";
+				}		        
 		        $update_data = $this->db_query($qry, array());
 		        $result = $update_data == 1 ? 1 : 0;  
 		        return $result;
 	        }
 	        else{
-	        	$qry = "UPDATE external_tickets SET ticket_status='$status', ticket_department='$department',ticket_assigned_to='$agent_id',unassign=1 where ticket_no = $ticket_id";		
+	        	if($ticket_type=='enquiry'){
+					if($enquiry_dropdown_id != '' && $revisit != ''){
+                        $qry = "UPDATE external_tickets SET ticket_status='$status', ticket_department='$department',ticket_assigned_to='$agent_id',unassign=1,enquiry_dropdown_id='$enquiry_dropdown_id',revisit='$revisit' WHERE ticket_no='$ticket_id'";
+                    }elseif($enquiry_dropdown_id != '' && $revisit == ''){
+                    	$qry = "UPDATE external_tickets SET ticket_status='$status', ticket_department='$department',ticket_assigned_to='$agent_id',unassign=1,enquiry_dropdown_id='$enquiry_dropdown_id' WHERE ticket_no='$ticket_id'";
+                    }else{
+                    	$qry = "UPDATE external_tickets SET ticket_status='$status', ticket_department='$department',ticket_assigned_to='$agent_id',unassign=1 WHERE ticket_no='$ticket_id'";
+                    }
+				}else{
+	        	    $qry = "UPDATE external_tickets SET ticket_status='$status', ticket_department='$department',ticket_assigned_to='$agent_id',unassign=1 where ticket_no = $ticket_id";
+	        	}		
 				if($agent_id > 0){			
 					$createdby_qry = "SELECT agent_name FROM user WHERE user_id='$agent_id'";              
 		      		$createdby = $this->fetchmydata($createdby_qry,array());
@@ -8878,6 +8924,50 @@ public function change_from_function($data){
 	   $result = $update_data == 1 ? 1 : 0;
        return $result;	
    }
+}
+public function list_enquiry_tickets ($data){
+  extract($data);
+  if($search_text!= ''){
+        $search_qry= " and (e.enquiry_company like '%".$search_text."%')";
+  }
+  $qry = "SELECT e.ticket_no,e.enquiry_company,e.created_dt,e.enquiry_country,e.enquiry_comments,e.revisit_date,s.status_desc,ed.name as enquiry_status,d.department_name FROM external_tickets as e LEFT JOIN status as s ON s.status_id = e.ticket_status LEFT JOIN enquiry_dropdown as ed ON ed.id = e.enquiry_dropdown_id LEFT JOIN departments as d ON d.dept_id = e.ticket_department WHERE e.admin_id='$admin_id' AND e.type='enquiry'".$search_qry;
+  $detail_qry = $qry." ORDER BY e.ticket_no DESC LIMIT ".$limit." Offset ".$offset;
+  //echo $detail_qry;exit;
+  $result = $this->dataFetchAll($detail_qry, array());
+  $total_count = $this->dataRowCount($qry,array());	
+  $list_info = array('total' => $total_count, 'limit' => $limit, 'offset' => $offset);
+  $merge_result = array('status' => 'true','data'=>$result,'list_info' => $list_info);
+  //$status = array('status' => 'true');	
+  $tarray = json_encode($merge_result);
+  print_r($tarray);exit;
+}	
+public function list_enquiry_dropdown (){
+  $qry = "SELECT * FROM `enquiry_dropdown`";
+  $result = $this->dataFetchAll($qry, array());	
+  $merge_result = array('status' => 'true','data'=>$result);	
+  $tarray = json_encode($merge_result);
+  print_r($tarray);exit;
+}
+public function enquiry_ticket_filter($data){
+	  extract($data); //print_r($data);exit;   
+	  $qry="SELECT e.ticket_no,e.enquiry_company,e.created_dt,e.enquiry_country,e.enquiry_comments,e.revisit_date,s.status_desc,ed.name as enquiry_status,d.department_name FROM external_tickets as e LEFT JOIN status as s ON s.status_id = e.ticket_status LEFT JOIN enquiry_dropdown as ed ON ed.id = e.enquiry_dropdown_id LEFT JOIN departments as d ON d.dept_id = e.ticket_department WHERE e.admin_id='$admin_id' AND e.type='enquiry'";
+	  if($from_dt!=''){
+		  $qry.=" AND  date(e.created_dt)>='$from_dt'";
+	  }if($to_dt!=''){
+		  $qry.=" AND  date(e.created_dt)<='$to_dt'";
+	  }if($dept_id!=''){        
+		  $qry.=" AND e.ticket_department = '$dept_id'";
+	  }if($enquiry_dropdown_id!=''){
+		  $qry.=" AND e.enquiry_dropdown_id = '$enquiry_dropdown_id'";
+	  }
+	  $detail_qry = $qry." ORDER BY e.ticket_no DESC LIMIT ".$limit." OFFSET ".$offset  ;
+	  //echo $detail_qry;exit;
+	  $result = $this->dataFetchAll($detail_qry, array());
+      $total_count = $this->dataRowCount($qry,array());	
+      $list_info = array('total' => $total_count, 'limit' => $limit, 'offset' => $offset);
+      $merge_result = array('status' => 'true','data'=>$result,'list_info' => $list_info);
+      $tarray = json_encode($merge_result);
+      print_r($tarray);exit;
 }
 
 }

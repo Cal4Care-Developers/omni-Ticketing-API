@@ -114,7 +114,7 @@ elseif($action == "export_ticket_reports"){
     $result_data["result"]["data"] = $ticket->export_ticket_reports($data);
 }
 elseif($action == "add_notAssigned_tickets"){ 
-    $data = array("from"=>$from, "to"=>$to,"subject"=>$subject,"message"=>$message,"attachments"=>$attachments,"ticket_reply_id"=>$ticket_reply_id,"to_mail"=>$to_mail,"cc_mail"=>$cc_mail,"agent_short_code"=>$agent_short_code,"forward_from"=>$forward_from,"forward_to"=>$forward_to,"forward_cc"=>$forward_cc,"fattachments"=>$fattachments,"comments"=>$comments);
+    $data = array("from"=>$from, "to"=>$to,"subject"=>$subject,"message"=>$message,"attachments"=>$attachments,"ticket_reply_id"=>$ticket_reply_id,"to_mail"=>$to_mail,"cc_mail"=>$cc_mail,"agent_short_code"=>$agent_short_code,"forward_from"=>$forward_from,"forward_to"=>$forward_to,"forward_cc"=>$forward_cc,"fattachments"=>$fattachments,"mail_type"=>$mail_type,"comments"=>$comments,"enquiry_comments"=>$enquiry_comments,"enquiry_company"=>$enquiry_company,"enquiry_country"=>$enquiry_country);
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->add_notAssigned_tickets($data);
 }
@@ -145,7 +145,7 @@ elseif($action == "onchange_status"){
     $result_data["result"]["data"] = $ticket->onchangeStatus($data);
 }
 elseif($action == "oncloseTocket"){
-    $data = array("status_id"=>$status_id,"ticket_id"=>$ticket_id,"user_id"=>$user_id,"agent_name"=>$agent_name,"admin_id"=>$admin_id,"ticket_to"=>$ticket_to,"ticket_cc"=>$ticket_cc,"alert_status"=>$alert_status);    
+    $data = array("status_id"=>$status_id,"ticket_id"=>$ticket_id,"user_id"=>$user_id,"agent_name"=>$agent_name,"admin_id"=>$admin_id,"ticket_to"=>$ticket_to,"ticket_cc"=>$ticket_cc,"alert_status"=>$alert_status,"enquiry_dropdown_id"=>$enquiry_dropdown_id,"revisit"=>$revisit);    
     $result_data["result"]["data"] = $ticket->oncloseTocket($data);
 }
 
@@ -198,7 +198,7 @@ elseif($action == "addNotesForTicketReply"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->addNotesForTicketReply($data);
 }elseif($action == "updateTicketStatus"){
-	$data= array("ticket_id"=>$ticket_id,"status"=>$status,"ticket_notes"=>$ticket_notes,"user_id"=>$user_id,"admin_id"=>$admin_id,"user_name"=>$user_name,"department"=>$department,"agent_id"=>$agent_id);
+	$data= array("ticket_id"=>$ticket_id,"status"=>$status,"ticket_notes"=>$ticket_notes,"user_id"=>$user_id,"admin_id"=>$admin_id,"user_name"=>$user_name,"department"=>$department,"agent_id"=>$agent_id,"enquiry_dropdown_id"=>$enquiry_dropdown_id,"revisit"=>$revisit);
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->updateTicketStatus($data);
 }
@@ -849,5 +849,19 @@ elseif($action == "change_from_function"){
     $data = array("admin_id"=>$admin_id,"cusmail"=>$cusmail,"ticket_no"=>$ticket_no);
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->change_from_function($data);
+}
+elseif($action == "list_enquiry_tickets"){
+    $data = array("admin_id"=>$admin_id,"search_text"=>$search_text,"limit"=>$limit,"offset"=>$offset);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->list_enquiry_tickets($data);
+}
+elseif($action == "list_enquiry_dropdown"){
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->list_enquiry_dropdown();
+}
+elseif($action == "enquiry_ticket_filter"){
+    $data= array("admin_id"=>$admin_id,"limit"=>$limit, "offset"=>$offset,"from_dt"=>$from_dt,"to_dt"=>$to_dt,"dept_id"=>$dept_id,"enquiry_dropdown_id"=>$enquiry_dropdown_id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->enquiry_ticket_filter($data);    
 }
 ?>
