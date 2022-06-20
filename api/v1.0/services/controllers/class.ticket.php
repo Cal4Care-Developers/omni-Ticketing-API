@@ -8950,7 +8950,13 @@ public function list_enquiry_tickets ($data){
           $enquiry_country = $result[$i]['enquiry_country'];
 		  $enquiry_comments = $result[$i]['enquiry_comments'];
           $revisit_date = $result[$i]['revisit_date'];
-          $status_desc = $result[$i]['status_desc'];
+          //$status_desc = $result[$i]['status_desc'];
+          $status_qry = $this->fetchone("SELECT COUNT(ticket_message_id) FROM `external_tickets_data` WHERE repliesd_by='Agent' AND ticket_id='$ticket_no'", array());
+	      if($status_qry > 0){
+             $status_desc = $result[$i]['status_desc'];
+		  }else{
+			 $status_desc = 'New'; 
+		  }
           $enquiry_status = $result[$i]['enquiry_status'];
           $department_name = $result[$i]['department_name'];
 	      $days_qry = $this->fetchone("SELECT datediff(date(ed.created_dt), date(e.created_dt)) FROM external_tickets e LEFT JOIN external_tickets_data ed ON ed.ticket_id = e.ticket_no WHERE e.ticket_no='$ticket_no' ORDER BY ed.ticket_message_id DESC LIMIT 1",array());
@@ -9011,7 +9017,13 @@ public function enquiry_ticket_filter($data){
           $enquiry_country = $result[$i]['enquiry_country'];
 		  $enquiry_comments = $result[$i]['enquiry_comments'];
           $revisit_date = $result[$i]['revisit_date'];
-          $status_desc = $result[$i]['status_desc'];
+          //$status_desc = $result[$i]['status_desc'];
+          $status_qry = $this->fetchone("SELECT COUNT(ticket_message_id) FROM `external_tickets_data` WHERE repliesd_by='Agent' AND ticket_id='$ticket_no'", array());
+	      if($status_qry > 0){
+             $status_desc = $result[$i]['status_desc'];
+		  }else{
+			 $status_desc = 'New'; 
+		  }
           $enquiry_status = $result[$i]['enquiry_status'];
           $department_name = $result[$i]['department_name'];
 	      $days_qry = $this->fetchone("SELECT datediff(date(ed.created_dt), date(e.created_dt)) FROM external_tickets e LEFT JOIN external_tickets_data ed ON ed.ticket_id = e.ticket_no WHERE e.ticket_no='$ticket_no' ORDER BY ed.ticket_message_id DESC LIMIT 1",array());
