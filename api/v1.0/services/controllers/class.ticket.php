@@ -8882,7 +8882,9 @@ public function customer_search_function($data){
 public function change_from_function($data){
     extract($data);//print_r($data);exit;
 	$emailArr = array();
-	$customer_id = $this->fetchOne("SELECT customer_id FROM `ticket_customer` WHERE customer_email LIKE '%$cusmail%'",array());
+	$get_domain = explode('@',$cusmail);
+	$customer_domain = $get_domain[1];
+	$customer_id = $this->fetchOne("SELECT customer_id FROM `ticket_customer` WHERE customer_email LIKE '%$customer_domain%'",array());
 	//echo $customer_id;exit;
 	if($customer_id == ''){
 		$curl = curl_init();
@@ -8901,8 +8903,8 @@ public function change_from_function($data){
          "api_type": "web",
          "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0aWNrZXRpbmcubWNvbm5lY3RhcHBzLmNvbSIsImF1ZCI6InRpY2tldGluZy5tY29ubmVjdGFwcHMuY29tIiwiaWF0IjoxNjMwOTMyMTE5LCJuYmYiOjE2MzA5MzIxMTksImV4cCI6MTYzMDk1MDExOSwiYWNjZXNzX2RhdGEiOnsidG9rZW5fYWNjZXNzSWQiOiI2NCIsInRva2VuX2FjY2Vzc05hbWUiOiJTYWxlc0FkbWluIiwidG9rZW5fYWNjZXNzVHlwZSI6IjIifX0.YzdTs9NxXf-KVffqXCNz8cyff-vMwcH8YI9eC8Ji8Fc",
          "element_data": {
-            "action": "get_customerdetails_byemail",
-            "customer_domain":"'.$cusmail.'"
+            "action": "get_customerdetails",
+            "customer_domain":"'.$customer_domain.'"
          }
         }',
         CURLOPT_HTTPHEADER => array(
