@@ -3309,7 +3309,8 @@ if($explode1[0]=='Best regards'){
 				}
 		} 	
 		$countfiles = count($_FILES['up_files']['name']); 		
-		$destination_path = getcwd().DIRECTORY_SEPARATOR;            
+		$destination_path = getcwd().DIRECTORY_SEPARATOR;
+		file_put_contents('ve.txt', $destination_path.PHP_EOL , FILE_APPEND | LOCK_EX);           
 		$upload_location = $destination_path."ext-ticket-image/";
 		$files_arr = array();  	
 		for($index = 0; $index < $countfiles; $index++){
