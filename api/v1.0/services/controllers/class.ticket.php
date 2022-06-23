@@ -2985,6 +2985,7 @@ if($next_assign!=''){
 		  $ticket_type = $result[$i]['type'];
 		  $ticket_enquiry_dropdown_id = $result[$i]['enquiry_dropdown_id'];
 		  $ticket_revisit_date = $result[$i]['revisit_date'];
+		  $ticket_enquiry_value = $result[$i]['enquiry_value'];
 			if($ticket_user!='') {
 			
 				/*$rep= $this->fetchData("SELECT profile_image,user_name,agent_name FROM user where user_id='$ticket_user'",array());
@@ -3097,12 +3098,12 @@ if($explode1[0]=='Best regards'){
 }*/
 
 	      //$ticket_only_message = base64_decode($ticket_only_message);		
-          $ticket_options = array('ticket_no' => $ticket_no,'is_spam'=>$is_spam,'ticket_media'=>$ticket_media, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $ticket_assigned_to,'ticket_assigned_to_id'=>$ticket_assigned_to_id,'department' => $department,'depart_id'=>$ticket_department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus,'ticket_status_id'=>$ticket_status,'ticket_message'=>$ticket_message,'ticket_signature'=>$ticket_signature,'ticket_notes'=>$ticket_notes_by,'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'ticket_from'=>$ticket_from,'ticket_to'=>$ticket_to,'replied_from'=>$replied_from_db,'ticket_message_id'=>$ticket_message_id,'replied_by'=>$replied_by, 'own_mail' =>$from, 'own_img' =>$own_img, 'rep_img' =>$rep_img, 'rep_name' =>$rep_name, 'user_name'=>$user_name,'mail_cc'=>$ccMails, 'first_letter_r' => strtoupper($replied_from[0]),'ticket_closed_by'=>$tic_closed_by,'ticket_delete_status' => $ticket_delete_status,'ticket_profile_image'=>$ticket_profile_image,'ticket_only_message'=>$ticket_only_message,'ticket_only_signature'=>$ticket_only_signature,'ticket_forward_by'=>$ticket_forward_by,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name,'all_replied_to'=>$all_replied_to,'all_replied_cc'=>$all_replied_cc,'ticket_type'=>$ticket_type,'ticket_enquiry_dropdown_id'=>$ticket_enquiry_dropdown_id,'ticket_revisit_date'=>$ticket_revisit_date);
+          $ticket_options = array('ticket_no' => $ticket_no,'is_spam'=>$is_spam,'ticket_media'=>$ticket_media, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $ticket_assigned_to,'ticket_assigned_to_id'=>$ticket_assigned_to_id,'department' => $department,'depart_id'=>$ticket_department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus,'ticket_status_id'=>$ticket_status,'ticket_message'=>$ticket_message,'ticket_signature'=>$ticket_signature,'ticket_notes'=>$ticket_notes_by,'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'ticket_from'=>$ticket_from,'ticket_to'=>$ticket_to,'replied_from'=>$replied_from_db,'ticket_message_id'=>$ticket_message_id,'replied_by'=>$replied_by, 'own_mail' =>$from, 'own_img' =>$own_img, 'rep_img' =>$rep_img, 'rep_name' =>$rep_name, 'user_name'=>$user_name,'mail_cc'=>$ccMails, 'first_letter_r' => strtoupper($replied_from[0]),'ticket_closed_by'=>$tic_closed_by,'ticket_delete_status' => $ticket_delete_status,'ticket_profile_image'=>$ticket_profile_image,'ticket_only_message'=>$ticket_only_message,'ticket_only_signature'=>$ticket_only_signature,'ticket_forward_by'=>$ticket_forward_by,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name,'all_replied_to'=>$all_replied_to,'all_replied_cc'=>$all_replied_cc,'ticket_type'=>$ticket_type,'ticket_enquiry_dropdown_id'=>$ticket_enquiry_dropdown_id,'ticket_revisit_date'=>$ticket_revisit_date,'ticket_enquiry_value'=>$ticket_enquiry_value);
           $ticket_options_array[] = $ticket_options;
         }
 	
-		$first_res_time = "SELECT created_at FROM `external_tickets_data` WHERE repliesd_by = 'Agent' and ticket_id='$ticket_id' LIMIT 1";              
-          $first_res_time = $this->fetchmydata($first_res_time,array());
+		$first_res_time_qry = "SELECT created_dt FROM `external_tickets_data` WHERE repliesd_by = 'Agent' and ticket_id='$ticket_id' LIMIT 1";              
+          $first_res_time = $this->fetchmydata($first_res_time_qry,array());
 		
           $closed_at = $this->fetchmydata("SELECT closed_at FROM `external_tickets` WHERE ticket_no='$ticket_id'",array());
 		   
@@ -8168,7 +8169,8 @@ public function change_thread_order($data){
 		  $ticket_profile_image = $result[$i]['profile_image'];
 		  $ticket_enquiry_dropdown_id = $result[$i]['enquiry_dropdown_id'];
 		  $ticket_revisit_date = $result[$i]['revisit_date'];
-		  $ticket_type = $result[$i]['type'];	 
+		  $ticket_type = $result[$i]['type'];
+		  $ticket_enquiry_value = $result[$i]['enquiry_value'];	 
 		  if($ticket_user!='') {				
 				$rep= $this->fetchData("SELECT profile_image,user_name,agent_name,profile_picture_permission FROM user where user_id='$ticket_user' ",array());
 			    $permission = $rep['profile_picture_permission'];			    
@@ -8224,11 +8226,11 @@ public function change_thread_order($data){
 			 $ticket_assigned_to_id = '';
 		  }
 		  //$ticket_only_message = base64_decode($ticket_only_message);      		
-          $ticket_options = array('ticket_no' => $ticket_no,'is_spam'=>$is_spam,'ticket_media'=>$ticket_media, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $ticket_assigned_to,'ticket_assigned_to_id'=>$ticket_assigned_to_id,'department' => $department,'depart_id'=>$ticket_department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus,'ticket_status_id'=>$ticket_status,'ticket_message'=>$ticket_message,'ticket_signature'=>$ticket_signature,'ticket_notes'=>$ticket_notes_by,'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'ticket_from'=>$ticket_from,'ticket_to'=>$ticket_to,'replied_from'=>$replied_from_db,'ticket_message_id'=>$ticket_message_id,'replied_by'=>$replied_by, 'own_mail' =>$from, 'own_img' =>$own_img, 'rep_img' =>$rep_img, 'rep_name' =>$rep_name, 'user_name'=>$user_name,'mail_cc'=>$ccMails, 'first_letter_r' => strtoupper($replied_from[0]),'ticket_closed_by'=>$tic_closed_by,'ticket_delete_status' => $ticket_delete_status,'ticket_profile_image'=>$ticket_profile_image,'ticket_only_message'=>$ticket_only_message,'ticket_only_signature'=>$ticket_only_signature,'ticket_forward_by'=>$ticket_forward_by,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name,'all_replied_to'=>$all_replied_to,'all_replied_cc'=>$all_replied_cc,'ticket_type'=>$ticket_type,'ticket_enquiry_dropdown_id'=>$ticket_enquiry_dropdown_id,'ticket_revisit_date'=>$ticket_revisit_date);
+          $ticket_options = array('ticket_no' => $ticket_no,'is_spam'=>$is_spam,'ticket_media'=>$ticket_media, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $ticket_assigned_to,'ticket_assigned_to_id'=>$ticket_assigned_to_id,'department' => $department,'depart_id'=>$ticket_department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus,'ticket_status_id'=>$ticket_status,'ticket_message'=>$ticket_message,'ticket_signature'=>$ticket_signature,'ticket_notes'=>$ticket_notes_by,'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'ticket_from'=>$ticket_from,'ticket_to'=>$ticket_to,'replied_from'=>$replied_from_db,'ticket_message_id'=>$ticket_message_id,'replied_by'=>$replied_by, 'own_mail' =>$from, 'own_img' =>$own_img, 'rep_img' =>$rep_img, 'rep_name' =>$rep_name, 'user_name'=>$user_name,'mail_cc'=>$ccMails, 'first_letter_r' => strtoupper($replied_from[0]),'ticket_closed_by'=>$tic_closed_by,'ticket_delete_status' => $ticket_delete_status,'ticket_profile_image'=>$ticket_profile_image,'ticket_only_message'=>$ticket_only_message,'ticket_only_signature'=>$ticket_only_signature,'ticket_forward_by'=>$ticket_forward_by,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name,'all_replied_to'=>$all_replied_to,'all_replied_cc'=>$all_replied_cc,'ticket_type'=>$ticket_type,'ticket_enquiry_dropdown_id'=>$ticket_enquiry_dropdown_id,'ticket_revisit_date'=>$ticket_revisit_date,'ticket_enquiry_value'=>$ticket_enquiry_value);
           $ticket_options_array[] = $ticket_options;
         }	
-		$first_res_time = "SELECT created_at FROM `external_tickets_data` WHERE repliesd_by = 'Agent' and ticket_id='$ticket_id' LIMIT 1";              
-        $first_res_time = $this->fetchmydata($first_res_time,array());
+		$first_res_time_qry = "SELECT created_dt FROM `external_tickets_data` WHERE repliesd_by = 'Agent' and ticket_id='$ticket_id' LIMIT 1";              
+        $first_res_time = $this->fetchmydata($first_res_time_qry,array());
 		$closed_at = $this->fetchmydata("SELECT closed_at FROM `external_tickets` WHERE ticket_no='$ticket_id'",array());
 		$ticket_closed_by = $this->fetchmydata("SELECT ticket_closed_by FROM `external_tickets` WHERE ticket_no='$ticket_id'",array());
 		if($ticket_closed_by != '0'){
@@ -9058,6 +9060,20 @@ public function enquiry_ticket_filter($data){
       $merge_result = array_merge($status, $ticket_options_array, $list_info);
       $tarray = json_encode($merge_result);
       print_r($tarray);exit;
+}
+public function update_ticket_type($data){
+  extract($data);//print_r($data);exit;	
+  $qry = "UPDATE external_tickets SET type='$type',enquiry_value='1' WHERE admin_id='$admin_id' AND ticket_no='$ticket_no'";
+  $qry_result = $this->db_query($qry, array());
+  $result = $qry_result == 1 ? 1 : 0;
+  return $result;           
+}
+public function update_enquiry_details($data){
+  extract($data);//print_r($data);exit;	
+  $qry = "UPDATE external_tickets SET enquiry_company='$enquiry_company',enquiry_country='$enquiry_country',enquiry_comments='$enquiry_comments',enquiry_dropdown_id='$enquiry_dropdown_id',revisit_date='$revisit_date' WHERE admin_id='$admin_id' AND ticket_no='$ticket_no'";
+  $qry_result = $this->db_query($qry, array());
+  $result = $qry_result == 1 ? 1 : 0;
+  return $result;           
 }
 
 }
