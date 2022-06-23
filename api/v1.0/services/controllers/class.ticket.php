@@ -3296,7 +3296,8 @@ if($explode1[0]=='Best regards'){
 				list($type, $img_Src) = explode(';', $img_Src);
 				list(, $img_Src)      = explode(',', $img_Src);
 				$img_Src = base64_decode($img_Src);
-				$destination_path = getcwd().DIRECTORY_SEPARATOR;            
+				//$destination_path = getcwd().DIRECTORY_SEPARATOR;            
+				$destination_path = '/var/www/vhosts/ticketing.mconnectapps.com/httpdocs/api/v1.0/';
 				$tempFolder = $destination_path."ext-ticket-image/".$image_name;
 				if(file_put_contents($tempFolder, $img_Src)){
 					//$whatsapp_media_target_path = "https://".$_SERVER['SERVER_NAME']."/api/v1.0/ext-ticket-image/".$image_name;
@@ -3309,7 +3310,8 @@ if($explode1[0]=='Best regards'){
 				}
 		} 	
 		$countfiles = count($_FILES['up_files']['name']); 		
-		$destination_path = getcwd().DIRECTORY_SEPARATOR;
+		//$destination_path = getcwd().DIRECTORY_SEPARATOR;
+		$destination_path = '/var/www/vhosts/ticketing.mconnectapps.com/httpdocs/api/v1.0/';
 		file_put_contents('ve.txt', $destination_path.PHP_EOL , FILE_APPEND | LOCK_EX);           
 		$upload_location = $destination_path."ext-ticket-image/";
 		$files_arr = array();  	
