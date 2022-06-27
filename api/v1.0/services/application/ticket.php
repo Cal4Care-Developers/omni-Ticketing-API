@@ -870,7 +870,7 @@ elseif($action == "update_ticket_type"){
     $result_data["result"]["data"] = $ticket->update_ticket_type($data);
 }
 elseif($action == "update_enquiry_details"){
-    $data = array("admin_id"=>$admin_id,"enquiry_company"=>$enquiry_company,"enquiry_country"=>$enquiry_country,"enquiry_comments"=>$enquiry_comments,"enquiry_dropdown_id"=>$enquiry_dropdown_id,"revisit_date"=>$revisit_date,"ticket_no"=>$ticket_no);
+    $data = array("admin_id"=>$admin_id,"enquiry_company"=>$enquiry_company,"enquiry_country"=>$enquiry_country,"enquiry_comments"=>$enquiry_comments,"ticket_no"=>$ticket_no);
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->update_enquiry_details($data);
 }

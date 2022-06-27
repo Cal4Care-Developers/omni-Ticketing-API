@@ -7957,6 +7957,15 @@ public function merge_ticket($data){
             $qry_result = $this->db_query($qry, array());
             $result = $qry_result == 1 ? 1 : 0;
 			$update_data = $this->db_query("UPDATE external_tickets SET delete_status='1' WHERE ticket_no='$sub_ticket_id'", array());
+			$get_enquiry_type = $this->fetchOne("SELECT type FROM external_tickets WHERE ticket_no='$sub_ticket_id'", array());
+			if($get_enquiry_type=='enquiry'){
+				$enquirydata= $this->fetchData("SELECT enquiry_company,enquiry_comments,enquiry_dropdown_id,revisit_date FROM external_tickets WHERE ticket_no='$sub_ticket_id'", array());
+				$sub_enquiry_company = $enquirydata['enquiry_company'];
+				$sub_enquiry_comments = $enquirydata['enquiry_comments'];
+				$sub_enquiry_dropdown_id = $enquirydata['enquiry_dropdown_id'];
+				$sub_revisit_date = $enquirydata['revisit_date'];
+				$this->db_query("UPDATE external_tickets SET type='enquiry',enquiry_company='$sub_enquiry_company',enquiry_comments='$sub_enquiry_comments',enquiry_dropdown_id='$sub_enquiry_dropdown_id',revisit_date='$sub_revisit_date',enquiry_value='1' WHERE ticket_no='$main_ticket_id'", array());
+			}
             return $result;        	
         }
         elseif($main_customer_id == 0 || $sub_customer_id == 0){
@@ -7964,6 +7973,15 @@ public function merge_ticket($data){
             $qry_result = $this->db_query($qry, array());
             $result = $qry_result == 1 ? 1 : 0;
 			$update_data = $this->db_query("UPDATE external_tickets SET delete_status='1' WHERE ticket_no='$sub_ticket_id'", array());
+			$get_enquiry_type = $this->fetchOne("SELECT type FROM external_tickets WHERE ticket_no='$sub_ticket_id'", array());
+			if($get_enquiry_type=='enquiry'){
+				$enquirydata= $this->fetchData("SELECT enquiry_company,enquiry_comments,enquiry_dropdown_id,revisit_date FROM external_tickets WHERE ticket_no='$sub_ticket_id'", array());
+				$sub_enquiry_company = $enquirydata['enquiry_company'];
+				$sub_enquiry_comments = $enquirydata['enquiry_comments'];
+				$sub_enquiry_dropdown_id = $enquirydata['enquiry_dropdown_id'];
+				$sub_revisit_date = $enquirydata['revisit_date'];
+				$this->db_query("UPDATE external_tickets SET type='enquiry',enquiry_company='$sub_enquiry_company',enquiry_comments='$sub_enquiry_comments',enquiry_dropdown_id='$sub_enquiry_dropdown_id',revisit_date='$sub_revisit_date',enquiry_value='1' WHERE ticket_no='$main_ticket_id'", array());
+			}
             return $result;        	
         }
         else{
@@ -8946,7 +8964,7 @@ public function list_enquiry_tickets ($data){
   if($search_text!= ''){
         $search_qry= " and (e.enquiry_company like '%".$search_text."%')";
   }
-  $qry = "SELECT e.ticket_no,e.enquiry_company,e.created_dt,e.enquiry_country,e.enquiry_comments,e.revisit_date,e.enquiry_dropdown_id,s.status_desc,ed.name as enquiry_status,d.department_name FROM external_tickets as e LEFT JOIN status as s ON s.status_id = e.ticket_status LEFT JOIN enquiry_dropdown as ed ON ed.id = e.enquiry_dropdown_id LEFT JOIN departments as d ON d.dept_id = e.ticket_department WHERE e.admin_id='$admin_id' AND e.type='enquiry'".$search_qry;
+  $qry = "SELECT e.ticket_no,e.enquiry_company,e.created_dt,e.enquiry_country,e.enquiry_comments,e.revisit_date,e.enquiry_dropdown_id,s.status_desc,ed.name as enquiry_status,d.department_name FROM external_tickets as e LEFT JOIN status as s ON s.status_id = e.ticket_status LEFT JOIN enquiry_dropdown as ed ON ed.id = e.enquiry_dropdown_id LEFT JOIN departments as d ON d.dept_id = e.ticket_department WHERE e.admin_id='$admin_id' AND e.delete_status=0 AND e.type='enquiry'".$search_qry;
   $detail_qry = $qry." ORDER BY e.ticket_no DESC LIMIT ".$limit." Offset ".$offset;
  // echo $detail_qry;exit;
   $result = $this->dataFetchAll($detail_qry, array());
