@@ -874,4 +874,9 @@ elseif($action == "update_enquiry_details"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->update_enquiry_details($data);
 }
+elseif($action == "update_enquiry_comments"){
+    $data = array("admin_id"=>$admin_id,"enquiry_outcome_comments"=>$enquiry_outcome_comments,"ticket_no"=>$ticket_no);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->update_enquiry_comments($data);
+}
 ?>
