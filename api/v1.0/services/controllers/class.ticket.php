@@ -3334,10 +3334,10 @@ if($explode1[0]=='Best regards'){
 						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 						curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 						$result = curl_exec($ch);
-						if (curl_errno($ch)) {
+						/*if (curl_errno($ch)) {
                             $error_msg = echo 'Request Error:' . curl_error($ch);              
                             file_put_contents('ticket_error.txt', $error_msg.'5'.PHP_EOL , FILE_APPEND | LOCK_EX);
-                        }
+                        }*/
 						curl_close($ch);
 				}
 
