@@ -3324,7 +3324,7 @@ if($explode1[0]=='Best regards'){
 						$files_arr[] =  "https://".$_SERVER['SERVER_NAME']."/api/v1.0/ext-ticket-image/".$filename;
 					    $files_arr_db[] =  "https://ticketing.mconnectapps.com/api/v1.0/ext-ticket-image/".$filename;
 					    $source_file="https://".$_SERVER['SERVER_NAME']."/api/v1.0/ext-ticket-image/".$filename;
-						$destination_file="https://ticketing.mconnectapps.com/api/v1.0/ext-ticket-image/".$filename;
+						$destination_file=$filename;
 						$ch = curl_init("https://ticketing.mconnectapps.com/api/v1.0/ext-ticket-image/file-upload.php");
 						$data =array(
 							"token" => "xoxp-344956815296-346541880614-345656220160-2b002c40dbeb0e8aee1ba1a82b41b166",
