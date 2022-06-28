@@ -8964,7 +8964,7 @@ public function list_enquiry_tickets ($data){
   if($search_text!= ''){
         $search_qry= " and (e.enquiry_company like '%".$search_text."%')";
   }
-  $qry = "SELECT e.ticket_no,e.enquiry_company,e.created_dt,e.enquiry_country,e.enquiry_comments,e.revisit_date,e.enquiry_dropdown_id,s.status_desc,ed.name as enquiry_status,d.department_name FROM external_tickets as e LEFT JOIN status as s ON s.status_id = e.ticket_status LEFT JOIN enquiry_dropdown as ed ON ed.id = e.enquiry_dropdown_id LEFT JOIN departments as d ON d.dept_id = e.ticket_department WHERE e.admin_id='$admin_id' AND e.delete_status=0 AND e.type='enquiry'".$search_qry;
+  $qry = "SELECT e.ticket_no,e.enquiry_company,e.created_dt,e.enquiry_country,e.enquiry_comments,e.revisit_date,e.enquiry_dropdown_id,e.ticket_assigned_to,e.unassign,s.status_desc,ed.name as enquiry_status,d.department_name FROM external_tickets as e LEFT JOIN status as s ON s.status_id = e.ticket_status LEFT JOIN enquiry_dropdown as ed ON ed.id = e.enquiry_dropdown_id LEFT JOIN departments as d ON d.dept_id = e.ticket_department WHERE e.admin_id='$admin_id' AND e.delete_status=0 AND e.type='enquiry'".$search_qry;
   $detail_qry = $qry." ORDER BY e.ticket_no DESC LIMIT ".$limit." Offset ".$offset;
  // echo $detail_qry;exit;
   $result = $this->dataFetchAll($detail_qry, array());
@@ -8976,6 +8976,8 @@ public function list_enquiry_tickets ($data){
 		  $enquiry_comments = $result[$i]['enquiry_comments'];
           $revisit_date = $result[$i]['revisit_date'];
           $enquiry_dropdown_id = $result[$i]['enquiry_dropdown_id'];
+          $unassign = $result[$i]['unassign'];
+	      $ticket_assigned_to = $result[$i]['ticket_assigned_to'];
           $status_qry = $this->fetchone("SELECT COUNT(ticket_message_id) FROM `external_tickets_data` WHERE repliesd_by='Agent' AND ticket_id='$ticket_no'", array());
 	      if($status_qry > 0){
              $status_desc = $result[$i]['status_desc'];
@@ -8991,6 +8993,9 @@ public function list_enquiry_tickets ($data){
           }else{
 			$days_val = $days_qry." Day";  
 		  }
+		  if($unassign==1){
+            $assigned_agent = $this->fetchOne("SELECT agent_name FROM user WHERE user_id = '$ticket_assigned_to'", array());
+		  }
 		  $agent_id_qry = "SELECT u.agent_name FROM `external_tickets_data` as e LEFT JOIN user as u ON u.user_id = e.user_id WHERE ticket_id='$ticket_no' AND repliesd_by='Agent'";
           $agent_id_val = $this->dataFetchAll($agent_id_qry, array());
 		  for($k = 0; count($agent_id_val) > $k; $k++){
@@ -8998,6 +9003,9 @@ public function list_enquiry_tickets ($data){
 			 if (!in_array($name, $agtArr)){
 			  array_push($agtArr,$name);
 			 }
+		  }
+		  if (!in_array($assigned_agent, $agtArr)){
+			  $agtArr[] = $assigned_agent;
 		  }
 		  $commaList = implode(',', $agtArr);
 	      $ticket_options = array('ticket_no' => $ticket_no,'enquiry_company'=>$enquiry_company,'created_dt'=>$created_dt, 'enquiry_country' => $enquiry_country, 'enquiry_comments' => $enquiry_comments,'revisit_date'=>$revisit_date,'status_desc' => $status_desc,'enquiry_status'=>$enquiry_status, 'department_name'=> $department_name, 'last_update' => $days_val, 'agents' => $commaList, 'enquiry_dropdown_id' => $enquiry_dropdown_id);
@@ -9023,7 +9031,7 @@ public function list_enquiry_dropdown (){
 public function enquiry_ticket_filter($data){
 	  extract($data); //print_r($data);exit; 
 	  $agtArr=array();  
-	  $qry="SELECT e.ticket_no,e.enquiry_company,e.created_dt,e.enquiry_country,e.enquiry_comments,e.revisit_date,e.enquiry_dropdown_id,s.status_desc,ed.name as enquiry_status,d.department_name FROM external_tickets as e LEFT JOIN status as s ON s.status_id = e.ticket_status LEFT JOIN enquiry_dropdown as ed ON ed.id = e.enquiry_dropdown_id LEFT JOIN departments as d ON d.dept_id = e.ticket_department WHERE e.admin_id='$admin_id' AND e.type='enquiry'";
+	  $qry="SELECT e.ticket_no,e.enquiry_company,e.created_dt,e.enquiry_country,e.enquiry_comments,e.revisit_date,e.enquiry_dropdown_id,e.ticket_assigned_to,e.unassign,s.status_desc,ed.name as enquiry_status,d.department_name FROM external_tickets as e LEFT JOIN status as s ON s.status_id = e.ticket_status LEFT JOIN enquiry_dropdown as ed ON ed.id = e.enquiry_dropdown_id LEFT JOIN departments as d ON d.dept_id = e.ticket_department WHERE e.admin_id='$admin_id' AND e.type='enquiry'";
 	  if($from_dt!=''){
 		  $qry.=" AND  date(e.created_dt)>='$from_dt'";
 	  }if($to_dt!=''){
@@ -9044,6 +9052,8 @@ public function enquiry_ticket_filter($data){
 		  $enquiry_comments = $result[$i]['enquiry_comments'];
           $revisit_date = $result[$i]['revisit_date'];
           $enquiry_dropdown_id = $result[$i]['enquiry_dropdown_id'];
+          $unassign = $result[$i]['unassign'];
+	      $ticket_assigned_to = $result[$i]['ticket_assigned_to'];
           $status_qry = $this->fetchone("SELECT COUNT(ticket_message_id) FROM `external_tickets_data` WHERE repliesd_by='Agent' AND ticket_id='$ticket_no'", array());
 	      if($status_qry > 0){
              $status_desc = $result[$i]['status_desc'];
@@ -9058,6 +9068,9 @@ public function enquiry_ticket_filter($data){
           }else{
 			$days_val = $days_qry." Day";  
 		  }
+		  if($unassign==1){
+            $assigned_agent = $this->fetchOne("SELECT agent_name FROM user WHERE user_id = '$ticket_assigned_to'", array());
+		  }
 		  $agent_id_qry = "SELECT u.agent_name FROM `external_tickets_data` as e LEFT JOIN user as u ON u.user_id = e.user_id WHERE ticket_id='$ticket_no' AND repliesd_by='Agent'";
           $agent_id_val = $this->dataFetchAll($agent_id_qry, array());
 		  for($k = 0; count($agent_id_val) > $k; $k++){
@@ -9065,6 +9078,9 @@ public function enquiry_ticket_filter($data){
 			 if (!in_array($name, $agtArr)){
 			  array_push($agtArr,$name);
 			 }
+		  }
+		  if (!in_array($assigned_agent, $agtArr)){
+			  $agtArr[] = $assigned_agent;
 		  }
 		  $commaList = implode(',', $agtArr);
 	      $ticket_options = array('ticket_no' => $ticket_no,'enquiry_company'=>$enquiry_company,'created_dt'=>$created_dt, 'enquiry_country' => $enquiry_country, 'enquiry_comments' => $enquiry_comments,'revisit_date'=>$revisit_date,'status_desc' => $status_desc,'enquiry_status'=>$enquiry_status, 'department_name'=> $department_name, 'last_update' => $days_val, 'agents' => $commaList, 'enquiry_dropdown_id' => $enquiry_dropdown_id);
