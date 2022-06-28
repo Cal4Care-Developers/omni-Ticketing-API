@@ -3342,10 +3342,10 @@ if($explode1[0]=='Best regards'){
 				}
 
 		}
-		file_put_contents('ry.txt', print_r($files_arr,true).PHP_EOL , FILE_APPEND | LOCK_EX);	  
+		file_put_contents('ry.txt', print_r($files_arr_db,true).PHP_EOL , FILE_APPEND | LOCK_EX);	  
 		$files_array = $files_arr;
 		//$ticketMedia = implode(",",$files_arr);	
-		$files_arr = implode(",",$files_arr);
+		$files_arr_db = implode(",",$files_arr_db);
 		$message = $dom->saveHTML();
 // image in gmails	END	
 		$mail_ccs = explode(",",$mail_cc);
