@@ -3464,9 +3464,9 @@ if($explode1[0]=='Best regards'){
 		//file_put_contents('vaithee.txt', $qryss.PHP_EOL , FILE_APPEND | LOCK_EX);
 		$resultss = $this->db_query($qryss, $params);
 		$message = str_replace("'","\n",$message);	
-		$ry = "INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,repliesd_by,created_dt,user_id,only_message,only_signature,all_replied_to,all_replied_cc) VALUES ( '$ticket_id','$message','$subject','$from','$to','$mail_cc','$files_arr','Agent','$created_at','$user_id','$only_msg','$mailSignature','$all_replied_to','$all_replied_cc')";
+		$ry = "INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,repliesd_by,created_dt,user_id,only_message,only_signature,all_replied_to,all_replied_cc) VALUES ( '$ticket_id','$message','$subject','$from','$to','$mail_cc','$files_arr_db','Agent','$created_at','$user_id','$only_msg','$mailSignature','$all_replied_to','$all_replied_cc')";
 		file_put_contents('ry.txt', $ry.PHP_EOL , FILE_APPEND | LOCK_EX);			
-		$qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,repliesd_by,created_dt,user_id,only_message,only_signature,all_replied_to,all_replied_cc) VALUES ( '$ticket_id','$message','$subject','$from','$to','$mail_cc','$files_arr','Agent','$created_at','$user_id','$only_msg','$mailSignature','$all_replied_to','$all_replied_cc')", array());				
+		$qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,repliesd_by,created_dt,user_id,only_message,only_signature,all_replied_to,all_replied_cc) VALUES ( '$ticket_id','$message','$subject','$from','$to','$mail_cc','$files_arr_db','Agent','$created_at','$user_id','$only_msg','$mailSignature','$all_replied_to','$all_replied_cc')", array());				
 		$result = $qry_result == 1 ? 'mailed' : 'Error';
 				  $dt = date('Y-m-d H:i:s');
 				 $get=$this->fetchData("select user_name, IF(admin_id = 1, user_id, admin_id) as admin_id from user where user_id='$user_id'", array()); 
