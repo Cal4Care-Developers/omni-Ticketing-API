@@ -4568,7 +4568,7 @@ public function getTicketThread($ticket_id){
     $destination_path = getcwd().DIRECTORY_SEPARATOR;            
             $upload_location = $destination_path."ext-ticket-image/";
     $qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.ticket_no ='$ticket_id'";
-    $detail_qry=$qry." ORDER BY b.ticket_message_id DESC";
+    $detail_qry=$qry." ORDER BY b.ticket_message_id DESC LIMIT 3";
     $result =  $this->dataFetchAll($detail_qry, array());
 
      for($i = 0; count($result) > $i; $i++){ 
