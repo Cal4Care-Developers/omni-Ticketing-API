@@ -1053,9 +1053,9 @@ else {
 					//$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at', ticket_closed_by = '$user_id' WHERE ticket_no = '$ticket_id'"; 
 					if($ticket_type=='enquiry'){
 						if($enquiry_dropdown_id != '' && $revisit != ''){
-							$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at',ticket_closed_by = '$user_id',enquiry_dropdown_id='$enquiry_dropdown_id',revisit='$revisit' WHERE ticket_no='$ticket_id'";
+							$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at',ticket_closed_by = '$user_id',enquiry_dropdown_id='$enquiry_dropdown_id',revisit='$revisit',enquiry_outcome_comments='$enquiry_outcome_comments' WHERE ticket_no='$ticket_id'";
 						}elseif($enquiry_dropdown_id != '' && $revisit == ''){
-							$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at',ticket_closed_by = '$user_id',enquiry_dropdown_id='$enquiry_dropdown_id' WHERE ticket_no='$ticket_id'";
+							$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at',ticket_closed_by = '$user_id',enquiry_dropdown_id='$enquiry_dropdown_id',enquiry_outcome_comments='$enquiry_outcome_comments' WHERE ticket_no='$ticket_id'";
 						}else{
 							$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at', ticket_closed_by = '$user_id' WHERE ticket_no = '$ticket_id'";
 						}
@@ -1113,9 +1113,9 @@ else {
 		//$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at', ticket_closed_by = '$user_id' WHERE ticket_no = '$ticket_id'";
 		if($ticket_type=='enquiry'){
 			if($enquiry_dropdown_id != '' && $revisit != ''){
-				$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at',ticket_closed_by = '$user_id',enquiry_dropdown_id='$enquiry_dropdown_id',revisit='$revisit' WHERE ticket_no='$ticket_id'";
+				$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at',ticket_closed_by = '$user_id',enquiry_dropdown_id='$enquiry_dropdown_id',revisit='$revisit',enquiry_outcome_comments='$enquiry_outcome_comments' WHERE ticket_no='$ticket_id'";
 			}elseif($enquiry_dropdown_id != '' && $revisit == ''){
-				$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at',ticket_closed_by = '$user_id',enquiry_dropdown_id='$enquiry_dropdown_id' WHERE ticket_no='$ticket_id'";
+				$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at',ticket_closed_by = '$user_id',enquiry_dropdown_id='$enquiry_dropdown_id',enquiry_outcome_comments='$enquiry_outcome_comments' WHERE ticket_no='$ticket_id'";
 			}else{
 				$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at', ticket_closed_by = '$user_id' WHERE ticket_no = '$ticket_id'";
 			}
@@ -3907,9 +3907,9 @@ public function updateTicketStatus($data){
 				$get_dep=$this->fetchOne("SELECT department_users FROM `departments` where dept_id='$department'",array());
 				if($ticket_type=='enquiry'){
 					if($enquiry_dropdown_id != '' && $revisit != ''){
-                        $qry = "UPDATE external_tickets SET ticket_department='$department',ticket_assigned_to='$get_dep',unassign='0',enquiry_dropdown_id='$enquiry_dropdown_id',revisit='$revisit' WHERE ticket_no='$ticket_id'";
+                        $qry = "UPDATE external_tickets SET ticket_department='$department',ticket_assigned_to='$get_dep',unassign='0',enquiry_dropdown_id='$enquiry_dropdown_id',revisit='$revisit',enquiry_outcome_comments='$enquiry_outcome_comments' WHERE ticket_no='$ticket_id'";
                     }elseif($enquiry_dropdown_id != '' && $revisit == ''){
-                    	$qry = "UPDATE external_tickets SET ticket_department='$department',ticket_assigned_to='$get_dep',unassign='0',enquiry_dropdown_id='$enquiry_dropdown_id' WHERE ticket_no='$ticket_id'";
+                    	$qry = "UPDATE external_tickets SET ticket_department='$department',ticket_assigned_to='$get_dep',unassign='0',enquiry_dropdown_id='$enquiry_dropdown_id',enquiry_outcome_comments='$enquiry_outcome_comments' WHERE ticket_no='$ticket_id'";
                     }else{
                     	$qry = "UPDATE external_tickets SET ticket_department='$department',ticket_assigned_to='$get_dep',unassign='0' WHERE ticket_no='$ticket_id'";
                     }
@@ -3923,9 +3923,9 @@ public function updateTicketStatus($data){
 	        else{
 	        	if($ticket_type=='enquiry'){
 					if($enquiry_dropdown_id != '' && $revisit != ''){
-                        $qry = "UPDATE external_tickets SET ticket_status='$status', ticket_department='$department',ticket_assigned_to='$agent_id',unassign=1,enquiry_dropdown_id='$enquiry_dropdown_id',revisit='$revisit' WHERE ticket_no='$ticket_id'";
+                        $qry = "UPDATE external_tickets SET ticket_status='$status', ticket_department='$department',ticket_assigned_to='$agent_id',unassign=1,enquiry_dropdown_id='$enquiry_dropdown_id',revisit='$revisit',enquiry_outcome_comments='$enquiry_outcome_comments' WHERE ticket_no='$ticket_id'";
                     }elseif($enquiry_dropdown_id != '' && $revisit == ''){
-                    	$qry = "UPDATE external_tickets SET ticket_status='$status', ticket_department='$department',ticket_assigned_to='$agent_id',unassign=1,enquiry_dropdown_id='$enquiry_dropdown_id' WHERE ticket_no='$ticket_id'";
+                    	$qry = "UPDATE external_tickets SET ticket_status='$status', ticket_department='$department',ticket_assigned_to='$agent_id',unassign=1,enquiry_dropdown_id='$enquiry_dropdown_id',enquiry_outcome_comments='$enquiry_outcome_comments' WHERE ticket_no='$ticket_id'";
                     }else{
                     	$qry = "UPDATE external_tickets SET ticket_status='$status', ticket_department='$department',ticket_assigned_to='$agent_id',unassign=1 WHERE ticket_no='$ticket_id'";
                     }

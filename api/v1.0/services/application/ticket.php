@@ -145,7 +145,7 @@ elseif($action == "onchange_status"){
     $result_data["result"]["data"] = $ticket->onchangeStatus($data);
 }
 elseif($action == "oncloseTocket"){
-    $data = array("status_id"=>$status_id,"ticket_id"=>$ticket_id,"user_id"=>$user_id,"agent_name"=>$agent_name,"admin_id"=>$admin_id,"ticket_to"=>$ticket_to,"ticket_cc"=>$ticket_cc,"alert_status"=>$alert_status,"enquiry_dropdown_id"=>$enquiry_dropdown_id,"revisit"=>$revisit);    
+    $data = array("status_id"=>$status_id,"ticket_id"=>$ticket_id,"user_id"=>$user_id,"agent_name"=>$agent_name,"admin_id"=>$admin_id,"ticket_to"=>$ticket_to,"ticket_cc"=>$ticket_cc,"alert_status"=>$alert_status,"enquiry_dropdown_id"=>$enquiry_dropdown_id,"revisit"=>$revisit,"enquiry_outcome_comments"=>$enquiry_outcome_comments);    
     $result_data["result"]["data"] = $ticket->oncloseTocket($data);
 }
 
@@ -198,7 +198,7 @@ elseif($action == "addNotesForTicketReply"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->addNotesForTicketReply($data);
 }elseif($action == "updateTicketStatus"){
-	$data= array("ticket_id"=>$ticket_id,"status"=>$status,"ticket_notes"=>$ticket_notes,"user_id"=>$user_id,"admin_id"=>$admin_id,"user_name"=>$user_name,"department"=>$department,"agent_id"=>$agent_id,"enquiry_dropdown_id"=>$enquiry_dropdown_id,"revisit"=>$revisit);
+	$data= array("ticket_id"=>$ticket_id,"status"=>$status,"ticket_notes"=>$ticket_notes,"user_id"=>$user_id,"admin_id"=>$admin_id,"user_name"=>$user_name,"department"=>$department,"agent_id"=>$agent_id,"enquiry_dropdown_id"=>$enquiry_dropdown_id,"revisit"=>$revisit,"enquiry_outcome_comments"=>$enquiry_outcome_comments);
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->updateTicketStatus($data);
 }
