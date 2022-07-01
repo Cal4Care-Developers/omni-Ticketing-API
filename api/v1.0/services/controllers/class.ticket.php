@@ -3321,7 +3321,7 @@ if($explode1[0]=='Best regards'){
 			//$ext = mime_content_type($_FILES['up_files']['name'][$index]);
 			$filename = $filename.$rand.'.'.$ext;		   
 			$path = $upload_location.$filename;
-				if(move_uploaded_file($_FILES['up_files']['name'][$index],$path)){
+				if(move_uploaded_file($_FILES['up_files']['tmp_name'][$index],$path)){
 						$files_arr[] =  "https://".$_SERVER['SERVER_NAME']."/api/v1.0/ext-ticket-image/".$filename;
 					    $files_arr_db[] =  "https://ticketing.mconnectapps.com/api/v1.0/ext-ticket-image/".$filename;
 					    $source_file="https://".$_SERVER['SERVER_NAME']."/api/v1.0/ext-ticket-image/".$filename;
