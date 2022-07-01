@@ -3317,7 +3317,7 @@ if($explode1[0]=='Best regards'){
 			//$filenames = str_replace(' ','',$_FILES['up_files']['name'][$index]);
 			$filename = pathinfo($_FILES['up_files']['name'][$index], PATHINFO_FILENAME);
 			$rand = rand(0000,9999).time();
-			$ext = pathinfo($filename, PATHINFO_EXTENSION);
+			$ext = pathinfo($_FILES['up_files']['name'][$index], PATHINFO_EXTENSION);
 			//$ext = mime_content_type($_FILES['up_files']['name'][$index]);
 			$filename = $filename.$rand.'.'.$ext;		   
 			$path = $upload_location.$filename;
