@@ -8923,12 +8923,17 @@ public function list_enquiry_tickets ($data){
 		  file_put_contents('sts.txt', $status_desc.PHP_EOL , FILE_APPEND | LOCK_EX);
           $enquiry_status = $result[$i]['enquiry_status'];
           $department_name = $result[$i]['department_name'];
-	      $days_qry = $this->fetchone("SELECT datediff(date(ed.created_dt), date(e.created_dt)) FROM external_tickets e LEFT JOIN external_tickets_data ed ON ed.ticket_id = e.ticket_no WHERE e.ticket_no='$ticket_no' ORDER BY ed.ticket_message_id DESC LIMIT 1",array());
+	      /*$days_qry = $this->fetchone("SELECT datediff(date(ed.created_dt), date(e.created_dt)) FROM external_tickets e LEFT JOIN external_tickets_data ed ON ed.ticket_id = e.ticket_no WHERE e.ticket_no='$ticket_no' ORDER BY ed.ticket_message_id DESC LIMIT 1",array());
 	      if($days_qry > 1){
 		    $days_val = $days_qry." Days";
           }else{
 			$days_val = $days_qry." Day";  
-		  }
+		  }*/
+		  $last_date = $this->fetchone("SELECT created_dt FROM external_tickets_data WHERE ticket_id='$ticket_no' ORDER BY ticket_message_id DESC LIMIT 1",array());
+	      $datetime1 = new DateTime();
+		  $datetime2 = new DateTime($last_date);
+		  $interval = $datetime1->diff($datetime2);
+		  $days_val = $interval->format('%a days');
 		  if($unassign==1){
             $assigned_agent = $this->fetchOne("SELECT agent_name FROM user WHERE user_id = '$ticket_assigned_to'", array());
 		  }
