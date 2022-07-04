@@ -8930,7 +8930,9 @@ public function list_enquiry_tickets ($data){
 			$days_val = $days_qry." Day";  
 		  }*/
 		  $last_date = $this->fetchone("SELECT created_dt FROM external_tickets_data WHERE ticket_id='$ticket_no' ORDER BY ticket_message_id DESC LIMIT 1",array());
-	      $datetime1 = new DateTime();
+	      date_default_timezone_set('Asia/Singapore');
+	      $curdate = date('Y-m-d H:i:s');
+	      $datetime1 = new DateTime($curdate);
 		  $datetime2 = new DateTime($last_date);
 		  $interval = $datetime1->diff($datetime2);
 		  $days_val = $interval->format('%a days');
