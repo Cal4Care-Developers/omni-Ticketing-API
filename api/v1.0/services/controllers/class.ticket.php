@@ -9067,6 +9067,38 @@ public function update_enquiry_comments($data){
   $result = $qry_result == 1 ? 1 : 0;
   return $result;           
 }
+public function add_thread_notification($data){
+  extract($data);	     $datas=array("admin_id"=>$admin_id,"ticket_no"=>$ticket_no,"agent_id"=>$agent_id,"notification_datetime"=>$notification_datetime,"comments"=>$comments,"flag"=>$flag,"status"=>"1","customer_name"=>$customer_name);
+  $qry = $this->generateCreateQry($datas, "ticket_thread_notification");
+  $insert_data = $this->db_insert($qry, $datas); 
+  //echo $insert_data;exit; 
+  if($insert_data != 0){
+    $result = 1;              
+  }
+  else{                
+    $result = 0;
+  }            
+  return $result;    
+}
+public function list_thread_notification($data){
+  extract($data);   
+  $oldrecord_qry = "SELECT * FROM ticket_thread_notification WHERE admin_id ='$admin_id' AND agent_id ='$agent_id' AND status=1 AND notification_datetime < now()";
+  $oldrecord = $this->dataFetchAll($oldrecord_qry, array());
+  $currentrecord_qry = "SELECT * FROM ticket_thread_notification WHERE admin_id ='$admin_id' AND agent_id ='$agent_id' AND status=1 AND DATE(notification_datetime) = CURRENT_DATE()";
+  $current = $this->dataFetchAll($currentrecord_qry, array());
+  $futurerecord_qry = "SELECT * FROM ticket_thread_notification WHERE admin_id ='$admin_id' AND agent_id ='$agent_id' AND status=1 AND DATE(notification_datetime) > CURRENT_DATE()";
+  $future = $this->dataFetchAll($futurerecord_qry, array());	
+  $merge_result = array('status' => 'true','previous'=>$oldrecord,'current'=>$current,'future'=>$future);	
+  $tarray = json_encode($merge_result);
+  print_r($tarray);exit;	
+}
+public function thread_notification_count($data){
+  extract($data);
+  $count=$this->fetchOne("SELECT COUNT(id) FROM ticket_thread_notification WHERE admin_id ='$admin_id' AND agent_id ='$agent_id' AND status=1",array());	
+  $merge_result = array('status' => 'true','count'=>$count);	
+  $tarray = json_encode($merge_result);
+  print_r($tarray);exit;	
+}
 
 }
 ?>

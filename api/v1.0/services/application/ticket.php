@@ -879,4 +879,19 @@ elseif($action == "update_enquiry_comments"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->update_enquiry_comments($data);
 }
+elseif($action == "add_thread_notification"){
+    $data = array("admin_id"=>$admin_id,"ticket_no"=>$ticket_no,"agent_id"=>$agent_id,"notification_datetime"=>$notification_datetime,"comments"=>$comments,"flag"=>$flag,"customer_name"=>$customer_name);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->add_thread_notification($data);
+}
+elseif($action == "list_thread_notification"){
+    $data = array("admin_id"=>$admin_id,"agent_id"=>$agent_id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->list_thread_notification($data);
+}
+elseif($action == "thread_notification_count"){
+    $data = array("admin_id"=>$admin_id,"agent_id"=>$agent_id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->thread_notification_count($data);
+}
 ?>
