@@ -894,4 +894,14 @@ elseif($action == "thread_notification_count"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->thread_notification_count($data);
 }
+elseif($action == "agent_deptwise_ticketreport"){
+    $data = array("admin_id"=>$admin_id,"user_id"=>$user_id,"search_text"=>$search_text,"limit"=>$limit,"offset"=>$offset);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->agent_deptwise_ticketreport($data);
+}
+elseif($action == "agent_deptwise_ticketreport_filter"){
+    $data = array("admin_id"=>$admin_id,"user_id"=>$user_id,"limit"=>$limit,"offset"=>$offset,"from_dt"=>$from_dt,"to_dt"=>$to_dt,"dept_id"=>$dept_id,"agent_id"=>$agent_id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->agent_deptwise_ticketreport_filter($data);
+}
 ?>
