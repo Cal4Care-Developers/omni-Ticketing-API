@@ -8435,7 +8435,7 @@ function internalmail_spamLists($data){
     $result =  $this->dataFetchAll($qry, array());
     return $result;
 }
-public function share_external_ticket($data){
+/*public function share_external_ticket($data){
 	  extract($data);//print_r($data);exit;
 	  $get_shared_id = $this->fetchOne("SELECT shared_id FROM external_tickets WHERE ticket_no='$ticket_id'", array());
 	  if($get_shared_id==''){
@@ -8480,6 +8480,84 @@ public function shared_agent_list($data){
 	   $tarray = json_encode($result);
 	   print_r($tarray);exit;
 	  }
+}*/
+public function share_external_ticket($data){
+    extract($data);//print_r($data);exit;
+    $get_shared_id = $this->fetchOne("SELECT shared_id FROM external_tickets WHERE ticket_no='$ticket_id'", array());
+    if($get_shared_id==''){
+      if($agent_id == '-1'){
+        $get_dept_id = $this->fetchOne("SELECT ticket_department FROM external_tickets WHERE ticket_no='$ticket_id'", array());
+        $dept = $this->fetchOne("SELECT department_users FROM departments WHERE dept_id='$get_dept_id'", array());
+        $qry = "UPDATE external_tickets SET shared_id='-1',unassign=0,ticket_assigned_to='$dept' WHERE ticket_no='$ticket_id'";
+        $parms = array();
+        $results = $this->db_query($qry,$parms);      
+        $output = $results == 1 ? 1 : 0;
+      }else{
+        $qry = "UPDATE external_tickets SET shared_id='$agent_id' WHERE ticket_no='$ticket_id'";   
+        $parms = array();
+        $results = $this->db_query($qry,$parms);      
+        $output = $results == 1 ? 1 : 0;
+      }       
+    }
+    else{
+      if($agent_id == '-1'){
+        $get_dept_id = $this->fetchOne("SELECT ticket_department FROM external_tickets WHERE ticket_no='$ticket_id'", array());
+        $dept = $this->fetchOne("SELECT department_users FROM departments WHERE dept_id='$get_dept_id'", array());
+        $qry = "UPDATE external_tickets SET shared_id='-1',unassign=0,ticket_assigned_to='$dept' WHERE ticket_no='$ticket_id'";
+        $parms = array();
+        $results = $this->db_query($qry,$parms);      
+        $output = $results == 1 ? 1 : 0;
+      }else{
+        $shared_id = $get_shared_id.','.$agent_id;
+        $qry = "UPDATE external_tickets SET shared_id='$shared_id' WHERE ticket_no='$ticket_id'";
+        $parms = array();
+        $results = $this->db_query($qry,$parms);      
+        $output = $results == 1 ? 1 : 0;
+      }
+    }
+    if($agent_id != '-1'){
+      $explode = explode(',',$agent_id);
+      foreach($explode as $user){
+        $agent_name = $this->fetchOne("SELECT agent_name FROM user WHERE user_id='$user'", array());
+        $subject = 'Ticket [#'.$ticket_id.'] has been shared to - '.$agent_name;       
+        $us = array("user_id"=>$user,"ticket_for"=>"Share Ticket","ticket_subject"=>$subject, "ticket_id"=>$ticket_id);  
+        $this->send_notification($us);
+      }
+    }
+    return  $output;
+}
+public function shared_agent_list($data){
+  extract($data);//print_r($data);exit;
+  $get_shared_id = $this->fetchOne("SELECT shared_id FROM external_tickets WHERE ticket_no='$ticket_id'", array());
+  if($get_shared_id==''){             
+    $status = array('status' => 'false');
+    $result = array_merge($status);
+    $tarray = json_encode($result);
+    print_r($tarray);exit;
+  }
+  else if($get_shared_id=='-1')
+  {
+    $status = array('status' => 'true');
+    $user_details = array("user_id"=>"-1","agent_name"=>"queue");
+    $user_array = array('options' => $user_details);
+    $result = array_merge($status, $user_array);
+    $tarray = json_encode($result);
+    print_r($tarray);exit;
+  }
+  else
+  {     
+    $explode = explode(',',$get_shared_id);
+    foreach($explode as $user){
+     $agent_name = $this->fetchOne("SELECT agent_name FROM user WHERE user_id='$user'", array());
+     $user_details = array("user_id"=>$user,"agent_name"=>$agent_name);
+     $user_array[] = $user_details;    
+    }
+    $status = array('status' => 'true');
+    $user_array = array('options' => $user_array);
+    $result = array_merge($status, $user_array);
+    $tarray = json_encode($result);
+    print_r($tarray);exit;
+  }
 }
 public function update_spamstatus_settings($data){
 	extract($data);

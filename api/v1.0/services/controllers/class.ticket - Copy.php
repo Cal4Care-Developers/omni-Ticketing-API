@@ -1050,12 +1050,24 @@ else {
 					$tickNo = '[##'.$ticket_no.']';
 					$repM = str_replace('{%Cticket_id%}',$tickNo,$repM);
 				} else {
-					$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at', ticket_closed_by = '$user_id' WHERE ticket_no = '$ticket_id'";             
-		$result = $this->db_query($qry, $params);
-		return $result;
+					//$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at', ticket_closed_by = '$user_id' WHERE ticket_no = '$ticket_id'"; 
+					if($ticket_type=='enquiry'){
+						if($enquiry_dropdown_id != '' && $revisit != ''){
+							$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at',ticket_closed_by = '$user_id',enquiry_dropdown_id='$enquiry_dropdown_id',revisit='$revisit',enquiry_outcome_comments='$enquiry_outcome_comments' WHERE ticket_no='$ticket_id'";
+						}elseif($enquiry_dropdown_id != '' && $revisit == ''){
+							$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at',ticket_closed_by = '$user_id',enquiry_dropdown_id='$enquiry_dropdown_id',enquiry_outcome_comments='$enquiry_outcome_comments' WHERE ticket_no='$ticket_id'";
+						}else{
+							$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at', ticket_closed_by = '$user_id' WHERE ticket_no = '$ticket_id'";
+						}
+				   }else{
+					   $qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at', ticket_closed_by = '$user_id' WHERE ticket_no = '$ticket_id'";
+				   }            
+					$result = $this->db_query($qry, $params);
+					return $result;
 					exit;	
 				}				
-				$qry = "SELECT sig_content FROM email_signatures WHERE is_default='1' and admin_id='$dmin_id' and user_id='$admin_id' ";
+				//$qry = "SELECT sig_content FROM email_signatures WHERE is_default='1' and admin_id='$dmin_id' and user_id='$admin_id' ";
+				$qry = "SELECT sig_content FROM email_signatures WHERE admin_id='$admin_id' and dept_id='$dept'";
 				$mailSignature = $this->fetchOne($qry,array());
 				if($mailSignature){	
 					$repM =  $repM.$mailSignature;
@@ -1098,7 +1110,18 @@ else {
 		if($alert_status==1){
 			$autoRespns = $this->autoResponseEmail($uss);
 		}
-		$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at', ticket_closed_by = '$user_id' WHERE ticket_no = '$ticket_id'";             
+		//$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at', ticket_closed_by = '$user_id' WHERE ticket_no = '$ticket_id'";
+		if($ticket_type=='enquiry'){
+			if($enquiry_dropdown_id != '' && $revisit != ''){
+				$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at',ticket_closed_by = '$user_id',enquiry_dropdown_id='$enquiry_dropdown_id',revisit='$revisit',enquiry_outcome_comments='$enquiry_outcome_comments' WHERE ticket_no='$ticket_id'";
+			}elseif($enquiry_dropdown_id != '' && $revisit == ''){
+				$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at',ticket_closed_by = '$user_id',enquiry_dropdown_id='$enquiry_dropdown_id',enquiry_outcome_comments='$enquiry_outcome_comments' WHERE ticket_no='$ticket_id'";
+			}else{
+				$qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at', ticket_closed_by = '$user_id' WHERE ticket_no = '$ticket_id'";
+			}
+		}else{
+			   $qry = "UPDATE `external_tickets` SET ticket_status = '9',closed_at = '$closed_at', ticket_closed_by = '$user_id' WHERE ticket_no = '$ticket_id'";
+		}             
 		$result = $this->db_query($qry, $params);
 		$sub = 'Ticket [#'.$ticket_no.'] has been closed by - '.$agent_name;
 		$adm = array("user_id"=>$admin_id,"ticket_for"=>"Close Ticket","ticket_from"=>$ticket_from,"ticket_subject"=>$sub, "ticket_id"=>$ticket_no);
@@ -1847,7 +1870,10 @@ if($check_user!=''){
 		 //file_put_contents('dat.txt', $te.PHP_EOL , FILE_APPEND | LOCK_EX);exit;
 	   $from = $from;
 	   $cc = str_replace('[','(',$cc_mail);
-	   $cc = str_replace(']',')',$cc);	 
+	   $cc = str_replace(']',')',$cc);
+	   $cc = str_replace('(','',$cc);
+       $cc = str_replace(')','',$cc);
+       $cc = str_replace('"','',$cc);	 
 	   //$qry = "SELECT aliseEmail FROM `department_emails` WHERE aliseEmail REGEXP '$rep4'"; 
 	   $qry = "SELECT aliseEmail FROM `department_emails` WHERE aliseEmail = '$Toarr[0]'";   
        $to_original = $this->fetchOne($qry,array());
@@ -1856,6 +1882,9 @@ if($check_user!=''){
 	   $from = $from;
 	   $cc = str_replace('[','(',$cc_mail);
 	   $cc = str_replace(']',')',$cc);
+	   $cc = str_replace('(','',$cc);
+       $cc = str_replace(')','',$cc);
+       $cc = str_replace('"','',$cc);
 	   //$qry = "SELECT aliseEmail FROM `department_emails` WHERE aliseEmail REGEXP '$rep4'";  
 	   $qry = "SELECT aliseEmail FROM `department_emails` WHERE aliseEmail = '$Toarr[0]'";  
        $to_original = $this->fetchOne($qry,array());	     
@@ -2217,7 +2246,7 @@ if(substr( $subject, 0, 3 ) === "Fw:" || substr( $subject, 0, 3 ) === "FW:" || s
 				$get_alise=$this->fetchOne("SELECT aliseEmail FROM `department_emails` where emailAddr='$to2'",array());
 				if(substr( $subject, 0, 3 ) === "Re:" || substr( $subject, 0, 3 ) === "RE:"){
 					$maillcc = implode(',',$ccmailARR);
-				$qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,ticket_reply_id,created_dt,all_replied_to,all_replied_cc) VALUES ( '$ticket_no','$message','$subject','$Toarr[0]','$to_original','$maillcc','$attachments','$ticket_reply_id','$created_at','$Toarr[0]','$cc')", array());
+				    $qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,ticket_reply_id,created_dt,all_replied_to,all_replied_cc) VALUES ( '$ticket_no','$message','$subject','$Toarr[0]','$to_original','$maillcc','$attachments','$ticket_reply_id','$created_at','$Toarr[0]','$cc')", array());
 				}elseif(substr( $subject, 0, 3 ) === "Fw:" || substr( $subject, 0, 3 ) === "FW:"){
 					$expfrom = explode('<',$from);
                     $str_fm = str_replace('>', '', $expfrom[1]);
@@ -2237,6 +2266,7 @@ if(substr( $subject, 0, 3 ) === "Fw:" || substr( $subject, 0, 3 ) === "FW:" || s
 					}					
 					$qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,ticket_reply_id,created_dt,all_replied_to,all_replied_cc) VALUES ( '$ticket_no','$message','$subject','$from','$to_original','$maillcc','$attachments','$ticket_reply_id','$created_at','$from','$cc')", array());
 				}
+				
 				if($spam_status > 0){
 					echo 'SpamListed';
 						exit;
@@ -2952,7 +2982,11 @@ if($next_assign!=''){
 		  $closedby = $result[$i]['ticket_closed_by']; 
 		  $ticket_delete_status = $result[$i]['delete_status'];
 		  $ticket_profile_image = $result[$i]['profile_image'];	 
-		 
+		  $ticket_type = $result[$i]['type'];
+		  $ticket_enquiry_dropdown_id = $result[$i]['enquiry_dropdown_id'];
+		  $ticket_revisit_date = $result[$i]['revisit_date'];
+		  $ticket_enquiry_value = $result[$i]['enquiry_value'];
+		  $enquiry_outcome_comments = $result[$i]['enquiry_outcome_comments'];
 			if($ticket_user!='') {
 			
 				/*$rep= $this->fetchData("SELECT profile_image,user_name,agent_name FROM user where user_id='$ticket_user'",array());
@@ -3065,12 +3099,12 @@ if($explode1[0]=='Best regards'){
 }*/
 
 	      //$ticket_only_message = base64_decode($ticket_only_message);		
-          $ticket_options = array('ticket_no' => $ticket_no,'is_spam'=>$is_spam,'ticket_media'=>$ticket_media, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $ticket_assigned_to,'ticket_assigned_to_id'=>$ticket_assigned_to_id,'department' => $department,'depart_id'=>$ticket_department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus,'ticket_status_id'=>$ticket_status,'ticket_message'=>$ticket_message,'ticket_signature'=>$ticket_signature,'ticket_notes'=>$ticket_notes_by,'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'ticket_from'=>$ticket_from,'ticket_to'=>$ticket_to,'replied_from'=>$replied_from_db,'ticket_message_id'=>$ticket_message_id,'replied_by'=>$replied_by, 'own_mail' =>$from, 'own_img' =>$own_img, 'rep_img' =>$rep_img, 'rep_name' =>$rep_name, 'user_name'=>$user_name,'mail_cc'=>$ccMails, 'first_letter_r' => strtoupper($replied_from[0]),'ticket_closed_by'=>$tic_closed_by,'ticket_delete_status' => $ticket_delete_status,'ticket_profile_image'=>$ticket_profile_image,'ticket_only_message'=>$ticket_only_message,'ticket_only_signature'=>$ticket_only_signature,'ticket_forward_by'=>$ticket_forward_by,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name,'all_replied_to'=>$all_replied_to,'all_replied_cc'=>$all_replied_cc);
+          $ticket_options = array('ticket_no' => $ticket_no,'is_spam'=>$is_spam,'ticket_media'=>$ticket_media, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $ticket_assigned_to,'ticket_assigned_to_id'=>$ticket_assigned_to_id,'department' => $department,'depart_id'=>$ticket_department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus,'ticket_status_id'=>$ticket_status,'ticket_message'=>$ticket_message,'ticket_signature'=>$ticket_signature,'ticket_notes'=>$ticket_notes_by,'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'ticket_from'=>$ticket_from,'ticket_to'=>$ticket_to,'replied_from'=>$replied_from_db,'ticket_message_id'=>$ticket_message_id,'replied_by'=>$replied_by, 'own_mail' =>$from, 'own_img' =>$own_img, 'rep_img' =>$rep_img, 'rep_name' =>$rep_name, 'user_name'=>$user_name,'mail_cc'=>$ccMails, 'first_letter_r' => strtoupper($replied_from[0]),'ticket_closed_by'=>$tic_closed_by,'ticket_delete_status' => $ticket_delete_status,'ticket_profile_image'=>$ticket_profile_image,'ticket_only_message'=>$ticket_only_message,'ticket_only_signature'=>$ticket_only_signature,'ticket_forward_by'=>$ticket_forward_by,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name,'all_replied_to'=>$all_replied_to,'all_replied_cc'=>$all_replied_cc,'ticket_type'=>$ticket_type,'ticket_enquiry_dropdown_id'=>$ticket_enquiry_dropdown_id,'ticket_revisit_date'=>$ticket_revisit_date,'ticket_enquiry_value'=>$ticket_enquiry_value,'enquiry_outcome_comments'=>$enquiry_outcome_comments);
           $ticket_options_array[] = $ticket_options;
         }
 	
-		$first_res_time = "SELECT created_at FROM `external_tickets_data` WHERE repliesd_by = 'Agent' and ticket_id='$ticket_id' LIMIT 1";              
-          $first_res_time = $this->fetchmydata($first_res_time,array());
+		$first_res_time_qry = "SELECT created_dt FROM `external_tickets_data` WHERE repliesd_by = 'Agent' and ticket_id='$ticket_id' LIMIT 1";              
+          $first_res_time = $this->fetchmydata($first_res_time_qry,array());
 		
           $closed_at = $this->fetchmydata("SELECT closed_at FROM `external_tickets` WHERE ticket_no='$ticket_id'",array());
 		   
@@ -3120,7 +3154,6 @@ if($explode1[0]=='Best regards'){
 		file_put_contents('too.txt', print_r($data, true).PHP_EOL , FILE_APPEND | LOCK_EX);
 		$exp_to = explode(',',$to);
 		//print_r($exp_to);exit;
-		$replyCount=$this->fetchOne("SELECT COUNT(ticket_message_id) FROM `external_tickets_data` WHERE ticket_id='$ticket_id' AND repliesd_by='Agent'",array());
 		$replyCount=$this->fetchOne("SELECT COUNT(ticket_message_id) FROM `external_tickets_data` WHERE ticket_id='$ticket_id' AND repliesd_by='Agent'",array());
 		//echo $replyCount;exit;
 		//file_put_contents('msg.txt', $replyCount.PHP_EOL , FILE_APPEND | LOCK_EX);
@@ -3226,7 +3259,6 @@ if($explode1[0]=='Best regards'){
 		$ticket_from = $tic_details['ticket_to'];
 		$tic_from =  $tic_details['ticket_from'];
 		$ticket_dept=  $tic_details['ticket_department'];
-		
 		if($tic_from == 'user'){
 			$main_tick_from = $tic_details['ticket_email'];
 		} else {
@@ -3242,18 +3274,14 @@ if($explode1[0]=='Best regards'){
 		if($from == ''){
 			$qry = "select aliseEmail from department_emails where aliseEmail = '$ticket_from'";
 			$from =  $this->fetchOne($qry, array());
-		}	
-		
-
-
+		}
 // image in gmails with attachments		
-		 $description = base64_decode($message);
+		$description = base64_decode($message);
 		$html = $message;
 		$dom = new DOMDocument();
 		$images = $dom->getElementsByTagName('img');
 		$dom->loadHTML($html);
 		foreach ($images as $image) {
-        	
 		$withoutSrc = $image->getAttribute('src');
 			$img_Src = str_ireplace('src="', '', $withoutSrc);		
 		if (strpos($img_Src, ";base64,"))
@@ -3266,9 +3294,11 @@ if($explode1[0]=='Best regards'){
 				list(, $img_Src)      = explode(',', $img_Src);
 				$img_Src = base64_decode($img_Src);
 				$destination_path = getcwd().DIRECTORY_SEPARATOR;            
+				//$destination_path = 'https://ticketing.mconnectapps.com/api/v1.0/';
 				$tempFolder = $destination_path."ext-ticket-image/".$image_name;
 				if(file_put_contents($tempFolder, $img_Src)){
 					$whatsapp_media_target_path = "https://".$_SERVER['SERVER_NAME']."/api/v1.0/ext-ticket-image/".$image_name;
+					//$whatsapp_media_target_path = "https://ticketing.mconnectapps.com/api/v1.0/ext-ticket-image/".$image_name;
 				} else {
 					$whatsapp_media_target_path = $whatsapp_media_target_path;
 				}
@@ -3277,53 +3307,53 @@ if($explode1[0]=='Best regards'){
 				}
 		} 	
 		$countfiles = count($_FILES['up_files']['name']); 		
-		$destination_path = getcwd().DIRECTORY_SEPARATOR;            
+		$destination_path = getcwd().DIRECTORY_SEPARATOR;
+		//$destination_path = 'https://ticketing.mconnectapps.com/api/v1.0/';
+		file_put_contents('ve.txt', $destination_path.PHP_EOL , FILE_APPEND | LOCK_EX);           
 		$upload_location = $destination_path."ext-ticket-image/";
-		$files_arr = array();  	
+		$files_arr = array();
+		$files_arr_db = array();  	
 		for($index = 0; $index < $countfiles; $index++){
-			//$filename = $_FILES['up_files']['name'][$index];
-			$filename = pathinfo($_FILES['up_files']['name'][$index], PATHINFO_FILENAME);
+			$filenames = str_replace(' ','',$_FILES['up_files']['name'][$index]);
+			$filenamestmp = str_replace(' ','',$_FILES['up_files']['tmp_name'][$index]);
+			$filename = pathinfo($filenames, PATHINFO_FILENAME);
 			$rand = rand(0000,9999).time();
-			//$ext = pathinfo($_FILES['up_files']['name'][$index], PATHINFO_EXTENSION);
-			$ext = mime_content_type($_FILES['up_files']['name'][$index]);
+			$ext = pathinfo($filenames, PATHINFO_EXTENSION);
+			//$ext = mime_content_type($_FILES['up_files']['name'][$index]);
 			$filename = $filename.$rand.'.'.$ext;		   
 			$path = $upload_location.$filename;
-				if(move_uploaded_file($_FILES['up_files']['tmp_name'][$index],$path)){
+				if(move_uploaded_file($filenamestmp,$path)){
 						$files_arr[] =  "https://".$_SERVER['SERVER_NAME']."/api/v1.0/ext-ticket-image/".$filename;
+					    $files_arr_db[] =  "https://ticketing.mconnectapps.com/api/v1.0/ext-ticket-image/".$filename;
+					    $source_file="https://".$_SERVER['SERVER_NAME']."/api/v1.0/ext-ticket-image/".$filename;
+						$destination_file=$filename;
+						$ch = curl_init("https://ticketing.mconnectapps.com/api/v1.0/ext-ticket-image/file-upload.php");
+						$data =array(
+							"token" => "xoxp-344956815296-346541880614-345656220160-2b002c40dbeb0e8aee1ba1a82b41b166",
+							"source_file" => $source_file,"destination_file" => $destination_file);
+						curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+						curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+						curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+						$result = curl_exec($ch);
+						if (curl_errno($ch)) {
+                            $error_msg = 'Request Error:' . curl_error($ch);              
+                            file_put_contents('ticket_error.txt', $error_msg.PHP_EOL , FILE_APPEND | LOCK_EX);
+                        }
+						curl_close($ch);
 				}
 
 		}
-		file_put_contents('ry.txt', print_r($files_arr,true).PHP_EOL , FILE_APPEND | LOCK_EX);								  
-		 $files_array = $files_arr;
-		//$ticketMedia = implode(",",$files_arr);	
-		$files_arr = implode(",",$files_arr);
-		$message = $dom->saveHTML();
-		
-// image in gmails	END 
-
-
-	/*	$countfiles = count($_FILES['up_files']['name']);
-		$destination_path = getcwd().DIRECTORY_SEPARATOR;            
-		$upload_location = $destination_path."ext-ticket-image/";
-		$files_arr = array();
-		for($index = 0;$index < $countfiles;$index++){
-			$filename = pathinfo($_FILES['up_files']['name'][$index], PATHINFO_FILENAME);
-			$rand = rand(0000,9999).time();
-			$ext = pathinfo($_FILES['up_files']['name'][$index], PATHINFO_EXTENSION);
-			$filename = $filename.$rand.'.'.$ext;		   
-			//$valid_ext = array("png","jpeg","jpg","pdf","txt","xlsx","jfif");
-			// if(in_array($ext, $valid_ext)){}
-			$path = $upload_location.$filename;
-				if(move_uploaded_file($_FILES['up_files']['tmp_name'][$index],$path)){
-					$files_arr[] =  "https://".$_SERVER['SERVER_NAME']."/api/v1.0/ext-ticket-image/".$filename;
-				}
-		}	
+		file_put_contents('ry.txt', print_r($files_arr_db,true).PHP_EOL , FILE_APPEND | LOCK_EX);	  
 		$files_array = $files_arr;
-		$files_arr = implode(",",$files_arr);	*/	
+		//$ticketMedia = implode(",",$files_arr);	
+		$files_arr_db = implode(",",$files_arr_db);
+		$message = $dom->saveHTML();
+// image in gmails	END	
 		$mail_ccs = explode(",",$mail_cc);
 		$onlyMessage = addslashes($message);
 		//file_put_contents('msg.txt', $onlyMessage.PHP_EOL , FILE_APPEND | LOCK_EX);
-		$only_msg = '<div  style="border: 1px solid #d1d1d1;font-family: verdana !important; border-radius: 8px; padding: 12px; margin-bottom: 25px;">'.$onlyMessage.'</div>';		
+		$only_msg = '<div  style="border: 1px solid #d1d1d1;font-family: verdana !important; border-radius: 8px; padding: 12px; margin-bottom: 25px;">'.$onlyMessage.'</div>';	
 		$countqry = "SELECT COUNT(ticket_message_id) FROM `external_tickets_data` WHERE ticket_id='$ticket_id' AND repliesd_by='Agent';";
 		$replycount = $this->fetchOne($countqry,array());
 		if($replycount==0){
@@ -3334,65 +3364,7 @@ if($explode1[0]=='Best regards'){
 			}
 		}else{
 			$message = $message;
-		}	
-		
-			
-			// image in gmails			
-		/* $description = base64_decode($message);
-		$html = $message;
-		$dom = new DOMDocument();
-		$images = $dom->getElementsByTagName('img');
-		$dom->loadHTML($html);
-		foreach ($images as $image) {
-        	
-		$withoutSrc = $image->getAttribute('src');
-			$img_Src = str_ireplace('src="', '', $withoutSrc);		
-		if (strpos($img_Src, ";base64,"))
-            {
-				$time = str_pad(mt_rand(1,99999999),8,'0',STR_PAD_LEFT);
-				$f = explode(';', $img_Src);	
-				$img_type= str_replace("data:image/","",$f[0]);	
-				$image_name = $time.'.'.$img_type;
-				list($type, $img_Src) = explode(';', $img_Src);
-				list(, $img_Src)      = explode(',', $img_Src);
-				$img_Src = base64_decode($img_Src);
-				$destination_path = getcwd().DIRECTORY_SEPARATOR;            
-				$tempFolder = $destination_path."ext-ticket-image/".$image_name;
-				if(file_put_contents($tempFolder, $img_Src)){
-					$whatsapp_media_target_path = "https://".$_SERVER['SERVER_NAME']."/api/v1.0/ext-ticket-image/".$image_name;
-				} else {
-					$whatsapp_media_target_path = $whatsapp_media_target_path;
-				}
-				$image->setAttribute("src", $whatsapp_media_target_path); 
-					//$whatsapp_media_target_path = $tempFolder.$image_name; 
-				}
-		} 	
-		$countfiles = count($_FILES['up_files']['name']); 		
-		$destination_path = getcwd().DIRECTORY_SEPARATOR;            
-		$upload_location = $destination_path."ext-ticket-image/";
-		$files_arr = array();  	
-		for($index = 0; $index < $countfiles; $index++){
-			$filename = $_FILES['up_files']['name'][$index];
-			$rand = rand(0000,9999).time();
-			$ext = pathinfo($_FILES['up_files']['name'][$index], PATHINFO_EXTENSION);
-			$filename = $filename.$rand.'.'.$ext;		   
-			$path = $upload_location.$filename;
-				if(move_uploaded_file($_FILES['up_files']['tmp_name'][$index],$path)){
-						$files_arr1[] =  "https://".$_SERVER['SERVER_NAME']."/api/v1.0/ext-ticket-image/".$filename;
-				}
-
-		}									  
-		 $files_array = $files_arr1;
-		$ticketMedia = implode(",",$files_arr1);	
-		$files_arr1 = implode(",",$files_arr1);
-		$message = $dom->saveHTML();*/
-		
-		// image in gmails	
-			
-			
-			
-			
-			
+		}
 		$messages = $this->getTicketThread($ticket_id);
 		foreach($messages as $m) {
 		        $mess[] = '<div  style="border: 1px solid #d1d1d1;font-family: verdana !important; border-radius: 8px; padding: 12px; margin-bottom: 25px;">'.$m.'</div>';
@@ -3428,7 +3400,7 @@ if($explode1[0]=='Best regards'){
                     $mail->Port = $port;                    // set the SMTP port for the GMAIL server
                     $mail->Username = $username; // SMTP account username
                     $mail->Password = $password;        // SMTP account password 
-                    $mail->SetFrom($from);
+                    $mail->SetFrom($from);                   
                     $mail->Subject = $subject;
 					$mail->MsgHTML($body);
 					$mail->IsHTML(true);
@@ -3494,9 +3466,9 @@ if($explode1[0]=='Best regards'){
 		//file_put_contents('vaithee.txt', $qryss.PHP_EOL , FILE_APPEND | LOCK_EX);
 		$resultss = $this->db_query($qryss, $params);
 		$message = str_replace("'","\n",$message);	
-		$ry = "INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,repliesd_by,created_dt,user_id,only_message,only_signature,all_replied_to,all_replied_cc) VALUES ( '$ticket_id','$message','$subject','$from','$to','$mail_cc','$files_arr','Agent','$created_at','$user_id','$only_msg','$mailSignature','$all_replied_to','$all_replied_cc')";
+		$ry = "INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,repliesd_by,created_dt,user_id,only_message,only_signature,all_replied_to,all_replied_cc) VALUES ( '$ticket_id','$message','$subject','$from','$to','$mail_cc','$files_arr_db','Agent','$created_at','$user_id','$only_msg','$mailSignature','$all_replied_to','$all_replied_cc')";
 		file_put_contents('ry.txt', $ry.PHP_EOL , FILE_APPEND | LOCK_EX);			
-		$qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,repliesd_by,created_dt,user_id,only_message,only_signature,all_replied_to,all_replied_cc) VALUES ( '$ticket_id','$message','$subject','$from','$to','$mail_cc','$files_arr','Agent','$created_at','$user_id','$only_msg','$mailSignature','$all_replied_to','$all_replied_cc')", array());				
+		$qry_result = $this->db_insert("INSERT INTO external_tickets_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,repliesd_by,created_dt,user_id,only_message,only_signature,all_replied_to,all_replied_cc) VALUES ( '$ticket_id','$message','$subject','$from','$to','$mail_cc','$files_arr_db','Agent','$created_at','$user_id','$only_msg','$mailSignature','$all_replied_to','$all_replied_cc')", array());				
 		$result = $qry_result == 1 ? 'mailed' : 'Error';
 				  $dt = date('Y-m-d H:i:s');
 				 $get=$this->fetchData("select user_name, IF(admin_id = 1, user_id, admin_id) as admin_id from user where user_id='$user_id'", array()); 
@@ -3928,15 +3900,39 @@ public function updateTicketStatus($data){
         $oldDepartment = $oldDetails['ticket_department'];
         $oldAgent = $oldDetails['ticket_assigned_to'];
         if($override==0){
+        	/*if($ticket_type=='enquiry'){
+        		$enqid = $enquiry_dropdown_id;
+        		$revisit_date = $revisit;
+        	}*/
         	if($agent_id==''){
-				$get_dep=$this->fetchOne("SELECT department_users FROM `departments` where dept_id='$department'",array());	
-		        $qry = "UPDATE external_tickets SET ticket_department='$department',ticket_assigned_to='$get_dep',unassign='0' where ticket_no='$ticket_id'";
+				$get_dep=$this->fetchOne("SELECT department_users FROM `departments` where dept_id='$department'",array());
+				if($ticket_type=='enquiry'){
+					if($enquiry_dropdown_id != '' && $revisit != ''){
+                        $qry = "UPDATE external_tickets SET ticket_department='$department',ticket_assigned_to='$get_dep',unassign='0',enquiry_dropdown_id='$enquiry_dropdown_id',revisit='$revisit',enquiry_outcome_comments='$enquiry_outcome_comments' WHERE ticket_no='$ticket_id'";
+                    }elseif($enquiry_dropdown_id != '' && $revisit == ''){
+                    	$qry = "UPDATE external_tickets SET ticket_department='$department',ticket_assigned_to='$get_dep',unassign='0',enquiry_dropdown_id='$enquiry_dropdown_id',enquiry_outcome_comments='$enquiry_outcome_comments' WHERE ticket_no='$ticket_id'";
+                    }else{
+                    	$qry = "UPDATE external_tickets SET ticket_department='$department',ticket_assigned_to='$get_dep',unassign='0' WHERE ticket_no='$ticket_id'";
+                    }
+				}else{
+					$qry = "UPDATE external_tickets SET ticket_department='$department',ticket_assigned_to='$get_dep',unassign='0' where ticket_no='$ticket_id'";
+				}		        
 		        $update_data = $this->db_query($qry, array());
 		        $result = $update_data == 1 ? 1 : 0;  
 		        return $result;
 	        }
 	        else{
-	        	$qry = "UPDATE external_tickets SET ticket_status='$status', ticket_department='$department',ticket_assigned_to='$agent_id',unassign=1 where ticket_no = $ticket_id";		
+	        	if($ticket_type=='enquiry'){
+					if($enquiry_dropdown_id != '' && $revisit != ''){
+                        $qry = "UPDATE external_tickets SET ticket_status='$status', ticket_department='$department',ticket_assigned_to='$agent_id',unassign=1,enquiry_dropdown_id='$enquiry_dropdown_id',revisit='$revisit',enquiry_outcome_comments='$enquiry_outcome_comments' WHERE ticket_no='$ticket_id'";
+                    }elseif($enquiry_dropdown_id != '' && $revisit == ''){
+                    	$qry = "UPDATE external_tickets SET ticket_status='$status', ticket_department='$department',ticket_assigned_to='$agent_id',unassign=1,enquiry_dropdown_id='$enquiry_dropdown_id',enquiry_outcome_comments='$enquiry_outcome_comments' WHERE ticket_no='$ticket_id'";
+                    }else{
+                    	$qry = "UPDATE external_tickets SET ticket_status='$status', ticket_department='$department',ticket_assigned_to='$agent_id',unassign=1 WHERE ticket_no='$ticket_id'";
+                    }
+				}else{
+	        	    $qry = "UPDATE external_tickets SET ticket_status='$status', ticket_department='$department',ticket_assigned_to='$agent_id',unassign=1 where ticket_no = $ticket_id";
+	        	}		
 				if($agent_id > 0){			
 					$createdby_qry = "SELECT agent_name FROM user WHERE user_id='$agent_id'";              
 		      		$createdby = $this->fetchmydata($createdby_qry,array());
@@ -3955,11 +3951,27 @@ public function updateTicketStatus($data){
 							$repM = str_replace('{%Cticket_id%}',$tickNo,$repM);
 							$repM = str_replace('{%Cassign_to%}',$createdby,$repM);
 							$repM = str_replace('{%Cassign_by%}',$user_name,$repM);
-								
+							$messages = $this->getTicketThread($ticket_id);
+							foreach($messages as $m){
+							  $mess[] = '<div style="border: 1px solid #d1d1d1;font-family: verdana !important; border-radius: 8px; padding: 12px; margin-bottom: 25px;">'.$m.'</div>';
+							}
+							$mess = implode('<br>',$mess);
+							$messagetoSend = $repM.'<br> <br>'.$mess;	
 							$ticket_to = $this->fetchOne("SELECT email_id FROM `user` where user_id='$agent_id'",array());
 							$subject = "New Ticket Alert";
 							$from = 'no-reply@cal4care.com';
-				$uss = array("ticket_to"=>$ticket_to,"ticket_cc"=>"","ticket_bcc"=>"","from"=>$from,"message"=>$repM,"subject"=>$subject,"ticket_id"=>$ticket_id,"message_id"=>"");							
+				            $uss = array("ticket_to"=>$ticket_to,"ticket_cc"=>"","ticket_bcc"=>"","from"=>$from,"message"=>$messagetoSend,"subject"=>$subject,"ticket_id"=>$ticket_id,"message_id"=>"");
+							$autoRespns = $this->autoResponseEmail($uss);
+
+                            $ticket_to_assignee = $this->fetchOne("SELECT email_id FROM `user` where user_id='$user_id'",array());
+							$subject = "New Ticket Alert";
+							$from = 'no-reply@cal4care.com';
+							$rescontent = "SELECT response_content FROM email_autoresponses WHERE status='1' and admin_id='$admin_id' and response_for='agent_template_assignee'";
+		                    $rescontent_val = $this->fetchOne($rescontent, array());
+		                    $rescontent_val = str_replace('{%Cticket_id%}',$tickNo,$rescontent_val);
+							$rescontent_val = str_replace('{%Cassign_to%}',$createdby,$rescontent_val);
+							$rescontent_val = str_replace('{%Cassign_by%}',$user_name,$rescontent_val);
+				            $uss = array("ticket_to"=>$ticket_to_assignee,"ticket_cc"=>"","ticket_bcc"=>"","from"=>$from,"message"=>$rescontent_val,"subject"=>$subject,"ticket_id"=>$ticket_id,"message_id"=>"");
 							$autoRespns = $this->autoResponseEmail($uss);
 						}
 					}
@@ -4557,7 +4569,7 @@ public function getTicketThread($ticket_id){
     $destination_path = getcwd().DIRECTORY_SEPARATOR;            
             $upload_location = $destination_path."ext-ticket-image/";
     $qry = "SELECT a.*, b.* FROM external_tickets a JOIN external_tickets_data b ON a.ticket_no = b.ticket_id WHERE a.ticket_no ='$ticket_id'";
-    $detail_qry=$qry." ORDER BY b.ticket_message_id DESC";
+    $detail_qry=$qry." ORDER BY b.ticket_message_id DESC LIMIT 3";
     $result =  $this->dataFetchAll($detail_qry, array());
 
      for($i = 0; count($result) > $i; $i++){ 
@@ -4668,14 +4680,21 @@ public function getTicketThread($ticket_id){
 
 
     if($replied_by!='Agent') {
-         $ticket_message = '<h1 style="font-size: 20px;font-family: verdana !important; text-align: right; background: #00a65a; color: #fff; padding: 10px;margin-top: 0; border-radius: 8px 8px 0 0;"> '.$replied_from.'</h1>'.$ticket_messages;
+    	 $replied_from = $this->fetchOne("SELECT replied_from FROM `external_tickets_data` WHERE `ticket_id`='$ticket_id'",array());
+    	 $cus_com_name = $this->fetchOne("SELECT customer_name FROM `external_tickets` WHERE `ticket_no`='$ticket_id'",array());
+    	 if($cus_com_name=='Not a customer'){
+    	 	$cus_com_name = 'Prospect';
+    	 }else{
+    	 	$cus_com_name = $cus_com_name;
+    	 }
+         $ticket_message = '<h1 style="font-size: 20px;font-family: verdana !important; text-align: right; background: #00a65a; color: #fff; padding: 10px;margin-top: 0; border-radius: 8px 8px 0 0;"> '.$cus_com_name.'</h1>'.$ticket_messages;
 	} else {
 		$reps= $this->fetchData("SELECT profile_image,user_name,agent_name,profile_picture_permission FROM user where user_id='$ticket_user' ",array());
 	    $permissions = $reps['profile_picture_permission'];
 		if($permissions==0){
 		if($rep_img ==''){ $rep_img='https://omni.mconnectapps.com/assets/images/user.jpg';}
 		 //$ticket_message = '<p style="font-size: 20px;background: #808080;font-family: verdana !important; color: #000000f7 !important; font-weight: 700;padding: 10px; margin-top: 0; border-radius: 8px 8px 0 0;"><img src="'.$rep_img.'"  width="40" height="40" style="background-color:transparent;border-radius: 15px;border:5px solid #d1d1d1">'.$rep_name.'</p>'.$ticket_messages;
-			$ticket_message = '<div style="font-size:20px;background:#808080;font-family:verdana!important;color:#000000f7!important;font-weight:700;padding:10px;margin-top:0;border-radius:8px 8px 0 0;float: left;width: 100%;"><img src="'.$rep_img.'"  width="26" height="26" style="float:left;background-color:transparent;border-radius:15px;border: 4px solid #d1d1d1;display: inline-block;margin-right: 15px;"><div>'.$rep_name.'</div></div>'.$ticket_messages;
+			$ticket_message = '<div style="font-size:20px;background:#808080;font-family:verdana!important;color:#000000f7!important;font-weight:700;padding:10px 0px;margin-top:0;border-radius:8px 8px 0 0;float: left;width: 100%;display;flex; align-items: center; "><img src="'.$rep_img.'" width="26" height="26" style="float:left;background-color:transparent;border-radius:15px;border: 4px solid #d1d1d1;display: inline-block;margin-right: 15px; margin-left: 10px;"><div>'.$rep_name.'</div></div>'.$ticket_messages;
 		}else{
 		 $ticket_message = '<p style="font-size: 20px;background: #808080;font-family: verdana !important; color: #000000f7 !important; font-weight: 700;padding: 10px; margin-top: 0; border-radius: 8px 8px 0 0;">'.$rep_name.'</p>'.$ticket_messages;
 		}
@@ -6327,7 +6346,7 @@ $result = $this->dataFetchAll($detail_qry, array());
           $ticketstatus = $this->fetchmydata($status_qry,array());
 		  $priority_qry = "SELECT priority FROM priority WHERE id='$priority'";              
           $priority_value = $this->fetchmydata($priority_qry,array());				
-			$time_ago = strtotime($ticket_created_at); 		
+		  $time_ago = strtotime($ticket_created_at); 		
 		 	 $created_time = $this->time_Ago($time_ago);			
 			//$ticket_created_at = Carbon::parse($ticket_created_at);
 			//$created_time =  $ticket_created_at->diffForHumans();			
@@ -7442,7 +7461,7 @@ public function composeInternalMail($data){
 				}
 		}									  
 		$files_array = $files_arr;
-		$ticketMedia = implode(",",$files_arr);	
+		//$ticketMedia = implode(",",$files_arr);	
 		$files_arr = implode(",",$files_arr);
 		$html = $dom->saveHTML();		
 		$qry = "SELECT sig_content FROM email_signatures WHERE is_default='1' and admin_id='$admin_id'";
@@ -7505,7 +7524,9 @@ public function composeInternalMail($data){
      			$created_dt = date("Y-m-d H:i:s");			    
 				$ticket_no = $this->db_insert("INSERT INTO outlook_mail(ticket_from,ticket_to,ticket_subject,admin_id,created_dt,updated_at) VALUES ( '$from','$to','$subject','$admin_id','$created_dt','$created_dt')", array());			    
 			    $description = $html;
-				$qry_result = $this->db_insert("INSERT INTO outlook_mail_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,created_dt,repliesd_by,only_message,only_signature) VALUES ('$ticket_no','$description','$subject','$from','$to','$mail_cc','$attachments','$created_dt','Agent','$description','$mailSignature')", array()); 
+			    $te = "INSERT INTO outlook_mail_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,created_dt,repliesd_by,only_message,only_signature) VALUES ('$ticket_no','$description','$subject','$from','$to','$mail_cc','$files_arr','$created_dt','Agent','$description','$mailSignature')";
+			    file_put_contents('atc.txt', $te.PHP_EOL , FILE_APPEND | LOCK_EX);
+				$qry_result = $this->db_insert("INSERT INTO outlook_mail_data(ticket_id,ticket_message,ticket_subject,replied_from,replied_to,replied_cc,ticket_media,created_dt,repliesd_by,only_message,only_signature) VALUES ('$ticket_no','$description','$subject','$from','$to','$mail_cc','$files_arr','$created_dt','Agent','$description','$mailSignature')", array()); 
 	    }	
         $status = array('status' => 'true');
 		$response_array = array('data' => $res);	
@@ -7870,6 +7891,15 @@ public function merge_ticket($data){
             $qry_result = $this->db_query($qry, array());
             $result = $qry_result == 1 ? 1 : 0;
 			$update_data = $this->db_query("UPDATE external_tickets SET delete_status='1' WHERE ticket_no='$sub_ticket_id'", array());
+			$get_enquiry_type = $this->fetchOne("SELECT type FROM external_tickets WHERE ticket_no='$sub_ticket_id'", array());
+			if($get_enquiry_type=='enquiry'){
+				$enquirydata= $this->fetchData("SELECT enquiry_company,enquiry_comments,enquiry_dropdown_id,revisit_date FROM external_tickets WHERE ticket_no='$sub_ticket_id'", array());
+				$sub_enquiry_company = $enquirydata['enquiry_company'];
+				$sub_enquiry_comments = $enquirydata['enquiry_comments'];
+				$sub_enquiry_dropdown_id = $enquirydata['enquiry_dropdown_id'];
+				$sub_revisit_date = $enquirydata['revisit_date'];
+				$this->db_query("UPDATE external_tickets SET type='enquiry',enquiry_company='$sub_enquiry_company',enquiry_comments='$sub_enquiry_comments',enquiry_dropdown_id='$sub_enquiry_dropdown_id',revisit_date='$sub_revisit_date',enquiry_value='1' WHERE ticket_no='$main_ticket_id'", array());
+			}
             return $result;        	
         }
         elseif($main_customer_id == 0 || $sub_customer_id == 0){
@@ -7877,6 +7907,15 @@ public function merge_ticket($data){
             $qry_result = $this->db_query($qry, array());
             $result = $qry_result == 1 ? 1 : 0;
 			$update_data = $this->db_query("UPDATE external_tickets SET delete_status='1' WHERE ticket_no='$sub_ticket_id'", array());
+			$get_enquiry_type = $this->fetchOne("SELECT type FROM external_tickets WHERE ticket_no='$sub_ticket_id'", array());
+			if($get_enquiry_type=='enquiry'){
+				$enquirydata= $this->fetchData("SELECT enquiry_company,enquiry_comments,enquiry_dropdown_id,revisit_date FROM external_tickets WHERE ticket_no='$sub_ticket_id'", array());
+				$sub_enquiry_company = $enquirydata['enquiry_company'];
+				$sub_enquiry_comments = $enquirydata['enquiry_comments'];
+				$sub_enquiry_dropdown_id = $enquirydata['enquiry_dropdown_id'];
+				$sub_revisit_date = $enquirydata['revisit_date'];
+				$this->db_query("UPDATE external_tickets SET type='enquiry',enquiry_company='$sub_enquiry_company',enquiry_comments='$sub_enquiry_comments',enquiry_dropdown_id='$sub_enquiry_dropdown_id',revisit_date='$sub_revisit_date',enquiry_value='1' WHERE ticket_no='$main_ticket_id'", array());
+			}
             return $result;        	
         }
         else{
@@ -7886,7 +7925,7 @@ public function merge_ticket($data){
 }
 public function geterpCustomerDetasils($admin_id){ 
 	//echo $admin_id;exit;
-    /*$curl = curl_init();
+    $curl = curl_init();
     curl_setopt_array($curl, array(
       CURLOPT_URL => 'https://erp.cal4care.com/erp/apps/index.php',
       CURLOPT_RETURNTRANSFER => true,
@@ -7911,10 +7950,10 @@ public function geterpCustomerDetasils($admin_id){
     ));
     $response = curl_exec($curl);
     curl_close($curl);
-    print_r($response);exit;*/
-    $query = "SELECT customer_id, customer_name, customer_code, customer_email, country, phone_number FROM ticket_customer WHERE admin_id='$admin_id' GROUP BY customer_id ORDER BY id DESC;";
-    $result = $this->dataFetchAll($query,array());
-    return $result;
+    print_r($response);exit;
+    //$query = "SELECT customer_id, customer_name, customer_code, customer_email, country, phone_number FROM ticket_customer WHERE admin_id='$admin_id' GROUP BY customer_id ORDER BY id DESC;";
+    //$result = $this->dataFetchAll($query,array());
+    //return $result;
 }
 public function editCustomer($data){ 
 	extract($data);//print_r($data);exit;
@@ -8079,7 +8118,12 @@ public function change_thread_order($data){
 		  $is_spam = $result[$i]['is_spam'];
 		  $closedby = $result[$i]['ticket_closed_by']; 
 		  $ticket_delete_status = $result[$i]['delete_status'];
-		  $ticket_profile_image = $result[$i]['profile_image'];	 
+		  $ticket_profile_image = $result[$i]['profile_image'];
+		  $ticket_enquiry_dropdown_id = $result[$i]['enquiry_dropdown_id'];
+		  $ticket_revisit_date = $result[$i]['revisit_date'];
+		  $ticket_type = $result[$i]['type'];
+		  $ticket_enquiry_value = $result[$i]['enquiry_value'];
+		  $enquiry_outcome_comments = $result[$i]['enquiry_outcome_comments'];	 
 		  if($ticket_user!='') {				
 				$rep= $this->fetchData("SELECT profile_image,user_name,agent_name,profile_picture_permission FROM user where user_id='$ticket_user' ",array());
 			    $permission = $rep['profile_picture_permission'];			    
@@ -8135,11 +8179,11 @@ public function change_thread_order($data){
 			 $ticket_assigned_to_id = '';
 		  }
 		  //$ticket_only_message = base64_decode($ticket_only_message);      		
-          $ticket_options = array('ticket_no' => $ticket_no,'is_spam'=>$is_spam,'ticket_media'=>$ticket_media, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $ticket_assigned_to,'ticket_assigned_to_id'=>$ticket_assigned_to_id,'department' => $department,'depart_id'=>$ticket_department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus,'ticket_status_id'=>$ticket_status,'ticket_message'=>$ticket_message,'ticket_signature'=>$ticket_signature,'ticket_notes'=>$ticket_notes_by,'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'ticket_from'=>$ticket_from,'ticket_to'=>$ticket_to,'replied_from'=>$replied_from_db,'ticket_message_id'=>$ticket_message_id,'replied_by'=>$replied_by, 'own_mail' =>$from, 'own_img' =>$own_img, 'rep_img' =>$rep_img, 'rep_name' =>$rep_name, 'user_name'=>$user_name,'mail_cc'=>$ccMails, 'first_letter_r' => strtoupper($replied_from[0]),'ticket_closed_by'=>$tic_closed_by,'ticket_delete_status' => $ticket_delete_status,'ticket_profile_image'=>$ticket_profile_image,'ticket_only_message'=>$ticket_only_message,'ticket_only_signature'=>$ticket_only_signature,'ticket_forward_by'=>$ticket_forward_by,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name,'all_replied_to'=>$all_replied_to,'all_replied_cc'=>$all_replied_cc);
+          $ticket_options = array('ticket_no' => $ticket_no,'is_spam'=>$is_spam,'ticket_media'=>$ticket_media, 'ticket_created_by' => $ticket_from, 'ticket_assigned_to' => $ticket_assigned_to,'ticket_assigned_to_id'=>$ticket_assigned_to_id,'department' => $department,'depart_id'=>$ticket_department, 'subject'=> $ticket_subject, 'ticket_status' => $ticketstatus,'ticket_status_id'=>$ticket_status,'ticket_message'=>$ticket_message,'ticket_signature'=>$ticket_signature,'ticket_notes'=>$ticket_notes_by,'priority' => $priority_value, 'first_letter' => strtoupper($ticket_from[0]), 'ticket_created_at' => $created_time,'ticket_from'=>$ticket_from,'ticket_to'=>$ticket_to,'replied_from'=>$replied_from_db,'ticket_message_id'=>$ticket_message_id,'replied_by'=>$replied_by, 'own_mail' =>$from, 'own_img' =>$own_img, 'rep_img' =>$rep_img, 'rep_name' =>$rep_name, 'user_name'=>$user_name,'mail_cc'=>$ccMails, 'first_letter_r' => strtoupper($replied_from[0]),'ticket_closed_by'=>$tic_closed_by,'ticket_delete_status' => $ticket_delete_status,'ticket_profile_image'=>$ticket_profile_image,'ticket_only_message'=>$ticket_only_message,'ticket_only_signature'=>$ticket_only_signature,'ticket_forward_by'=>$ticket_forward_by,'customer_id'=>$ticket_customer_id,'customer_name'=>$ticket_customer_name,'all_replied_to'=>$all_replied_to,'all_replied_cc'=>$all_replied_cc,'ticket_type'=>$ticket_type,'ticket_enquiry_dropdown_id'=>$ticket_enquiry_dropdown_id,'ticket_revisit_date'=>$ticket_revisit_date,'ticket_enquiry_value'=>$ticket_enquiry_value,'enquiry_outcome_comments'=>$enquiry_outcome_comments);
           $ticket_options_array[] = $ticket_options;
         }	
-		$first_res_time = "SELECT created_at FROM `external_tickets_data` WHERE repliesd_by = 'Agent' and ticket_id='$ticket_id' LIMIT 1";              
-        $first_res_time = $this->fetchmydata($first_res_time,array());
+		$first_res_time_qry = "SELECT created_dt FROM `external_tickets_data` WHERE repliesd_by = 'Agent' and ticket_id='$ticket_id' LIMIT 1";              
+        $first_res_time = $this->fetchmydata($first_res_time_qry,array());
 		$closed_at = $this->fetchmydata("SELECT closed_at FROM `external_tickets` WHERE ticket_no='$ticket_id'",array());
 		$ticket_closed_by = $this->fetchmydata("SELECT ticket_closed_by FROM `external_tickets` WHERE ticket_no='$ticket_id'",array());
 		if($ticket_closed_by != '0'){
@@ -8738,6 +8782,459 @@ public function get_hasemail_department($admin_id){
       }            
       return $result;
     }
+}
+public function customer_search_function($data){
+    extract($data);//print_r($data);exit;
+	$emailArr = array();
+    $qry = "SELECT customer_email FROM `ticket_customer` WHERE customer_email LIKE '%$search_text%'";        
+    $qry_result = $this->dataFetchAll($qry,array());
+    $total_count = $this->dataRowCount($qry,array());
+	//echo $total_count;exit;
+	if($total_count!=0){
+		for($i = 0; $total_count > $i; $i++){
+		  $ticket_customer_email = $qry_result[$i]['customer_email'];
+		  $explode = explode(',', $ticket_customer_email);
+		  //print_r($explode);
+		  foreach($explode as $key => $value){	  
+		   array_push($emailArr,$value);	  
+		  }
+		  //print_r($emailArr);exit;
+		}	
+		$status = array('status' => 'true');	
+		$email_result = array('email' => array_values(array_unique($emailArr)));
+		$merge_result = array_merge($status, $email_result); 		
+		$tarray = json_encode($merge_result);
+		print_r($tarray);
+		exit;
+	}else{
+		$curl = curl_init();
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://erp.cal4care.com/erp/apps/index.php',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS =>'{
+         "operation": "agents",
+         "moduleType": "agents",
+         "api_type": "web",
+         "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0aWNrZXRpbmcubWNvbm5lY3RhcHBzLmNvbSIsImF1ZCI6InRpY2tldGluZy5tY29ubmVjdGFwcHMuY29tIiwiaWF0IjoxNjMwOTMyMTE5LCJuYmYiOjE2MzA5MzIxMTksImV4cCI6MTYzMDk1MDExOSwiYWNjZXNzX2RhdGEiOnsidG9rZW5fYWNjZXNzSWQiOiI2NCIsInRva2VuX2FjY2Vzc05hbWUiOiJTYWxlc0FkbWluIiwidG9rZW5fYWNjZXNzVHlwZSI6IjIifX0.YzdTs9NxXf-KVffqXCNz8cyff-vMwcH8YI9eC8Ji8Fc",
+         "element_data": {
+            "action": "get_customeremail",
+            "search_text": "'.$search_text.'"
+         }
+        }',
+        CURLOPT_HTTPHEADER => array(
+        'Content-Type: application/json'
+        ),
+       ));
+       $response = curl_exec($curl);
+       curl_close($curl);
+       print_r($response);exit;
+   }
+}	
+
+public function change_from_function($data){
+    extract($data);//print_r($data);exit;
+	$emailArr = array();
+	$get_domain = explode('@',$cusmail);
+	$customer_domain = $get_domain[1];
+	$customer_id = $this->fetchOne("SELECT customer_id FROM `ticket_customer` WHERE customer_email LIKE '%$customer_domain%'",array());
+	//echo $customer_id;exit;
+	if($customer_id == ''){
+		$curl = curl_init();
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://erp.cal4care.com/erp/apps/index.php',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS =>'{
+         "operation": "agents",
+         "moduleType": "agents",
+         "api_type": "web",
+         "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0aWNrZXRpbmcubWNvbm5lY3RhcHBzLmNvbSIsImF1ZCI6InRpY2tldGluZy5tY29ubmVjdGFwcHMuY29tIiwiaWF0IjoxNjMwOTMyMTE5LCJuYmYiOjE2MzA5MzIxMTksImV4cCI6MTYzMDk1MDExOSwiYWNjZXNzX2RhdGEiOnsidG9rZW5fYWNjZXNzSWQiOiI2NCIsInRva2VuX2FjY2Vzc05hbWUiOiJTYWxlc0FkbWluIiwidG9rZW5fYWNjZXNzVHlwZSI6IjIifX0.YzdTs9NxXf-KVffqXCNz8cyff-vMwcH8YI9eC8Ji8Fc",
+         "element_data": {
+            "action": "get_customerdetails",
+            "customer_domain":"'.$customer_domain.'"
+         }
+        }',
+        CURLOPT_HTTPHEADER => array(
+        'Content-Type: application/json'
+        ),
+       ));
+       $response = curl_exec($curl);
+       curl_close($curl);
+       $explode_customer_details = explode('||',$response);
+       $ticket_customer_id = $explode_customer_details[0];
+       $ticket_customer_name = $explode_customer_details[1];
+       $ticket_customer_code = $explode_customer_details[2];
+       $ticket_customer_email = $explode_customer_details[3];
+	   if($ticket_customer_id == ''){
+		   $result = 0;
+           return $result; 
+	   }else{		   	
+	       $qry = "UPDATE `external_tickets` SET  `customer_id` = '$ticket_customer_id',`customer_name` = '$ticket_customer_name',`ticket_from` = '$cusmail' WHERE `ticket_no` = '$ticket_no'";
+           $update_data = $this->db_query($qry, $params);
+	       $result = $update_data == 1 ? 1 : 0;
+           return $result;
+	   }
+   }else{
+	   $customer_name = $this->fetchOne("SELECT customer_name FROM `ticket_customer` WHERE customer_id = '$customer_id'",array());	
+	   $qry = "UPDATE `external_tickets` SET `customer_id` = '$customer_id',`customer_name` = '$customer_name',`ticket_from` = '$cusmail' WHERE `ticket_no` = '$ticket_no'";
+       $update_data = $this->db_query($qry, $params);
+	   $result = $update_data == 1 ? 1 : 0;
+       return $result;	
+   }
+}
+public function list_enquiry_tickets ($data){
+  extract($data);
+  $agtArr=array();
+  if($search_text!= ''){
+        $search_qry= " and (e.enquiry_company like '%".$search_text."%')";
+  }
+  $qry = "SELECT e.ticket_no,e.enquiry_company,e.created_dt,e.enquiry_country,e.enquiry_comments,e.revisit_date,e.enquiry_dropdown_id,e.ticket_assigned_to,e.unassign,e.enquiry_outcome_comments,s.status_desc,ed.name as enquiry_status,d.department_name FROM external_tickets as e LEFT JOIN status as s ON s.status_id = e.ticket_status LEFT JOIN enquiry_dropdown as ed ON ed.id = e.enquiry_dropdown_id LEFT JOIN departments as d ON d.dept_id = e.ticket_department WHERE e.admin_id='$admin_id' AND e.delete_status=0 AND e.type='enquiry'".$search_qry;
+  $detail_qry = $qry." ORDER BY e.ticket_no DESC LIMIT ".$limit." Offset ".$offset;
+ // echo $detail_qry;exit;
+  $result = $this->dataFetchAll($detail_qry, array());
+  for($i = 0; count($result) > $i; $i++){
+		  $enquiry_company = $result[$i]['enquiry_company'];	 
+          $ticket_no = $result[$i]['ticket_no'];
+		  $created_dt = $result[$i]['created_dt'];
+          $enquiry_country = $result[$i]['enquiry_country'];
+		  $enquiry_comments = $result[$i]['enquiry_comments'];
+          $revisit_date = $result[$i]['revisit_date'];
+          $enquiry_dropdown_id = $result[$i]['enquiry_dropdown_id'];
+          $unassign = $result[$i]['unassign'];
+	      $ticket_assigned_to = $result[$i]['ticket_assigned_to'];
+	      $enq_outcome_comments = $result[$i]['enquiry_outcome_comments'];
+          $status_qry = $this->fetchone("SELECT COUNT(ticket_message_id) FROM `external_tickets_data` WHERE repliesd_by='Agent' AND ticket_id='$ticket_no'", array());
+	      if($status_qry > 0){
+             $status_desc = $result[$i]['status_desc'];
+		  }else{
+			 $status_desc = 'New'; 
+		  }
+		  file_put_contents('sts.txt', $status_desc.PHP_EOL , FILE_APPEND | LOCK_EX);
+          $enquiry_status = $result[$i]['enquiry_status'];
+          $department_name = $result[$i]['department_name'];
+		  $last_date = $this->fetchone("SELECT date(created_dt) FROM external_tickets_data WHERE ticket_id='$ticket_no' ORDER BY ticket_message_id DESC LIMIT 1",array());
+	      date_default_timezone_set('Asia/Singapore');
+	      $curdate = date('Y-m-d');
+	      $datetime1 = new DateTime($curdate);
+		  $datetime2 = new DateTime($last_date);
+		  $interval = $datetime1->diff($datetime2);
+		  $days_val = $interval->format('%a');
+		  if($days_val > 1){
+		    $days_val = $days_val." Days";
+          }else{
+			$days_val = $days_val." Day";  
+		  }
+		  if($unassign==1){
+            $assigned_agent = $this->fetchOne("SELECT agent_name FROM user WHERE user_id = '$ticket_assigned_to'", array());
+		  }
+		  $agent_id_qry = "SELECT u.agent_name FROM `external_tickets_data` as e LEFT JOIN user as u ON u.user_id = e.user_id WHERE ticket_id='$ticket_no' AND repliesd_by='Agent'";
+          $agent_id_val = $this->dataFetchAll($agent_id_qry, array());
+		  for($k = 0; count($agent_id_val) > $k; $k++){
+			 $name = $agent_id_val[$k]['agent_name'];
+			 if (!in_array($name, $agtArr)){
+			  array_push($agtArr,$name);
+			 }
+		  }
+		  if (!in_array($assigned_agent, $agtArr)){
+			  $agtArr[] = $assigned_agent;
+		  }
+		  $commaList = implode(',', $agtArr);
+	      $ticket_options = array('ticket_no' => $ticket_no,'enquiry_company'=>$enquiry_company,'created_dt'=>$created_dt, 'enquiry_country' => $enquiry_country, 'enquiry_comments' => $enquiry_comments,'revisit_date'=>$revisit_date,'status_desc' => $status_desc,'enquiry_status'=>$enquiry_status, 'department_name'=> $department_name, 'last_update' => $days_val, 'agents' => $commaList, 'enquiry_dropdown_id' => $enquiry_dropdown_id, 'enquiry_outcome_comments'=>$enq_outcome_comments);
+          $ticket_options_array[] = $ticket_options;
+          $agtArr = array();
+  }	
+  $total_count = $this->dataRowCount($qry,array());	
+  $list_info = array('total' => $total_count, 'limit' => $limit, 'offset' => $offset);
+  $status = array('status' => 'true');	
+  $ticket_options_array = array('data' => $ticket_options_array);	
+  //$merge_result = array('status' => 'true','data'=>$result,'list_info' => $list_info);
+  $merge_result = array_merge($status, $ticket_options_array, $list_info);	
+  $tarray = json_encode($merge_result);
+  print_r($tarray);exit;
+}	
+public function list_enquiry_dropdown (){
+  $qry = "SELECT * FROM `enquiry_dropdown`";
+  $result = $this->dataFetchAll($qry, array());	
+  $merge_result = array('status' => 'true','data'=>$result);	
+  $tarray = json_encode($merge_result);
+  print_r($tarray);exit;
+}
+public function enquiry_ticket_filter($data){
+	  extract($data); //print_r($data);exit; 
+	  $agtArr=array();  
+	  $qry="SELECT e.ticket_no,e.enquiry_company,e.created_dt,e.enquiry_country,e.enquiry_comments,e.revisit_date,e.enquiry_dropdown_id,e.ticket_assigned_to,e.unassign,e.enquiry_outcome_comments,s.status_desc,ed.name as enquiry_status,d.department_name FROM external_tickets as e LEFT JOIN status as s ON s.status_id = e.ticket_status LEFT JOIN enquiry_dropdown as ed ON ed.id = e.enquiry_dropdown_id LEFT JOIN departments as d ON d.dept_id = e.ticket_department WHERE e.admin_id='$admin_id' AND e.type='enquiry'";
+	  if($from_dt!=''){
+		  $qry.=" AND  date(e.created_dt)>='$from_dt'";
+	  }if($to_dt!=''){
+		  $qry.=" AND  date(e.created_dt)<='$to_dt'";
+	  }if($dept_id!=''){        
+		  $qry.=" AND e.ticket_department = '$dept_id'";
+	  }if($enquiry_dropdown_id!=''){
+		  $qry.=" AND e.enquiry_dropdown_id = '$enquiry_dropdown_id'";
+	  }
+	  $detail_qry = $qry." ORDER BY e.ticket_no DESC LIMIT ".$limit." OFFSET ".$offset  ;
+	  //echo $detail_qry;exit;
+	  $result = $this->dataFetchAll($detail_qry, array());
+	  for($i = 0; count($result) > $i; $i++){
+		  $enquiry_company = $result[$i]['enquiry_company'];	 
+          $ticket_no = $result[$i]['ticket_no'];
+		  $created_dt = $result[$i]['created_dt'];
+          $enquiry_country = $result[$i]['enquiry_country'];
+		  $enquiry_comments = $result[$i]['enquiry_comments'];
+          $revisit_date = $result[$i]['revisit_date'];
+          $enquiry_dropdown_id = $result[$i]['enquiry_dropdown_id'];
+          $unassign = $result[$i]['unassign'];
+	      $ticket_assigned_to = $result[$i]['ticket_assigned_to'];
+	      $enq_outcome_comments = $result[$i]['enquiry_outcome_comments'];
+          $status_qry = $this->fetchone("SELECT COUNT(ticket_message_id) FROM `external_tickets_data` WHERE repliesd_by='Agent' AND ticket_id='$ticket_no'", array());
+	      if($status_qry > 0){
+             $status_desc = $result[$i]['status_desc'];
+		  }else{
+			 $status_desc = 'New'; 
+		  }
+          $enquiry_status = $result[$i]['enquiry_status'];
+          $department_name = $result[$i]['department_name'];	      
+		  $last_date = $this->fetchone("SELECT date(created_dt) FROM external_tickets_data WHERE ticket_id='$ticket_no' ORDER BY ticket_message_id DESC LIMIT 1",array());
+	      date_default_timezone_set('Asia/Singapore');
+	      $curdate = date('Y-m-d');
+	      $datetime1 = new DateTime($curdate);
+		  $datetime2 = new DateTime($last_date);
+		  $interval = $datetime1->diff($datetime2);
+		  $days_val = $interval->format('%a');
+		  if($days_val > 1){
+		    $days_val = $days_val." Days";
+          }else{
+			$days_val = $days_val." Day";  
+		  }
+		  if($unassign==1){
+            $assigned_agent = $this->fetchOne("SELECT agent_name FROM user WHERE user_id = '$ticket_assigned_to'", array());
+		  }
+		  $agent_id_qry = "SELECT u.agent_name FROM `external_tickets_data` as e LEFT JOIN user as u ON u.user_id = e.user_id WHERE ticket_id='$ticket_no' AND repliesd_by='Agent'";
+          $agent_id_val = $this->dataFetchAll($agent_id_qry, array());
+		  for($k = 0; count($agent_id_val) > $k; $k++){
+			 $name = $agent_id_val[$k]['agent_name'];
+			 if (!in_array($name, $agtArr)){
+			  array_push($agtArr,$name);
+			 }
+		  }
+		  if (!in_array($assigned_agent, $agtArr)){
+			  $agtArr[] = $assigned_agent;
+		  }
+		  $commaList = implode(',', $agtArr);
+	      $ticket_options = array('ticket_no' => $ticket_no,'enquiry_company'=>$enquiry_company,'created_dt'=>$created_dt, 'enquiry_country' => $enquiry_country, 'enquiry_comments' => $enquiry_comments,'revisit_date'=>$revisit_date,'status_desc' => $status_desc,'enquiry_status'=>$enquiry_status, 'department_name'=> $department_name, 'last_update' => $days_val, 'agents' => $commaList, 'enquiry_dropdown_id' => $enquiry_dropdown_id, 'enquiry_outcome_comments' => $enq_outcome_comments);
+          $ticket_options_array[] = $ticket_options;
+          $agtArr = array();
+      }
+      $total_count = $this->dataRowCount($qry,array());	
+      $list_info = array('total' => $total_count, 'limit' => $limit, 'offset' => $offset);
+      $status = array('status' => 'true');	
+      $ticket_options_array = array('data' => $ticket_options_array);
+      $merge_result = array_merge($status, $ticket_options_array, $list_info);
+      $tarray = json_encode($merge_result);
+      print_r($tarray);exit;
+}
+public function update_ticket_type($data){
+  extract($data);//print_r($data);exit;	
+  $qry = "UPDATE external_tickets SET type='$type',enquiry_value='1' WHERE admin_id='$admin_id' AND ticket_no='$ticket_no'";
+  $qry_result = $this->db_query($qry, array());
+  $result = $qry_result == 1 ? 1 : 0;
+  return $result;           
+}
+public function update_enquiry_details($data){
+  extract($data);//print_r($data);exit;	
+  $qry = "UPDATE external_tickets SET enquiry_company='$enquiry_company',enquiry_country='$enquiry_country',enquiry_comments='$enquiry_comments',enquiry_dropdown_id='$enquiry_dropdown_id',revisit_date='$revisit_date' WHERE admin_id='$admin_id' AND ticket_no='$ticket_no'";
+  $qry_result = $this->db_query($qry, array());
+  $result = $qry_result == 1 ? 1 : 0;
+  return $result;           
+}
+public function update_enquiry_comments($data){
+  extract($data);//print_r($data);exit;	
+  $qry = "UPDATE external_tickets SET enquiry_outcome_comments='$enquiry_outcome_comments' WHERE admin_id='$admin_id' AND ticket_no='$ticket_no'";
+  $qry_result = $this->db_query($qry, array());
+  $result = $qry_result == 1 ? 1 : 0;
+  return $result;           
+}
+public function add_thread_notification($data){
+  extract($data);	     $datas=array("admin_id"=>$admin_id,"ticket_no"=>$ticket_no,"agent_id"=>$agent_id,"notification_datetime"=>$notification_datetime,"comments"=>$comments,"flag"=>$flag,"status"=>"1","customer_name"=>$customer_name);
+  $qry = $this->generateCreateQry($datas, "ticket_thread_notification");
+  $insert_data = $this->db_insert($qry, $datas); 
+  //echo $insert_data;exit; 
+  if($insert_data != 0){
+    $result = 1;              
+  }
+  else{                
+    $result = 0;
+  }            
+  return $result;    
+}
+public function list_thread_notification($data){
+  extract($data);   
+  $oldrecord_qry = "SELECT t1.*,t2.ticket_status,t2.ticket_department,t2.ticket_department,t3.status_desc,t4.department_name FROM `ticket_thread_notification` as t1 INNER JOIN `external_tickets` as t2 ON t2.ticket_no=t1.ticket_no INNER JOIN `status` as t3 ON t3.status_id=t2.ticket_status INNER JOIN `departments` as t4 ON t4.dept_id=t2.ticket_department WHERE t1.admin_id ='$admin_id' AND t1.agent_id ='$agent_id' AND t1.status=1 AND t1.notification_datetime < now()";
+  $oldrecord = $this->dataFetchAll($oldrecord_qry, array());
+  $currentrecord_qry = "SELECT t1.*,t2.ticket_status,t2.ticket_department,t2.ticket_department,t3.status_desc,t4.department_name FROM `ticket_thread_notification` as t1 INNER JOIN `external_tickets` as t2 ON t2.ticket_no=t1.ticket_no INNER JOIN `status` as t3 ON t3.status_id=t2.ticket_status INNER JOIN `departments` as t4 ON t4.dept_id=t2.ticket_department WHERE t1.admin_id ='$admin_id' AND t1.agent_id ='$agent_id' AND t1.status=1 AND DATE(t1.notification_datetime) = CURRENT_DATE()";
+  $current = $this->dataFetchAll($currentrecord_qry, array());
+  $futurerecord_qry = "SELECT t1.*,t2.ticket_status,t2.ticket_department,t2.ticket_department,t3.status_desc,t4.department_name FROM `ticket_thread_notification` as t1 INNER JOIN `external_tickets` as t2 ON t2.ticket_no=t1.ticket_no INNER JOIN `status` as t3 ON t3.status_id=t2.ticket_status INNER JOIN `departments` as t4 ON t4.dept_id=t2.ticket_department WHERE t1.admin_id ='$admin_id' AND t1.agent_id ='$agent_id' AND t1.status=1 AND DATE(t1.notification_datetime) > CURRENT_DATE()";
+  $future = $this->dataFetchAll($futurerecord_qry, array());	
+  $merge_result = array('status' => 'true','previous'=>$oldrecord,'current'=>$current,'future'=>$future);	
+  $tarray = json_encode($merge_result);
+  print_r($tarray);exit;	
+}
+public function thread_notification_count($data){
+  extract($data);
+  $count=$this->fetchOne("SELECT COUNT(id) FROM ticket_thread_notification WHERE admin_id ='$admin_id' AND agent_id ='$agent_id' AND status=1",array());	
+  $merge_result = array('status' => 'true','count'=>$count);	
+  $tarray = json_encode($merge_result);
+  print_r($tarray);exit;	
+}
+public function add_reports_department($data){
+  extract($data);//print_r($data);exit;	
+  $qry = "UPDATE user SET reports_department='$dept_ids' WHERE user_id='$agent_id'";
+  $qry_result = $this->db_query($qry, array());
+  $result = $qry_result == 1 ? 1 : 0;
+  return $result;           
+}
+public function list_reports_department ($data){
+  extract($data);//print_r($data);exit;
+  $dept_ids=$this->fetchOne("SELECT reports_department FROM user WHERE user_id ='$agent_id'",array());	
+  $qry = "SELECT dept_id,department_name FROM `departments` WHERE dept_id IN ($dept_ids)";
+  $result = $this->dataFetchAll($qry, array());	
+  $merge_result = array('status' => 'true','data'=>$result);	
+  $tarray = json_encode($merge_result);
+  print_r($tarray);exit;
+}
+public function agent_deptwise_ticketreport ($data){
+  extract($data);//print_r($data);exit;
+  $agtArr=array();
+  $dept_ids=$this->fetchOne("SELECT reports_department FROM user WHERE user_id ='$user_id'",array());
+  if($search_text!= ''){
+        $search_qry= " AND (e.customer_name LIKE '%".$search_text."%')";
+  }
+  $qry = "SELECT e.ticket_no,e.customer_name,e.ticket_department,e.created_dt,e.unassign,d.department_name,s.status_desc FROM `external_tickets` as e LEFT JOIN departments as d ON d.dept_id=e.ticket_department LEFT JOIN status as s ON s.status_id=e.ticket_status WHERE e.ticket_department IN ($dept_ids) AND e.is_spam=0 AND e.delete_status=0".$search_qry;
+  $detail_qry = $qry." ORDER BY e.ticket_no DESC LIMIT ".$limit." Offset ".$offset;
+ // echo $detail_qry;exit;
+  $result = $this->dataFetchAll($detail_qry, array());
+  for($i = 0; count($result) > $i; $i++){
+      $customer_name = $result[$i]['customer_name'];   
+      $ticket_no = $result[$i]['ticket_no'];
+      $created_dt = $result[$i]['created_dt'];
+      $unassign = $result[$i]['unassign'];
+      $ticket_assigned_to = $result[$i]['ticket_assigned_to'];
+      $department_name = $result[$i]['department_name'];
+	  $status = $result[$i]['status_desc'];
+      $last_date = $this->fetchone("SELECT date(created_dt) FROM external_tickets_data WHERE ticket_id='$ticket_no' ORDER BY ticket_message_id DESC LIMIT 1",array());
+      date_default_timezone_set('Asia/Singapore');
+      $curdate = date('Y-m-d');
+      $datetime1 = new DateTime($curdate);
+      $datetime2 = new DateTime($last_date);
+      $interval = $datetime1->diff($datetime2);
+      $days_val = $interval->format('%a');
+	  if($days_val > 1){
+		    $days_val = $days_val." Days";
+      }else{
+			$days_val = $days_val." Day";  
+	  }
+      if($unassign==1){
+            $assigned_agent = $this->fetchOne("SELECT agent_name FROM user WHERE user_id = '$ticket_assigned_to'", array());
+      }
+      $agent_id_qry = "SELECT u.agent_name FROM `external_tickets_data` as e LEFT JOIN user as u ON u.user_id = e.user_id WHERE ticket_id='$ticket_no' AND repliesd_by='Agent'";
+      $agent_id_val = $this->dataFetchAll($agent_id_qry, array());
+      for($k = 0; count($agent_id_val) > $k; $k++){
+       $name = $agent_id_val[$k]['agent_name'];
+       if (!in_array($name, $agtArr)){
+        array_push($agtArr,$name);
+       }
+      }
+      if (!in_array($assigned_agent, $agtArr)){
+        $agtArr[] = $assigned_agent;
+      }
+      //print_r($agtArr);exit;
+      $commaList = implode(',', $agtArr);//print_r($commaList);exit;
+      $ticket_options = array('ticket_no' => $ticket_no,'customer_name'=>$customer_name,'created_dt'=>$created_dt, 'department_name'=> $department_name, 'last_update' => $days_val, 'agents' => $commaList, 'unassign' => $unassign, 'status' => $status);
+      $ticket_options_array[] = $ticket_options;
+      $agtArr = array();
+  } 
+  $total_count = $this->dataRowCount($qry,array()); 
+  $list_info = array('total' => $total_count, 'limit' => $limit, 'offset' => $offset);
+  $status = array('status' => 'true');  
+  $ticket_options_array = array('data' => $ticket_options_array);
+  $merge_result = array_merge($status, $ticket_options_array, $list_info);  
+  $tarray = json_encode($merge_result);
+  print_r($tarray);exit;
+}
+public function agent_deptwise_ticketreport_filter($data){
+    extract($data); //print_r($data);exit;
+    $agtArr=array();
+    $dept_ids=$this->fetchOne("SELECT reports_department FROM user WHERE user_id ='$user_id'",array());
+    if($dept_id==''){
+      $qry="SELECT e.ticket_no,e.customer_name,e.ticket_department,e.created_dt,e.unassign,d.department_name,s.status_desc FROM `external_tickets` as e LEFT JOIN departments as d ON d.dept_id=e.ticket_department LEFT JOIN status as s ON s.status_id=e.ticket_status WHERE e.ticket_department IN ($dept_ids) AND e.is_spam=0 AND e.delete_status=0";
+    }else{
+      $qry="SELECT e.ticket_no,e.customer_name,e.ticket_department,e.created_dt,e.unassign,d.department_name,s.status_desc FROM `external_tickets` as e LEFT JOIN departments as d ON d.dept_id=e.ticket_department LEFT JOIN status as s ON s.status_id=e.ticket_status WHERE e.ticket_department = '$dept_id' AND e.is_spam=0 AND e.delete_status=0";
+    }
+    if($from_dt!=''){
+      $qry.=" AND  date(e.created_dt)>='$from_dt'";
+    }if($to_dt!=''){
+      $qry.=" AND  date(e.created_dt)<='$to_dt'";
+    }
+	if($agent_id!=''){
+      $qry.=" AND  e.ticket_assigned_to='$agent_id'";
+    }
+    $detail_qry = $qry." ORDER BY e.ticket_no DESC LIMIT ".$limit." OFFSET ".$offset  ;
+    //echo $detail_qry;exit;
+    $result = $this->dataFetchAll($detail_qry, array());
+    for($i = 0; count($result) > $i; $i++){
+      $customer_name = $result[$i]['customer_name'];   
+      $ticket_no = $result[$i]['ticket_no'];
+      $created_dt = $result[$i]['created_dt'];
+      $unassign = $result[$i]['unassign'];
+      $ticket_assigned_to = $result[$i]['ticket_assigned_to'];
+      $department_name = $result[$i]['department_name'];
+	  $status = $result[$i]['status_desc'];	  	
+      $last_date = $this->fetchone("SELECT date(created_dt) FROM external_tickets_data WHERE ticket_id='$ticket_no' ORDER BY ticket_message_id DESC LIMIT 1",array());
+      date_default_timezone_set('Asia/Singapore');
+      $curdate = date('Y-m-d');
+      $datetime1 = new DateTime($curdate);
+      $datetime2 = new DateTime($last_date);
+      $interval = $datetime1->diff($datetime2);
+      $days_val = $interval->format('%a');
+	  if($days_val > 1){
+		    $days_val = $days_val." Days";
+      }else{
+			$days_val = $days_val." Day";  
+	  }	
+      if($unassign==1){
+            $assigned_agent = $this->fetchOne("SELECT agent_name FROM user WHERE user_id = '$ticket_assigned_to'", array());
+      }
+      $agent_id_qry = "SELECT u.agent_name FROM `external_tickets_data` as e LEFT JOIN user as u ON u.user_id = e.user_id WHERE ticket_id='$ticket_no' AND repliesd_by='Agent'";
+      $agent_id_val = $this->dataFetchAll($agent_id_qry, array());
+      for($k = 0; count($agent_id_val) > $k; $k++){
+       $name = $agent_id_val[$k]['agent_name'];
+       if (!in_array($name, $agtArr)){
+        array_push($agtArr,$name);
+       }
+      }
+      $commaList = implode(',', $agtArr);
+      $ticket_options = array('ticket_no' => $ticket_no,'customer_name'=>$customer_name,'created_dt'=>$created_dt, 'department_name'=> $department_name, 'last_update' => $days_val, 'agents' => $commaList, 'unassign' => $unassign, 'status' => $status);
+      $ticket_options_array[] = $ticket_options;
+      $agtArr = array();
+    }
+    $total_count = $this->dataRowCount($qry,array()); 
+    $list_info = array('total' => $total_count, 'limit' => $limit, 'offset' => $offset);
+    $status = array('status' => 'true');  
+    $ticket_options_array = array('data' => $ticket_options_array);
+    $merge_result = array_merge($status, $ticket_options_array, $list_info);
+    $tarray = json_encode($merge_result);
+    print_r($tarray);exit;
 }
 
 }
