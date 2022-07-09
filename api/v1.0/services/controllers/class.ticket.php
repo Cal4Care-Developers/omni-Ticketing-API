@@ -9165,7 +9165,7 @@ public function add_thread_notification($data){
 }
 public function list_thread_notification($data){
   extract($data);   
-  $oldrecord_qry = "SELECT t1.*,t2.ticket_status,t2.ticket_department,t2.ticket_department,t3.status_desc,t4.department_name FROM `ticket_thread_notification` as t1 INNER JOIN `external_tickets` as t2 ON t2.ticket_no=t1.ticket_no INNER JOIN `status` as t3 ON t3.status_id=t2.ticket_status INNER JOIN `departments` as t4 ON t4.dept_id=t2.ticket_department WHERE t1.admin_id ='$admin_id' AND t1.agent_id ='$agent_id' AND t1.status=1 AND DATE(t1.notification_datetime) < now()";
+  $oldrecord_qry = "SELECT t1.*,t2.ticket_status,t2.ticket_department,t2.ticket_department,t3.status_desc,t4.department_name FROM `ticket_thread_notification` as t1 INNER JOIN `external_tickets` as t2 ON t2.ticket_no=t1.ticket_no INNER JOIN `status` as t3 ON t3.status_id=t2.ticket_status INNER JOIN `departments` as t4 ON t4.dept_id=t2.ticket_department WHERE t1.admin_id ='$admin_id' AND t1.agent_id ='$agent_id' AND t1.status=1 AND DATE(t1.notification_datetime) < CURRENT_DATE()";
   $oldrecord = $this->dataFetchAll($oldrecord_qry, array());
   $currentrecord_qry = "SELECT t1.*,t2.ticket_status,t2.ticket_department,t2.ticket_department,t3.status_desc,t4.department_name FROM `ticket_thread_notification` as t1 INNER JOIN `external_tickets` as t2 ON t2.ticket_no=t1.ticket_no INNER JOIN `status` as t3 ON t3.status_id=t2.ticket_status INNER JOIN `departments` as t4 ON t4.dept_id=t2.ticket_department WHERE t1.admin_id ='$admin_id' AND t1.agent_id ='$agent_id' AND t1.status=1 AND DATE(t1.notification_datetime) = CURRENT_DATE()";
   $current = $this->dataFetchAll($currentrecord_qry, array());
