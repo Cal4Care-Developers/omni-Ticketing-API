@@ -3516,7 +3516,11 @@ for($et=0;$et<count($exp_to);$et++){
 		$delqry_result = $this->db_query("DELETE from spam_mail_ids where email='$et_val'",  array());
 		$insertqry_result = $this->db_insert("INSERT INTO customer_whitelist(admin_id,email,status) VALUES ( '64','$et_val','1')", array());
 	}	    
-}				 
+}
+// update thread notification
+$notification_update = "UPDATE `ticket_thread_notification` SET status = '0' WHERE ticket_no = '$ticket_id'";
+$this->db_query($notification_update, array());
+// update thread notification				 
 				$status = array('status' => 'true');     
 		        $tarray = json_encode($status);           
                 print_r($tarray);exit;
