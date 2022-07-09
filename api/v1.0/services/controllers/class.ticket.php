@@ -1125,7 +1125,10 @@ else {
 		$result = $this->db_query($qry, $params);
 		$sub = 'Ticket [#'.$ticket_no.'] has been closed by - '.$agent_name;
 		$adm = array("user_id"=>$admin_id,"ticket_for"=>"Close Ticket","ticket_from"=>$ticket_from,"ticket_subject"=>$sub, "ticket_id"=>$ticket_no);
-		$us = $this->send_notification($adm);  				
+		$us = $this->send_notification($adm); 
+		// update thread notification
+        $notification_update = "UPDATE `ticket_thread_notification` SET status = '0' WHERE ticket_no = '$ticket_id'";
+        $this->db_query($notification_update, array()); 				
 		return $result;
 	}
 	
