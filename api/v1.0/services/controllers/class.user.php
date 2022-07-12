@@ -365,6 +365,23 @@ public  function update_agent($agent_data){
 		
 		 
 	 }
+// update old department
+   $exp_old = explode(',',$old_user_dept);
+   $missing_value = array_diff($exp_old, $user_dept);
+   $arr_count1 = count($missing_value);
+   for($i=0;$i<$arr_count1;$i++){
+    $dep_ids_old = $missing_value[$i];
+    $dep_users_old = $this->fetchOne("SELECT department_users FROM `departments` WHERE dept_id='$dep_ids_old' ",array());
+    $old_exp1 = explode(',',$dep_users_old);
+    if (in_array($user_id, $old_exp1)){
+      $pos = array_search($user_id, $old_exp1);
+      unset($old_exp1[$pos]);
+      $implode_old_users = (',',$old_exp1);
+      $update_olddept_qry = "UPDATE `departments` SET department_users = '$implode_old_users' WHERE dept_id = '$dep_ids_old'";             
+      $this->db_query($update_olddept_qry, array());
+    }
+   }
+// update old department   
 $exp = explode(',',$user_dept);
 $arr_count = count($exp);
 for($q=0;$q<$arr_count;$q++){
