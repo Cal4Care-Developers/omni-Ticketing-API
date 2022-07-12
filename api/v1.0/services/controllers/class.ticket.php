@@ -8982,9 +8982,9 @@ public function list_enquiry_tickets ($data){
   extract($data);
   $agtArr=array();
   if($search_text!= ''){
-        $search_qry= " and (e.enquiry_company like '%".$search_text."%')";
+        $search_qry= " and (e.enquiry_company like '%".$search_text."%' or e.ticket_no like '%".$search_text."%')";
   }
-  $qry = "SELECT e.ticket_no,e.enquiry_company,e.created_dt,e.enquiry_country,e.enquiry_comments,e.revisit_date,e.enquiry_dropdown_id,e.ticket_assigned_to,e.unassign,e.enquiry_outcome_comments,s.status_desc,ed.name as enquiry_status,d.department_name FROM external_tickets as e LEFT JOIN status as s ON s.status_id = e.ticket_status LEFT JOIN enquiry_dropdown as ed ON ed.id = e.enquiry_dropdown_id LEFT JOIN departments as d ON d.dept_id = e.ticket_department WHERE e.admin_id='$admin_id' AND e.delete_status=0 AND e.type='enquiry'".$search_qry;
+  $qry = "SELECT e.ticket_no,e.enquiry_company,e.created_dt,e.enquiry_country,e.enquiry_comments,e.revisit_date,e.enquiry_dropdown_id,e.ticket_assigned_to,e.unassign,e.enquiry_outcome_comments,s.status_desc,ed.name as enquiry_status,d.department_name FROM external_tickets as e LEFT JOIN status as s ON s.status_id = e.ticket_status LEFT JOIN enquiry_dropdown as ed ON ed.id = e.enquiry_dropdown_id LEFT JOIN departments as d ON d.dept_id = e.ticket_department WHERE e.admin_id='$admin_id' AND e.delete_status=0 AND e.type='enquiry' AND e.ticket_status != 9".$search_qry;
   $detail_qry = $qry." ORDER BY e.ticket_no DESC LIMIT ".$limit." Offset ".$offset;
  // echo $detail_qry;exit;
   $result = $this->dataFetchAll($detail_qry, array());
@@ -9213,9 +9213,9 @@ public function agent_deptwise_ticketreport ($data){
   $agtArr=array();
   $dept_ids=$this->fetchOne("SELECT reports_department FROM user WHERE user_id ='$user_id'",array());
   if($search_text!= ''){
-        $search_qry= " AND (e.customer_name LIKE '%".$search_text."%')";
+        $search_qry= " AND (e.customer_name LIKE '%".$search_text."%' or e.ticket_no like '%".$search_text."%')";
   }
-  $qry = "SELECT e.ticket_no,e.customer_name,e.ticket_department,e.created_dt,e.unassign,e.ticket_assigned_to,d.department_name,s.status_desc FROM `external_tickets` as e LEFT JOIN departments as d ON d.dept_id=e.ticket_department LEFT JOIN status as s ON s.status_id=e.ticket_status WHERE e.ticket_department IN ($dept_ids) AND e.is_spam=0 AND e.delete_status=0".$search_qry;
+  $qry = "SELECT e.ticket_no,e.customer_name,e.ticket_department,e.created_dt,e.unassign,e.ticket_assigned_to,d.department_name,s.status_desc FROM `external_tickets` as e LEFT JOIN departments as d ON d.dept_id=e.ticket_department LEFT JOIN status as s ON s.status_id=e.ticket_status WHERE e.ticket_department IN ($dept_ids) AND e.is_spam=0 AND e.delete_status=0 AND e.ticket_status != 9".$search_qry;
   $detail_qry = $qry." ORDER BY e.ticket_no DESC LIMIT ".$limit." Offset ".$offset;
  // echo $detail_qry;exit;
   $result = $this->dataFetchAll($detail_qry, array());
