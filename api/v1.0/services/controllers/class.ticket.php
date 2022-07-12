@@ -9068,6 +9068,9 @@ public function enquiry_ticket_filter($data){
 	  }if($enquiry_dropdown_id!=''){
 		  $qry.=" AND e.enquiry_dropdown_id = '$enquiry_dropdown_id'";
 	  }
+	  if($status_id!=''){
+		  $qry.=" AND e.ticket_status = '$status_id'";
+	  }
 	  $detail_qry = $qry." ORDER BY e.ticket_no DESC LIMIT ".$limit." OFFSET ".$offset  ;
 	  //echo $detail_qry;exit;
 	  $result = $this->dataFetchAll($detail_qry, array());
@@ -9212,7 +9215,7 @@ public function agent_deptwise_ticketreport ($data){
   if($search_text!= ''){
         $search_qry= " AND (e.customer_name LIKE '%".$search_text."%')";
   }
-  $qry = "SELECT e.ticket_no,e.customer_name,e.ticket_department,e.created_dt,e.unassign,d.department_name,s.status_desc FROM `external_tickets` as e LEFT JOIN departments as d ON d.dept_id=e.ticket_department LEFT JOIN status as s ON s.status_id=e.ticket_status WHERE e.ticket_department IN ($dept_ids) AND e.is_spam=0 AND e.delete_status=0".$search_qry;
+  $qry = "SELECT e.ticket_no,e.customer_name,e.ticket_department,e.created_dt,e.unassign,e.ticket_assigned_to,d.department_name,s.status_desc FROM `external_tickets` as e LEFT JOIN departments as d ON d.dept_id=e.ticket_department LEFT JOIN status as s ON s.status_id=e.ticket_status WHERE e.ticket_department IN ($dept_ids) AND e.is_spam=0 AND e.delete_status=0".$search_qry;
   $detail_qry = $qry." ORDER BY e.ticket_no DESC LIMIT ".$limit." Offset ".$offset;
  // echo $detail_qry;exit;
   $result = $this->dataFetchAll($detail_qry, array());
@@ -9269,9 +9272,9 @@ public function agent_deptwise_ticketreport_filter($data){
     $agtArr=array();
     $dept_ids=$this->fetchOne("SELECT reports_department FROM user WHERE user_id ='$user_id'",array());
     if($dept_id==''){
-      $qry="SELECT e.ticket_no,e.customer_name,e.ticket_department,e.created_dt,e.unassign,d.department_name,s.status_desc FROM `external_tickets` as e LEFT JOIN departments as d ON d.dept_id=e.ticket_department LEFT JOIN status as s ON s.status_id=e.ticket_status WHERE e.ticket_department IN ($dept_ids) AND e.is_spam=0 AND e.delete_status=0";
+      $qry="SELECT e.ticket_no,e.customer_name,e.ticket_department,e.created_dt,e.unassign,e.ticket_assigned_to,d.department_name,s.status_desc FROM `external_tickets` as e LEFT JOIN departments as d ON d.dept_id=e.ticket_department LEFT JOIN status as s ON s.status_id=e.ticket_status WHERE e.ticket_department IN ($dept_ids) AND e.is_spam=0 AND e.delete_status=0";
     }else{
-      $qry="SELECT e.ticket_no,e.customer_name,e.ticket_department,e.created_dt,e.unassign,d.department_name,s.status_desc FROM `external_tickets` as e LEFT JOIN departments as d ON d.dept_id=e.ticket_department LEFT JOIN status as s ON s.status_id=e.ticket_status WHERE e.ticket_department = '$dept_id' AND e.is_spam=0 AND e.delete_status=0";
+      $qry="SELECT e.ticket_no,e.customer_name,e.ticket_department,e.created_dt,e.unassign,e.ticket_assigned_to,d.department_name,s.status_desc FROM `external_tickets` as e LEFT JOIN departments as d ON d.dept_id=e.ticket_department LEFT JOIN status as s ON s.status_id=e.ticket_status WHERE e.ticket_department = '$dept_id' AND e.is_spam=0 AND e.delete_status=0";
     }
     if($from_dt!=''){
       $qry.=" AND  date(e.created_dt)>='$from_dt'";
@@ -9280,6 +9283,9 @@ public function agent_deptwise_ticketreport_filter($data){
     }
 	if($agent_id!=''){
       $qry.=" AND  e.ticket_assigned_to='$agent_id'";
+    }
+    if($status_id!=''){
+      $qry.=" AND  e.ticket_status='$status_id'";
     }
     $detail_qry = $qry." ORDER BY e.ticket_no DESC LIMIT ".$limit." OFFSET ".$offset  ;
     //echo $detail_qry;exit;

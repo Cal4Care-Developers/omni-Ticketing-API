@@ -860,7 +860,7 @@ elseif($action == "list_enquiry_dropdown"){
     $result_data["result"]["data"] = $ticket->list_enquiry_dropdown();
 }
 elseif($action == "enquiry_ticket_filter"){
-    $data= array("admin_id"=>$admin_id,"limit"=>$limit, "offset"=>$offset,"from_dt"=>$from_dt,"to_dt"=>$to_dt,"dept_id"=>$dept_id,"enquiry_dropdown_id"=>$enquiry_dropdown_id);
+    $data= array("admin_id"=>$admin_id,"limit"=>$limit, "offset"=>$offset,"from_dt"=>$from_dt,"to_dt"=>$to_dt,"dept_id"=>$dept_id,"enquiry_dropdown_id"=>$enquiry_dropdown_id,"status_id"=>$status_id);
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->enquiry_ticket_filter($data);    
 }
@@ -910,7 +910,7 @@ elseif($action == "agent_deptwise_ticketreport"){
     $result_data["result"]["data"] = $ticket->agent_deptwise_ticketreport($data);
 }
 elseif($action == "agent_deptwise_ticketreport_filter"){
-    $data = array("admin_id"=>$admin_id,"user_id"=>$user_id,"limit"=>$limit,"offset"=>$offset,"from_dt"=>$from_dt,"to_dt"=>$to_dt,"dept_id"=>$dept_id,"agent_id"=>$agent_id);
+    $data = array("admin_id"=>$admin_id,"user_id"=>$user_id,"limit"=>$limit,"offset"=>$offset,"from_dt"=>$from_dt,"to_dt"=>$to_dt,"dept_id"=>$dept_id,"agent_id"=>$agent_id,"status_id"=>$status_id);
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->agent_deptwise_ticketreport_filter($data);
 }
