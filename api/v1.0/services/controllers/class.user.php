@@ -365,7 +365,20 @@ public  function update_agent($agent_data){
 		
 		 
 	 }
-	
+$exp = explode(',',$user_dept);
+$arr_count = count($exp);
+for($q=0;$q<$arr_count;$q++){
+ $dep_ids = $exp[$q];
+ $dep_users = $this->fetchOne("SELECT department_users FROM `departments` WHERE dept_id='$dep_ids' ",array());
+ $exp1 = explode(',',$dep_users);
+ if (in_array($user_id, $exp1)){
+ }
+ else{
+    $implode_user = $dep_users.",".$user_id;
+    $update_dept_qry = "UPDATE `departments` SET department_users = '$implode_user' WHERE dept_id = '$dep_ids'";             
+    $this->db_query($update_dept_qry, array());
+ }
+}	
 	
 	
 

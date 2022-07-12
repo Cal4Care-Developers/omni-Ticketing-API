@@ -9336,6 +9336,15 @@ public function enquiry_report_piechart ($data){
   $tarray = json_encode($merge_result);
   print_r($tarray);exit;
 }
+public function getuserDept ($data){
+  extract($data);//print_r($data);exit;	
+  $qry = "SELECT dept_id,department_name FROM `departments` WHERE find_in_set('$user_id',department_users)";
+  //echo $qry;exit;	
+  $result = $this->dataFetchAll($qry, array());	
+  $merge_result = array('status' => 'true','data'=>$result);	
+  $tarray = json_encode($merge_result);
+  print_r($tarray);exit;
+}
 
 }
 ?>

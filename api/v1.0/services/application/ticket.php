@@ -919,4 +919,9 @@ elseif($action == "enquiry_report_piechart"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->enquiry_report_piechart($data);
 }
+elseif($action == "getuserDept"){
+    $data = array("admin_id"=>$admin_id,"user_id"=>$user_id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->getuserDept($data);
+}
 ?>
