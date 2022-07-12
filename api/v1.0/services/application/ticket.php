@@ -924,4 +924,9 @@ elseif($action == "getuserDept"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->getuserDept($data);
 }
+elseif($action == "getStatus"){
+    $data = array("admin_id"=>$admin_id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->getStatus($data);
+}
 ?>

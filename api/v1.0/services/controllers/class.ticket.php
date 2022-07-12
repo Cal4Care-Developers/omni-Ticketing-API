@@ -9351,6 +9351,15 @@ public function getuserDept ($data){
   $tarray = json_encode($merge_result);
   print_r($tarray);exit;
 }
+public function getStatus ($data){
+  extract($data);//print_r($data);exit;	
+  $qry = "SELECT status_id as id,status_desc FROM `status` WHERE status=1";
+  //echo $qry;exit;	
+  $result = $this->dataFetchAll($qry, array());	
+  $merge_result = array('status' => 'true','data'=>$result);	
+  $tarray = json_encode($merge_result);
+  print_r($tarray);exit;
+}
 
 }
 ?>
