@@ -914,4 +914,9 @@ elseif($action == "agent_deptwise_ticketreport_filter"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->agent_deptwise_ticketreport_filter($data);
 }
+elseif($action == "enquiry_report_piechart"){
+    $data = array("admin_id"=>$admin_id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->enquiry_report_piechart($data);
+}
 ?>

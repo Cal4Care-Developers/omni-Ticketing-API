@@ -9328,6 +9328,14 @@ public function agent_deptwise_ticketreport_filter($data){
     $tarray = json_encode($merge_result);
     print_r($tarray);exit;
 }
+public function enquiry_report_piechart ($data){
+  extract($data);//print_r($data);exit;	
+  $qry = "SELECT e.enquiry_dropdown_id as id,COUNT(*) as total_count,ed.name as value FROM `external_tickets` as e LEFT JOIN `enquiry_dropdown` as ed ON ed.id=e.enquiry_dropdown_id WHERE e.type='enquiry' AND e.admin_id='$admin_id' AND e.enquiry_dropdown_id != '' GROUP BY e.enquiry_dropdown_id ORDER BY e.ticket_no DESC";
+  $result = $this->dataFetchAll($qry, array());	
+  $merge_result = array('status' => 'true','data'=>$result);	
+  $tarray = json_encode($merge_result);
+  print_r($tarray);exit;
+}
 
 }
 ?>
