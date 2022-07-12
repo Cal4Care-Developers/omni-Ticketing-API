@@ -376,7 +376,7 @@ public  function update_agent($agent_data){
     if (in_array($user_id, $old_exp1)){
       $pos = array_search($user_id, $old_exp1);
       unset($old_exp1[$pos]);
-      $implode_old_users = (',',$old_exp1);
+      $implode_old_users = implode(',',$old_exp1);
       $update_olddept_qry = "UPDATE `departments` SET department_users = '$implode_old_users' WHERE dept_id = '$dep_ids_old'";             
       $this->db_query($update_olddept_qry, array());
     }
