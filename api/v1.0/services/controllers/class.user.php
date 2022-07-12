@@ -367,7 +367,9 @@ public  function update_agent($agent_data){
 	 }
 // update old department
    $exp_old = explode(',',$old_user_dept);
-   $missing_value = array_diff($exp_old, $user_dept);
+   $exp_new = explode(',',$user_dept);
+   $missing_value = array_diff($exp_old, $exp_new);
+   $missing_value = array_values($missing_value);
    $arr_count1 = count($missing_value);
    for($i=0;$i<$arr_count1;$i++){
     $dep_ids_old = $missing_value[$i];
