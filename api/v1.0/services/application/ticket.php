@@ -929,4 +929,9 @@ elseif($action == "getStatus"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->getStatus($data);
 }
+elseif($action == "advancereport_filter"){
+    $data = array("admin_id"=>$admin_id,"user_id"=>$user_id,"limit"=>$limit,"offset"=>$offset,"dept_id"=>$dept_id,"status_id"=>$status_id,"range"=>$range);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->advancereport_filter($data);
+}
 ?>

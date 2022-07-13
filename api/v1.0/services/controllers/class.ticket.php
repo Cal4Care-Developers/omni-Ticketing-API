@@ -9360,6 +9360,81 @@ public function getStatus ($data){
   $tarray = json_encode($merge_result);
   print_r($tarray);exit;
 }
+public function advancereport_filter($data){
+    extract($data); //print_r($data);exit;
+    $agtArr=array();
+    $dept_ids=$this->fetchOne("SELECT reports_department FROM user WHERE user_id ='$user_id'",array());
+    if($dept_id==''){
+      $qry="SELECT e.ticket_no,e.customer_name,e.ticket_department,e.created_dt,e.unassign,e.ticket_assigned_to,d.department_name,s.status_desc FROM `external_tickets` as e LEFT JOIN departments as d ON d.dept_id=e.ticket_department LEFT JOIN status as s ON s.status_id=e.ticket_status WHERE e.ticket_department IN ($dept_ids) AND e.is_spam=0 AND e.delete_status=0";
+    }else{
+      $qry="SELECT e.ticket_no,e.customer_name,e.ticket_department,e.created_dt,e.unassign,e.ticket_assigned_to,d.department_name,s.status_desc FROM `external_tickets` as e LEFT JOIN departments as d ON d.dept_id=e.ticket_department LEFT JOIN status as s ON s.status_id=e.ticket_status WHERE e.ticket_department = '$dept_id' AND e.is_spam=0 AND e.delete_status=0";
+    }
+    if($from_dt!=''){
+      $qry.=" AND  date(e.created_dt)>='$from_dt'";
+    }if($to_dt!=''){
+      $qry.=" AND  date(e.created_dt)<='$to_dt'";
+    }
+    if($status_id!=''){
+      $qry.=" AND  e.ticket_status='$status_id'";
+    }
+    if($range!=''){
+      if($range==1){
+       $qry.=" AND  date(e.created_dt) >= DATE(NOW() - INTERVAL 7 DAY)";
+      }
+      if($range==2){
+       $qry.=" AND  date(e.created_dt) >= DATE(NOW() - INTERVAL 14 DAY)";
+      }
+      if($range==3){
+       $qry.=" AND  e.created_dt >= (NOW() - INTERVAL 1 MONTH)";
+      }
+    }
+    $detail_qry = $qry." ORDER BY e.ticket_no DESC LIMIT ".$limit." OFFSET ".$offset  ;
+    //echo $detail_qry;exit;
+    $result = $this->dataFetchAll($detail_qry, array());
+    for($i = 0; count($result) > $i; $i++){
+      $customer_name = $result[$i]['customer_name'];   
+      $ticket_no = $result[$i]['ticket_no'];
+      $created_dt = $result[$i]['created_dt'];
+      $unassign = $result[$i]['unassign'];
+      $ticket_assigned_to = $result[$i]['ticket_assigned_to'];
+      $department_name = $result[$i]['department_name'];
+      $status = $result[$i]['status_desc'];     
+      $last_date = $this->fetchone("SELECT date(created_dt) FROM external_tickets_data WHERE ticket_id='$ticket_no' ORDER BY ticket_message_id DESC LIMIT 1",array());
+      date_default_timezone_set('Asia/Singapore');
+      $curdate = date('Y-m-d');
+      $datetime1 = new DateTime($curdate);
+      $datetime2 = new DateTime($last_date);
+      $interval = $datetime1->diff($datetime2);
+      $days_val = $interval->format('%a');
+    if($days_val > 1){
+        $days_val = $days_val." Days";
+      }else{
+      $days_val = $days_val." Day";  
+    } 
+      if($unassign==1){
+            $assigned_agent = $this->fetchOne("SELECT agent_name FROM user WHERE user_id = '$ticket_assigned_to'", array());
+      }
+      $agent_id_qry = "SELECT u.agent_name FROM `external_tickets_data` as e LEFT JOIN user as u ON u.user_id = e.user_id WHERE ticket_id='$ticket_no' AND repliesd_by='Agent'";
+      $agent_id_val = $this->dataFetchAll($agent_id_qry, array());
+      for($k = 0; count($agent_id_val) > $k; $k++){
+       $name = $agent_id_val[$k]['agent_name'];
+       if (!in_array($name, $agtArr)){
+        array_push($agtArr,$name);
+       }
+      }
+      $commaList = implode(',', $agtArr);
+      $ticket_options = array('ticket_no' => $ticket_no,'customer_name'=>$customer_name,'created_dt'=>$created_dt, 'department_name'=> $department_name, 'last_update' => $days_val, 'agents' => $commaList, 'unassign' => $unassign, 'status' => $status);
+      $ticket_options_array[] = $ticket_options;
+      $agtArr = array();
+    }
+    $total_count = $this->dataRowCount($qry,array()); 
+    $list_info = array('total' => $total_count, 'limit' => $limit, 'offset' => $offset);
+    $status = array('status' => 'true');  
+    $ticket_options_array = array('data' => $ticket_options_array);
+    $merge_result = array_merge($status, $ticket_options_array, $list_info);
+    $tarray = json_encode($merge_result);
+    print_r($tarray);exit;
+}
 
 }
 ?>
