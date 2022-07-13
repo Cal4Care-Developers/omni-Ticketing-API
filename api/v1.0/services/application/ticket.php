@@ -934,4 +934,9 @@ elseif($action == "advancereport_filter"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $ticket->advancereport_filter($data);
 }
+elseif($action == "getCountry"){
+    $data = array("admin_id"=>$admin_id);
+    $result_data["result"]["status"] = true;
+    $result_data["result"]["data"] = $ticket->getCountry($data);
+}
 ?>
