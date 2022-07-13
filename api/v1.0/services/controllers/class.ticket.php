@@ -9437,6 +9437,15 @@ public function advancereport_filter($data){
     $tarray = json_encode($merge_result);
     print_r($tarray);exit;
 }
+public function getCountry ($data){
+  extract($data); //print_r($data);exit;
+  $qry = "SELECT id,nicename as name FROM `country`";
+  //echo $qry;exit;	
+  $result = $this->dataFetchAll($qry, array());	
+  $merge_result = array('status' => 'true','data'=>$result);	
+  $tarray = json_encode($merge_result);
+  print_r($tarray);exit;
+}
 
 }
 ?>
