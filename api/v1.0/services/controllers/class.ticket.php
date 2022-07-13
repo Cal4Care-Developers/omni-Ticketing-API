@@ -9058,7 +9058,7 @@ public function list_enquiry_dropdown (){
 public function enquiry_ticket_filter($data){
 	  extract($data); //print_r($data);exit; 
 	  $agtArr=array();  
-	  $qry="SELECT e.ticket_no,e.enquiry_company,e.created_dt,e.enquiry_country,e.enquiry_comments,e.revisit_date,e.enquiry_dropdown_id,e.ticket_assigned_to,e.unassign,e.enquiry_outcome_comments,s.status_desc,ed.name as enquiry_status,d.department_name FROM external_tickets as e LEFT JOIN status as s ON s.status_id = e.ticket_status LEFT JOIN enquiry_dropdown as ed ON ed.id = e.enquiry_dropdown_id LEFT JOIN departments as d ON d.dept_id = e.ticket_department WHERE e.admin_id='$admin_id' AND e.type='enquiry'";
+	  $qry="SELECT e.ticket_no,e.enquiry_company,e.created_dt,e.enquiry_country,e.enquiry_comments,e.revisit_date,e.enquiry_dropdown_id,e.ticket_assigned_to,e.unassign,e.enquiry_outcome_comments,s.status_desc,ed.name as enquiry_status,d.department_name FROM external_tickets as e LEFT JOIN status as s ON s.status_id = e.ticket_status LEFT JOIN enquiry_dropdown as ed ON ed.id = e.enquiry_dropdown_id LEFT JOIN departments as d ON d.dept_id = e.ticket_department WHERE e.admin_id='$admin_id' AND e.type='enquiry' AND e.delete_status=0";
 	  if($from_dt!=''){
 		  $qry.=" AND  date(e.created_dt)>='$from_dt'";
 	  }if($to_dt!=''){
