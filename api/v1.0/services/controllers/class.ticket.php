@@ -9064,7 +9064,8 @@ public function enquiry_ticket_filter($data){
 	  }if($to_dt!=''){
 		  $qry.=" AND  date(e.created_dt)<='$to_dt'";
 	  }if($dept_id!=''){        
-		  $qry.=" AND e.ticket_department = '$dept_id'";
+		  //$qry.=" AND e.ticket_department = '$dept_id'";
+		  $qry.=" AND e.ticket_department IN ($dept_id)";
 	  }if($enquiry_dropdown_id!=''){
 		  $qry.=" AND e.enquiry_dropdown_id = '$enquiry_dropdown_id'";
 	  }
@@ -9274,7 +9275,8 @@ public function agent_deptwise_ticketreport_filter($data){
     if($dept_id==''){
       $qry="SELECT e.ticket_no,e.customer_name,e.ticket_department,e.created_dt,e.unassign,e.ticket_assigned_to,d.department_name,s.status_desc FROM `external_tickets` as e LEFT JOIN departments as d ON d.dept_id=e.ticket_department LEFT JOIN status as s ON s.status_id=e.ticket_status WHERE e.ticket_department IN ($dept_ids) AND e.is_spam=0 AND e.delete_status=0";
     }else{
-      $qry="SELECT e.ticket_no,e.customer_name,e.ticket_department,e.created_dt,e.unassign,e.ticket_assigned_to,d.department_name,s.status_desc FROM `external_tickets` as e LEFT JOIN departments as d ON d.dept_id=e.ticket_department LEFT JOIN status as s ON s.status_id=e.ticket_status WHERE e.ticket_department = '$dept_id' AND e.is_spam=0 AND e.delete_status=0";
+      //$qry="SELECT e.ticket_no,e.customer_name,e.ticket_department,e.created_dt,e.unassign,e.ticket_assigned_to,d.department_name,s.status_desc FROM `external_tickets` as e LEFT JOIN departments as d ON d.dept_id=e.ticket_department LEFT JOIN status as s ON s.status_id=e.ticket_status WHERE e.ticket_department = '$dept_id' AND e.is_spam=0 AND e.delete_status=0";
+      $qry="SELECT e.ticket_no,e.customer_name,e.ticket_department,e.created_dt,e.unassign,e.ticket_assigned_to,d.department_name,s.status_desc FROM `external_tickets` as e LEFT JOIN departments as d ON d.dept_id=e.ticket_department LEFT JOIN status as s ON s.status_id=e.ticket_status WHERE e.ticket_department IN ($dept_id) AND e.is_spam=0 AND e.delete_status=0";
     }
     if($from_dt!=''){
       $qry.=" AND  date(e.created_dt)>='$from_dt'";
