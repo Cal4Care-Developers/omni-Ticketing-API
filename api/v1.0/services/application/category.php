@@ -152,6 +152,11 @@ else if($action == "update_sub_category"){
     $result_data["result"]["status"] = true;
     $result_data["result"]["data"] = $category->update_sub_category($data);
 }
+else if($action == "getPrivateKBList"){
+    $data = array("id"=>$id);
+       $result_data["result"]["status"] = true;
+       $result_data["result"]["data"] = $category->getPrivateKBList($data);
+   }
 else if($action == "getYTList"){
 	//$api_url = 'https://www.googleapis.com/youtube/v3/search?key=AIzaSyASOVKdUSpFdG1of-sHiB1awwWnpFpyeE8&channelId=UCBgkvrZPWYVQKlmyh1WmZoQ&part=snippet,id&order=date&maxResults=10';
     $result_data["result"]["status"] = true;
@@ -165,5 +170,42 @@ else if($action == "get_private_articles"){
    $data = array("category_id"=>$category_id,"subcategory_id"=>$subcategory_id);
     $result_data["result"]["status"] = true;
     $result_data["result"] = $category->get_private_articles($data);
+}else if($action == "post_mrvoipapi_data"){
+    $data = array("title"=>$title,"category_id"=>$category_id,"subcategory_id"=>$subcategory_id,"hide_status"=>$hide_status,"url"=>$url,"data_type"=>$data_type,"parameters"=>$parameters,"errors"=>$errors,"sample_response"=>$sample_response);
+ $result_data["result"]["status"] = true;
+ $result_data["result"] = $category->post_mrvoipapi_data($data);
+ 
 }
+else if($action == "update_mrvoipapi_data"){
+    $data = array("title"=>$title,"category_id"=>$category_id,"subcategory_id"=>$subcategory_id,"hide_status"=>$hide_status,"url"=>$url,"data_type"=>$data_type,"parameters"=>$parameters,"errors"=>$errors,"sample_response"=>$sample_response,"update_id"=>$update_id);
+ $result_data["result"]["status"] = true;
+ $result_data["result"] = $category->update_mrvoipapi_data($data);
+ 
+}
+else if($action == "private_mrvoipapi_data"){
+    $data = array("category_id"=>$category_id,"subcategory_id"=>$subcategory_id);
+     $result_data["result"]["status"] = true;
+     $result_data["result"] = $category->private_mrvoipapi_data($data);
+ }else if($action == "code_lang_add"){
+    $data = array("title"=>$title,"code_content"=>$code_content);
+     $result_data["result"]["status"] = true;
+     $result_data["result"] = $category->code_lang_add($data);
+ }else if($action == "generate_multiple_code"){
+      $data = array("json_content"=>$json_content,"pbx_url"=>$pbx_url);
+     
+     $result_data["result"]["status"] = true;
+     $result_data["result"] = $category->generate_multiple_code($data);
+ }else if($action == "get_mrvoip_dataList"){
+     
+     $data = array();
+     $result_data["result"]["status"] = true;
+     $result_data["result"] = $category->get_mrvoip_dataList($data);	
+     
+ }else if($action == "edit_mrvoip_datas"){
+         
+     $data = array("article_id"=>$article_id);
+     $result_data["result"]["status"] = true;
+     $result_data["result"] = $category->edit_mrvoip_datas($data);	
+     
+ }
 ?>

@@ -13,6 +13,9 @@ MIT
 @angular/router
 MIT
 
+ngx-monaco-editor
+MIT
+
 rxjs
 Apache-2.0
                                Apache License

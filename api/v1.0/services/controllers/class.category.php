@@ -420,6 +420,20 @@ $editpage = $this->dataFetchAll($editpage, array());
        
 }
 	
+public function getPrivateKBList($data){
+  extract($data);
+ $get_qry = "SELECT subcat.*, category.category_name as cat_title FROM subcat JOIN category ON subcat.category_id = category.id ORDER BY subcat.category_id;";
+ $result = $this->dataFetchAll($get_qry, array());
+ $data =array();
+foreach($result as $row){
+   // this is the category name
+   array_push($data,$row['cat_title']);
+   // the title of the subcategory item
+   array_push($data,$row['sub_category_name']);
+}
+ print_r($data);exit;
+ 
+}
   
 function getYTList($api_url = '') {
     $ch = curl_init();
@@ -433,7 +447,6 @@ function getYTList($api_url = '') {
         //var_dump($arr_result); //this line gives you error info if you are not getting a video list.
     }
 }
-
 public function get_list (){
   $query = "SELECT c.id as category_id,c.category_name,s.id as subcategory_id,s.sub_category_name FROM `category` c LEFT JOIN `subcat` s ON s.id = c.id WHERE c.status=1 ORDER BY c.id DESC";
   $result = $this->dataFetchAll($query, array());
@@ -445,7 +458,118 @@ public function get_private_articles($data){
    //print_r($dis_query); exit;
    $result = $this->dataFetchAll($dis_query, array());
 	 $result=array("data"=>$result);
-	 return $result;
+   return $result;exit;
+}
+	
+	
+	
+public function post_mrvoipapi_data($data){
+	  extract($data);
+		
+	$check_record ="SELECT * FROM mrvoip_api_datas WHERE category_id='$category_id' AND sub_category_id='$subcategory_id' ";
+	$check_status = $this->dataRowCount($check_record, array());
+		
+
+		if($check_status < 1){
+	  $sql="INSERT INTO mrvoip_api_datas (title,hide_status,url,category_id,sub_category_id,data_type,parameters,errors,sample_response) VALUES ('$title','$hide_status','$url','$category_id','$subcategory_id','$data_type','$parameters','$errors','$sample_response')";
+	//echo $sql;exit;
+  $result = $this->db_query($sql, array());
+  return $result;exit;
+		}else{
+			$result=array("data"=>'1');
+  			 return $result;exit;
+		}
+	
+}
+	
+public function update_mrvoipapi_data($data){
+	  extract($data);
+		
+	  $sql="UPDATE  mrvoip_api_datas SET title = '$title',hide_status='$hide_status',url='$url',category_id ='$category_id',sub_category_id = '$subcategory_id',data_type = '$data_type',parameters = '$parameters',errors = '$errors',sample_response = '$sample_response' WHERE id = '$update_id'";
+  $result = $this->db_query($sql, array());
+  return $result;exit;	
+	
+}
+	
+public function private_mrvoipapi_data($data){
+   extract($data);
+   //$dis_query = "SELECT * FROM mrvoip_api_datas WHERE hide_status=1 AND category_id='$category_id' AND sub_category_id='$subcategory_id'";
+	
+	$disk_qry= "SELECT *,(select category_name from category WHERE id='$category_id') as cat_name,(SELECT sub_category_name from subcat where id='$subcategory_id') as subcat_name FROM mrvoip_api_datas WHERE hide_status=1 AND category_id='$category_id' AND sub_category_id='$subcategory_id'";
+	
+   //print_r($disk_qry); exit;
+   $result = $this->dataFetchAll($disk_qry, array());
+   $result=array("data"=>$result);
+   return $result;exit;
+}	
+	
+	
+public function code_lang_add($data){
+	  extract($data);
+	
+		$check_record ="SELECT * FROM kb_code_lang WHERE code_title='$title'";
+	$check_status = $this->dataRowCount($check_record, array());
+			
+	if($check_status < 1){
+	 
+	  $sql="INSERT INTO kb_code_lang (code_title,language_code) VALUES ('$title','$code_content')";
+
+	  $result = $this->db_query($sql, array());
+	  return $result;exit;
+		
+		}else{
+			$result=array("data"=>'1');
+  			 return $result;exit;
+		}
+				
+	
+}
+			
+public function generate_multiple_code($data){
+	  extract($data);
+	
+	
+		$pbx_url = "https://".$pbx_url."/api/values";
+	  $sql="SELECT * FROM kb_code_lang";
+  $result = $this->dataFetchAll($sql, array());
+	
+		$api_json = base64_decode($json_content);
+ 			
+		$stack = [];
+		foreach ($result as $el) {
+				$test = base64_decode($el['language_code']);
+    		$el['language_code'] = str_replace('{%api_json%}',$api_json, $test);
+			$el['language_code'] = str_replace('{%api_url%}',$pbx_url, $el['language_code']);
+			array_push($stack, $el);
+		}
+
+
+
+   $result=array("data"=>$stack);
+   return $result;exit;
+	
+}		
+	
+public function get_mrvoip_dataList($data){
+	    
+	extract($data);
+    $query = "SELECT *,(SELECT subcat.sub_category_name from subcat where mrvoip_api_datas.sub_category_id=subcat.id) as subcategory, (SELECT category_name FROM category WHERE category.id = mrvoip_api_datas.category_id) as category_names FROM mrvoip_api_datas";
+  $output = $this->dataFetchAll($query, array());
+ 	$result=array("data"=>$output);
+        return $result;exit;
+	
+}
+	
+ public function edit_mrvoip_datas($data){
+	 	extract($data);
+	 
+	 $query = "SELECT * FROM mrvoip_api_datas WHERE id='$article_id'";
+	 
+	 $output = $this->dataFetchAll($query, array());
+ 	$result=array("data"=>$output);
+        return $result;exit;
+	 
 }
 
-  }
+
+}
